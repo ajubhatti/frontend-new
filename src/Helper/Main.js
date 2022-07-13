@@ -7,7 +7,7 @@ import { getUser } from "./LocalStorage";
 import "react-toastify/dist/ReactToastify.css";
 
 const loader = document.querySelector(".-loading");
-const hideLoader = () => loader.classList.add("loader--hide");
+const hideLoader = () => loader?.classList.add("loader--hide");
 
 const Main = (props) => {
   useEffect(() => {

@@ -8,12 +8,12 @@ import MakeItRain from "../../Assets/makeItRain.svg";
 import { getUser } from "../../Helper/LocalStorage";
 import { toast } from "react-toastify";
 
-import {
-  FacebookShareButton,
-  LinkedinShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-} from "react-share";
+// import {
+//   FacebookShareButton,
+//   LinkedinShareButton,
+//   TwitterShareButton,
+//   WhatsappShareButton,
+// } from "react-share";
 
 import FacebookIcon from "../../Assets/facebook_icon.png";
 import LinkedInIcon from "../../Assets/linkedin_icon.png";
@@ -37,67 +37,67 @@ const Refer = (props) => {
     getReferCode();
   }, [props]);
 
-  const shareInviteVia = (pathUrl) => [
-    <TwitterShareButton
-      windowWidth={800}
-      windowHeight={800}
-      url={pathUrl}
-      title={sharedMsg}
-      key={"Twitter"}
-      className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
-    >
-      <img
-        alt="Twitter"
-        className="img-fluid rounded-circle"
-        src={TwitterIcon}
-      />
-    </TwitterShareButton>,
-    <LinkedinShareButton
-      windowWidth={800}
-      windowHeight={800}
-      url={pathUrl}
-      title={sharedMsg}
-      summary={sharedMsg}
-      key={"LinkedIn"}
-      className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
-    >
-      <img
-        alt="LinkedIn"
-        className="img-fluid rounded-circle"
-        src={LinkedInIcon}
-      />
-    </LinkedinShareButton>,
-    <WhatsappShareButton
-      windowWidth={800}
-      windowHeight={800}
-      url={pathUrl}
-      title={sharedMsg}
-      separator=""
-      key={"WhatsApp"}
-      className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
-    >
-      <img
-        alt="WhatsApp"
-        className="img-fluid rounded-circle"
-        src={WhatsAppIcon}
-      />
-    </WhatsappShareButton>,
-    <FacebookShareButton
-      windowWidth={800}
-      windowHeight={800}
-      url={pathUrl}
-      quote={sharedMsg}
-      description={sharedMsg}
-      key={"Facebook"}
-      className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
-    >
-      <img
-        alt="Facebook"
-        className="img-fluid rounded-circle"
-        src={FacebookIcon}
-      />
-    </FacebookShareButton>,
-  ];
+  // const shareInviteVia = (pathUrl) => [
+  //   <TwitterShareButton
+  //     windowWidth={800}
+  //     windowHeight={800}
+  //     url={pathUrl}
+  //     title={sharedMsg}
+  //     key={"Twitter"}
+  //     className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
+  //   >
+  //     <img
+  //       alt="Twitter"
+  //       className="img-fluid rounded-circle"
+  //       src={TwitterIcon}
+  //     />
+  //   </TwitterShareButton>,
+  //   <LinkedinShareButton
+  //     windowWidth={800}
+  //     windowHeight={800}
+  //     url={pathUrl}
+  //     title={sharedMsg}
+  //     summary={sharedMsg}
+  //     key={"LinkedIn"}
+  //     className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
+  //   >
+  //     <img
+  //       alt="LinkedIn"
+  //       className="img-fluid rounded-circle"
+  //       src={LinkedInIcon}
+  //     />
+  //   </LinkedinShareButton>,
+  //   <WhatsappShareButton
+  //     windowWidth={800}
+  //     windowHeight={800}
+  //     url={pathUrl}
+  //     title={sharedMsg}
+  //     separator=""
+  //     key={"WhatsApp"}
+  //     className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
+  //   >
+  //     <img
+  //       alt="WhatsApp"
+  //       className="img-fluid rounded-circle"
+  //       src={WhatsAppIcon}
+  //     />
+  //   </WhatsappShareButton>,
+  //   <FacebookShareButton
+  //     windowWidth={800}
+  //     windowHeight={800}
+  //     url={pathUrl}
+  //     quote={sharedMsg}
+  //     description={sharedMsg}
+  //     key={"Facebook"}
+  //     className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
+  //   >
+  //     <img
+  //       alt="Facebook"
+  //       className="img-fluid rounded-circle"
+  //       src={FacebookIcon}
+  //     />
+  //   </FacebookShareButton>,
+  // ];
 
   return (
     <div className="bg-light">
@@ -133,7 +133,7 @@ const Refer = (props) => {
                 Copy or share your referral link with friends
               </small>
               <ul className="list-inline mt-3">
-                {shareInviteVia(window.location.origin).map(
+                {/* {shareInviteVia(window.location.origin).map(
                   (platform, index) => {
                     return (
                       <li className="list-inline-item" key={index}>
@@ -141,7 +141,7 @@ const Refer = (props) => {
                       </li>
                     );
                   }
-                )}
+                )} */}
               </ul>
             </div>
           </div>

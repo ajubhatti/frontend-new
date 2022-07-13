@@ -103,6 +103,7 @@ const Service = (props) => {
   ];
 
   const serviceRanders = (id) => {
+    console.log({ id });
     switch (id) {
       case 1:
         return <MobileService />;
@@ -140,7 +141,7 @@ const Service = (props) => {
           <div className="row justify-content-md-between">
             <div className="col-md-6 space-2 space-bottom-lg-3 space-top-md-5">
               <div className="mb-5">
-                <h1 className="font-weight-medium">Our Services</h1>
+                <h1 className="font-weight-medium">Our Services KRISHNA</h1>
               </div>
             </div>
             <div className="col-md-5 align-self-md-end d-none d-md-inline-block">

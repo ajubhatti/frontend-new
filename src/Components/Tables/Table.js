@@ -1,12 +1,12 @@
 import React from "react";
-import {
-  DatatableWrapper,
-  Filter,
-  Pagination,
-  PaginationOptions,
-  TableBody,
-  TableHeader,
-} from "react-bs-datatable";
+// import {
+//   DatatableWrapper,
+//   Filter,
+//   Pagination,
+//   PaginationOptions,
+//   TableBody,
+//   TableHeader,
+// } from "react-bs-datatable";
 import { Table } from "react-bootstrap";
 import { CSVLink } from "react-csv";
 import { FiletypeCsv } from "react-bootstrap-icons";
@@ -14,7 +14,7 @@ import { FiletypeCsv } from "react-bootstrap-icons";
 const TableComponent = ({ data, headerName }) => {
   return (
     <div className="card">
-      <DatatableWrapper
+      {/* <DatatableWrapper
         body={data}
         headers={headerName}
         // sortProps={{
@@ -71,7 +71,7 @@ const TableComponent = ({ data, headerName }) => {
             <Pagination />
           </div>
         </div>
-      </DatatableWrapper>
+      </DatatableWrapper> */}
     </div>
   );
 };

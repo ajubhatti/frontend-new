@@ -1,5 +1,7 @@
 import React from "react";
-import { Switch, Redirect, Route } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { Route } from "react-router-dom";
 import ForgotPasswordContainer from "../Containers/ForgotPassword";
 import HomeContainer from "../Containers/Home";
 import LoginContainer from "../Containers/Login";
@@ -30,7 +32,7 @@ const PublicRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      getToken() ? <Redirect to={routes.home} /> : <Component {...props} />
+      getToken() ? <Navigate to={routes.home} /> : <Component {...props} />
     }
   />
 );
@@ -39,7 +41,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={(props) =>
-      getToken() ? <Component {...props} /> : <Redirect to={routes.login} />
+      getToken() ? <Component {...props} /> : <Navigate to={routes.login} />
     }
   />
 );
@@ -47,127 +49,132 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const Full = (props) => {
   return (
     <Main {...props}>
-      <Switch>
-        <Route exact path={routes.home} name="Home" component={HomeContainer} />
+      <Routes>
+        <Route
+          exact
+          path={routes.home}
+          name="Home"
+          element={<HomeContainer />}
+        />
         <Route
           exact
           path={routes.reset}
           name="Reset"
-          component={ResetPasswordContainer}
+          element={<ResetPasswordContainer />}
         />
         <Route
           exact
           path={routes.forgot}
           name="Forgot"
-          component={ForgotPasswordContainer}
+          element={<ForgotPasswordContainer />}
         />
         <Route
           exact
           path={routes.verify}
           name="verify-email"
-          component={verifyEmailContainer}
+          element={<verifyEmailContainer />}
         />
-        <PublicRoute
+        <Route
           exact
           path={routes.login}
           name="Login"
-          component={LoginContainer}
+          element={<LoginContainer />}
         />
-        <PublicRoute
+        <Route
           exact
           path={routes.register}
           name="Register"
-          component={RegisterContainer}
+          element={<RegisterContainer />}
         />
-        <PrivateRoute
+        <Route
           exact
           name="profile"
           path={routes.profile}
-          component={ProfileContainer}
+          element={<ProfileContainer />}
         />
-        <PrivateRoute
+        <Route
           exact
           name="account-dashboard"
           path={routes.profileDashboard}
-          component={ProfileDashboardContainer}
+          element={<ProfileDashboardContainer />}
         />
-        <PrivateRoute
+        <Route
           exact
           name="account-transaction"
           path={routes.profileTransaction}
-          component={ProfileTransactionContainer}
+          element={<ProfileTransactionContainer />}
         />
-        <PrivateRoute
+        <Route
           exact
           name="change-password"
           path={routes.profileChangePassword}
-          component={ChangePasswordContainer}
+          element={<ChangePasswordContainer />}
         />
-        <PrivateRoute
+        <Route
           exact
           name="change-pin"
           path={routes.profileChangePin}
-          component={ChangePinContainer}
+          element={<ChangePinContainer />}
         />
         <Route
           exact
           path={routes.terms}
           name="terms-condition"
-          component={TermsCondition}
+          element={<TermsCondition />}
         />
         <Route
           exact
           path={routes.policy}
           name="privacy-policy"
-          component={PrivacyPolicy}
+          element={<PrivacyPolicy />}
         />
-        <Route exact path={routes.faq} name="faq" component={Faq} />
+        <Route exact path={routes.faq} name="faq" element={<Faq />} />
         <Route
           exact
           path={routes.notFound}
           name="404"
-          component={PageNotFound}
+          element={<PageNotFound />}
         />
         <Route
           exact
           path={routes.contactUs}
           name="contact-us"
-          component={ContactContainer}
+          element={<ContactContainer />}
         />
         <Route
           exact
           path={routes.aboutUs}
           name="about-us"
-          component={AboutUs}
+          element={<AboutUs />}
         />
         <Route
           exact
           path={routes.refer}
           name="refer"
-          component={ReferContainer}
+          element={<ReferContainer />}
         />
         <Route
           exact
           path={routes.service}
           name="service"
-          component={ServiceContainer}
+          element={<ServiceContainer />}
         />
         <Route
           exact
           path={routes.support}
           name="support"
-          component={SupportContainer}
+          element={<SupportContainer />}
         />
         <Route
           exact
           path={routes.wallet}
           name="wallet"
-          component={WalletContainer}
+          element={<WalletContainer />}
         />
-        <Route exact path={routes.otp} name="otp" component={OtpContainer} />
-        {/* <Redirect from="/" to={routes.home} /> */}
-        <Route path="*" exact component={PageNotFound} />
-      </Switch>
+        <Route exact path={routes.otp} name="otp" element={<OtpContainer />} />
+        {/* <Navigate from="/" to={routes.home} /> */}
+        <Route path="*" exact element={<PageNotFound />} />
+      </Routes>
     </Main>
   );
 };
