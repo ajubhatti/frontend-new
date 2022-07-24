@@ -1,0 +1,73 @@
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.main-form .bill-items {
+    position: relative;
+    /* max-width: calc(100% - 110px); */
+    float: left;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.main-form .bill-items li {
+    width: 90.9px;
+    height: 70px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: -1px;
+}
+
+.main-form .bill-items li.active a {
+    background: #fff;
+    color: #154abd;
+}
+
+.main-form .bill-items li a {
+    text-align: center;
+    background: #154abd;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    padding: 15px 10px;
+    outline: none;
+    border: none;
+}
+
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+.main-form .bill-items li a i {
+    display: block;
+    width: 100%;
+    text-align: center;
+}

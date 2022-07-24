@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Form from "../../../Components/Form";
+import { rOfferData } from "../../../Shared/MplanStaticResponse";
 import { DTHOperator } from "../Operators/DTHOperator";
 
 const DTHService = (props) => {
@@ -52,9 +53,11 @@ const DTHService = (props) => {
       .get(url2)
       .then(function (response) {
         console.log(response);
+        return rOfferData;
       })
       .catch(function (error) {
         console.log(error);
+        return rOfferData;
       })
       .then(function () {});
   };
