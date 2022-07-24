@@ -14,9 +14,25 @@ import LandlineService from "./ServiceCards/LandlineService";
 import LoneService from "./ServiceCards/LoneService";
 import WaterService from "./ServiceCards/WaterService";
 import "./service.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCreditCard,
+  faTv,
+  faMobileButton,
+  faWifi,
+  faPhone,
+  faPlug,
+  faLightbulb,
+  faSubway,
+  faFlask,
+  faTint,
+} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { rOfferData } from "../../Shared/MplanStaticResponse";
 
 const Service = (props) => {
   const [listingData, setListingData] = useState([]);
+  const [isChecked, setIsChecked] = useState(true);
 
   useEffect(() => {
     const getServiceListing = async () => {
@@ -26,7 +42,28 @@ const Service = (props) => {
     };
 
     getServiceListing();
+    fetchPlan();
   }, [props]);
+
+  const fetchPlan = async (value) => {
+    // https://www.mplan.in/api/plans.php?apikey=[yourapikey]&offer=roffer&tel=[mobile]&operator=[operator](BSNL,Idea,given below)
+    let url = `https://www.mplan.in/api/dthplans.php?apikey=ff7c4e87910a29fc6fa601dd4a8469b6&operator=${value}`;
+    let url2 = `https://www.mplan.in/api/plans.php?apikey=ff7c4e87910a29fc6fa601dd4a8469b6&offer=roffer&tel=9033501636&operator=Jio`;
+
+    console.log({ url2 });
+
+    axios
+      .get(url2)
+      .then(function (response) {
+        console.log(response);
+        return rOfferData;
+      })
+      .catch(function (error) {
+        console.log(error);
+        return rOfferData;
+      })
+      .then(function () {});
+  };
 
   const data = [
     {
@@ -172,97 +209,97 @@ const Service = (props) => {
 
       {/* azaz changes start*/}
 
-      <div class="bg-secondary pt-4 pb-5">
-        <div class="container">
+      <div className="bg-secondary pt-4 pb-5">
+        <div className="container">
           {/* Secondary Navigation
       =============================================  */}
-          <ul class="nav secondary-nav alternate">
-            <li class="nav-item">
+          <ul className="nav secondary-nav alternate">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link active" href="index-2.html">
+              <a className="nav-link active" href="index-2.html">
                 <span>
-                  <i class="fas fa-mobile-alt"></i>
+                  <FontAwesomeIcon icon={faMobileButton} />
                 </span>{" "}
                 Mobile
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-dth-2.html">
+              <a className="nav-link" href="recharge-bill-dth-2.html">
                 <span>
-                  <i class="fas fa-tv"></i>
+                  <FontAwesomeIcon icon={faTv} />
                 </span>{" "}
                 DTH
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-datacard-2.html">
+              <a className="nav-link" href="recharge-bill-datacard-2.html">
                 <span>
-                  <i class="fas fa-credit-card"></i>
+                  <FontAwesomeIcon icon={faCreditCard} />
                 </span>{" "}
                 DataCard
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-broadband-2.html">
+              <a className="nav-link" href="recharge-bill-broadband-2.html">
                 <span>
-                  <i class="fas fa-wifi"></i>
+                  <FontAwesomeIcon icon={faWifi} />
                 </span>{" "}
                 Broadband
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-landline-2.html">
+              <a className="nav-link" href="recharge-bill-landline-2.html">
                 <span>
-                  <i class="fas fa-phone"></i>
+                  <FontAwesomeIcon icon={faPhone} />
                 </span>{" "}
                 Landline
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-cabletv-2.html">
+              <a className="nav-link" href="recharge-bill-cabletv-2.html">
                 <span>
-                  <i class="fas fa-plug"></i>
+                  <FontAwesomeIcon icon={faPlug} />
                 </span>{" "}
                 CableTv
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-electricity-2.html">
+              <a className="nav-link" href="recharge-bill-electricity-2.html">
                 <span>
-                  <i class="fas fa-lightbulb"></i>
+                  <FontAwesomeIcon icon={faLightbulb} />
                 </span>{" "}
                 Electricity
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-metro-2.html">
+              <a className="nav-link" href="recharge-bill-metro-2.html">
                 <span>
-                  <i class="fas fa-subway"></i>
+                  <FontAwesomeIcon icon={faSubway} />
                 </span>{" "}
                 Metro
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-gas-2.html">
+              <a className="nav-link" href="recharge-bill-gas-2.html">
                 <span>
-                  <i class="fas fa-flask"></i>
+                  <FontAwesomeIcon icon={faFlask} />
                 </span>{" "}
                 Gas
               </a>{" "}
             </li>
-            <li class="nav-item">
+            <li className="nav-item">
               {" "}
-              <a class="nav-link" href="recharge-bill-water-2.html">
+              <a className="nav-link" href="recharge-bill-water-2.html">
                 <span>
-                  <i class="fas fa-tint"></i>
+                  <FontAwesomeIcon icon={faTint} />
                 </span>{" "}
                 Water
               </a>{" "}
@@ -272,49 +309,50 @@ const Service = (props) => {
 
           {/* <!-- Mobile Recharge
       ============================================= --> */}
-          <div class="bg-white shadow-md rounded p-4">
-            <h2 class="text-4 mb-3">Mobile Recharge or Bill Payment</h2>
+          <div className="bg-white shadow-md rounded p-4">
+            <h2 className="text-4 mb-3">Mobile Recharge or Bill Payment</h2>
             <form id="recharge-bill" method="post">
-              <div class="mb-2">
-                <div class="form-check form-check-inline">
+              <div className="mb-2">
+                <div className="form-check form-check-inline">
                   <input
                     id="prepaid"
                     name="rechargeBillpayment"
-                    class="form-check-input"
-                    checked=""
+                    className="form-check-input"
+                    checked={isChecked}
                     required=""
                     type="radio"
+                    onChange={(e) => setIsChecked(e.target.checked)}
                   />
-                  <label class="form-check-label" for="prepaid">
+                  <label className="form-check-label" htmlFor="prepaid">
                     Prepaid
                   </label>
                 </div>
-                <div class="form-check form-check-inline">
+                <div className="form-check form-check-inline">
                   <input
                     id="postpaid"
                     name="rechargeBillpayment"
-                    class="form-check-input"
+                    className="form-check-input"
                     required=""
                     type="radio"
                   />
-                  <label class="form-check-label" for="postpaid">
+                  <label className="form-check-label" htmlFor="postpaid">
                     Postpaid
                   </label>
                 </div>
               </div>
-              <div class="row g-3">
-                <div class="col-md-6 col-lg">
+              <div className="row g-3">
+                <div className="col-md-6 col-lg">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     data-bv-field="number"
                     id="mobileNumber"
                     required=""
                     placeholder="Enter Mobile Number"
                   />
                 </div>
-                <div class="col-md-6 col-lg">
-                  <select class="form-select" id="operator" required="">
+                <div className="col-md-6 col-lg">
+                  <select className="form-select" id="operator" required="">
                     <option value="">Select Your Operator</option>
                     <option>1st Operator</option>
                     <option>2nd Operator</option>
@@ -325,19 +363,19 @@ const Service = (props) => {
                     <option>7th Operator</option>
                   </select>
                 </div>
-                <div class="col-md-6 col-lg">
-                  <div class="position-relative">
+                <div className="col-md-6 col-lg">
+                  <div className="position-relative">
                     {" "}
                     <a
                       href="#"
                       data-bs-target="#view-plans"
                       data-bs-toggle="modal"
-                      class="view-plans-link"
+                      className="view-plans-link"
                     >
                       View Plans
                     </a>
                     <input
-                      class="form-control"
+                      className="form-control"
                       id="amount"
                       placeholder="Enter Amount"
                       required=""
@@ -345,9 +383,12 @@ const Service = (props) => {
                     />
                   </div>
                 </div>
-                <div class="col-md-6 col-lg-3 col-xl-2 d-grid">
+                <div className="col-md-6 col-lg-3 col-xl-2 d-grid">
                   {" "}
-                  <a class="btn btn-primary" href="recharge-order-summary.html">
+                  <a
+                    className="btn btn-primary"
+                    href="recharge-order-summary.html"
+                  >
                     Continue
                   </a>{" "}
                 </div>
@@ -360,173 +401,388 @@ const Service = (props) => {
 
       {/* ======================================================================================= */}
 
-      <section className="main-form py-0">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <ul className="bill-items nav nav-tabs" id="teleporter">
-                <li className="nav-item">
-                  <div className="nav-link active">
-                    <i className="fas fa-mobile"></i>Mobile
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <i className="fas fa-network-wired"></i>DTH
-                  </div>
-                </li>
-
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <i className="fas fa-tty"></i>Landline
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <i className="fas fa-broadcast-tower"></i>Broadband
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <i className="fas fa-lightbulb"></i>Electricity
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <i className="fas fa-burn"></i>Gas
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <i className="fas fa-train"></i>Metro
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <i className="fas fa-lightbulb"></i>Water
-                  </div>
-                </li>
-                <li className="nav-item">
-                  <div className="nav-link">
-                    <i className="fab fa-google-play"></i>G Play
-                  </div>
-                </li>
-              </ul>
+      {/* <div
+        id="view-plans"
+        className="modal fade show"
+        role="dialog"
+        aria-modal="true"
+        style="display: block;"
+      >
+        <div
+          className="modal-dialog modal-xl modal-dialog-centered"
+          role="document"
+        >
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Browse Plans</h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
-          </div>
-
-          <div class="col-md-12 form-area pt-5">
-            <h2 class="text-4 mb-3">Online Mobile Recharge</h2>
-            <form id="form-area" method="post">
-              <div class="mb-3">
-                <div class="custom-control custom-radio custom-control-inline">
-                  {/* <input id="prepaid" name="rechargProbillpayment" class="custom-control-input" checked="" required="" type="radio"> */}
-                  <label class="custom-control-label" for="prepaid">
-                    Prepaid
-                  </label>
-                </div>
-                <div class="custom-control custom-radio custom-control-inline">
-                  {/* <input id="postpaid" name="rechargProbillpayment" class="custom-control-input" required="" type="radio"> */}
-                  <label class="custom-control-label" for="postpaid">
-                    Postpaid
-                  </label>
-                </div>
-                <a
-                  href="#"
-                  data-target="#view-plans"
-                  data-toggle="modal"
-                  class="view-plans"
-                >
-                  View Plans
-                </a>
-              </div>
-
-              <div class="form-row">
-                <div class="col-md-6 col-lg-3 form-group">
-                  {/* <input type="text" class="form-control" data-bv-field="number" id="mobileNumber" required="" placeholder="Enter Mobile Number"> */}
-                </div>
-                <div class="col-md-6 col-lg-3 form-group">
-                  <select class="custom-select" id="operator" required="">
+            <div className="modal-body">
+              <form className="row g-3 mb-4" method="post">
+                <div className="col-12 col-sm-6 col-lg-3">
+                  <select className="form-select" required="">
                     <option value="">Select Your Operator</option>
-                    <option>GramenPhone</option>
-                    <option>Banlalink</option>
-                    <option>Airtel</option>
-                    <option>Robi</option>
-                    <option>Citycell</option>
-                    <option>Xirosoft</option>
+                    <option>1st Operator</option>
+                    <option>2nd Operator</option>
+                    <option>3rd Operator</option>
+                    <option>4th Operator</option>
+                    <option>5th Operator</option>
+                    <option>6th Operator</option>
+                    <option>7th Operator</option>
                   </select>
                 </div>
-                <div class="col-md-6 col-lg-3">
-                  <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                      {" "}
-                      <span class="input-group-text">$</span>{" "}
-                    </div>
-                    {/* <input class="form-control" id="amount" placeholder="Enter Amount" required="" type="text"> */}
-                  </div>
+                <div className="col-12 col-sm-6 col-lg-3">
+                  <select className="form-select" required="">
+                    <option value="">Select Your Circle</option>
+                    <option>1st Circle</option>
+                    <option>2nd Circle</option>
+                    <option>3rd Circle</option>
+                    <option>4th Circle</option>
+                    <option>5th Circle</option>
+                    <option>6th Circle</option>
+                    <option>7th Circle</option>
+                  </select>
                 </div>
-
-                <div class="col-md-6 col-lg-3 form-group">
-                  <a
-                    class="btn btn-default btn-block rounded-0"
-                    href="recharge-summary.html"
-                  >
-                    Continue
-                  </a>
+                <div className="col-12 col-sm-6 col-lg-3">
+                  <select className="form-select" required="">
+                    <option value="">All Plans</option>
+                    <option>Topup</option>
+                    <option>Full Talktime</option>
+                    <option>Validity Recharge</option>
+                    <option>SMS</option>
+                    <option>Data</option>
+                    <option>Unlimited Talktime</option>
+                    <option>STD</option>
+                  </select>
                 </div>
-              </div>
-            </form>
-          </div>
-
-          <div className="row">
-            <div className="col-md-12 form-area pt-5">
-              <form id="form-area" method="post">
-                <h2 className="text-4 mb-3">Pay your Broadbanad Bill</h2>
-                <div className="mb-3">
-                  <div
-                    href="#"
-                    ata-target="#view-plans"
-                    data-toggle="modal"
-                    className="view-plans"
-                  >
+                <div className="col-12 col-sm-6 col-lg-3 d-grid">
+                  <button className="btn btn-primary" type="submit">
                     View Plans
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="col-md-6 col-lg-3 form-group">
-                    {/* <input type="text" className="form-control" data-bv-field="number" id="mobileNumber" required="" placeholder="Enter Telephone Number"> */}
-                  </div>
-                  <div className="col-md-6 col-lg-3 form-group">
-                    <select className="custom-select" id="operator" required="">
-                      <option value="">Select Your Operator</option>
-                      <option>Act Fibernet</option>
-                      <option>Hathway Broadband</option>
-                      <option>Tikona Digital Networks</option>
-                      <option>Tata Sky Recharge</option>
-                    </select>
-                  </div>
-                  <div className="col-md-6 col-lg-3">
-                    <div className="form-group input-group">
-                      <div className="input-group-prepend">
-                        {" "}
-                        <span className="input-group-text">$</span>{" "}
-                      </div>
-                      {/* <input className="form-control" id="amount" placeholder="Enter Amount" required="" type="text"> */}
-                    </div>
-                  </div>
-
-                  <div className="col-md-6 col-lg-3 form-group">
-                    <div className="btn btn-default btn-block rounded-0">
-                      Continue
-                    </div>
-                  </div>
+                  </button>
                 </div>
               </form>
+              <div className="plans">
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $10<span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    8<span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    7 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Talktime $8 &amp; 2 Local &amp; National SMS &amp; Free SMS
+                    valid for 2 day(s)
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $15<span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    13
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    15 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Regular Talktime
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $50<span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    47
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    28 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    47 Local Vodafone min free{" "}
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $100
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    92
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    28 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Local min 92 &amp; 10 Local &amp; National SMS &amp; Free
+                    SMS valid for 28 day(s).
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $150
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    143
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    60 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Talktime $143 &amp; 50 Local &amp; National SMS &amp; Free
+                    SMS valid for 60 day(s).
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $220
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    8{" "}
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    7 Days{" "}
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Full Talktime
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $250
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    250
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    28 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Full Talktime + 50 SMS per day for 28 days.
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $300
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    301
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    64 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Full Talktime
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $410
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    0<span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    28 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Unlimited Local,STD &amp; Roaming calls
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $501
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    510
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    180 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Full Talktime + 100 SMS per day for 180 days.
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $799
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    820
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    250 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Full Talktime + 100 SMS per day for 250 days.
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+                <div className="row align-items-center">
+                  <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                    $999
+                    <span className="text-1 text-muted d-block">Amount</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    1099
+                    <span className="text-1 text-muted d-block">Talktime</span>
+                  </div>
+                  <div className="col-4 col-lg-2 text-3 text-center">
+                    356 Days
+                    <span className="text-1 text-muted d-block">Validity</span>
+                  </div>
+                  <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                    Full Talktime + 100 SMS per day for 356 days.
+                  </div>
+                  <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                    <button
+                      className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                      type="submit"
+                    >
+                      Recharge
+                    </button>
+                  </div>
+                </div>
+                <hr className="my-4" />
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </div> */}
+
       {/* azaz changes end */}
       <hr className="my-0" />
     </>
