@@ -29,10 +29,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { rOfferData } from "../../Shared/MplanStaticResponse";
+import Modal from "../../Components/Modal";
+import CustomModal from "../../Components/Modal";
 
 const Service = (props) => {
   const [listingData, setListingData] = useState([]);
   const [isChecked, setIsChecked] = useState(true);
+  const [isPlanShow, setIsPlanShow] = useState(false);
 
   useEffect(() => {
     const getServiceListing = async () => {
@@ -172,6 +175,8 @@ const Service = (props) => {
     }
   };
 
+  const handleShow = () => setIsPlanShow(true);
+
   return (
     <>
       <div className="bg-light">
@@ -206,9 +211,7 @@ const Service = (props) => {
           </div>
         </div>
       </div>
-
       {/* azaz changes start*/}
-
       <div className="bg-secondary pt-4 pb-5">
         <div className="container">
           {/* Secondary Navigation
@@ -366,11 +369,19 @@ const Service = (props) => {
                 <div className="col-md-6 col-lg">
                   <div className="position-relative">
                     {" "}
+                    {/* <div className="col-12 col-sm-6 col-lg-3 d-grid"> */}
+                    {/* <button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={() => setIsPlanShow(true)}
+                    >
+                      View Plans
+                    </button> */}
+                    {/* </div> */}
                     <a
                       href="#"
-                      data-bs-target="#view-plans"
-                      data-bs-toggle="modal"
                       className="view-plans-link"
+                      onClick={() => setIsPlanShow(true)}
                     >
                       View Plans
                     </a>
@@ -398,9 +409,7 @@ const Service = (props) => {
           {/* <!-- Mobile Recharge end -->  */}
         </div>
       </div>
-
       {/* ======================================================================================= */}
-
       {/* <div
         id="view-plans"
         className="modal fade show"
@@ -782,7 +791,10 @@ const Service = (props) => {
           </div>
         </div>
       </div> */}
-
+      <CustomModal
+        isModalShow={isPlanShow}
+        setModalClose={() => setIsPlanShow(false)}
+      />
       {/* azaz changes end */}
       <hr className="my-0" />
     </>

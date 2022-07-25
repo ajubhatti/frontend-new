@@ -304,6 +304,12 @@ select {
     transition: all 0.5s ease;
 }
 
+.plans {
+    max-height: 380px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
 
 @media (min-width: 1400px){
  .container,
