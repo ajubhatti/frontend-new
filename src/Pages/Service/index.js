@@ -31,11 +31,16 @@ import axios from "axios";
 import { rOfferData } from "../../Shared/MplanStaticResponse";
 import Modal from "../../Components/Modal";
 import CustomModal from "../../Components/Modal";
+import { serviceTabs } from "../../Shared/serviceTabs";
+import ServiceProviderModal from "../../Components/Modal/serviceModal";
 
 const Service = (props) => {
   const [listingData, setListingData] = useState([]);
   const [isChecked, setIsChecked] = useState(true);
   const [isPlanShow, setIsPlanShow] = useState(false);
+  const [isOurPlanShow, setIsOurPlanShow] = useState(false);
+  const [serviceProviderModal, setServiceProviderModal] = useState(false);
+  const [selectedServiceTab, setSelectedServiceTab] = useState({id:1, title:""});
 
   useEffect(() => {
     const getServiceListing = async () => {
@@ -44,9 +49,27 @@ const Service = (props) => {
       });
     };
 
+    const getServiceAmbicaListing = async () => {
+      await props.serviceAmbicaAll().then((res) => {
+        setListingData(res.data);
+      });
+    };
+
     getServiceListing();
+    getServiceAmbicaListing();
     fetchPlan();
   }, [props]);
+
+  useEffect(() => {
+    const getserviceProviderListing = async () => {
+      await props.serviceProvider({type: selectedServiceTab.title}).then((res) => {
+        setListingData(res.data);
+      });
+    };
+    getserviceProviderListing();
+  }, [selectedServiceTab])
+
+  console.log('listingData', listingData)
 
   const fetchPlan = async (value) => {
     // https://www.mplan.in/api/plans.php?apikey=[yourapikey]&offer=roffer&tel=[mobile]&operator=[operator](BSNL,Idea,given below)
@@ -217,96 +240,16 @@ const Service = (props) => {
           {/* Secondary Navigation
       =============================================  */}
           <ul className="nav secondary-nav alternate">
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link active" href="index-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faMobileButton} />
-                </span>{" "}
-                Mobile
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-dth-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faTv} />
-                </span>{" "}
-                DTH
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-datacard-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faCreditCard} />
-                </span>{" "}
-                DataCard
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-broadband-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faWifi} />
-                </span>{" "}
-                Broadband
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-landline-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faPhone} />
-                </span>{" "}
-                Landline
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-cabletv-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faPlug} />
-                </span>{" "}
-                CableTv
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-electricity-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faLightbulb} />
-                </span>{" "}
-                Electricity
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-metro-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faSubway} />
-                </span>{" "}
-                Metro
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-gas-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faFlask} />
-                </span>{" "}
-                Gas
-              </a>{" "}
-            </li>
-            <li className="nav-item">
-              {" "}
-              <a className="nav-link" href="recharge-bill-water-2.html">
-                <span>
-                  <FontAwesomeIcon icon={faTint} />
-                </span>{" "}
-                Water
-              </a>{" "}
-            </li>
+            {serviceTabs.map((item, id) => (
+              <li className="nav-item" onClick={() => setSelectedServiceTab({id: item.id, title: item.title})}>
+                <div className={selectedServiceTab.id === item.id ? "nav-link active" : "nav-link"}>
+                  <span>
+                    <FontAwesomeIcon icon={item.icon} />
+                  </span>
+                  {item.title}
+                </div>
+              </li>
+            ))}
           </ul>
           {/* <!-- Secondary Navigation end -->  */}
 
@@ -314,9 +257,31 @@ const Service = (props) => {
       ============================================= --> */}
           <div className="bg-white shadow-md rounded p-4">
             <h2 className="text-4 mb-3">Mobile Recharge or Bill Payment</h2>
+            <div className="d-flex justify-content-start">
+              <button
+                className="btn btn-outline-primary btn-sm ms-0"
+                onClick={() => setIsOurPlanShow(true)}
+              >
+                Our Plans
+              </button>
+              <button
+                className="btn btn-outline-primary btn-sm ms-2"
+                onClick={() => setIsPlanShow(true)}
+              >
+                View Plans
+              </button>
+              <button
+                className="btn btn-outline-primary btn-sm ms-2"
+                onClick={() => setServiceProviderModal(true)}
+              >
+                View Service Plans
+              </button>
+              
+            </div>
+
             <form id="recharge-bill" method="post">
               <div className="mb-2">
-                <div className="form-check form-check-inline">
+                {/* <div className="form-check form-check-inline">
                   <input
                     id="prepaid"
                     name="rechargeBillpayment"
@@ -341,8 +306,11 @@ const Service = (props) => {
                   <label className="form-check-label" htmlFor="postpaid">
                     Postpaid
                   </label>
-                </div>
+                </div> */}
               </div>
+              {
+                serviceRanders(selectedServiceTab)
+              }
               <div className="row g-3">
                 <div className="col-md-6 col-lg">
                   <input
@@ -794,8 +762,20 @@ const Service = (props) => {
       <CustomModal
         isModalShow={isPlanShow}
         setModalClose={() => setIsPlanShow(false)}
-      />
+        modalType="viewPlan"
+      />s
       {/* azaz changes end */}
+      <CustomModal
+        isModalShow={isOurPlanShow}
+        setModalClose={() => setIsOurPlanShow(false)}
+        modalType="ourPlan"
+      />
+      <ServiceProviderModal 
+         isModalShow={serviceProviderModal}
+         setModalClose={() => setServiceProviderModal(false)}
+         listingData={listingData}
+         
+      />
       <hr className="my-0" />
     </>
   );

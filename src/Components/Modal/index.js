@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { simplePlanData } from "../../Shared/MplanStaticResponse";
+import { simplePlanData, rOfferData } from "../../Shared/MplanStaticResponse";
 import { useState } from "react";
 
-const CustomModal = ({ isModalShow, setModalClose }) => {
+const CustomModal = ({ isModalShow, setModalClose, modalType }) => {
   const [planList, setPlanList] = useState({});
 
   useEffect(() => {
@@ -73,47 +73,72 @@ const CustomModal = ({ isModalShow, setModalClose }) => {
               controlId="exampleForm.ControlTextarea1"
             >
               <div className="plans">
-                {console.log("planList", planList)}
-                {Object.keys(simplePlanData.records).map((plan) => {
-                  console.log("plan", plan);
-                  return (
-                    <>
-                      <div className="row align-items-center">
-                        <div className="col-4 col-lg-2 text-5 text-primary text-center">
-                          $10
-                          <span className="text-1 text-muted d-block">
-                            Amount
-                          </span>
-                        </div>
-                        <div className="col-4 col-lg-2 text-3 text-center">
-                          8
-                          <span className="text-1 text-muted d-block">
-                            Talktime
-                          </span>
-                        </div>
-                        <div className="col-4 col-lg-2 text-3 text-center">
-                          7 Days
-                          <span className="text-1 text-muted d-block">
-                            Validity
-                          </span>
-                        </div>
-                        <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
-                          Talktime $8 &amp; 2 Local &amp; National SMS &amp;
-                          Free SMS valid for 2 day(s)
-                        </div>
-                        <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
-                          <button
-                            className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
-                            type="submit"
-                          >
-                            Recharge
-                          </button>
-                        </div>
-                      </div>
-                      <hr className="my-4" />
-                    </>
-                  );
-                })}
+                {modalType === "ourPlan"
+                  ? rOfferData.records.map((plan) => {
+                      return (
+                        <>
+                          <div className="row align-items-center">
+                            <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                              {plan.rs}
+                              <span className="text-1 text-muted d-block">
+                                Amount
+                              </span>
+                            </div>
+                            <div className="col-7 col-lg-7 my-2 my-lg-0 text-1 text-muted">
+                              {plan.desc}
+                            </div>
+                            <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                              <button
+                                className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                                type="submit"
+                              >
+                                Recharge
+                              </button>
+                            </div>
+                          </div>
+                          <hr className="my-4" />
+                        </>
+                      );
+                    })
+                  : Object.keys(simplePlanData.records).map((plan) => {
+                      return (
+                        <>
+                          <div className="row align-items-center">
+                            <div className="col-4 col-lg-2 text-5 text-primary text-center">
+                              $10
+                              <span className="text-1 text-muted d-block">
+                                Amount
+                              </span>
+                            </div>
+                            <div className="col-4 col-lg-2 text-3 text-center">
+                              8
+                              <span className="text-1 text-muted d-block">
+                                Talktime
+                              </span>
+                            </div>
+                            <div className="col-4 col-lg-2 text-3 text-center">
+                              7 Days
+                              <span className="text-1 text-muted d-block">
+                                Validity
+                              </span>
+                            </div>
+                            <div className="col-7 col-lg-3 my-2 my-lg-0 text-1 text-muted">
+                              Talktime $8 &amp; 2 Local &amp; National SMS &amp;
+                              Free SMS valid for 2 day(s)
+                            </div>
+                            <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
+                              <button
+                                className="btn btn-sm btn-outline-primary shadow-none text-nowrap"
+                                type="submit"
+                              >
+                                Recharge
+                              </button>
+                            </div>
+                          </div>
+                          <hr className="my-4" />
+                        </>
+                      );
+                    })}
               </div>
             </Form.Group>
           </Form>
