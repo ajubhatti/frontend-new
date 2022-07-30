@@ -83,7 +83,7 @@ const ServiceProviderModal = ({ isModalShow, setModalClose, listingData }) => {
                         </span>
                       </div>
                       <div className="col-7 col-lg-7 my-2 my-lg-0 text-1 text-muted">
-                        {plan.serviceProvider}
+                        {plan.serviceProviderByType}
                       </div>
                       <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
                         <button

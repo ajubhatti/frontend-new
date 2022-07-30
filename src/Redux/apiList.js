@@ -31,5 +31,5 @@ export const profile = {
 export const service = {
   service: { method: "get", url: "/service" },
   serviceProviderAll: { method: "get", url: "/ambikaSlab" },
-  serviceProvider: { method: "post", url: "/ambikaSlab/getProvider" },
+  serviceProviderByType: { method: "post", url: "/ambikaSlab/getProvider" },
 };

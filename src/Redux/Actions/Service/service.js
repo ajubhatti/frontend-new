@@ -11,7 +11,7 @@ export const serviceListing = (data) => () =>
       .catch((err) => reject(err));
   });
 
-export const serviceAmbicaAll = (data) => () =>
+export const getServiceAmbicaAll = (data) => () =>
   new Promise((resolve, reject) => {
     fetchUrl(
       service.serviceProviderAll.method,
@@ -25,11 +25,11 @@ export const serviceAmbicaAll = (data) => () =>
       .catch((err) => reject(err));
   });
 
-export const serviceProvider = (data) => () =>
+export const getServiceProviderByType = (data) => () =>
   new Promise((resolve, reject) => {
     fetchUrl(
-      service.serviceProvider.method,
-      service.serviceProvider.url,
+      service.serviceProviderByType.method,
+      service.serviceProviderByType.url,
       data,
       configData
     )

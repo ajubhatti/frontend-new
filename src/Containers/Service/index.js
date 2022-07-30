@@ -1,7 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import Service from "../../Pages/Service";
-import { serviceListing, serviceAmbicaAll, serviceProvider } from "../../Redux/Actions/Service/service";
+import {
+  serviceListing,
+  getServiceAmbicaAll,
+  getServiceProviderByType,
+} from "../../Redux/Actions/Service/service";
 
 const ServiceContainer = (props) => <Service {...props} />;
 
@@ -9,4 +13,8 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { serviceListing, serviceAmbicaAll, serviceProvider })(ServiceContainer);
+export default connect(mapStateToProps, {
+  serviceListing,
+  getServiceAmbicaAll,
+  getServiceProviderByType,
+})(ServiceContainer);
