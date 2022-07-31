@@ -446,3 +446,99 @@ export const stateData = [
     name: "West Bengal",
   },
 ];
+
+
+export const stateLsit = [
+  {
+    id: 1,
+    stateName: "Andhra Pradesh Telangana",
+  },
+  {
+    id: 2,
+    stateName: "Assam",
+  },
+  {
+    id: 3,
+    stateName: "Bihar Jharkhand",
+  },
+  {
+    id: 4,
+    stateName: "Chennai",
+  },
+  {
+    id: 5,
+    stateName: "Delhi NCR",
+  },
+  {
+    id: 6,
+    stateName: "Gujarat",
+  },
+  {
+    id: 7,
+    stateName: "Haryana",
+  },
+  {
+    id: 8,
+    stateName: "Himachal Pradesh",
+  },
+  {
+    id: 9,
+    stateName: "Jammu Kashmir",
+  },
+  {
+    id: 10,
+    stateName: "Karnataka",
+  },
+  {
+    id: 11,
+    stateName: "Kerala",
+  },
+  {
+    id: 12,
+    stateName: "Kolkata",
+  },
+  {
+    id: 13,
+    stateName: "Madhya Pradesh Chhattisgarh",
+  },
+  {
+    id: 14,
+    stateName: "Maharashtra Goa",
+  },
+  {
+    id: 15,
+    stateName: "Mumbai",
+  },
+  {
+    id: 16,
+    stateName: "North East",
+  },
+  {
+    id: 17,
+    stateName: "Orissa",
+  },
+  {
+    id: 18,
+    stateName: "Punjab",
+  },
+  {
+    id: 19,
+    stateName: "Rajasthan",
+  },
+  {
+    id: 20,
+    stateName: "Tamil Nadu",
+  },
+  {
+    id: 21,
+    stateName: "UP East",
+  },
+  {
+    id: 22,
+    stateName: "UP West",
+  },
+  {
+    id: 23,
+    stateName: "West Bengal",
+  },
+];

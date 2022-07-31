@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import { rOfferData } from "../../Shared/MplanStaticResponse";
 import { serviceTabs } from "../../Shared/serviceTabs";
-import ServiceProviderModal from "../../Components/Modal/serviceModal";
+import DthserviceModal from "../../Components/Modal/DthserviceModal";
 import "./service.css";
 
 const Service = (props) => {
@@ -44,8 +44,6 @@ const Service = (props) => {
     getServiceAmbicaListing();
     fetchPlan();
   }, [props]);
-
-  console.log("listingData", listingData);
 
   const fetchPlan = async (value) => {
     // https://www.mplan.in/api/plans.php?apikey=[yourapikey]&offer=roffer&tel=[mobile]&operator=[operator](BSNL,Idea,given below)
@@ -118,13 +116,13 @@ const Service = (props) => {
       </div>
 
       {/* azaz changes start*/}
-      <div className="bg-primary pt-5 pb-5">
+      <div className="bg-primary-light pt-5 pb-5">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="main-service-card  rounded">
+              <div className="main-service-card border  rounded">
                 {/* <!-- menu Navigation start -->  */}
-                <ul className="nav secondary-nav alternate p-4 pb-0 main-inner-card">
+                <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
                   {serviceTabs.map((item, id) => (
                     <li
                       className="nav-item"
@@ -161,7 +159,7 @@ const Service = (props) => {
       </div>
       {/* ======================================================================================= */}
 
-      <ServiceProviderModal
+      <DthserviceModal
         isModalShow={serviceProviderModal}
         setModalClose={() => setServiceProviderModal(false)}
         listingData={listingData}

@@ -73,7 +73,6 @@ const ServiceProviderModal = ({ isModalShow, setModalClose, listingData }) => {
             >
               <div className="plans">
                 <div className="row align-items-center">
-                  {console.log("service list", planList)}
                   {listingData.map((plan, id) => (
                     <>
                       <div className="col-4 col-lg-2 text-5 text-primary text-center">
