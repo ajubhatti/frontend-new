@@ -96,8 +96,26 @@
     margin-left: auto;
 }
 
+/* ui changes */
+
 .secondary-nav.nav.alternate {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+}
+/* .secondary-nav.nav.alternate.service-top-heading{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+} */
+.service-icons svg{
+    width: 32px;
+    height: 32px;
+}
+.service-iconsTitle{
+    margin-bottom: 0px;
+    /* color: #154abd; */
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
 }
 
 .secondary-nav.nav {
@@ -116,8 +134,8 @@
 
 .secondary-nav.nav.alternate .nav-item .nav-link.active {
     background-color: transparent;
-    color: #fff;
-    border-bottom: 3px solid #0071cc;
+    color: #0d6efd !important;
+    /* border-bottom: 3px solid #0c2f55; */
 }
 
 .secondary-nav.nav .nav-item .nav-link.active {
@@ -160,29 +178,51 @@
 .secondary-nav.nav .nav-link span {
     display: block;
     font-size: 30px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
+
+/* ui-changes */
 
 .secondary-nav.nav.alternate .nav-item .nav-link.active {
     background-color: transparent;
-    color: #fff;
-    border-bottom: 3px solid #0071cc;
+    color: #0d6efd;
+    /* border-bottom: 3px solid #d1d1d1; */
 }
+.nav.secondary-nav.alternate .nav-item .nav-link{
+    padding: 10px;
+    background-color: #0d6efd;
+    width: 115px;
+    height: auto;
+    border-radius: 5px;
+    color: #fff;
+    margin-bottom: 15px;
 
+}
+.main-service-card .main-inner-card{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.main-service-card {
+    backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%);
+}
 
 .secondary-nav.nav .nav-item .nav-link.active {
     background: #fff;
     color: #0071cc;
     border-radius: 4px 4px 0px 0px;
 }
-
+/* ui-changes */
 .secondary-nav.nav .nav-link {
     text-align: center;
     font-size: 13px;
     font-size: 0.8125rem;
     margin: 0 10px;
     padding: 0.6rem 15px;
-    color: #8298af;
+    color: #262728;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
 }

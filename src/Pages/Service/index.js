@@ -138,34 +138,45 @@ const Service = (props) => {
       </div>
 
       {/* azaz changes start*/}
-      <div className="bg-secondary pt-4 pb-5">
+      <div className="bg-primary pt-5 pb-5">
         <div className="container">
-          {/* <!-- menu Navigation start -->  */}
-          <ul className="nav secondary-nav alternate">
-            {serviceTabs.map((item, id) => (
-              <li
-                className="nav-item"
-                onClick={() =>
-                  setSelectedServiceTab({ id: item.id, title: item.title })
-                }
-              >
-                <div
-                  className={
-                    selectedServiceTab.id === item.id
-                      ? "nav-link active"
-                      : "nav-link"
-                  }
-                >
-                  <span>
-                    <FontAwesomeIcon icon={item.icon} />
-                  </span>
-                  {item.title}
-                </div>
-              </li>
-            ))}
-          </ul>
-          {/* <!-- menu Navigation end -->  */}
-          {serviceRanders(selectedServiceTab.id)}
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="main-service-card  rounded">
+                {/* <!-- menu Navigation start -->  */}
+                <ul className="nav secondary-nav alternate p-4 pb-0 main-inner-card">
+                  {serviceTabs.map((item, id) => (
+                    <li
+                      className="nav-item"
+                      onClick={() =>
+                        setSelectedServiceTab({
+                          id: item.id,
+                          title: item.title,
+                        })
+                      }
+                    >
+                      <div
+                        className={
+                          selectedServiceTab.id === item.id
+                            ? "nav-link active"
+                            : "nav-link"
+                        }
+                      >
+                        <span className="service-icons">
+                          <FontAwesomeIcon icon={item.icon} />
+                        </span>
+                        <h5 className="service-iconsTitle mb-0">
+                          {item.title}
+                        </h5>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                {/* <!-- menu Navigation end -->  */}
+                {serviceRanders(selectedServiceTab.id)}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       {/* ======================================================================================= */}

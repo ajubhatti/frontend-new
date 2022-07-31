@@ -21616,14 +21616,15 @@ label.btn {
 .nav-shadow {
   box-shadow: 0 3px 6px 0 rgba(140, 152, 164, 0.25);
 }
+/* ui-changes */
 
-.nav .nav-item:not(:first-child) {
-  margin-left: 0.25rem;
+/* .nav .nav-item:not(:first-child) {
+  margin-left: 10px;
 }
 
 .nav .nav-item:not(:last-child) {
-  margin-right: 0.25rem;
-}
+  margin-right: 10px;
+} */
 
 /* White Color */
 .nav-white .nav-link {
