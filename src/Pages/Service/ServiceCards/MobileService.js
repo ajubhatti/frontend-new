@@ -7,6 +7,9 @@ const MobileService = (props) => {
 
   const [listingData, setListingData] = useState([]);
 
+  const [rechargeData, setRechargeData] = useState({});
+  const [selectValue, setSelectValue] = useState("");
+
   useEffect(() => {
     const getserviceProviderListing = async () => {
       await props.getServiceProviderByType({ type: "Prepaid" }).then((res) => {
@@ -17,6 +20,10 @@ const MobileService = (props) => {
   }, [props]);
 
   console.log("listingData", listingData);
+
+  const handleChange = (e) => {
+    setSelectValue(e.target.value);
+  };
 
   return (
     <>
@@ -36,7 +43,13 @@ const MobileService = (props) => {
               />
             </div>
             <div className="col-md-6 col-lg">
-              <select className="form-select" id="operator" required="">
+              <select
+                className="form-select"
+                id="operator"
+                required=""
+                value={selectValue}
+                onChange={handleChange}
+              >
                 <option value="">Select Your Operator</option>
                 {listingData.map((x) => (
                   <option value={x.serviceProvider} key={x._id}>

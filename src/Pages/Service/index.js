@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import knowledgebaseCommunityImg from "../../Assets/knowledgebase-community.svg";
-import Tabs, { TabItem } from "../../Components/Tabs";
 import BroadbandService from "./ServiceCards/BroadbandService";
 import DTHService from "./ServiceCards/DTHService";
 import ElectricityService from "./ServiceCards/ElectricityService";
@@ -13,32 +12,15 @@ import InsuranceService from "./ServiceCards/InsuranceService";
 import LandlineService from "./ServiceCards/LandlineService";
 import LoneService from "./ServiceCards/LoneService";
 import WaterService from "./ServiceCards/WaterService";
-import "./service.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCreditCard,
-  faTv,
-  faMobileButton,
-  faWifi,
-  faPhone,
-  faPlug,
-  faLightbulb,
-  faSubway,
-  faFlask,
-  faTint,
-} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { rOfferData } from "../../Shared/MplanStaticResponse";
-import Modal from "../../Components/Modal";
-import CustomModal from "../../Components/Modal";
 import { serviceTabs } from "../../Shared/serviceTabs";
 import ServiceProviderModal from "../../Components/Modal/serviceModal";
+import "./service.css";
 
 const Service = (props) => {
   const [listingData, setListingData] = useState([]);
-  const [isChecked, setIsChecked] = useState(true);
-  const [isPlanShow, setIsPlanShow] = useState(false);
-
   const [serviceProviderModal, setServiceProviderModal] = useState(false);
   const [selectedServiceTab, setSelectedServiceTab] = useState({
     id: 1,
@@ -115,8 +97,6 @@ const Service = (props) => {
         return <></>;
     }
   };
-
-  const handleShow = () => setIsPlanShow(true);
 
   return (
     <>
