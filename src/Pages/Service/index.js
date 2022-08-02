@@ -18,6 +18,7 @@ import { rOfferData } from "../../Shared/MplanStaticResponse";
 import { serviceTabs } from "../../Shared/serviceTabs";
 import DthserviceModal from "../../Components/Modal/DthserviceModal";
 import "./service.css";
+import { useGeolocated } from "react-geolocated";
 
 const Service = (props) => {
   const [listingData, setListingData] = useState([]);
@@ -26,6 +27,14 @@ const Service = (props) => {
     id: 1,
     title: "",
   });
+
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    useGeolocated({
+      positionOptions: {
+        enableHighAccuracy: false,
+      },
+      userDecisionTimeout: 5000,
+    });
 
   useEffect(() => {
     const getServiceListing = async () => {
@@ -114,7 +123,6 @@ const Service = (props) => {
           </div>
         </div>
       </div>
-
       {/* azaz changes start*/}
       <div className="bg-primary-light pt-5 pb-5">
         <div className="container">
@@ -125,6 +133,7 @@ const Service = (props) => {
                 <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
                   {serviceTabs.map((item, id) => (
                     <li
+                      key={item.id}
                       className="nav-item"
                       onClick={() =>
                         setSelectedServiceTab({
@@ -158,8 +167,8 @@ const Service = (props) => {
         </div>
       </div>
       {/* ======================================================================================= */}
-
       <DthserviceModal
+        key={selectedServiceTab.id}
         isModalShow={serviceProviderModal}
         setModalClose={() => setServiceProviderModal(false)}
         listingData={listingData}

@@ -38,3 +38,14 @@ export const getServiceProviderByType = (data) => () =>
       })
       .catch((err) => reject(err));
   });
+
+export const getAmbikaRechargeApi = (data) => () => {
+  console.log({ data });
+  // new Promise((resolve, reject) => {
+  //   fetchUrl("get", data.url, data.payload)
+  //     .then((res) => {
+  //       resolve(res);
+  //     })
+  //     .catch((err) => reject(err));
+  // });
+};

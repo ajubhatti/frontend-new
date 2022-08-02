@@ -2,15 +2,8 @@ import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import { useState } from "react";
 
-const ServiceProviderModal = ({ isModalShow, setModalClose, listingData }) => {
-  const [planList, setPlanList] = useState({});
-
-  useEffect(() => {
-    setPlanList(listingData);
-  }, [listingData]);
-
+const DthserviceModal = ({ isModalShow, setModalClose, listingData }) => {
   return (
     <>
       <Modal
@@ -74,7 +67,7 @@ const ServiceProviderModal = ({ isModalShow, setModalClose, listingData }) => {
               <div className="plans">
                 <div className="row align-items-center">
                   {listingData.map((plan, id) => (
-                    <>
+                    <React.Fragment key={plan._id}>
                       <div className="col-4 col-lg-2 text-5 text-primary text-center">
                         {plan.SPKey}
                         <span className="text-1 text-muted d-block">
@@ -92,7 +85,7 @@ const ServiceProviderModal = ({ isModalShow, setModalClose, listingData }) => {
                           Recharge
                         </button>
                       </div>
-                    </>
+                    </React.Fragment>
                   ))}
                 </div>
                 <hr className="my-4" />
@@ -113,4 +106,4 @@ const ServiceProviderModal = ({ isModalShow, setModalClose, listingData }) => {
   );
 };
 
-export default ServiceProviderModal;
+export default DthserviceModal;

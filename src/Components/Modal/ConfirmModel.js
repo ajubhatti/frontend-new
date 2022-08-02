@@ -9,6 +9,7 @@ const ConfirmModel = ({
   setModalClose,
   userSelectedPlan,
   mobileNo,
+  handleConfirm,
 }) => {
   const [transactionPin, setTransactionPin] = useState("");
 
@@ -56,7 +57,7 @@ const ConfirmModel = ({
           <Button variant="secondary" onClick={setModalClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={setModalClose}>
+          <Button variant="primary" onClick={handleConfirm}>
             Confirm
           </Button>
         </Modal.Footer>
