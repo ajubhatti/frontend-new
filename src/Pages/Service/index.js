@@ -27,7 +27,6 @@ const Service = (props) => {
     id: 1,
     title: "",
   });
-
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
       positionOptions: {
@@ -77,7 +76,7 @@ const Service = (props) => {
   const serviceRanders = (id) => {
     switch (id) {
       case 1:
-        return <MobileService {...props} />;
+        return <MobileService {...props} coords={coords} />;
       case 2:
         return <DTHService {...props} />;
       case 3:

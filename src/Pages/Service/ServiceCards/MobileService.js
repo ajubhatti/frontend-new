@@ -8,10 +8,10 @@ import axios from "axios";
 import { simplePlanData } from "../../../Shared/MplanStaticResponse";
 
 const MobileService = (props) => {
+  console.log("props", props.coords);
   const [isPlanShow, setIsPlanShow] = useState(false);
   const [isRofferShow, setIsRofferShow] = useState(false);
   const [listingData, setListingData] = useState([]);
-  const [selectValue, setSelectValue] = useState("");
   const [selectCircleValue, setSelectCircleValue] = useState("");
 
   const [mySelectedPlan, setMySelectedPlan] = useState({});
@@ -19,6 +19,7 @@ const MobileService = (props) => {
   const [mobileNumber, setMobileNumber] = useState("");
 
   const [submitted, setSubmitted] = useState(false);
+  const [selectedOperator, setSelectedOperator] = useState({});
   const [values, setValues] = useState({
     operator: "0",
     mobileNo: "",
@@ -28,13 +29,12 @@ const MobileService = (props) => {
   });
 
   useEffect(() => {
-    console.log("amaount --", values.amount);
     if (Object.keys(mySelectedPlan).length === 0) {
       for (let i in simplePlanData?.records) {
         let searchedPlan = simplePlanData?.records[i].find(
           (x) => x.rs === values.amount
         );
-        console.log("searchedPlan", searchedPlan);
+
         if (searchedPlan !== undefined) {
           setMySelectedPlan({
             desc: searchedPlan.desc,
@@ -42,22 +42,15 @@ const MobileService = (props) => {
           });
         }
       }
-
-      let matches = Object.keys(simplePlanData?.records).filter((plan) =>
-        simplePlanData?.records[plan].find((x) => x.rs === values.amount)
-      );
-
-      console.log({ matches });
     }
   }, [mySelectedPlan, values.amount]);
 
-  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
-    useGeolocated({
-      positionOptions: {
-        enableHighAccuracy: false,
-      },
-      userDecisionTimeout: 5000,
-    });
+  useEffect(() => {
+    if (listingData.length !== 0) {
+      let operator = listingData.find((x) => x._id === values.operator);
+      setSelectedOperator(operator);
+    }
+  }, [listingData, values.operator]);
 
   useEffect(() => {
     const getserviceProviderListing = async () => {
@@ -93,33 +86,55 @@ const MobileService = (props) => {
 
   const handleConfirm = () => {
     setIsConfirmShow(false);
-    let userID = 16900;
-    let token = "759f6d09ef62ec7c86da53e986151519";
-    let consumerNo = "7227062486";
-    let amount = values.amount;
-    let operatorCode = 116;
-    let uniqueRefNo = 32043443023;
-    let areaPincode = 395002;
-    let regMobileNumber = values.mobileNo;
-    let longitude = 72.8399;
-    let latitude = 21.1877;
-    let format = 1;
-    let optional1 = "";
-    let optional2 = "";
-    let optional3 = "";
-    let optional4 = "";
-    let ambikaUrl = `http://api.ambikamultiservices.com/API/TransactionAPI?UserID=${userID}&Token=${token}&Account=${consumerNo}&Amount=${amount}&SPKey=${operatorCode}&ApiRequestID=${uniqueRefNo}&Optional1=${optional1}&Optional2=${optional2}&Optional3=${optional3}&Optional4=${optional4}&GEOCode=${longitude},${latitude}&CustomerNumber=${regMobileNumber}&Pincode=${areaPincode}&Format=${format}`;
+    doRecharge();
 
-    console.log({ ambikaUrl });
-    axios
-      .get(ambikaUrl)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .then(function () {});
+    // let userID = 16900;
+    // let token = "759f6d09ef62ec7c86da53e986151519";
+    // let consumerNo = "7227062486";
+    // let amount = values.amount;
+    // let operatorCode = 116;
+    // let uniqueRefNo = 32043443023;
+    // let areaPincode = 395002;
+    // let regMobileNumber = values.mobileNo;
+    // let longitude = 72.8399;
+    // let latitude = 21.1877;
+    // let format = 1;
+    // let optional1 = "";
+    // let optional2 = "";
+    // let optional3 = "";
+    // let optional4 = "";
+    // let ambikaUrl = `http://api.ambikamultiservices.com/API/TransactionAPI?UserID=${userID}&Token=${token}&Account=${consumerNo}&Amount=${amount}&SPKey=${operatorCode}&ApiRequestID=${uniqueRefNo}&Optional1=${optional1}&Optional2=${optional2}&Optional3=${optional3}&Optional4=${optional4}&GEOCode=${longitude},${latitude}&CustomerNumber=${regMobileNumber}&Pincode=${areaPincode}&Format=${format}`;
+
+    // console.log({ ambikaUrl });
+    // axios
+    //   .get(ambikaUrl)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   })
+    //   .then(function () {});
+  };
+
+  const doRecharge = async () => {
+    let payload = {
+      amount: values.amount,
+      operatorCode: selectedOperator.SPKey,
+      areaPincode: 395002,
+      regMobileNumber: values.mobileNo,
+      longitude: props.coords.longitude,
+      latitude: props.coords.latitude,
+      optional1: "",
+      optional2: "",
+      optional3: "",
+      optional4: "",
+    };
+
+    await props.ambikaRechargeApi(payload).then((res) => {
+      console.log("res.data", res.data);
+      // setListingData(res.data);
+    });
   };
 
   const handleContinue = () => {

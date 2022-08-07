@@ -32,4 +32,5 @@ export const service = {
   service: { method: "get", url: "/service" },
   serviceProviderAll: { method: "get", url: "/ambikaSlab" },
   serviceProviderByType: { method: "post", url: "/ambikaSlab/getProvider" },
+  ambikaRecharge: { method: "post", url: "/ambikaSlab/ambikaRecharge" },
 };

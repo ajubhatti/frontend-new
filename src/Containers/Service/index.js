@@ -5,7 +5,7 @@ import {
   serviceListing,
   getServiceAmbicaAll,
   getServiceProviderByType,
-  getAmbikaRechargeApi,
+  ambikaRechargeApi,
 } from "../../Redux/Actions/Service/service";
 
 const ServiceContainer = (props) => <Service {...props} />;
@@ -18,5 +18,5 @@ export default connect(mapStateToProps, {
   serviceListing,
   getServiceAmbicaAll,
   getServiceProviderByType,
-  getAmbikaRechargeApi,
+  ambikaRechargeApi,
 })(ServiceContainer);
