@@ -5,6 +5,7 @@ import ConfirmModel from "../../../Components/Modal/ConfirmModel";
 import OfferSlider from "../../../Components/Carousel/OfferSlider";
 import { useGeolocated } from "react-geolocated";
 import axios from "axios";
+import { simplePlanData } from "../../../Shared/MplanStaticResponse";
 
 const MobileService = (props) => {
   const [isPlanShow, setIsPlanShow] = useState(false);
@@ -19,11 +20,36 @@ const MobileService = (props) => {
 
   const [submitted, setSubmitted] = useState(false);
   const [values, setValues] = useState({
-    operator: "",
+    operator: "0",
     mobileNo: "",
     amount: "",
-    circle: "",
+    circle: "0",
+    rechargeData: {},
   });
+
+  useEffect(() => {
+    console.log("amaount --", values.amount);
+    if (Object.keys(mySelectedPlan).length === 0) {
+      for (let i in simplePlanData?.records) {
+        let searchedPlan = simplePlanData?.records[i].find(
+          (x) => x.rs === values.amount
+        );
+        console.log("searchedPlan", searchedPlan);
+        if (searchedPlan !== undefined) {
+          setMySelectedPlan({
+            desc: searchedPlan.desc,
+            rs: searchedPlan.rs,
+          });
+        }
+      }
+
+      let matches = Object.keys(simplePlanData?.records).filter((plan) =>
+        simplePlanData?.records[plan].find((x) => x.rs === values.amount)
+      );
+
+      console.log({ matches });
+    }
+  }, [mySelectedPlan, values.amount]);
 
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
@@ -36,18 +62,19 @@ const MobileService = (props) => {
   useEffect(() => {
     const getserviceProviderListing = async () => {
       await props.getServiceProviderByType({ type: "Prepaid" }).then((res) => {
+        console.log("res.data", res.data);
         setListingData(res.data);
       });
     };
     getserviceProviderListing();
   }, [props]);
 
-  const handleChange = (e) => {
-    setSelectValue(e.target.value);
-  };
-
   const handleSelectPlan = (data) => {
     setIsConfirmShow(true);
+    setValues((prev) => ({
+      ...prev,
+      amount: data.rs,
+    }));
     setMySelectedPlan({
       desc: data.desc,
       rs: data.rs,
@@ -56,6 +83,7 @@ const MobileService = (props) => {
 
   const handlerChange = (event) => {
     const { name, value } = event.target;
+    console.log("first", { name, value });
     setValues((prevState) => ({
       ...prevState,
       [name]: value,
@@ -70,7 +98,7 @@ const MobileService = (props) => {
     let consumerNo = "7227062486";
     let amount = values.amount;
     let operatorCode = 116;
-    let uniqueRefNo = "abcd";
+    let uniqueRefNo = 32043443023;
     let areaPincode = 395002;
     let regMobileNumber = values.mobileNo;
     let longitude = 72.8399;
@@ -80,7 +108,7 @@ const MobileService = (props) => {
     let optional2 = "";
     let optional3 = "";
     let optional4 = "";
-    let ambikaUrl = `http://api.ambikamultiservices.com/API/TransactionAPI?UserID=${userID}&Token=${token}&Account=${consumerNo}&Amount=${amount}&SPKey=${operatorCode}&APIRequestID=${uniqueRefNo}&Optional1=${optional1}&Optional2=${optional2}&Optional3=${optional3}&Optional4=${optional4}&GEOCode=${longitude},${latitude}&CustomerNumber=${regMobileNumber}&Pincode=${areaPincode}&Format=${format}`;
+    let ambikaUrl = `http://api.ambikamultiservices.com/API/TransactionAPI?UserID=${userID}&Token=${token}&Account=${consumerNo}&Amount=${amount}&SPKey=${operatorCode}&ApiRequestID=${uniqueRefNo}&Optional1=${optional1}&Optional2=${optional2}&Optional3=${optional3}&Optional4=${optional4}&GEOCode=${longitude},${latitude}&CustomerNumber=${regMobileNumber}&Pincode=${areaPincode}&Format=${format}`;
 
     console.log({ ambikaUrl });
     axios
@@ -94,43 +122,55 @@ const MobileService = (props) => {
       .then(function () {});
   };
 
+  const handleContinue = () => {
+    setSubmitted(true);
+    if (
+      values.operator !== "0" &&
+      values.mobileNo !== "" &&
+      values.amount !== "" &&
+      values.circle !== "0"
+    ) {
+      setIsConfirmShow(true);
+    } else {
+      console.log("else part");
+    }
+  };
+
   return (
     <>
       <div className="bg-white shadow-md rounded p-4">
         <h2 className="text-4 mb-3">Mobile Recharge</h2>
         <div className="row">
-          <div className="col-lg-5">
+          <div className="col-lg-5 userPlan">
             <form
               id="recharge-bill"
               className="border rounded p-3"
               method="post"
             >
               <div className="row g-3">
-                <div className=" col-lg-12">
+                <div className="col-lg-12">
                   <input
                     type="text"
                     className={
                       "form-control" +
                       (submitted && !values.mobileNo ? " is-invalid" : "")
                     }
-                    data-bv-field="number"
+                    // data-bv-field="number"
                     id="mobileNo"
                     required
                     placeholder="Enter Mobile Number"
                     value={values.mobileNo}
                     pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                     name="mobileNo"
-                    onChange={(e) => {
-                      handlerChange(e);
-                    }}
+                    onChange={handlerChange}
                   />
                   {submitted && !values.mobileNo && (
                     <div className="invalid-feedback">
-                      Enter your 11-digits Smart Card Number
+                      Enter your 10-digits mobile number
                     </div>
                   )}
                 </div>
-                <div className=" col-lg-12">
+                <div className="col-lg-12">
                   <select
                     className="form-select"
                     id="operator"
@@ -139,16 +179,16 @@ const MobileService = (props) => {
                     onChange={handlerChange}
                     name="operator"
                   >
-                    <option value="">Select Your Operator</option>
+                    <option value="0">Select Your Operator</option>
                     {listingData.map((x) => (
-                      <option value={x.serviceProvider} key={x._id}>
+                      <option value={x._id} key={x._id}>
                         {x.serviceProvider}
                       </option>
                     ))}
                   </select>
                 </div>
 
-                <div className=" col-lg-12">
+                <div className="col-lg-12">
                   <select
                     className="form-select"
                     id="circle"
@@ -157,33 +197,32 @@ const MobileService = (props) => {
                     name="circle"
                     onChange={handlerChange}
                   >
-                    <option value="" disabled>
+                    <option value="0" disabled>
                       Select Your Circle
                     </option>
                     {stateData.map((x) => (
-                      <option value={x.name} key={x.name}>
+                      <option value={x.key} key={x.key}>
                         {x.name}
                       </option>
                     ))}
                   </select>
                 </div>
 
-                <div className=" col-lg-12">
-                  <div className="position-relative">
-                    <input
-                      className={
-                        "form-control" +
-                        (submitted && !values.amount ? " is-invalid" : "")
-                      }
-                      id="amount"
-                      placeholder="Enter Amount"
-                      required
-                      type="number"
-                      name="amount"
-                      value={values.amount}
-                      onChange={handlerChange}
-                    />
-                  </div>
+                <div className="col-lg-12">
+                  <input
+                    className={
+                      "form-control" +
+                      (submitted && !values.amount ? " is-invalid" : "")
+                    }
+                    id="amount"
+                    placeholder="Enter Amount"
+                    required
+                    type="text"
+                    name="amount"
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    value={values.amount}
+                    onChange={handlerChange}
+                  />
                   {submitted && !values.amount && (
                     <div className="invalid-feedback">Amount is required</div>
                   )}
@@ -211,7 +250,10 @@ const MobileService = (props) => {
                   <button
                     className="btn btn-primary w-100"
                     type="button"
-                    onClick={() => setIsConfirmShow(true)}
+                    onClick={() => {
+                      handleContinue();
+                      // setIsConfirmShow(true);
+                    }}
                   >
                     Continue
                   </button>{" "}
@@ -219,7 +261,7 @@ const MobileService = (props) => {
               </div>
             </form>
           </div>
-          <div className="col-lg-7">
+          <div className="col-lg-7 user-offer-slide">
             <OfferSlider />
           </div>
         </div>
@@ -230,7 +272,6 @@ const MobileService = (props) => {
           planType="roofer"
           isModalShow={isRofferShow}
           setModalClose={() => setIsRofferShow(false)}
-          modalType="ourPlan"
           isShowHeader={false}
           selectedPlan={handleSelectPlan}
         />
@@ -240,7 +281,6 @@ const MobileService = (props) => {
           planType="allPlan"
           isModalShow={isPlanShow}
           setModalClose={() => setIsPlanShow(false)}
-          modalType="viewPlan"
           isShowHeader={true}
           selectCircle={selectCircleValue}
           selectedPlan={handleSelectPlan}

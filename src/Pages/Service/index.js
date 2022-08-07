@@ -10,7 +10,7 @@ import PostpaidService from "./ServiceCards/PostpaidService";
 import GooglePayService from "./ServiceCards/GooglePayService";
 import InsuranceService from "./ServiceCards/InsuranceService";
 import LandlineService from "./ServiceCards/LandlineService";
-import LoneService from "./ServiceCards/LoneService";
+import LoanService from "./ServiceCards/LoanService";
 import WaterService from "./ServiceCards/WaterService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -81,9 +81,9 @@ const Service = (props) => {
       case 2:
         return <DTHService {...props} />;
       case 3:
-        return <PostpaidService />;
-      case 4:
         return <ElectricityService />;
+      case 4:
+        return <PostpaidService />;
       case 5:
         return <BroadbandService />;
       case 6:
@@ -97,7 +97,7 @@ const Service = (props) => {
       case 10:
         return <LandlineService />;
       case 11:
-        return <LoneService />;
+        return <LoanService />;
       case 12:
         return <WaterService />;
       default:

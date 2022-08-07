@@ -26,9 +26,11 @@ export const serviceTabs = [
   },
   {
     id: 3,
-    title: "DataCard",
-    icon: faCreditCard,
+    title: "Electricity",
+    icon: faLightbulb,
+    code: "ELECTRICITY",
   },
+
   {
     id: 4,
     title: "Broadband",
@@ -48,9 +50,8 @@ export const serviceTabs = [
   },
   {
     id: 7,
-    title: "Electricity",
-    icon: faLightbulb,
-    code: "ELECTRICITY",
+    title: "DataCard",
+    icon: faCreditCard,
   },
   {
     id: 8,

@@ -13453,6 +13453,14 @@ button:focus {
   width: 100%;
   z-index: 1001;
 }
+header.u-header{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  left: auto;
+  width: 100%;
+  background-color: #fff;
+}
 
 .u-header__section {
   position: relative;
@@ -13493,7 +13501,11 @@ button:focus {
 .u-header__navbar-brand > img {
   padding-top: 0;
   padding-bottom: 0;
-  width: 9.375rem;
+  width: 100%;
+  height: auto;
+  max-width: 150px;
+  object-fit: cover;
+  
 }
 
 .u-header__navbar-brand-center {
@@ -13572,7 +13584,7 @@ button:focus {
   position: relative;
 }
 
-.u-header__nav-link-toggle::after {
+/* .u-header__nav-link-toggle::after {
   display: inline-block;
   font-family: "Font Awesome 5 Free";
   font-size: 65%;
@@ -13580,7 +13592,7 @@ button:focus {
   content: "\f107";
   margin-left: 0.5rem;
   transition: 0.3s ease;
-}
+} */
 
 /* Sub Menu */
 .u-header__sub-menu {

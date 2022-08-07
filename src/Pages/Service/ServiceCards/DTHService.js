@@ -90,7 +90,7 @@ const DTHService = (props) => {
       <div className="bg-white shadow-md rounded p-4">
         <h2 className="text-4 mb-3">DTH Recharge</h2>
         <div className="row">
-          <div className="col-lg-5">
+          <div className="col-lg-5 userPlan">
             <form
               id="recharge-bill"
               className="border rounded p-3"
@@ -220,8 +220,11 @@ const DTHService = (props) => {
               </div>
             </form>
           </div>
-          <div className="col-lg-7">
+          <div className="col-lg-7 user-offer-slide">
+          <div className="">
             <OfferSlider />
+
+          </div>
           </div>
         </div>
       </div>

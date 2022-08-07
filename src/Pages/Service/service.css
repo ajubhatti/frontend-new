@@ -12,6 +12,10 @@
     /* max-width: calc(100% - 110px); */
     float: left;
 }
+.u-header__nav-link .down-icon{
+    margin-bottom: auto;
+    vertical-align: middle;
+}
 
 /* .nav-tabs {
     border-bottom: 1px solid #dee2e6;

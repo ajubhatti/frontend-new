@@ -41,9 +41,9 @@ const ConfirmModel = ({
                   type="text"
                   className="form-control"
                   data-bv-field="number"
-                  id="mobileNumber"
+                  id="transaction pin"
                   required=""
-                  placeholder="Enter Mobile Number"
+                  placeholder="Enter transaction pin"
                   value={transactionPin}
                   onChange={(e) => {
                     setTransactionPin(e.target.value);

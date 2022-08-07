@@ -31,8 +31,8 @@ const MobileOfferModel = ({
     setSelectCircleValue(e);
   };
 
-  const getRofferTable = (plan) => (
-    <>
+  const getRofferTable = (plan, index) => (
+    <React.Fragment key={plan.rs + index}>
       <div className="row align-items-center">
         <div className="col-4 col-lg-2 text-5 text-primary text-center">
           {plan.rs}
@@ -54,11 +54,11 @@ const MobileOfferModel = ({
         </div>
       </div>
       <hr className="my-4" />
-    </>
+    </React.Fragment>
   );
 
-  const getAllPlanTable = (x) => (
-    <>
+  const getAllPlanTable = (x, index) => (
+    <React.Fragment key={x.rs + index}>
       <div className="row align-items-center">
         <div className="col-4 col-lg-2 text-5 text-primary text-center">
           {x.rs}
@@ -85,7 +85,7 @@ const MobileOfferModel = ({
         </div>
       </div>
       <hr className="my-4" />
-    </>
+    </React.Fragment>
   );
 
   const handleSelectPlan = (data) => {
@@ -149,14 +149,16 @@ const MobileOfferModel = ({
             >
               <div className="plans">
                 {planType === "roofer"
-                  ? rOfferData.records.map((plan) => getRofferTable(plan))
+                  ? rOfferData.records.map((plan, index) =>
+                      getRofferTable(plan, index)
+                    )
                   : Object.keys(simplePlanData?.records).map((plan) =>
                       selectPlanValue === ""
-                        ? simplePlanData?.records[plan].map((x) =>
-                            getAllPlanTable(x)
+                        ? simplePlanData?.records[plan].map((x, index) =>
+                            getAllPlanTable(x, index)
                           )
-                        : simplePlanData?.records[selectPlanValue].map((x) =>
-                            getAllPlanTable(x)
+                        : simplePlanData?.records[selectPlanValue].map(
+                            (x, index) => getAllPlanTable(x, index)
                           )
                     )}
               </div>
