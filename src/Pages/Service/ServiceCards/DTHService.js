@@ -2,19 +2,16 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OfferSlider from "../../../Components/Carousel/OfferSlider";
 import Form from "../../../Components/Form";
+import ConfirmModel from "../../../Components/Modal/ConfirmModel";
 import { stateData } from "../../../Shared/constant";
-import { rOfferData } from "../../../Shared/MplanStaticResponse";
+import {
+  rOfferData,
+  simplePlanData,
+} from "../../../Shared/MplanStaticResponse";
 import { DTHOperator } from "../Operators/DTHOperator";
 
 const DTHService = (props) => {
   const [apiCall, setApiCall] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [values, setValues] = useState({
-    operator: "",
-    customerNo: "",
-    amount: "",
-    circle: "",
-  });
 
   const [isPlanShow, setIsPlanShow] = useState(false);
   const [isRofferShow, setIsRofferShow] = useState(false);
@@ -26,9 +23,40 @@ const DTHService = (props) => {
   const [isConfirmShow, setIsConfirmShow] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
 
-  // useEffect(() => {
-  //   fetchPlan();
-  // }, []);
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedOperator, setSelectedOperator] = useState({});
+  const [values, setValues] = useState({
+    operator: "0",
+    customerNo: "",
+    amount: "",
+    circle: "0",
+    rechargeData: {},
+  });
+
+  useEffect(() => {
+    getPlan();
+    if (Object.keys(mySelectedPlan).length === 0) {
+      for (let i in simplePlanData?.records) {
+        let searchedPlan = simplePlanData?.records[i].find(
+          (x) => x.rs === values.amount
+        );
+
+        if (searchedPlan !== undefined) {
+          setMySelectedPlan({
+            desc: searchedPlan.desc,
+            rs: searchedPlan.rs,
+          });
+        }
+      }
+    }
+  }, [mySelectedPlan, values.amount]);
+
+  useEffect(() => {
+    if (listingData.length !== 0) {
+      let operator = listingData.find((x) => x._id === values.operator);
+      setSelectedOperator(operator);
+    }
+  }, [listingData, values.operator]);
 
   useEffect(() => {
     const getserviceProviderListing = async () => {
@@ -39,54 +67,81 @@ const DTHService = (props) => {
     getserviceProviderListing();
   }, [props]);
 
+  const handleSelectPlan = (data) => {
+    setIsConfirmShow(true);
+    setValues((prev) => ({
+      ...prev,
+      amount: data.rs,
+    }));
+    setMySelectedPlan({
+      desc: data.desc,
+      rs: data.rs,
+    });
+  };
+
   const handlerChange = (event) => {
     const { name, value } = event.target;
-
     setValues((prevState) => ({
       ...prevState,
       [name]: value,
     }));
-
     // fetchPlan(value);
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setApiCall(true);
+  const handleConfirm = () => {
+    setIsConfirmShow(false);
+    doRecharge();
+  };
+
+  const doRecharge = async () => {
+    let payload = {
+      amount: values.amount,
+      operatorCode: selectedOperator.SPKey,
+      areaPincode: 395002,
+      regMobileNumber: values.customerNo,
+      longitude: props?.coords?.longitude
+        ? props?.coords?.longitude
+        : 72.8399872,
+      latitude: props?.coords?.latitude ? props?.coords?.latitude : 21.1910656,
+      optional1: "",
+      optional2: "",
+      optional3: "",
+      optional4: "",
+    };
+
+    await props.ambikaRechargeApi(payload).then((res) => {
+      console.log("res.data", res.data);
+      // setListingData(res.data);
+    });
+  };
+
+  const getPlan = async () => {
+    let payload = {
+      type: "roffer",
+      phone: "9033501636",
+      operator: "Jio",
+    };
+    await props.getPlanDetails(payload).then((res) => {
+      console.log("res.data", res.data);
+    });
+  };
+
+  const handleContinue = () => {
     setSubmitted(true);
-    if (values.customerNo !== "" && values.amount !== "") {
-      try {
-        // await props.api Name(values).then((res) => {
-        //   // Logic
-        // });
-      } finally {
-        setApiCall(false);
-      }
+    if (
+      values.operator !== "0" &&
+      values.mobileNo !== "" &&
+      values.amount !== "" &&
+      values.circle !== "0"
+    ) {
+      setIsConfirmShow(true);
+    } else {
+      console.log("else part");
     }
   };
 
-  const fetchPlan = async (value) => {
-    // https://www.mplan.in/api/plans.php?apikey=[yourapikey]&offer=roffer&tel=[mobile]&operator=[operator](BSNL,Idea,given below)
-    let url = `https://www.mplan.in/api/dthplans.php?apikey=ff7c4e87910a29fc6fa601dd4a8469b6&operator=${value}`;
-    let url2 = `https://www.mplan.in/api/plans.php?apikey=ff7c4e87910a29fc6fa601dd4a8469b6&offer=roffer&tel=9033501636&operator=Jio`;
-
-    console.log({ url2 });
-
-    axios
-      .get(url2)
-      .then(function (response) {
-        console.log(response);
-        return rOfferData;
-      })
-      .catch(function (error) {
-        console.log(error);
-        return rOfferData;
-      })
-      .then(function () {});
-  };
-
   return (
-    <Form submitHandler={submitHandler}>
+    <>
       <div className="bg-white shadow-md rounded p-4">
         <h2 className="text-4 mb-3">DTH Recharge</h2>
         <div className="row">
@@ -97,7 +152,7 @@ const DTHService = (props) => {
               method="post"
             >
               <div className="row g-3">
-                <div className=" col-lg-12">
+                <div className="col-lg-12">
                   <input
                     type="text"
                     className={
@@ -111,10 +166,7 @@ const DTHService = (props) => {
                     value={values.customerNo}
                     pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                     name="customerNo"
-                    onChange={(e) => {
-                      console.log(e.target);
-                      handlerChange(e);
-                    }}
+                    onChange={handlerChange}
                   />
                   {submitted && !values.customerNo && (
                     <div className="invalid-feedback">
@@ -122,73 +174,63 @@ const DTHService = (props) => {
                     </div>
                   )}
                 </div>
-
-                <div className=" col-lg-12">
+                <div className="col-lg-12">
                   <select
                     className="form-select"
                     id="operator"
                     required
-                    onChange={handlerChange}
                     value={values.operator}
+                    onChange={handlerChange}
                     name="operator"
                   >
-                    <option value="">Select Your Operator</option>
+                    <option value="0">Select Your Operator</option>
                     {listingData.map((x) => (
-                      <option value={x.serviceProvider} key={x._id}>
+                      <option value={x._id} key={x._id}>
                         {x.serviceProvider}
                       </option>
                     ))}
-
-                    {/* {DTHOperator.length > 0 &&
-                      DTHOperator.map((operator, index) => {
-                        return (
-                          <option value={operator.key} key={index}>
-                            {operator.value}
-                          </option>
-                        );
-                      })} */}
                   </select>
                 </div>
 
                 <div className="col-lg-12">
                   <select
                     className="form-select"
-                    required=""
                     id="circle"
-                    // value={selectCircleValue}
+                    required
                     value={values.circle}
                     name="circle"
                     onChange={handlerChange}
                   >
-                    <option value="" disabled>
+                    <option value="0" disabled>
                       Select Your Circle
                     </option>
                     {stateData.map((x) => (
-                      <option value={x.name}>{x.name}</option>
+                      <option value={x.key} key={x.key}>
+                        {x.name}
+                      </option>
                     ))}
                   </select>
                 </div>
-                <div className=" col-lg-12">
-                  <div className="position-relative">
-                    <input
-                      className={
-                        "form-control" +
-                        (submitted && !values.amount ? " is-invalid" : "")
-                      }
-                      id="amount"
-                      placeholder="Enter Amount"
-                      required
-                      type="number"
-                      name="amount"
-                      value={values.amount}
-                      onChange={handlerChange}
-                    />
-                  </div>
+
+                <div className="col-lg-12">
+                  <input
+                    className={
+                      "form-control" +
+                      (submitted && !values.amount ? " is-invalid" : "")
+                    }
+                    id="amount"
+                    placeholder="Enter Amount"
+                    required
+                    type="text"
+                    name="amount"
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    value={values.amount}
+                    onChange={handlerChange}
+                  />
                   {submitted && !values.amount && (
                     <div className="invalid-feedback">Amount is required</div>
                   )}
                 </div>
-
                 {values.operator !== "" && (
                   <div className="col-lg-12">
                     <a
@@ -211,8 +253,11 @@ const DTHService = (props) => {
                   {" "}
                   <button
                     className="btn btn-primary w-100"
-                    type="submit"
-                    onClick={() => setIsConfirmShow(true)}
+                    type="button"
+                    onClick={() => {
+                      handleContinue();
+                      // setIsConfirmShow(true);
+                    }}
                   >
                     Continue
                   </button>{" "}
@@ -221,14 +266,20 @@ const DTHService = (props) => {
             </form>
           </div>
           <div className="col-lg-7 user-offer-slide">
-          <div className="">
             <OfferSlider />
-
-          </div>
           </div>
         </div>
       </div>
-    </Form>
+      {
+        <ConfirmModel
+          isModalShow={isConfirmShow}
+          setModalClose={() => setIsConfirmShow(false)}
+          userSelectedPlan={mySelectedPlan}
+          mobileNo={mobileNumber}
+          handleConfirm={handleConfirm}
+        />
+      }
+    </>
   );
 };
 

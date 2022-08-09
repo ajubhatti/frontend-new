@@ -29,6 +29,7 @@ const MobileService = (props) => {
   });
 
   useEffect(() => {
+    getPlan();
     if (Object.keys(mySelectedPlan).length === 0) {
       for (let i in simplePlanData?.records) {
         let searchedPlan = simplePlanData?.records[i].find(
@@ -76,7 +77,6 @@ const MobileService = (props) => {
 
   const handlerChange = (event) => {
     const { name, value } = event.target;
-    console.log("first", { name, value });
     setValues((prevState) => ({
       ...prevState,
       [name]: value,
@@ -87,34 +87,6 @@ const MobileService = (props) => {
   const handleConfirm = () => {
     setIsConfirmShow(false);
     doRecharge();
-
-    // let userID = 16900;
-    // let token = "759f6d09ef62ec7c86da53e986151519";
-    // let consumerNo = "7227062486";
-    // let amount = values.amount;
-    // let operatorCode = 116;
-    // let uniqueRefNo = 32043443023;
-    // let areaPincode = 395002;
-    // let regMobileNumber = values.mobileNo;
-    // let longitude = 72.8399;
-    // let latitude = 21.1877;
-    // let format = 1;
-    // let optional1 = "";
-    // let optional2 = "";
-    // let optional3 = "";
-    // let optional4 = "";
-    // let ambikaUrl = `http://api.ambikamultiservices.com/API/TransactionAPI?UserID=${userID}&Token=${token}&Account=${consumerNo}&Amount=${amount}&SPKey=${operatorCode}&ApiRequestID=${uniqueRefNo}&Optional1=${optional1}&Optional2=${optional2}&Optional3=${optional3}&Optional4=${optional4}&GEOCode=${longitude},${latitude}&CustomerNumber=${regMobileNumber}&Pincode=${areaPincode}&Format=${format}`;
-
-    // console.log({ ambikaUrl });
-    // axios
-    //   .get(ambikaUrl)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   })
-    //   .then(function () {});
   };
 
   const doRecharge = async () => {
@@ -123,8 +95,10 @@ const MobileService = (props) => {
       operatorCode: selectedOperator.SPKey,
       areaPincode: 395002,
       regMobileNumber: values.mobileNo,
-      longitude: props.coords.longitude,
-      latitude: props.coords.latitude,
+      longitude: props?.coords?.longitude
+        ? props?.coords?.longitude
+        : 72.8399872,
+      latitude: props?.coords?.latitude ? props?.coords?.latitude : 21.1910656,
       optional1: "",
       optional2: "",
       optional3: "",
@@ -134,6 +108,17 @@ const MobileService = (props) => {
     await props.ambikaRechargeApi(payload).then((res) => {
       console.log("res.data", res.data);
       // setListingData(res.data);
+    });
+  };
+
+  const getPlan = async () => {
+    let payload = {
+      type: "roffer",
+      phone: "9033501636",
+      operator: "Jio",
+    };
+    await props.getPlanDetails(payload).then((res) => {
+      console.log("res.data", res.data);
     });
   };
 

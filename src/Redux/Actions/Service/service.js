@@ -54,3 +54,12 @@ export const ambikaRechargeApi = (data) => () => {
       .catch((err) => reject(err));
   });
 };
+
+export const getPlanDetails = (data) => () =>
+  new Promise((resolve, reject) => {
+    fetchUrl(service.getMplan.method, service.getMplan.url, data, configData)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => reject(err));
+  });
