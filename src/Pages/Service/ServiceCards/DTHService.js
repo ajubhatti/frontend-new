@@ -1,30 +1,27 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OfferSlider from "../../../Components/Carousel/OfferSlider";
-import Form from "../../../Components/Form";
-import ConfirmModel from "../../../Components/Modal/ConfirmModel";
-import { stateData } from "../../../Shared/constant";
-import {
-  rOfferData,
-  simplePlanData,
-} from "../../../Shared/MplanStaticResponse";
-import { DTHOperator } from "../Operators/DTHOperator";
+import ConfirmModal from "../../../Components/Modal/ConfirmModal";
+import CustomerInfoModal from "../../../Components/Modal/CustomerInfoModal";
+import DthOfferListModal from "../../../Components/Modal/DthOfferListModal";
+import { mplanDthOperatorList, stateData } from "../../../Shared/constant";
+import { simplePlanData } from "../../../Shared/MplanStaticResponse";
 
 const DTHService = (props) => {
-  const [apiCall, setApiCall] = useState(false);
-
-  const [isPlanShow, setIsPlanShow] = useState(false);
-  const [isRofferShow, setIsRofferShow] = useState(false);
+  const [customerInfo, setCustomerInfo] = useState({});
+  const [isCustomerShow, setIsCustomerShow] = useState(false); //modal
   const [listingData, setListingData] = useState([]);
-  const [selectValue, setSelectValue] = useState("");
-  const [selectCircleValue, setSelectCircleValue] = useState("");
-
   const [mySelectedPlan, setMySelectedPlan] = useState({});
   const [isConfirmShow, setIsConfirmShow] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
-
   const [submitted, setSubmitted] = useState(false);
   const [selectedOperator, setSelectedOperator] = useState({});
+  const [selectedMplanOperator, setSelectedMplanOperator] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+  const [planInfo, setPlanInfo] = useState({});
+  const [isListingShow, setIsListingShow] = useState(false);
+  const [selectCircleValue, setSelectCircleValue] = useState("");
+  const [planType, setPlanType] = useState("roffer");
+
   const [values, setValues] = useState({
     operator: "0",
     customerNo: "",
@@ -34,7 +31,6 @@ const DTHService = (props) => {
   });
 
   useEffect(() => {
-    getPlan();
     if (Object.keys(mySelectedPlan).length === 0) {
       for (let i in simplePlanData?.records) {
         let searchedPlan = simplePlanData?.records[i].find(
@@ -52,9 +48,17 @@ const DTHService = (props) => {
   }, [mySelectedPlan, values.amount]);
 
   useEffect(() => {
-    if (listingData.length !== 0) {
+    if (listingData.length !== 0 && values.operator !== 0) {
       let operator = listingData.find((x) => x._id === values.operator);
+      console.log({ operator });
+
       setSelectedOperator(operator);
+      let mplanLOperator = mplanDthOperatorList.find(
+        (x) => x.id === operator?.serviceProvider
+      );
+      console.log({ mplanLOperator });
+
+      setSelectedMplanOperator(mplanLOperator);
     }
   }, [listingData, values.operator]);
 
@@ -115,28 +119,37 @@ const DTHService = (props) => {
     });
   };
 
-  const getPlan = async () => {
-    let payload = {
-      type: "roffer",
-      phone: "9033501636",
-      operator: "Jio",
-    };
-    await props.getPlanDetails(payload).then((res) => {
-      console.log("res.data", res.data);
-    });
-  };
-
   const handleContinue = () => {
     setSubmitted(true);
     if (
       values.operator !== "0" &&
-      values.mobileNo !== "" &&
+      values.customerNo !== "" &&
       values.amount !== "" &&
       values.circle !== "0"
     ) {
       setIsConfirmShow(true);
     } else {
       console.log("else part");
+    }
+  };
+
+  const getPlanInfo = async (type) => {
+    setIsChecked(true);
+    let payload = {
+      type: type,
+      accountNo: values?.customerNo,
+      operator: selectedMplanOperator?.operator,
+    };
+    if (values.customerNo && selectedMplanOperator.operator) {
+      await props.getPlanDetails(payload).then((res) => {
+        if (type === "info") {
+          setCustomerInfo(res.data);
+          setIsCustomerShow(true);
+        } else {
+          setPlanInfo(res.data);
+          setIsCustomerShow(true);
+        }
+      });
     }
   };
 
@@ -157,18 +170,22 @@ const DTHService = (props) => {
                     type="text"
                     className={
                       "form-control" +
-                      (submitted && !values.customerNo ? " is-invalid" : "")
+                      ((submitted && !values.customerNo) ||
+                      (isChecked && !values.customerNo)
+                        ? " is-invalid"
+                        : "")
                     }
                     data-bv-field="number"
                     id="customerNumber"
                     required
                     placeholder="Enter Customer Number"
                     value={values.customerNo}
-                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                     name="customerNo"
                     onChange={handlerChange}
                   />
-                  {submitted && !values.customerNo && (
+                  {((submitted && !values.customerNo) ||
+                    (isChecked && !values.customerNo)) && (
                     <div className="invalid-feedback">
                       Enter your 11-digits Smart Card Number
                     </div>
@@ -176,7 +193,14 @@ const DTHService = (props) => {
                 </div>
                 <div className="col-lg-12">
                   <select
-                    className="form-select"
+                    // className="form-select"
+                    className={
+                      "form-control" +
+                      ((submitted && values.operator === "0") ||
+                      (isChecked && values.operator === "0")
+                        ? " is-invalid"
+                        : "")
+                    }
                     id="operator"
                     required
                     value={values.operator}
@@ -190,11 +214,24 @@ const DTHService = (props) => {
                       </option>
                     ))}
                   </select>
+                  {((submitted && values.operator === "0") ||
+                    (isChecked && values.operator === "0")) && (
+                    <div className="invalid-feedback">
+                      Please Select Operator
+                    </div>
+                  )}
                 </div>
 
                 <div className="col-lg-12">
                   <select
-                    className="form-select"
+                    // className="form-select"
+                    className={
+                      "form-control" +
+                      ((submitted && values.circle === "0") ||
+                      (isChecked && values.circle === "0")
+                        ? " is-invalid"
+                        : "")
+                    }
                     id="circle"
                     required
                     value={values.circle}
@@ -210,6 +247,10 @@ const DTHService = (props) => {
                       </option>
                     ))}
                   </select>
+                  {((submitted && values.circle === "0") ||
+                    (isChecked && values.circle === "0")) && (
+                    <div className="invalid-feedback">Please Select Circle</div>
+                  )}
                 </div>
 
                 <div className="col-lg-12">
@@ -233,20 +274,27 @@ const DTHService = (props) => {
                 </div>
                 {values.operator !== "" && (
                   <div className="col-lg-12">
-                    <a
-                      href="#"
-                      className="ml-2 mr-2"
-                      onClick={() => setIsRofferShow(true)}
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => getPlanInfo("dthRoffer")}
                     >
-                      Roffer
-                    </a>
-                    <a
-                      href="#"
-                      className="ml-2 mr-2"
-                      onClick={() => setIsPlanShow(true)}
+                      R Offer
+                    </button>
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => getPlanInfo("dthplans")}
                     >
-                      View Plans
-                    </a>
+                      All Plan
+                    </button>
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => getPlanInfo("dthInfo")}
+                    >
+                      Customer Info
+                    </button>
                   </div>
                 )}
                 <div className="col-lg-12">
@@ -256,7 +304,6 @@ const DTHService = (props) => {
                     type="button"
                     onClick={() => {
                       handleContinue();
-                      // setIsConfirmShow(true);
                     }}
                   >
                     Continue
@@ -269,16 +316,30 @@ const DTHService = (props) => {
             <OfferSlider />
           </div>
         </div>
-      </div>
-      {
-        <ConfirmModel
+        <ConfirmModal
           isModalShow={isConfirmShow}
           setModalClose={() => setIsConfirmShow(false)}
           userSelectedPlan={mySelectedPlan}
-          mobileNo={mobileNumber}
+          accountNo={values.customerNo}
           handleConfirm={handleConfirm}
+          type={"dth"}
         />
-      }
+        <CustomerInfoModal
+          isModalShow={isCustomerShow}
+          setModalClose={() => setIsCustomerShow(false)}
+          customerInfo={customerInfo}
+          type={"dth"}
+        />
+        <DthOfferListModal
+          isModalShow={isListingShow}
+          setModalClose={() => setIsListingShow(false)}
+          customerInfo={planInfo}
+          planType={planType}
+          isShowHeader={false}
+          selectedPlan={handleSelectPlan}
+          selectCircle={selectCircleValue}
+        />
+      </div>
     </>
   );
 };

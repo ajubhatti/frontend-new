@@ -6,10 +6,9 @@ import { simplePlanData, rOfferData } from "../../Shared/MplanStaticResponse";
 import { useState } from "react";
 import { stateData } from "../../Shared/constant";
 
-const MobileOfferModel = ({
+const DthOfferListModal = ({
   isModalShow,
   setModalClose,
-  modalType,
   isShowHeader,
   planType,
   selectCircle,
@@ -148,7 +147,7 @@ const MobileOfferModel = ({
               controlId="exampleForm.ControlTextarea1"
             >
               <div className="plans">
-                {planType === "roofer"
+                {planType === "roffer"
                   ? rOfferData.records.map((plan, index) =>
                       getRofferTable(plan, index)
                     )
@@ -178,4 +177,4 @@ const MobileOfferModel = ({
   );
 };
 
-export default MobileOfferModel;
+export default DthOfferListModal;

@@ -57,25 +57,25 @@ const Service = (props) => {
       case 2:
         return <DTHService {...props} />;
       case 3:
-        return <ElectricityService />;
+        return <ElectricityService {...props} />;
       case 4:
-        return <PostpaidService />;
+        return <PostpaidService {...props} />;
       case 5:
-        return <BroadbandService />;
+        return <BroadbandService {...props} />;
       case 6:
-        return <FastagService />;
+        return <FastagService {...props} />;
       case 7:
-        return <GasService />;
+        return <GasService {...props} />;
       case 8:
-        return <GooglePayService />;
+        return <GooglePayService {...props} />;
       case 9:
-        return <InsuranceService />;
+        return <InsuranceService {...props} />;
       case 10:
-        return <LandlineService />;
+        return <LandlineService {...props} />;
       case 11:
-        return <LoanService />;
+        return <LoanService {...props} />;
       case 12:
-        return <WaterService />;
+        return <WaterService {...props} />;
       default:
         return <></>;
     }

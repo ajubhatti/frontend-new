@@ -447,7 +447,6 @@ export const stateData = [
   },
 ];
 
-
 export const stateLsit = [
   {
     id: 1,
@@ -540,5 +539,82 @@ export const stateLsit = [
   {
     id: 23,
     stateName: "West Bengal",
+  },
+];
+
+export const mplanDthOperatorList = [
+  {
+    id: "Airtel Digital TV",
+    operator: "Airteldth",
+  },
+  {
+    id: "Tata Sky",
+    operator: "TataSky",
+  },
+  {
+    id: "Videocon",
+    operator: "Videocon",
+  },
+  {
+    id: "Sun Direct",
+    operator: "Sundirect",
+  },
+  {
+    id: "Dish TV",
+    operator: "Dishtv",
+  },
+];
+
+export const mplanMobileOperatorList = [
+  {
+    id: "Airtel",
+    operator: "Airtel",
+  },
+  {
+    id: "Reliance Jio",
+    operator: "Jio",
+  },
+  {
+    id: "Vodafone",
+    operator: "Vodafone",
+  },
+  {
+    id: "Idea",
+    operator: "Idea",
+  },
+  {
+    id: "BSNL - Special Tariff",
+    operator: "BSNL",
+  },
+  {
+    id: "Vi",
+    operator: "Vi",
+  },
+];
+
+export const mplanElectricityList = [
+  {
+    id: "Paschim Gujarat Vij Company Limited",
+    operator: "PGVCL",
+  },
+  {
+    id: "Dakshin Gujarat Vij Company Limited",
+    operator: "DGVCL",
+  },
+  {
+    id: "Uttar Gujarat Vij Company Limited",
+    operator: "UGVCL",
+  },
+  {
+    id: "Madhya Gujarat Vij Company Limited",
+    operator: "MGVCL",
+  },
+  {
+    id: "Torrent Power Ltd- Surat",
+    operator: "TORRENTSURAT",
+  },
+  {
+    id: "	Torrent Power- Ahmedabad",
+    operator: "TORRENTAHME",
   },
 ];
