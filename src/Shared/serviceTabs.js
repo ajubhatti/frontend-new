@@ -58,48 +58,48 @@ export const serviceTabs = [
     title: "Metro",
     icon: faSubway,
   },
-  //   {
-  //     id: 9,
-  //     name: "Fastag",
-  //     code: "FASTAG",
-  //     icon: "",
-  //   },
-  //   {
-  //     id: 10,
-  //     name: "Gas Bill",
-  //     code: "GAS",
-  //     icon: "",
-  //   },
-  //   {
-  //     id: 11,
-  //     name: "Google Play",
-  //     code: "GOOGLE",
-  //     icon: "",
-  //   },
-  //   {
-  //     id: 12,
-  //     name: "Insurance",
-  //     code: "INSURANCE",
-  //     icon: "",
-  //   },
-  //   {
-  //     id: 13,
-  //     name: "Landline Bill",
-  //     code: "LANDLINE",
-  //     icon: "",
-  //   },
-  //   {
-  //     id: 14,
-  //     name: "Lone Payment",
-  //     code: "LOAN",
-  //     icon: "",
-  //   },
-  //   {
-  //     id: 15,
-  //     name: "Water Bill",
-  //     code: "WATER",
-  //     icon: "",
-  //   },
+  {
+    id: 9,
+    name: "Fastag",
+    code: "FASTAG",
+    icon: "",
+  },
+  {
+    id: 10,
+    name: "Gas Bill",
+    code: "GAS",
+    icon: "",
+  },
+  {
+    id: 11,
+    name: "Google Play",
+    code: "GOOGLE",
+    icon: "",
+  },
+  {
+    id: 12,
+    name: "Insurance",
+    code: "INSURANCE",
+    icon: "",
+  },
+  {
+    id: 13,
+    name: "Landline Bill",
+    code: "LANDLINE",
+    icon: "",
+  },
+  {
+    id: 14,
+    name: "Lone Payment",
+    code: "LOAN",
+    icon: "",
+  },
+  {
+    id: 15,
+    name: "Water Bill",
+    code: "WATER",
+    icon: "",
+  },
 ];
 
 export const servicesTabsdata = [

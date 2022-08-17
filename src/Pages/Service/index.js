@@ -59,9 +59,9 @@ const Service = (props) => {
       case 3:
         return <ElectricityService {...props} />;
       case 4:
-        return <PostpaidService {...props} />;
-      case 5:
         return <BroadbandService {...props} />;
+      case 5:
+        return <PostpaidService {...props} />;
       case 6:
         return <FastagService {...props} />;
       case 7:

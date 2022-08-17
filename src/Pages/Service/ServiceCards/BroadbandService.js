@@ -1,120 +1,279 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OfferSlider from "../../../Components/Carousel/OfferSlider";
-import { stateData } from "../../../Shared/constant";
+import ConfirmModal from "../../../Components/Modal/ConfirmModal";
+import CustomerInfoModal from "../../../Components/Modal/CustomerInfoModal";
+import DthOfferListModal from "../../../Components/Modal/DthOfferListModal";
+import { mplanDthOperatorList, stateData } from "../../../Shared/constant";
+import { simplePlanData } from "../../../Shared/MplanStaticResponse";
 
-const BroadbandService = () => {
-  const [isPlanShow, setIsPlanShow] = useState(false);
-  const [isRofferShow, setIsRofferShow] = useState(false);
+const BroadbandService = (props) => {
   const [listingData, setListingData] = useState([]);
-  const [selectValue, setSelectValue] = useState("");
-  const [selectCircleValue, setSelectCircleValue] = useState("");
-
   const [mySelectedPlan, setMySelectedPlan] = useState({});
   const [isConfirmShow, setIsConfirmShow] = useState(false);
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedOperator, setSelectedOperator] = useState({});
+  const [selectedMplanOperator, setSelectedMplanOperator] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
+
+  const [values, setValues] = useState({
+    operator: "0",
+    customerNo: "",
+    amount: "",
+    circle: "0",
+    rechargeData: {},
+  });
+
+  useEffect(() => {
+    if (Object.keys(mySelectedPlan).length === 0) {
+      for (let i in simplePlanData?.records) {
+        let searchedPlan = simplePlanData?.records[i].find(
+          (x) => x.rs === values.amount
+        );
+
+        if (searchedPlan !== undefined) {
+          setMySelectedPlan({
+            desc: searchedPlan.desc,
+            rs: searchedPlan.rs,
+          });
+        }
+      }
+    }
+  }, [mySelectedPlan, values.amount]);
+
+  useEffect(() => {
+    if (listingData.length !== 0 && values.operator !== 0) {
+      let operator = listingData.find((x) => x._id === values.operator);
+      console.log({ operator });
+
+      setSelectedOperator(operator);
+      let mplanLOperator = mplanDthOperatorList.find(
+        (x) => x.id === operator?.serviceProvider
+      );
+      console.log({ mplanLOperator });
+
+      setSelectedMplanOperator(mplanLOperator);
+    }
+  }, [listingData, values.operator]);
+
+  useEffect(() => {
+    const getserviceProviderListing = async () => {
+      await props
+        .getServiceProviderByType({ type: "Broadband" })
+        .then((res) => {
+          setListingData(res.data);
+        });
+    };
+    getserviceProviderListing();
+  }, [props]);
+
+  const handleSelectPlan = (data) => {
+    setIsConfirmShow(true);
+    setValues((prev) => ({
+      ...prev,
+      amount: data.rs,
+    }));
+    setMySelectedPlan({
+      desc: data.desc,
+      rs: data.rs,
+    });
+  };
+
+  const handlerChange = (event) => {
+    const { name, value } = event.target;
+    setValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleConfirm = () => {
+    setIsConfirmShow(false);
+    doRecharge();
+  };
+
+  const doRecharge = async () => {
+    let payload = {
+      amount: values.amount,
+      operatorCode: selectedOperator.SPKey,
+      areaPincode: 395002,
+      regMobileNumber: values.customerNo,
+      longitude: props?.coords?.longitude
+        ? props?.coords?.longitude
+        : 72.8399872,
+      latitude: props?.coords?.latitude ? props?.coords?.latitude : 21.1910656,
+      optional1: "",
+      optional2: "",
+      optional3: "",
+      optional4: "",
+    };
+
+    await props.ambikaRechargeApi(payload).then((res) => {
+      console.log("res.data", res.data);
+      // setListingData(res.data);
+    });
+  };
+
+  const handleContinue = () => {
+    setSubmitted(true);
+    if (
+      values.operator !== "0" &&
+      values.customerNo !== "" &&
+      values.amount !== "" &&
+      values.circle !== "0"
+    ) {
+      setIsConfirmShow(true);
+    } else {
+      console.log("else part");
+    }
+  };
 
   return (
-    <div className="bg-white shadow-md rounded p-4">
-      <h2 className="text-4 mb-3">Mobile Recharge</h2>
-      <div className="row">
-        <div className="col-lg-5">
-          <form id="recharge-bill" className="border rounded p-3" method="post">
-            <div className="row g-3">
-              <div className=" col-lg-12">
-                <input
-                  type="text"
-                  className="form-control"
-                  data-bv-field="number"
-                  id="mobileNumber"
-                  required=""
-                  placeholder="Enter Mobile Number"
-                  value={mobileNumber}
-                  onChange={(e) => {
-                    setMobileNumber(e.target.value);
-                  }}
-                />
-              </div>
-              <div className=" col-lg-12">
-                <select
-                  className="form-select"
-                  id="operator"
-                  required=""
-                  value={selectValue}
-                  // onChange={handleChange}
-                >
-                  <option value="">Select Your Operator</option>
-                  {listingData.map((x) => (
-                    <option value={x.serviceProvider} key={x._id}>
-                      {x.serviceProvider}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="col-lg-12">
-                <select
-                  className="form-select"
-                  required=""
-                  value={selectCircleValue}
-                  onChange={(e) => {
-                    setSelectCircleValue(e.target.value);
-                  }}
-                >
-                  <option value="" disabled>
-                    Select Your Circle
-                  </option>
-                  {stateData.map((x) => (
-                    <option value={x.name}>{x.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className=" col-lg-12">
-                <div className="position-relative">
+    <>
+      <div className="bg-white shadow-md rounded p-4">
+        <h2 className="text-4 mb-3">Broadband Recharge</h2>
+        <div className="row">
+          <div className="col-lg-5 userPlan">
+            <form
+              id="recharge-bill"
+              className="border rounded p-3"
+              method="post"
+            >
+              <div className="row g-3">
+                <div className="col-lg-12">
                   <input
-                    className="form-control"
+                    type="text"
+                    className={
+                      "form-control" +
+                      ((submitted && !values.customerNo) ||
+                      (isChecked && !values.customerNo)
+                        ? " is-invalid"
+                        : "")
+                    }
+                    data-bv-field="number"
+                    id="customerNumber"
+                    required
+                    placeholder="Enter Customer Number"
+                    value={values.customerNo}
+                    // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    name="customerNo"
+                    onChange={handlerChange}
+                  />
+                  {((submitted && !values.customerNo) ||
+                    (isChecked && !values.customerNo)) && (
+                    <div className="invalid-feedback">
+                      Enter your 11-digits Smart Card Number
+                    </div>
+                  )}
+                </div>
+                <div className="col-lg-12">
+                  <select
+                    className={
+                      "form-control" +
+                      ((submitted && values.operator === "0") ||
+                      (isChecked && values.operator === "0")
+                        ? " is-invalid"
+                        : "")
+                    }
+                    id="operator"
+                    required
+                    value={values.operator}
+                    onChange={handlerChange}
+                    name="operator"
+                  >
+                    <option value="0">Select Your Operator</option>
+                    {listingData.map((x) => (
+                      <option value={x._id} key={x._id}>
+                        {x.serviceProvider}
+                      </option>
+                    ))}
+                  </select>
+                  {((submitted && values.operator === "0") ||
+                    (isChecked && values.operator === "0")) && (
+                    <div className="invalid-feedback">
+                      Please Select Operator
+                    </div>
+                  )}
+                </div>
+
+                <div className="col-lg-12">
+                  <select
+                    className={
+                      "form-control" +
+                      ((submitted && values.circle === "0") ||
+                      (isChecked && values.circle === "0")
+                        ? " is-invalid"
+                        : "")
+                    }
+                    id="circle"
+                    required
+                    value={values.circle}
+                    name="circle"
+                    onChange={handlerChange}
+                  >
+                    <option value="0" disabled>
+                      Select Your Circle
+                    </option>
+                    {stateData.map((x) => (
+                      <option value={x.key} key={x.key}>
+                        {x.name}
+                      </option>
+                    ))}
+                  </select>
+                  {((submitted && values.circle === "0") ||
+                    (isChecked && values.circle === "0")) && (
+                    <div className="invalid-feedback">Please Select Circle</div>
+                  )}
+                </div>
+
+                <div className="col-lg-12">
+                  <input
+                    className={
+                      "form-control" +
+                      (submitted && !values.amount ? " is-invalid" : "")
+                    }
                     id="amount"
                     placeholder="Enter Amount"
-                    required=""
+                    required
                     type="text"
+                    name="amount"
+                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    value={values.amount}
+                    onChange={handlerChange}
                   />
+                  {submitted && !values.amount && (
+                    <div className="invalid-feedback">Amount is required</div>
+                  )}
                 </div>
-              </div>
-              {selectValue && (
+
                 <div className="col-lg-12">
-                  <a
-                    href="#"
-                    className="ml-2 mr-2"
-                    onClick={() => setIsRofferShow(true)}
+                  {" "}
+                  <button
+                    className="btn btn-primary w-100"
+                    type="button"
+                    onClick={() => {
+                      handleContinue();
+                    }}
                   >
-                    Roffer
-                  </a>
-                  <a
-                    href="#"
-                    className="ml-2 mr-2"
-                    onClick={() => setIsPlanShow(true)}
-                  >
-                    View Plans
-                  </a>
+                    Continue
+                  </button>{" "}
                 </div>
-              )}
-              <div className="col-lg-12">
-                {" "}
-                <button
-                  className="btn btn-primary w-100"
-                  type="button"
-                  onClick={() => setIsConfirmShow(true)}
-                >
-                  Continue
-                </button>{" "}
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
+          <div className="col-lg-7 user-offer-slide">
+            <OfferSlider />
+          </div>
         </div>
-        <div className="col-lg-7">
-          <OfferSlider />
-        </div>
+        <ConfirmModal
+          isModalShow={isConfirmShow}
+          setModalClose={() => setIsConfirmShow(false)}
+          userSelectedPlan={mySelectedPlan}
+          accountNo={values.customerNo}
+          handleConfirm={handleConfirm}
+          type={"broadband"}
+        />
       </div>
-    </div>
+    </>
   );
 };
 
