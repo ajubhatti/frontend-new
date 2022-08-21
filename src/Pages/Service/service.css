@@ -102,9 +102,9 @@
 
 /* ui changes */
 
-.secondary-nav.nav.alternate {
+/* .secondary-nav.nav.alternate {
     margin-bottom: 30px;
-}
+} */
 /* .secondary-nav.nav.alternate.service-top-heading{
     display:flex;
     align-items: center;
@@ -199,14 +199,21 @@
     height: auto;
     border-radius: 5px;
     color: #fff;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 
 }
 .main-service-card .main-inner-card{
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding-bottom: 0px !important;
+}
+.main-service-card .main-inner-card li{
+    padding-bottom: 12px;
+    cursor: pointer;
 }
 .main-service-card {
     backdrop-filter: blur(20px);

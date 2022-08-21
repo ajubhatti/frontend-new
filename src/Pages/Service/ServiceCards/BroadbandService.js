@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import OfferSlider from "../../../Components/Carousel/OfferSlider";
 import ConfirmModal from "../../../Components/Modal/ConfirmModal";
-import CustomerInfoModal from "../../../Components/Modal/CustomerInfoModal";
-import DthOfferListModal from "../../../Components/Modal/DthOfferListModal";
-import { mplanDthOperatorList, stateData } from "../../../Shared/constant";
-import { simplePlanData } from "../../../Shared/MplanStaticResponse";
+import { stateData } from "../../../Shared/constant";
 
 const BroadbandService = (props) => {
   const [listingData, setListingData] = useState([]);
@@ -12,7 +10,6 @@ const BroadbandService = (props) => {
   const [isConfirmShow, setIsConfirmShow] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [selectedOperator, setSelectedOperator] = useState({});
-  const [selectedMplanOperator, setSelectedMplanOperator] = useState("");
   const [isChecked, setIsChecked] = useState(false);
 
   const [values, setValues] = useState({
@@ -24,34 +21,15 @@ const BroadbandService = (props) => {
   });
 
   useEffect(() => {
-    if (Object.keys(mySelectedPlan).length === 0) {
-      for (let i in simplePlanData?.records) {
-        let searchedPlan = simplePlanData?.records[i].find(
-          (x) => x.rs === values.amount
-        );
-
-        if (searchedPlan !== undefined) {
-          setMySelectedPlan({
-            desc: searchedPlan.desc,
-            rs: searchedPlan.rs,
-          });
-        }
-      }
-    }
-  }, [mySelectedPlan, values.amount]);
+    setMySelectedPlan({
+      rs: values.amount,
+    });
+  }, [values.amount]);
 
   useEffect(() => {
     if (listingData.length !== 0 && values.operator !== 0) {
       let operator = listingData.find((x) => x._id === values.operator);
-      console.log({ operator });
-
       setSelectedOperator(operator);
-      let mplanLOperator = mplanDthOperatorList.find(
-        (x) => x.id === operator?.serviceProvider
-      );
-      console.log({ mplanLOperator });
-
-      setSelectedMplanOperator(mplanLOperator);
     }
   }, [listingData, values.operator]);
 
@@ -65,18 +43,6 @@ const BroadbandService = (props) => {
     };
     getserviceProviderListing();
   }, [props]);
-
-  const handleSelectPlan = (data) => {
-    setIsConfirmShow(true);
-    setValues((prev) => ({
-      ...prev,
-      amount: data.rs,
-    }));
-    setMySelectedPlan({
-      desc: data.desc,
-      rs: data.rs,
-    });
-  };
 
   const handlerChange = (event) => {
     const { name, value } = event.target;
@@ -106,11 +72,17 @@ const BroadbandService = (props) => {
       optional3: "",
       optional4: "",
     };
+    console.log({ payload });
 
-    await props.ambikaRechargeApi(payload).then((res) => {
-      console.log("res.data", res.data);
-      // setListingData(res.data);
-    });
+    try {
+      await props.ambikaRechargeApi(payload).then((res) => {
+        console.log("res.data", res);
+        toast.success("Successfully charged");
+      });
+    } catch (error) {
+      console.log("res.error", error);
+      toast.error("Error: " + error);
+    }
   };
 
   const handleContinue = () => {
@@ -161,7 +133,7 @@ const BroadbandService = (props) => {
                   {((submitted && !values.customerNo) ||
                     (isChecked && !values.customerNo)) && (
                     <div className="invalid-feedback">
-                      Enter your 11-digits Smart Card Number
+                      Enter Your Customer Number
                     </div>
                   )}
                 </div>

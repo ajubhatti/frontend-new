@@ -7,7 +7,7 @@ import DthOfferListModal from "../../../Components/Modal/DthOfferListModal";
 import { mplanDthOperatorList, stateData } from "../../../Shared/constant";
 import { simplePlanData } from "../../../Shared/MplanStaticResponse";
 
-const LoanService = (props) => {
+const CableTvService = (props) => {
   const [customerInfo, setCustomerInfo] = useState({});
   const [isCustomerShow, setIsCustomerShow] = useState(false); //modal
   const [listingData, setListingData] = useState([]);
@@ -64,11 +64,9 @@ const LoanService = (props) => {
 
   useEffect(() => {
     const getserviceProviderListing = async () => {
-      await props
-        .getServiceProviderByType({ type: "Loan Repayment" })
-        .then((res) => {
-          setListingData(res.data);
-        });
+      await props.getServiceProviderByType({ type: "Cable TV" }).then((res) => {
+        setListingData(res.data);
+      });
     };
     getserviceProviderListing();
   }, [props]);
@@ -161,7 +159,7 @@ const LoanService = (props) => {
   return (
     <>
       <div className="bg-white shadow-md rounded p-4">
-        <h2 className="text-4 mb-3">Loan Payment</h2>
+        <h2 className="text-4 mb-3">Cable Tv Recharge</h2>
         <div className="row">
           <div className="col-lg-5 userPlan">
             <form
@@ -327,13 +325,13 @@ const LoanService = (props) => {
           userSelectedPlan={mySelectedPlan}
           accountNo={values.customerNo}
           handleConfirm={handleConfirm}
-          type={"dth"}
+          type={"cableTv"}
         />
         <CustomerInfoModal
           isModalShow={isCustomerShow}
           setModalClose={() => setIsCustomerShow(false)}
           customerInfo={customerInfo}
-          type={"dth"}
+          type={"cableTv"}
         />
         <DthOfferListModal
           isModalShow={isListingShow}
@@ -349,4 +347,4 @@ const LoanService = (props) => {
   );
 };
 
-export default LoanService;
+export default CableTvService;

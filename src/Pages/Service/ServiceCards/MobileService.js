@@ -307,6 +307,7 @@ import { mplanMobileOperatorList, stateData } from "../../../Shared/constant";
 import ConfirmModal from "../../../Components/Modal/ConfirmModal";
 import OfferSlider from "../../../Components/Carousel/OfferSlider";
 import { simplePlanData } from "../../../Shared/MplanStaticResponse";
+import { toast } from "react-toastify";
 
 const MobileService = (props) => {
   console.log("props", props.coords);
@@ -415,10 +416,14 @@ const MobileService = (props) => {
       optional4: "",
     };
 
-    await props.ambikaRechargeApi(payload).then((res) => {
-      console.log("res.data", res.data);
-      // setListingData(res.data);
-    });
+    try {
+      await props.ambikaRechargeApi(payload).then((res) => {
+        console.log("res.data", res.data);
+        toast.success("Successfully charged");
+      });
+    } catch (error) {
+      toast.error("Error: " + error);
+    }
   };
 
   const getPlan = async () => {
@@ -639,6 +644,8 @@ const MobileService = (props) => {
           userSelectedPlan={mySelectedPlan}
           mobileNo={mobileNumber}
           handleConfirm={handleConfirm}
+          accountNo={values.mobileNo}
+          type={"mobile"}
         />
       }
     </>

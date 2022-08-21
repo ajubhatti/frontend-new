@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import OfferSlider from "../../../Components/Carousel/OfferSlider";
 import ConfirmModal from "../../../Components/Modal/ConfirmModal";
 import CustomerInfoModal from "../../../Components/Modal/CustomerInfoModal";
@@ -89,7 +90,6 @@ const DTHService = (props) => {
       ...prevState,
       [name]: value,
     }));
-    // fetchPlan(value);
   };
 
   const handleConfirm = () => {
@@ -113,10 +113,14 @@ const DTHService = (props) => {
       optional4: "",
     };
 
-    await props.ambikaRechargeApi(payload).then((res) => {
-      console.log("res.data", res.data);
-      // setListingData(res.data);
-    });
+    try {
+      await props.ambikaRechargeApi(payload).then((res) => {
+        console.log("res.data", res.data);
+        toast.success("Successfully charged");
+      });
+    } catch (error) {
+      toast.error("Error: " + error);
+    }
   };
 
   const handleContinue = () => {

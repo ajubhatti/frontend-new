@@ -3,16 +3,7 @@ import { toast } from "react-toastify";
 import OfferSlider from "../../../Components/Carousel/OfferSlider";
 import ConfirmModal from "../../../Components/Modal/ConfirmModal";
 import CustomerInfoModal from "../../../Components/Modal/CustomerInfoModal";
-import DthOfferModal from "../../../Components/Modal/DthOfferModal";
-import {
-  mplanDthOperatorList,
-  mplanElectricityList,
-  stateData,
-} from "../../../Shared/constant";
-import {
-  rOfferData,
-  simplePlanData,
-} from "../../../Shared/MplanStaticResponse";
+import { mplanElectricityList, stateData } from "../../../Shared/constant";
 
 const ElectricityService = (props) => {
   const [fetchedPlanData, setfetchedPlanData] = useState({});

@@ -20,7 +20,8 @@ const ConfirmModal = ({
       <Modal
         show={isModalShow}
         onHide={setModalClose}
-        size="xl"
+         centered
+        size="lg"
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
@@ -34,10 +35,10 @@ const ConfirmModal = ({
                   mobile no : {accountNo}
                 </div>
                 <div className="col-12 col-sm-6 col-lg-3">
-                  {userSelectedPlan.rs}
+                  Amount :{userSelectedPlan.rs}
                 </div>
                 <div className="col-12 col-sm-6 col-lg-3">
-                  {userSelectedPlan.desc}
+                  Description : {userSelectedPlan.desc}
                 </div>
                 <div className="col-12 col-sm-6 col-lg-3 d-grid">
                   <input
@@ -62,13 +63,13 @@ const ConfirmModal = ({
             <Form>
               <Form.Group className="row g-3 mb-4" method="post">
                 <div className="col-12 col-sm-6 col-lg-3">
-                  mobile no : {accountNo}
+                  Customer No. : {accountNo}
                 </div>
                 <div className="col-12 col-sm-6 col-lg-3">
-                  {userSelectedPlan.rs}
+                  Amount : {userSelectedPlan.rs}
                 </div>
                 <div className="col-12 col-sm-6 col-lg-3">
-                  {userSelectedPlan.desc}
+                  Description : {userSelectedPlan.desc}
                 </div>
                 <div className="col-12 col-sm-6 col-lg-3 d-grid">
                   <input
@@ -89,7 +90,43 @@ const ConfirmModal = ({
           </Modal.Body>
         )}
 
-        {type === "electricity" && (
+        {(type === "electricity" ||
+          type === "broadband" ||
+          type === "gasBill" ||
+          type === "fastTag" ||
+          type === "cableTv" ||
+          type === "Water" ||
+          type === "postpaid") && (
+          <Modal.Body>
+            <Form>
+              <Form.Group className="row g-3 mb-4" method="post">
+                <div className="col-12 col-sm-6 col-lg-3">
+                  Customer No. : {accountNo}
+                </div>
+                <div className="col-12 col-sm-6 col-lg-3">
+                  Amount : {userSelectedPlan.rs}
+                </div>
+
+                <div className="col-12 col-sm-6 col-lg-3 d-grid">
+                  <input
+                    type="text"
+                    className="form-control"
+                    data-bv-field="number"
+                    id="transaction pin"
+                    required=""
+                    placeholder="Enter transaction pin"
+                    value={transactionPin}
+                    onChange={(e) => {
+                      setTransactionPin(e.target.value);
+                    }}
+                  />
+                </div>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+        )}
+
+        {type === "broadband" && (
           <Modal.Body>
             <Form>
               <Form.Group className="row g-3 mb-4" method="post">

@@ -17,6 +17,7 @@ import { serviceTabs } from "../../Shared/serviceTabs";
 import DthserviceModal from "../../Components/Modal/DthserviceModal";
 import "./service.css";
 import { useGeolocated } from "react-geolocated";
+import CableTvService from "./ServiceCards/CableTvService";
 
 const Service = (props) => {
   const [listingData, setListingData] = useState([]);
@@ -61,21 +62,23 @@ const Service = (props) => {
       case 4:
         return <BroadbandService {...props} />;
       case 5:
-        return <PostpaidService {...props} />;
+        return <GasService {...props} />;
       case 6:
         return <FastagService {...props} />;
       case 7:
-        return <GasService {...props} />;
+        return <CableTvService {...props} />;
       case 8:
-        return <GooglePayService {...props} />;
-      case 9:
         return <InsuranceService {...props} />;
-      case 10:
-        return <LandlineService {...props} />;
-      case 11:
-        return <LoanService {...props} />;
-      case 12:
+      case 9:
         return <WaterService {...props} />;
+      case 10:
+        return <LoanService {...props} />;
+      case 11:
+        return <PostpaidService {...props} />;
+      case 12:
+        return <LandlineService {...props} />;
+      case 13:
+        return <GooglePayService {...props} />;
       default:
         return <></>;
     }

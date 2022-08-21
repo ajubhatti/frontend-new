@@ -64,7 +64,7 @@ const PostpaidService = (props) => {
 
   useEffect(() => {
     const getserviceProviderListing = async () => {
-      await props.getServiceProviderByType({ type: "DTH" }).then((res) => {
+      await props.getServiceProviderByType({ type: "Postpaid" }).then((res) => {
         setListingData(res.data);
       });
     };
@@ -156,7 +156,7 @@ const PostpaidService = (props) => {
   return (
     <>
       <div className="bg-white shadow-md rounded p-4">
-        <h2 className="text-4 mb-3">Postpain Recharge</h2>
+        <h2 className="text-4 mb-3">Post paid Bill</h2>
         <div className="row">
           <div className="col-lg-5 userPlan">
             <form
@@ -272,7 +272,7 @@ const PostpaidService = (props) => {
                     <div className="invalid-feedback">Amount is required</div>
                   )}
                 </div>
-                {values.operator !== "" && (
+                {/* {values.operator !== "" && (
                   <div className="col-lg-12">
                     <button
                       type="button"
@@ -296,7 +296,7 @@ const PostpaidService = (props) => {
                       Customer Info
                     </button>
                   </div>
-                )}
+                )} */}
                 <div className="col-lg-12">
                   {" "}
                   <button
@@ -322,13 +322,13 @@ const PostpaidService = (props) => {
           userSelectedPlan={mySelectedPlan}
           accountNo={values.customerNo}
           handleConfirm={handleConfirm}
-          type={"dth"}
+          type={"postpaid"}
         />
         <CustomerInfoModal
           isModalShow={isCustomerShow}
           setModalClose={() => setIsCustomerShow(false)}
           customerInfo={customerInfo}
-          type={"dth"}
+          type={"postpaid"}
         />
         <DthOfferListModal
           isModalShow={isListingShow}

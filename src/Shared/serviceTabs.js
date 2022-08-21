@@ -1,3 +1,4 @@
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import {
   faCreditCard,
   faTv,
@@ -9,6 +10,12 @@ import {
   faSubway,
   faFlask,
   faTint,
+  faGasPump,
+  faWater,
+  faShieldAlt,
+  faMoneyBill,
+  faTag,
+  faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
 
 export const serviceTabs = [
@@ -30,7 +37,6 @@ export const serviceTabs = [
     icon: faLightbulb,
     code: "ELECTRICITY",
   },
-
   {
     id: 4,
     title: "Broadband",
@@ -39,67 +45,69 @@ export const serviceTabs = [
   },
   {
     id: 5,
-    title: "Landline",
+    title: "Gas Bill",
+    icon: faGasPump,
+    code: "GAS",
+  },
+  {
+    id: 6,
+    title: "Fastag",
+    code: "FASTAG",
+    icon: faReceipt,
+  },
+  {
+    id: 7,
+    title: "CableTv",
+    icon: faPlug,
+    code: "CABLETV",
+  },
+  {
+    id: 8,
+    title: "Insurance",
+    code: "INSURANCE",
+    icon: faShieldAlt,
+  },
+  {
+    id: 9,
+    title: "Water Bill",
+    code: "WATER",
+    icon: faWater,
+  },
+  {
+    id: 10,
+    title: "Loan Payment",
+    code: "LOAN",
+    icon: faMoneyBill,
+  },
+  {
+    id: 11,
+    title: "Post paid",
     icon: faPhone,
     code: "POSTPAID",
   },
   {
-    id: 6,
-    title: "CableTv",
-    icon: faPlug,
-  },
-  {
-    id: 7,
-    title: "DataCard",
-    icon: faCreditCard,
-  },
-  {
-    id: 8,
-    title: "Metro",
-    icon: faSubway,
-  },
-  {
-    id: 9,
-    name: "Fastag",
-    code: "FASTAG",
-    icon: "",
-  },
-  {
-    id: 10,
-    name: "Gas Bill",
-    code: "GAS",
-    icon: "",
-  },
-  {
-    id: 11,
-    name: "Google Play",
-    code: "GOOGLE",
-    icon: "",
-  },
-  {
     id: 12,
-    name: "Insurance",
-    code: "INSURANCE",
-    icon: "",
+    title: "Landline",
+    icon: faPhone,
+    code: "LANDLINE",
   },
   {
     id: 13,
-    name: "Landline Bill",
-    code: "LANDLINE",
-    icon: "",
+    title: "Google service",
+    icon: faGoogle,
+    code: "GOOLE",
   },
-  {
-    id: 14,
-    name: "Lone Payment",
-    code: "LOAN",
-    icon: "",
-  },
-  {
-    id: 15,
-    name: "Water Bill",
-    code: "WATER",
-    icon: "",
-  },
+  // {
+  //   id: 9,
+  //   title: "Metro",
+  //   icon: faSubway,
+  // },
+  //   {
+  //     id: 11,
+  //     name: "Google Play",
+  //     code: "GOOGLE",
+  //     icon: "",
+  //   },
 ];
 
 export const servicesTabsdata = [
