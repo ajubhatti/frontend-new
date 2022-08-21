@@ -112,10 +112,31 @@ const FastagService = (props) => {
       optional4: "",
     };
 
+    console.log({ payload });
+
+    // var promise = new Promise((resolve, reject) => {
+    //   let name = "Paul";
+    //   let result = props.ambikaRechargeApi(payload);
+
+    //   console.log("result", result);
+    //   if (name === "Paul") {
+    //     resolve("Promise resolved successfully");
+    //   } else {
+    //     reject(Error("Promise rejected"));
+    //   }
+    // });
+
     try {
-      await props.ambikaRechargeApi(payload).then((res) => {
-        console.log("res.data", res.data);
-        toast.success("Successfully charged");
+      new Promise((resolve, reject) => {
+        props.ambikaRechargeApi(payload).then((res) => {
+          if (res) {
+            resolve(res);
+          } else {
+            reject(res);
+          }
+          console.log("res.data", res.data);
+          toast.success("Successfully charged");
+        });
       });
     } catch (error) {
       toast.error("Error: " + error);
@@ -275,7 +296,7 @@ const FastagService = (props) => {
                     <div className="invalid-feedback">Amount is required</div>
                   )}
                 </div>
-                {values.operator !== "" && (
+                {/* {values.operator !== "" && (
                   <div className="col-lg-12">
                     <button
                       type="button"
@@ -299,7 +320,7 @@ const FastagService = (props) => {
                       Customer Info
                     </button>
                   </div>
-                )}
+                )} */}
                 <div className="col-lg-12">
                   {" "}
                   <button

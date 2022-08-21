@@ -277,7 +277,7 @@ const InsuranceService = (props) => {
                     <div className="invalid-feedback">Amount is required</div>
                   )}
                 </div>
-                {values.operator !== "" && (
+                {/* {values.operator !== "" && (
                   <div className="col-lg-12">
                     <button
                       type="button"
@@ -301,7 +301,7 @@ const InsuranceService = (props) => {
                       Customer Info
                     </button>
                   </div>
-                )}
+                )} */}
                 <div className="col-lg-12">
                   {" "}
                   <button
