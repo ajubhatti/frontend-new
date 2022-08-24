@@ -14,6 +14,7 @@ const routes = {
   aboutUs: "/about-us",
   refer: "/refer",
   service: "/service",
+  service2: "/service2",
   support: "/support",
   profileDashboard: "/dashboard",
   profileTransaction: "/transaction",

@@ -15,6 +15,7 @@ import ResetPasswordContainer from "../Containers/ResetPassword";
 import verifyEmailContainer from "../Containers/verifyEmail";
 import ReferContainer from "../Containers/Refer";
 import ServiceContainer from "../Containers/Service";
+import Service2Container from "../Containers/Service2";
 import SupportContainer from "../Containers/Support";
 import WalletContainer from "../Containers/Wallet";
 import ContactContainer from "../Containers/ContactUs";
@@ -158,6 +159,12 @@ const Full = (props) => {
           path={routes.service}
           name="service"
           element={<ServiceContainer />}
+        />
+        <Route
+          exact
+          path={routes.service2}
+          name="service"
+          element={<Service2Container />}
         />
         <Route
           exact
