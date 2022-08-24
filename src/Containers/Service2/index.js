@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import Service from "../../Pages/Service";
 import AllSerices from "../../Pages/Service/AllSerices";
 import {
   serviceListing,
