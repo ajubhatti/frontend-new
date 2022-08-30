@@ -77,10 +77,8 @@ const GasService = (props) => {
         regMobileNumber: values.customerNo,
         longitude: props?.coords?.longitude
           ? props?.coords?.longitude
-          : 72.8399872,
-        latitude: props?.coords?.latitude
-          ? props?.coords?.latitude
-          : 21.1910656,
+          : "72.8399",
+        latitude: props?.coords?.latitude ? props?.coords?.latitude : "21.1910",
       };
       console.log("payload", payload);
       await props

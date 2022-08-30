@@ -136,6 +136,7 @@
     list-style: none;
 } */
 
+
 .secondary-nav.nav.alternate .nav-item .nav-link.active {
     background-color: transparent;
     color: #0d6efd !important;
@@ -186,6 +187,48 @@
 }
 
 /* ui-changes */
+
+/* custom-tab */
+.custom-serviceTabs ul li .nav-link{
+    display:flex;
+    align-items: baseline;
+    background-color: transparent !important;
+    color: #999 !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0px !important;
+    border-radius: 5px 0px 0px 5px !important;
+}
+.custom-serviceTabs ul li .nav-link .service-icons{
+    margin-right: 15px;
+    margin-bottom: 0px;
+    font-size: unset;
+}
+.custom-serviceTabs ul li.nav-item{
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.custom-serviceTabs ul li .nav-link .service-icons svg{
+    width: 25px;
+    height: 25px;
+}
+.custom-serviceTabs .secondary-nav.nav.alternate li .tab-nav-link.active{
+    background-color: #0d6efd !important;
+    color: #fff !important;
+}
+
+.custom-serviceTabs .inner-sidebar-tabs{
+    display: block;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow: auto;
+    white-space: nowrap;
+    height: auto;
+    min-height: 530px;
+    max-height: 530px;
+
+}
 
 .secondary-nav.nav.alternate .nav-item .nav-link.active {
     background-color: transparent;

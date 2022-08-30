@@ -107,40 +107,49 @@ const AllSerices = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="main-service-card border  rounded">
-                {/* <!-- menu Navigation start -->  */}
-                <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
-                  {serviceTabs.map((item, id) => (
-                    <li
-                      key={item.id}
-                      className="nav-item"
-                      onClick={() =>
-                        setSelectedServiceTab({
-                          id: item.id,
-                          title: item.title,
-                        })
-                      }
-                    >
-                      <div
-                        className={
-                          selectedServiceTab.id === item.id
-                            ? "nav-link active"
-                            : "nav-link"
-                        }
-                      >
-                        <span className="service-icons">
-                          <FontAwesomeIcon icon={item.icon} />
-                        </span>
-                        <h5 className="service-iconsTitle mb-0">
-                          {item.title}
-                        </h5>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                {/* <!-- menu Navigation end -->  */}
-                {serviceRanders(selectedServiceTab.id)}
+              {/* <div className="main-service-card border  rounded"> */}
+              {/* <!-- menu Navigation start -->  */}
+              <div className="row g-0">
+                <div className="col-md-3 p-0">
+                  <div className="custom-serviceTabs">
+                    <ul className="nav secondary-nav alternate p-0 main-inner-card inner-sidebar-tabs">
+                      {serviceTabs.map((item, id) => (
+                        <li
+                          key={item.id}
+                          className="nav-item"
+                          onClick={() =>
+                            setSelectedServiceTab({
+                              id: item.id,
+                              title: item.title,
+                            })
+                          }
+                        >
+                          <div
+                            className={
+                              selectedServiceTab.id === item.id
+                                ? "nav-link tab-nav-link active"
+                                : "nav-link tab-nav-link"
+                            }
+                          >
+                            <span className="service-icons">
+                              <FontAwesomeIcon icon={item.icon} />
+                            </span>
+                            <h5 className="service-iconsTitle mb-0">
+                              {item.title}
+                            </h5>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                </div>
+                <div className="col-md-9 p-0">
+                  {serviceRanders(selectedServiceTab.id)}
+                </div>
               </div>
+              {/* <!-- menu Navigation end -->  */}
+              {/* </div> */}
             </div>
           </div>
         </div>
