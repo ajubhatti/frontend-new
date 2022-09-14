@@ -10,8 +10,10 @@ import {
   faSubway,
   faFlask,
   faTint,
+  faEnvelopesBulk,
   faGasPump,
   faWater,
+  
   faShieldAlt,
   faMoneyBill,
   faTag,
@@ -82,7 +84,7 @@ export const serviceTabs = [
   {
     id: 11,
     title: "Post paid",
-    icon: faPhone,
+    icon: faEnvelopesBulk,
     code: "POSTPAID",
   },
   {
