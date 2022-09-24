@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const DthserviceModal = ({ isModalShow, setModalClose, listingData }) => {
+  console.log("listingData", listingData);
   return (
     <>
       <Modal
@@ -66,16 +67,16 @@ const DthserviceModal = ({ isModalShow, setModalClose, listingData }) => {
             >
               <div className="plans">
                 <div className="row align-items-center">
-                  {listingData.map((plan, id) => (
-                    <React.Fragment key={plan._id}>
+                  {listingData?.map((plan, id) => (
+                    <React.Fragment key={plan?._id}>
                       <div className="col-4 col-lg-2 text-5 text-primary text-center">
-                        {plan.SPKey}
+                        {plan?.SPKey}
                         <span className="text-1 text-muted d-block">
                           Amount
                         </span>
                       </div>
                       <div className="col-7 col-lg-7 my-2 my-lg-0 text-1 text-muted">
-                        {plan.serviceProviderByType}
+                        {plan?.serviceProviderByType}
                       </div>
                       <div className="col-5 col-lg-3 my-2 my-lg-0 text-end text-lg-center">
                         <button

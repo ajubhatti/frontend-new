@@ -1,0 +1,11 @@
+/**
+ * SH - 02-12-2021
+ */
+/** DASHBOARD list */
+export const SET_LOADING = "SET_LOADING";
+
+/** get page data */
+export const FETCH_ALL_SERVICE = "FETCH_ALL_SERVICE";
+export const FETCH_ALL_SERVICE_SUCCESS = "FETCH_ALL_SERVICE_SUCCESS";
+export const FETCH_ALL_SERVICE_ERROR = "FETCH_ALL_SERVICE_ERROR";
+

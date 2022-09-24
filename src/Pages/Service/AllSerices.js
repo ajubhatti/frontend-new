@@ -37,13 +37,13 @@ const AllSerices = (props) => {
   useEffect(() => {
     const getServiceListing = async () => {
       await props.serviceListing().then((res) => {
-        setListingData(res.data);
+        setListingData(res?.data?.data);
       });
     };
 
     const getServiceAmbicaListing = async () => {
       await props.getServiceAmbicaAll().then((res) => {
-        setListingData(res.data);
+        setListingData(res?.data?.data);
       });
     };
 
@@ -142,7 +142,6 @@ const AllSerices = (props) => {
                       ))}
                     </ul>
                   </div>
-
                 </div>
                 <div className="col-md-9 p-0">
                   {serviceRanders(selectedServiceTab.id)}

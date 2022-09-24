@@ -5,13 +5,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import Store from "./Redux/Store";
+import store from "./Redux/store";
 // import "font-awesome/css/font-awesome.min.css";
 import "./Helper/fontAwesome";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={Store}>
+  <Provider store={store}>
     <App />
   </Provider>
 );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import knowledgebaseCommunityImg from "../../Assets/knowledgebase-community.svg";
 import BroadbandService from "./ServiceCards/BroadbandService";
 import DTHService from "./ServiceCards/DTHService";
@@ -18,14 +18,20 @@ import DthserviceModal from "../../Components/Modal/DthserviceModal";
 import "./service.css";
 import { useGeolocated } from "react-geolocated";
 import CableTvService from "./ServiceCards/CableTvService";
+import { getAllServices } from "./store/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Service = (props) => {
+  const dispatch = useDispatch();
+  const { allServices } = useSelector((state) => state.service);
   const [listingData, setListingData] = useState([]);
   const [serviceProviderModal, setServiceProviderModal] = useState(false);
   const [selectedServiceTab, setSelectedServiceTab] = useState({
     id: 1,
     title: "",
   });
+
+  const [serviceList, setServiceList] = useState([]);
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
       positionOptions: {
@@ -35,15 +41,24 @@ const Service = (props) => {
     });
 
   useEffect(() => {
+    dispatch(getAllServices());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("allServices :>> ", allServices);
+    setServiceList(allServices);
+  }, [allServices]);
+
+  useEffect(() => {
     const getServiceListing = async () => {
       await props.serviceListing().then((res) => {
-        setListingData(res.data);
+        setListingData(res?.data?.data);
       });
     };
 
     const getServiceAmbicaListing = async () => {
       await props.getServiceAmbicaAll().then((res) => {
-        setListingData(res.data);
+        setListingData(res?.data?.data);
       });
     };
 
@@ -110,14 +125,14 @@ const Service = (props) => {
               <div className="main-service-card border  rounded">
                 {/* <!-- menu Navigation start -->  */}
                 <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
-                  {serviceTabs.map((item, id) => (
+                  {serviceList.map((item, id) => (
                     <li
                       key={item.id}
                       className="nav-item"
                       onClick={() =>
                         setSelectedServiceTab({
-                          id: item.id,
-                          title: item.title,
+                          id: item._id,
+                          title: item.serviceName,
                         })
                       }
                     >
@@ -132,14 +147,14 @@ const Service = (props) => {
                           <FontAwesomeIcon icon={item.icon} />
                         </span>
                         <h5 className="service-iconsTitle mb-0">
-                          {item.title}
+                          {item.serviceName}
                         </h5>
                       </div>
                     </li>
                   ))}
                 </ul>
                 {/* <!-- menu Navigation end -->  */}
-                {serviceRanders(selectedServiceTab.id)}
+                {serviceRanders(selectedServiceTab._id)}
               </div>
             </div>
           </div>
