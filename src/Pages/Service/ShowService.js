@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
-import MobileOfferModal from "../../../Components/Modal/MobileOfferModal";
-import { mplanMobileOperatorList, stateData } from "../../../Shared/constant";
-import ConfirmModal from "../../../Components/Modal/ConfirmModal";
-import OfferSlider from "../../../Components/Carousel/OfferSlider";
-import { simplePlanData } from "../../../Shared/MplanStaticResponse";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import OfferSlider from "../../Components/Carousel/OfferSlider";
+import ConfirmModal from "../../Components/Modal/ConfirmModal";
+import MobileOfferModal from "../../Components/Modal/MobileOfferModal";
+import { mplanMobileOperatorList } from "../../Shared/constant";
+import { simplePlanData } from "../../Shared/MplanStaticResponse";
+import { doMyRecharge } from "./store/actions";
 
-const MobileService = (props) => {
-  console.log("props", props.coords);
+const ShowService = (props) => {
+  const dispatch = useDispatch();
+  const { allOperators } = useSelector((state) => state.service);
+  const { stateList } = useSelector((state) => state.auth);
   const [isPlanShow, setIsPlanShow] = useState(false);
   const [listingData, setListingData] = useState([]);
-  const [selectCircleValue, setSelectCircleValue] = useState("");
   const [mySelectedPlan, setMySelectedPlan] = useState({});
   const [isConfirmShow, setIsConfirmShow] = useState(false);
-  const [mobileNumber, setMobileNumber] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [selectedOperator, setSelectedOperator] = useState({});
   const [planType, setPlanType] = useState("");
@@ -24,7 +26,7 @@ const MobileService = (props) => {
     operator: "0",
     mobileNo: "",
     amount: "",
-    circle: "0",
+    state: "0",
     rechargeData: {},
   });
 
@@ -61,16 +63,6 @@ const MobileService = (props) => {
     }
   }, [listingData, values.operator]);
 
-  useEffect(() => {
-    const getserviceProviderListing = async () => {
-      await props.getServiceProviderByType({ type: "Prepaid" }).then((res) => {
-        console.log("res.data", res.data);
-        setListingData(res.data);
-      });
-    };
-    getserviceProviderListing();
-  }, [props]);
-
   const handleSelectPlan = (data) => {
     setIsConfirmShow(true);
     setValues((prev) => ({
@@ -85,6 +77,7 @@ const MobileService = (props) => {
 
   const handlerChange = (event) => {
     const { name, value } = event.target;
+    console.log("name,value", name, value);
     setValues((prevState) => ({
       ...prevState,
       [name]: value,
@@ -95,6 +88,12 @@ const MobileService = (props) => {
   const handleConfirm = () => {
     setIsConfirmShow(false);
     doRecharge();
+    handleRecharge();
+  };
+
+  const handleRecharge = () => {
+    console.log("payload :>> ", values);
+    dispatch(doMyRecharge(values));
   };
 
   const doRecharge = async () => {
@@ -129,6 +128,7 @@ const MobileService = (props) => {
       phone: "9033501636",
       operator: "Jio",
     };
+    console.log("payload", payload);
     await props.getPlanDetails(payload).then((res) => {
       console.log("res.data", res.data);
     });
@@ -140,7 +140,7 @@ const MobileService = (props) => {
       values.operator !== "0" &&
       values.mobileNo !== "" &&
       values.amount !== "" &&
-      values.circle !== "0"
+      values.state !== "0"
     ) {
       setIsConfirmShow(true);
     } else {
@@ -166,10 +166,23 @@ const MobileService = (props) => {
     }
   };
 
+  // new code starts here
+
+  useEffect(() => {
+    if (Object.keys(allOperators).length > 0) {
+      let filteredOperator = allOperators?.data?.filter(
+        (x) => x.providerType === props?.selectedService?._id
+      );
+      setListingData(filteredOperator);
+    }
+  }, [allOperators, props]);
+
+  // new code ends here
+
   return (
     <>
       <div className="bg-white shadow-md rounded p-4">
-        <h2 className="text-4 mb-3">Mobile Recharge</h2>
+        <h2 className="text-4 mb-3">{props?.selectedService?.title}</h2>
         <div className="row">
           <div className="col-lg-5 userPlan">
             <form
@@ -204,6 +217,7 @@ const MobileService = (props) => {
                       </div>
                     ))}
                 </div>
+
                 <div className="col-lg-12">
                   <select
                     className={
@@ -222,7 +236,7 @@ const MobileService = (props) => {
                     <option value="0">Select Your Operator</option>
                     {listingData.map((x) => (
                       <option value={x._id} key={x._id}>
-                        {x.serviceProvider}
+                        {x.companyName}
                       </option>
                     ))}
                   </select>
@@ -238,28 +252,28 @@ const MobileService = (props) => {
                   <select
                     className={
                       "form-control" +
-                      ((submitted && !values.circle) ||
-                      (isChecked && values.circle === "0")
+                      ((submitted && !values.state) ||
+                      (isChecked && values.state === "0")
                         ? " is-invalid"
                         : "")
                     }
-                    id="circle"
+                    id="state"
                     required
-                    value={values.circle}
-                    name="circle"
+                    value={values.state}
+                    name="state"
                     onChange={handlerChange}
                   >
                     <option value="0" disabled>
                       Select Your Circle
                     </option>
-                    {stateData.map((x) => (
-                      <option value={x.key} key={x.key}>
-                        {x.name}
+                    {stateList.map((x) => (
+                      <option value={x._id} key={x._id}>
+                        {x.stateName}
                       </option>
                     ))}
                   </select>
-                  {(submitted && !values.circle) ||
-                    (isChecked && values.circle === "0" && (
+                  {(submitted && !values.state) ||
+                    (isChecked && values.state === "0" && (
                       <div className="invalid-feedback">Circle is required</div>
                     ))}
                 </div>
@@ -331,7 +345,7 @@ const MobileService = (props) => {
           setModalClose={() => setIsPlanShow(false)}
           isShowHeader={false}
           selectedPlan={handleSelectPlan}
-          selectCircle={selectCircleValue}
+          selectCircle={values.state}
         />
       )}
       {
@@ -339,7 +353,6 @@ const MobileService = (props) => {
           isModalShow={isConfirmShow}
           setModalClose={() => setIsConfirmShow(false)}
           userSelectedPlan={mySelectedPlan}
-          mobileNo={mobileNumber}
           handleConfirm={handleConfirm}
           accountNo={values.mobileNo}
           type={"mobile"}
@@ -349,4 +362,4 @@ const MobileService = (props) => {
   );
 };
 
-export default MobileService;
+export default ShowService;

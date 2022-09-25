@@ -1,3 +1,5 @@
+import axios from "axios";
+import { auth } from "../../apiList";
 import {
   LOGOUT,
   SET_AUTH_DATA,
@@ -6,7 +8,10 @@ import {
   SET_TOKEN_ERROR,
   SET_PROFILE,
   SET_IS_AUTH,
+  SET_STATE_DATA,
 } from "./actionTypes";
+import { stateListing } from "./auth";
+const API_URL = process.env.REACT_APP_FETCH_URL;
 // import { ACCESS_TOKEN_URL, GET_PROFILE_INFO } from "constants/urls";
 // import { axiosAccount } from "services/api";
 
@@ -53,6 +58,20 @@ import {
 //   };
 // };
 
+export const getStateList = () => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const res = await axios.get(API_URL + auth.state.url);
+    if (res) {
+      console.log("res.data.data :>> ", res?.data?.data);
+      dispatch(setStateList(res?.data?.data));
+    }
+  } catch (err) {
+    dispatch(setLoading(false));
+    dispatch(setError(err));
+  }
+};
+
 export const setAuthData = (data) => ({
   type: SET_AUTH_DATA,
   payload: data,
@@ -79,5 +98,10 @@ export const setError = (message) => ({
 
 export const setIsAuth = (data) => ({
   type: SET_IS_AUTH,
+  payload: data,
+});
+
+export const setStateList = (data) => ({
+  type: SET_STATE_DATA,
   payload: data,
 });

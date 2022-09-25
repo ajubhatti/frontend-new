@@ -1,8 +1,13 @@
-import { FETCH_ALL_SERVICE, SET_LOADING } from "./actionTypes";
+import {
+  FETCH_ALL_OPERATOR,
+  FETCH_ALL_SERVICE,
+  SET_LOADING,
+} from "./actionTypes";
 
 const initialState = {
   loading: false,
   allServices: [],
+  allOperators: {},
 };
 
 const serviceReducer = (state = initialState, action) => {
@@ -19,6 +24,12 @@ const serviceReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: payload,
+      };
+
+    case FETCH_ALL_OPERATOR:
+      return {
+        ...state,
+        allOperators: payload,
       };
 
     default:

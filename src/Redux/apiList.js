@@ -35,3 +35,11 @@ export const service = {
   ambikaRecharge: { method: "post", url: "/ambikaSlab/ambikaRecharge" },
   getMplan: { method: "post", url: "/mlan/getMplan" },
 };
+
+export const company = {
+  company: { method: "get", url: "/company" },
+};
+
+export const recharge = {
+  rechargeOrBill: { method: "post", url: "/rechargeOrBill" },
+};

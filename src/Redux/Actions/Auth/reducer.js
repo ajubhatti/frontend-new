@@ -6,6 +6,7 @@ import {
   SET_LOADING,
   SET_TOKEN,
   SET_IS_AUTH,
+  SET_STATE_DATA,
 } from "./actionTypes";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   error: "",
   loading: false,
   isAuth: false,
+  stateList: [],
 };
 
 const authReducer = produce((state = initialState, action) => {
@@ -41,7 +43,9 @@ const authReducer = produce((state = initialState, action) => {
     case SET_IS_AUTH:
       state.isAuth = payload;
       break;
-
+    case SET_STATE_DATA:
+      state.stateList = payload;
+      break;
     default:
       return state;
   }

@@ -11,3 +11,5 @@ export const SET_TOKEN_ERROR = "SET_TOKEN_ERROR";
 export const SET_PROFILE = "SET_PROFILE";
 
 export const SET_IS_AUTH = "SET_IS_AUTH";
+
+export const SET_STATE_DATA = "SET_STATE_DATA";

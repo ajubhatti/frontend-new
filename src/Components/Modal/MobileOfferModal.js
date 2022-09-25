@@ -10,7 +10,6 @@ const MobileOfferModal = ({
   planData,
   isModalShow,
   setModalClose,
-  modalType,
   isShowHeader,
   planType,
   selectCircle,

@@ -20,7 +20,6 @@ import CableTvService from "./ServiceCards/CableTvService";
 import { getAllOperators, getAllServices } from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import ShowService from "./ShowService";
-import { getStateList } from "../../Redux/Actions/Auth/actions";
 
 const Service = (props) => {
   const dispatch = useDispatch();
@@ -105,7 +104,6 @@ const Service = (props) => {
 
   useEffect(() => {
     dispatch(getAllOperators());
-    dispatch(getStateList());
   }, [dispatch]);
 
   return (
@@ -164,6 +162,7 @@ const Service = (props) => {
                   ))}
                 </ul>
                 {/* <!-- menu Navigation end -->  */}
+                {/* {serviceRanders(selectedServiceTab._id)} */}
                 <ShowService selectedService={selectedService} />
               </div>
             </div>
