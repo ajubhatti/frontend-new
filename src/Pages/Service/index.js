@@ -134,9 +134,9 @@ const Service = (props) => {
               <div className="main-service-card border  rounded">
                 {/* <!-- menu Navigation start -->  */}
                 <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
-                  {serviceList.map((item, id) => (
+                  {serviceList.map((item) => (
                     <li
-                      key={item.id}
+                      key={item._id}
                       className="nav-item"
                       onClick={() => {
                         setSelectedService(item);
@@ -154,7 +154,7 @@ const Service = (props) => {
                         }
                       >
                         <span className="service-icons">
-                          <FontAwesomeIcon icon={item.icon} />
+                          {/* <FontAwesomeIcon icon={item?.serviceImage} /> */}
                         </span>
                         <h5 className="service-iconsTitle mb-0">
                           {item.serviceName}

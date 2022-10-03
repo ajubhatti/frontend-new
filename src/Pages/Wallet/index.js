@@ -3,6 +3,7 @@ import Table from "../../Components/Tables/Table";
 import { getUser } from "../../Helper/LocalStorage";
 import FormModal from "../Profile/Deposits/FormModal";
 import * as moment from "moment";
+import routes from "../../Helper/routes";
 
 const headerName = [
   {
@@ -58,10 +59,16 @@ const Wallet = (props) => {
 
   useEffect(() => {
     const userDetails = getUser();
+
     const getWalletTransaction = async () => {
-      await props.walletListing({ userId: userDetails.id }).then((res) => {
-        setData(res.data);
-      });
+      if (userDetails) {
+        console.log("userDetails", userDetails);
+        await props.walletListing({ userId: userDetails?.id }).then((res) => {
+          setData(res.data);
+        });
+      } else {
+        props?.history?.push(routes?.login);
+      }
     };
 
     getWalletTransaction();

@@ -26,6 +26,7 @@ const LoginForm = (props) => {
     if (values.mobileNo !== "" && values.password !== "") {
       try {
         await props.login(values).then((res) => {
+          console.log("res--------", res);
           if (res.data) {
             props.history.push(routes.home);
           } else {

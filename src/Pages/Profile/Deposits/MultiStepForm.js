@@ -23,7 +23,7 @@ const MultiStepForm = (props) => {
     const getUserData = getUser();
     setValues((prevState) => ({
       ...prevState,
-      userId: getUserData.id,
+      userId: getUserData?.id,
     }));
 
     const getAdminBankingList = async () => {
@@ -111,33 +111,33 @@ const MultiStepForm = (props) => {
       </header>
       <div className="card-body bg-white">
         <nav className="js-step-progress nav nav-icon nav-justified text-center py-4">
-          <a
-            href="javascript:;"
+          <div
+            // href="javascript:void(0)"
             className={`nav-item ${step === 1 ? "active" : ""}`}
           >
             <span className="nav-icon-action d-flex justify-content-center align-items-center">
               <Bank />
             </span>
             <span className="d-none d-sm-block">Select payer</span>
-          </a>
-          <a
-            href="javascript:;"
+          </div>
+          <div
+            // href="javascript:void(0)"
             className={`nav-item ${step === 2 ? "active" : ""}`}
           >
             <span className="nav-icon-action d-flex justify-content-center align-items-center">
               <Wallet />
             </span>
             <span className="d-none d-sm-block">Payment Details</span>
-          </a>
-          <a
-            href="javascript:;"
+          </div>
+          <div
+            // href="javascript:void(0)"
             className={`nav-item ${step === 3 ? "active" : ""}`}
           >
             <span className="nav-icon-action d-flex justify-content-center align-items-center">
               <CheckCircle />
             </span>
             <span className="d-none d-sm-block">Confirmation</span>
-          </a>
+          </div>
         </nav>
         <div className="py-4">{stepRanders()}</div>
       </div>

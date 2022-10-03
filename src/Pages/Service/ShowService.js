@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import OfferSlider from "../../Components/Carousel/OfferSlider";
-import ConfirmModal from "../../Components/Modal/ConfirmModal";
-import MobileOfferModal from "../../Components/Modal/MobileOfferModal";
+import { getToken } from "../../Helper/LocalStorage";
 import { mplanMobileOperatorList } from "../../Shared/constant";
 import { simplePlanData } from "../../Shared/MplanStaticResponse";
 import { doMyRecharge } from "./store/actions";
+import OfferSlider from "../../Components/Carousel/OfferSlider";
+import ConfirmModal from "../../Components/Modal/ConfirmModal";
+import MobileOfferModal from "../../Components/Modal/MobileOfferModal";
 
 const ShowService = (props) => {
   const dispatch = useDispatch();
+  const isUser = getToken();
+  const navigate = useNavigate();
   const { allOperators } = useSelector((state) => state.service);
   const { stateList } = useSelector((state) => state.auth);
   const [isPlanShow, setIsPlanShow] = useState(false);
@@ -27,7 +31,6 @@ const ShowService = (props) => {
     mobileNo: "",
     amount: "",
     state: "0",
-    rechargeData: {},
   });
 
   useEffect(() => {
@@ -35,7 +38,7 @@ const ShowService = (props) => {
     if (Object.keys(mySelectedPlan).length === 0) {
       for (let i in simplePlanData?.records) {
         let searchedPlan = simplePlanData?.records[i].find(
-          (x) => x.rs === values.amount
+          (x) => x.rs === values?.amount
         );
 
         if (searchedPlan !== undefined) {
@@ -46,11 +49,11 @@ const ShowService = (props) => {
         }
       }
     }
-  }, [mySelectedPlan, values.amount]);
+  }, [mySelectedPlan, values?.amount]);
 
   useEffect(() => {
-    if (listingData.length !== 0 && values.operator !== 0) {
-      let operator = listingData.find((x) => x._id === values.operator);
+    if (listingData.length !== 0 && values?.operator !== 0) {
+      let operator = listingData.find((x) => x._id === values?.operator);
       console.log({ operator });
 
       setSelectedOperator(operator);
@@ -61,7 +64,7 @@ const ShowService = (props) => {
 
       setSelectedMplanOperator(mplanLOperator);
     }
-  }, [listingData, values.operator]);
+  }, [listingData, values?.operator]);
 
   const handleSelectPlan = (data) => {
     setIsConfirmShow(true);
@@ -87,39 +90,12 @@ const ShowService = (props) => {
 
   const handleConfirm = () => {
     setIsConfirmShow(false);
-    doRecharge();
     handleRecharge();
   };
 
   const handleRecharge = () => {
     console.log("payload :>> ", values);
     dispatch(doMyRecharge(values));
-  };
-
-  const doRecharge = async () => {
-    let payload = {
-      amount: values.amount,
-      operatorCode: selectedOperator.SPKey,
-      areaPincode: 395002,
-      regMobileNumber: values.mobileNo,
-      longitude: props?.coords?.longitude
-        ? props?.coords?.longitude
-        : 72.8399872,
-      latitude: props?.coords?.latitude ? props?.coords?.latitude : 21.1910656,
-      optional1: "",
-      optional2: "",
-      optional3: "",
-      optional4: "",
-    };
-
-    try {
-      await props.ambikaRechargeApi(payload).then((res) => {
-        console.log("res.data", res.data);
-        toast.success("Successfully charged");
-      });
-    } catch (error) {
-      toast.error("Error: " + error);
-    }
   };
 
   const getPlan = async () => {
@@ -137,12 +113,12 @@ const ShowService = (props) => {
   const handleContinue = () => {
     setSubmitted(true);
     if (
-      values.operator !== "0" &&
-      values.mobileNo !== "" &&
-      values.amount !== "" &&
-      values.state !== "0"
+      values?.operator !== "0" &&
+      values?.mobileNo !== "" &&
+      values?.amount !== "" &&
+      values?.state !== "0"
     ) {
-      setIsConfirmShow(true);
+      isUser ? setIsConfirmShow(true) : navigate("/login");
     } else {
       console.log("else part");
     }
@@ -157,7 +133,7 @@ const ShowService = (props) => {
       operator: selectedMplanOperator?.operator,
     };
 
-    if (values.mobileNo && selectedMplanOperator.operator) {
+    if (values?.mobileNo && selectedMplanOperator.operator) {
       await props.getPlanDetails(payload).then((res) => {
         console.log(res.data);
         setPlanlisting(res.data);
@@ -196,8 +172,8 @@ const ShowService = (props) => {
                     type="text"
                     className={
                       "form-control" +
-                      ((submitted && !values.mobileNo) ||
-                      (isChecked && !values.mobileNo)
+                      ((submitted && !values?.mobileNo) ||
+                      (isChecked && !values?.mobileNo)
                         ? " is-invalid"
                         : "")
                     }
@@ -205,13 +181,13 @@ const ShowService = (props) => {
                     id="mobileNo"
                     required
                     placeholder="Enter Mobile Number"
-                    value={values.mobileNo}
+                    value={values?.mobileNo}
                     pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                     name="mobileNo"
                     onChange={handlerChange}
                   />
-                  {(submitted && !values.mobileNo) ||
-                    (isChecked && !values.mobileNo && (
+                  {(submitted && !values?.mobileNo) ||
+                    (isChecked && !values?.mobileNo && (
                       <div className="invalid-feedback">
                         Enter your 10-digits mobile number
                       </div>
@@ -222,26 +198,26 @@ const ShowService = (props) => {
                   <select
                     className={
                       "form-control" +
-                      ((submitted && !values.operator) ||
-                      (isChecked && values.operator === "0")
+                      ((submitted && !values?.operator) ||
+                      (isChecked && values?.operator === "0")
                         ? " is-invalid"
                         : "")
                     }
                     id="operator"
                     required
-                    value={values.operator}
+                    value={values?.operator}
                     onChange={handlerChange}
                     name="operator"
                   >
                     <option value="0">Select Your Operator</option>
                     {listingData.map((x) => (
-                      <option value={x._id} key={x._id}>
-                        {x.companyName}
+                      <option value={x?._id} key={x?._id}>
+                        {x?.companyName}
                       </option>
                     ))}
                   </select>
-                  {(submitted && !values.operator) ||
-                    (isChecked && values.operator === "0" && (
+                  {(submitted && !values?.operator) ||
+                    (isChecked && values?.operator === "0" && (
                       <div className="invalid-feedback">
                         Operator is required
                       </div>
@@ -252,14 +228,14 @@ const ShowService = (props) => {
                   <select
                     className={
                       "form-control" +
-                      ((submitted && !values.state) ||
-                      (isChecked && values.state === "0")
+                      ((submitted && !values?.state) ||
+                      (isChecked && values?.state === "0")
                         ? " is-invalid"
                         : "")
                     }
                     id="state"
                     required
-                    value={values.state}
+                    value={values?.state}
                     name="state"
                     onChange={handlerChange}
                   >
@@ -267,13 +243,13 @@ const ShowService = (props) => {
                       Select Your Circle
                     </option>
                     {stateList.map((x) => (
-                      <option value={x._id} key={x._id}>
-                        {x.stateName}
+                      <option value={x?._id} key={x?._id}>
+                        {x?.stateName}
                       </option>
                     ))}
                   </select>
-                  {(submitted && !values.state) ||
-                    (isChecked && values.state === "0" && (
+                  {(submitted && !values?.state) ||
+                    (isChecked && values?.state === "0" && (
                       <div className="invalid-feedback">Circle is required</div>
                     ))}
                 </div>
@@ -282,7 +258,7 @@ const ShowService = (props) => {
                   <input
                     className={
                       "form-control" +
-                      (submitted && !values.amount ? " is-invalid" : "")
+                      (submitted && !values?.amount ? " is-invalid" : "")
                     }
                     id="amount"
                     placeholder="Enter Amount"
@@ -290,14 +266,14 @@ const ShowService = (props) => {
                     type="text"
                     name="amount"
                     pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-                    value={values.amount}
+                    value={values?.amount}
                     onChange={handlerChange}
                   />
-                  {submitted && !values.amount && (
+                  {submitted && !values?.amount && (
                     <div className="invalid-feedback">Amount is required</div>
                   )}
                 </div>
-                {values.operator !== "" && (
+                {values?.operator !== "" && (
                   <div className="col-lg-12">
                     <button
                       type="button"
@@ -345,7 +321,7 @@ const ShowService = (props) => {
           setModalClose={() => setIsPlanShow(false)}
           isShowHeader={false}
           selectedPlan={handleSelectPlan}
-          selectCircle={values.state}
+          selectCircle={values?.state}
         />
       )}
       {
@@ -354,7 +330,7 @@ const ShowService = (props) => {
           setModalClose={() => setIsConfirmShow(false)}
           userSelectedPlan={mySelectedPlan}
           handleConfirm={handleConfirm}
-          accountNo={values.mobileNo}
+          accountNo={values?.mobileNo}
           type={"mobile"}
         />
       }
