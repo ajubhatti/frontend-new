@@ -93,7 +93,7 @@ const MultiStepForm = (props) => {
       default:
         return (
           <Confirmation
-            nextStep={submitHandler}
+            nextStep={()=>submitHandler()}
             prevStep={prevStep}
             inputValues={values}
             loading={apiCall}

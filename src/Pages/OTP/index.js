@@ -64,7 +64,7 @@ const Otp = (props) => {
           </div>
           <div
             className="btn btn-primary btn-pill transition-3d-hover px-5"
-            onClick={submitHandler}
+            onClick={(e) => submitHandler()}
           >
             Continue
           </div>

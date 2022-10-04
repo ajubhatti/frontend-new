@@ -63,7 +63,6 @@ export const getStateList = () => async (dispatch) => {
     dispatch(setLoading(true));
     const res = await axios.get(API_URL + auth.state.url);
     if (res) {
-      console.log("res.data.data :>> ", res?.data?.data);
       dispatch(setStateList(res?.data?.data));
     }
   } catch (err) {
@@ -77,8 +76,7 @@ export const getUserDetails = (data) => async (dispatch) => {
     dispatch(setLoading(true));
     const res = await axios.post(API_URL + auth.getUserById.url, data);
     if (res) {
-      console.log("user detail res.data.data :>> ", res?.data);
-      dispatch(setUserData(res?.data));
+      dispatch(setUserData(res?.data?.data));
     }
   } catch (error) {
     dispatch(setError(error));

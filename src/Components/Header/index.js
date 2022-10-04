@@ -14,13 +14,24 @@ const Header = () => {
   const Links = [
     { title: "Home", link: routes.home },
     { title: "Service", link: routes.service },
-    { title: "Service2", link: routes.service2 },
     { title: "Support", link: routes.support },
     { title: "About Us", link: routes.aboutUs },
     { title: "Contact US", link: routes.contactUs },
     { title: "Referral", link: routes.refer },
     { title: "Wallet", link: routes.wallet },
-    { title: isUser ? "My Profile" : "Login", link: routes.profileDashboard },
+    isUser
+      ? {
+          title: "My Profile",
+          link: routes.profileDashboard,
+        }
+      : {
+          title: "Login",
+          link: routes.login,
+        },
+    // {
+    //   title: isUser ? "My Profile" : "Login",
+    //   link: isUser ? routes.profileDashboard : routes.login,
+    // },
   ];
   return (
     <header className="u-header">

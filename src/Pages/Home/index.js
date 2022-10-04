@@ -13,62 +13,12 @@ import appDevelopment from "../../Assets/appDevelopment.svg";
 import businessAnalysis from "../../Assets/businessAnalysis.svg";
 import Carousel from "../../Components/Carousel";
 import Marquee from "react-fast-marquee";
-import { serviceTabs } from "../../Shared/serviceTabs";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MobileService from "../Service/ServiceCards/MobileService";
-import DTHService from "../Service/ServiceCards/DTHService";
-import ElectricityService from "../Service/ServiceCards/ElectricityService";
-import BroadbandService from "../Service/ServiceCards/BroadbandService";
-import GasService from "../Service/ServiceCards/GasService";
-import FastagService from "../Service/ServiceCards/FastagService";
-import CableTvService from "../Service/ServiceCards/CableTvService";
-import InsuranceService from "../Service/ServiceCards/InsuranceService";
-import WaterService from "../Service/ServiceCards/WaterService";
-import LoanService from "../Service/ServiceCards/LoanService";
-import PostpaidService from "../Service/ServiceCards/PostpaidService";
-import LandlineService from "../Service/ServiceCards/LandlineService";
-import GooglePayService from "../Service/ServiceCards/GooglePayService";
+import ServiceRender from "../Service/ServiceRender";
 
 const Home = (props) => {
   const [bannerList, setBannerList] = useState([]);
   const [tickerList, setTickerList] = useState([]);
-  const [selectedServiceTab, setSelectedServiceTab] = useState({
-    id: 1,
-    title: "",
-  });
 
-  const serviceRanders = (id) => {
-    switch (id) {
-      case 1:
-        return <MobileService {...props}  />;
-      case 2:
-        return <DTHService {...props} />;
-      case 3:
-        return <ElectricityService {...props} />;
-      case 4:
-        return <BroadbandService {...props} />;
-      case 5:
-        return <GasService {...props} />;
-      case 6:
-        return <FastagService {...props} />;
-      case 7:
-        return <CableTvService {...props} />;
-      case 8:
-        return <InsuranceService {...props} />;
-      case 9:
-        return <WaterService {...props} />;
-      case 10:
-        return <LoanService {...props} />;
-      case 11:
-        return <PostpaidService {...props} />;
-      case 12:
-        return <LandlineService {...props} />;
-      case 13:
-        return <GooglePayService {...props} />;
-      default:
-        return <></>;
-    }
-  };
   useEffect(() => {
     const getBanners = async () => {
       await props.getBanner().then((res) => {
@@ -106,48 +56,9 @@ const Home = (props) => {
           })}
         </Marquee>
       </div>
-      <div className="bg-primary-light pt-5 pb-5">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="main-service-card border  rounded">
-                {/* <!-- menu Navigation start -->  */}
-                <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
-                  {serviceTabs.map((item, id) => (
-                    <li
-                      key={item.id}
-                      className="nav-item"
-                      onClick={() =>
-                        setSelectedServiceTab({
-                          id: item.id,
-                          title: item.title,
-                        })
-                      }
-                    >
-                      <div
-                        className={
-                          selectedServiceTab.id === item.id
-                            ? "nav-link active"
-                            : "nav-link"
-                        }
-                      >
-                        <span className="service-icons">
-                          <FontAwesomeIcon icon={item.icon} />
-                        </span>
-                        <h5 className="service-iconsTitle mb-0">
-                          {item.title}
-                        </h5>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-                {/* <!-- menu Navigation end -->  */}
-                {serviceRanders(selectedServiceTab.id)}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <ServiceRender />
+
       <div className="container space-2">
         <div className="row align-items-lg-center">
           <div className="col-lg-5 mb-7 mb-lg-0">

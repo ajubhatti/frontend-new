@@ -1,88 +1,36 @@
 import React, { useEffect, useState } from "react";
 import knowledgebaseCommunityImg from "../../Assets/knowledgebase-community.svg";
-import BroadbandService from "./ServiceCards/BroadbandService";
-import DTHService from "./ServiceCards/DTHService";
-import ElectricityService from "./ServiceCards/ElectricityService";
-import FastagService from "./ServiceCards/FastagService";
-import GasService from "./ServiceCards/GasService";
-import MobileService from "./ServiceCards/MobileService";
-import PostpaidService from "./ServiceCards/PostpaidService";
-import GooglePayService from "./ServiceCards/GooglePayService";
-import InsuranceService from "./ServiceCards/InsuranceService";
-import LandlineService from "./ServiceCards/LandlineService";
-import LoanService from "./ServiceCards/LoanService";
-import WaterService from "./ServiceCards/WaterService";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { serviceTabs } from "../../Shared/serviceTabs";
-import DthserviceModal from "../../Components/Modal/DthserviceModal";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllOperators, getAllServices } from "./store/actions";
+import { getStateList } from "../../Redux/Actions/Auth/actions";
 import "./service.css";
-import { useGeolocated } from "react-geolocated";
-import CableTvService from "./ServiceCards/CableTvService";
+import ServiceRender2 from "./ServiceRender2";
 
 const AllSerices = (props) => {
-  const [listingData, setListingData] = useState([]);
-  const [serviceProviderModal, setServiceProviderModal] = useState(false);
+  const dispatch = useDispatch();
+  const { allServices } = useSelector((state) => state.service);
+  const [selectedService, setSelectedService] = useState({});
+  const [serviceList, setServiceList] = useState([]);
   const [selectedServiceTab, setSelectedServiceTab] = useState({
-    id: 1,
+    id: 0,
     title: "",
   });
-  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
-    useGeolocated({
-      positionOptions: {
-        enableHighAccuracy: false,
-      },
-      userDecisionTimeout: 5000,
-    });
 
   useEffect(() => {
-    const getServiceListing = async () => {
-      await props.serviceListing().then((res) => {
-        setListingData(res?.data?.data);
-      });
-    };
-
-    const getServiceAmbicaListing = async () => {
-      await props.getServiceAmbicaAll().then((res) => {
-        setListingData(res?.data?.data);
-      });
-    };
-
-    getServiceListing();
-    getServiceAmbicaListing();
-  }, [props]);
-
-  const serviceRanders = (id) => {
-    switch (id) {
-      case 1:
-        return <MobileService {...props} coords={coords} />;
-      case 2:
-        return <DTHService {...props} />;
-      case 3:
-        return <ElectricityService {...props} />;
-      case 4:
-        return <BroadbandService {...props} />;
-      case 5:
-        return <GasService {...props} />;
-      case 6:
-        return <FastagService {...props} />;
-      case 7:
-        return <CableTvService {...props} />;
-      case 8:
-        return <InsuranceService {...props} />;
-      case 9:
-        return <WaterService {...props} />;
-      case 10:
-        return <LoanService {...props} />;
-      case 11:
-        return <PostpaidService {...props} />;
-      case 12:
-        return <LandlineService {...props} />;
-      case 13:
-        return <GooglePayService {...props} />;
-      default:
-        return <></>;
+    if (allServices.length) {
+      setServiceList(allServices);
+      setSelectedService(allServices[0]);
     }
-  };
+  }, [allServices]);
+
+  useEffect(() => {
+    dispatch(getAllServices());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getAllOperators());
+    dispatch(getStateList());
+  }, [dispatch]);
 
   return (
     <>
@@ -102,64 +50,8 @@ const AllSerices = (props) => {
           </div>
         </div>
       </div>
-      {/* azaz changes start*/}
-      <div className="bg-primary-light pt-5 pb-5">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              {/* <div className="main-service-card border  rounded"> */}
-              {/* <!-- menu Navigation start -->  */}
-              <div className="row g-0">
-                <div className="col-md-3 p-0">
-                  <div className="custom-serviceTabs">
-                    <ul className="nav secondary-nav alternate p-0 main-inner-card inner-sidebar-tabs">
-                      {serviceTabs.map((item, id) => (
-                        <li
-                          key={item.id}
-                          className="nav-item"
-                          onClick={() =>
-                            setSelectedServiceTab({
-                              id: item.id,
-                              title: item.title,
-                            })
-                          }
-                        >
-                          <div
-                            className={
-                              selectedServiceTab.id === item.id
-                                ? "nav-link tab-nav-link active"
-                                : "nav-link tab-nav-link"
-                            }
-                          >
-                            <span className="service-icons">
-                              <FontAwesomeIcon icon={item.icon} />
-                            </span>
-                            <h5 className="service-iconsTitle mb-0">
-                              {item.title}
-                            </h5>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                <div className="col-md-9 p-0">
-                  {serviceRanders(selectedServiceTab.id)}
-                </div>
-              </div>
-              {/* <!-- menu Navigation end -->  */}
-              {/* </div> */}
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* ======================================================================================= */}
-      <DthserviceModal
-        key={selectedServiceTab.id}
-        isModalShow={serviceProviderModal}
-        setModalClose={() => setServiceProviderModal(false)}
-        listingData={listingData}
-      />
+      {/* ---- services render here ------ */}
+      <ServiceRender2 />
       <hr className="my-0" />
     </>
   );

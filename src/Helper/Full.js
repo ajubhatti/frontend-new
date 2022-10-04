@@ -14,7 +14,6 @@ import RegisterContainer from "../Containers/Register";
 import ResetPasswordContainer from "../Containers/ResetPassword";
 import ReferContainer from "../Containers/Refer";
 import ServiceContainer from "../Containers/Service";
-import Service2Container from "../Containers/Service2";
 import SupportContainer from "../Containers/Support";
 import WalletContainer from "../Containers/Wallet";
 import ContactContainer from "../Containers/ContactUs";
@@ -159,12 +158,12 @@ const Full = (props) => {
           name="service"
           element={<ServiceContainer />}
         />
-        <Route
+        {/* <Route
           exact
           path={routes.service2}
           name="service"
           element={<Service2Container />}
-        />
+        /> */}
         <Route
           exact
           path={routes.support}

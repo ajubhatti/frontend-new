@@ -1,4 +1,8 @@
-import { company, recharge, service } from "../../../Helper/fetch_helper/apiList";
+import {
+  company,
+  recharge,
+  service,
+} from "../../../Helper/fetch_helper/apiList";
 import {
   FETCH_ALL_SERVICE,
   SET_LOADING,
@@ -49,10 +53,18 @@ export const getPlans = (payload) => async (dispatch) => {
 
 export const doMyRecharge = (payload) => async (dispatch) => {
   try {
+    dispatch(setLoading(true));
     const res = await axios.post(
       API_URL + recharge.rechargeOrBill.url,
       payload
     );
+
+    if (res.data) {
+      dispatch(setLoading(false));
+      toast.success(
+        res?.data?.data?.responseData?.TRNSTATUSDESC || res?.data?.data?.status
+      );
+    }
 
     console.log("res of recharge-------", res);
   } catch (err) {

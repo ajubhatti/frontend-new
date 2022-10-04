@@ -141,7 +141,7 @@ const ResetForm = (props) => {
       <button
         type="button"
         className="btn btn-primary transition-3d-hover"
-        onClick={submitHandler}
+        onClick={(e) => submitHandler(e)}
         disabled={apiCall}
       >
         Get Started

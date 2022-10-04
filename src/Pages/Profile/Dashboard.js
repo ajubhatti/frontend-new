@@ -6,10 +6,9 @@ import Deposits from "./Deposite";
 import Menu from "./Menu";
 
 const ProfileDashboard = (props) => {
-
   return (
     <>
-      <Menu {...props}/>
+      <Menu {...props} />
       <section className="dashboard-section bg-light">
         <div className="container space-2">
           <div className="card-deck d-block d-lg-flex card-lg-gutters-3 mb-5">
@@ -60,7 +59,7 @@ const ProfileDashboard = (props) => {
             </div>
           </div>
           <div className="card-deck d-block d-lg-flex card-lg-gutters-3">
-            <Deposits {...props}/>
+            <Deposits {...props} />
             <Balance />
             <Activity />
           </div>

@@ -67,8 +67,8 @@ export const showErrorAsToast = (error, { type }) => {
     }
     if (error.response && error.response.status === 401) {
       setTimeout(() => {
-        LocalStorage.clean();
-        window.location.href = routes.login;
+        // LocalStorage.clean();
+        // window.location.href = routes.login;
       }, 3000);
     }
     if (value.message !== undefined) {

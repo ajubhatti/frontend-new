@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 
 const LoginForm = (props) => {
+  const navigate = useNavigate();
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [values, setValues] = useState({
@@ -20,7 +21,6 @@ const LoginForm = (props) => {
   };
 
   const submitHandler = async (e) => {
-    e.preventDefault();
     setApiCall(true);
     setSubmitted(true);
     if (values.mobileNo !== "" && values.password !== "") {
@@ -28,7 +28,7 @@ const LoginForm = (props) => {
         await props.login(values).then((res) => {
           console.log("res--------", res);
           if (res.data) {
-            props.history.push(routes.home);
+            navigate(routes.profileDashboard);
           } else {
             props.history.push({
               pathname: routes.otp,
@@ -107,7 +107,7 @@ const LoginForm = (props) => {
             type="button"
             className="btn btn-primary transition-3d-hover"
             disabled={apiCall}
-            onClick={submitHandler}
+            onClick={(e) => submitHandler(e)}
           >
             Get Started
           </button>

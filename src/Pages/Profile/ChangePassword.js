@@ -108,7 +108,7 @@ const ChangePassword = (props) => {
           <div className="w-lg-50">
             <button
               type="button"
-              onClick={submitHandler}
+              onClick={(e) => submitHandler(e)}
               className="btn btn-sm btn-primary transition-3d-hover mr-1"
             >
               Save Password

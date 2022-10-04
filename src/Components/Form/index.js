@@ -1,7 +1,7 @@
 import React from "react";
 
-const Form = ({ name, submitHandler, className, children }) => (
-  <form name={name} onSubmit={submitHandler} className={className}>
+const Form = ({ name, className, children }) => (
+  <form name={name} className={className}>
     {children}
   </form>
 );

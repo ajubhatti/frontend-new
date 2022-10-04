@@ -50,6 +50,7 @@ const authReducer = produce((state = initialState, action) => {
       break;
     case SET_USER_DETAIL:
       state.userDetails = payload;
+      break;
     default:
       return state;
   }

@@ -79,9 +79,8 @@ const Wallet = (props) => {
 
   useEffect(() => {
     const userDetails = getUser();
-    const userDetailsdata = dispatch(getUserDetails({ id: userDetails.id }));
-    console.log("userDetailsdata", userDetailsdata);
-  }, []);
+    dispatch(getUserDetails({ id: userDetails.id }));
+  }, [dispatch]);
 
   const buttonHandler = () => {
     setOpen(true);

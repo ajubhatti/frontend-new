@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { getToken } from "../../Helper/LocalStorage";
 import { mplanMobileOperatorList } from "../../Shared/constant";
 import { simplePlanData } from "../../Shared/MplanStaticResponse";
-import { doMyRecharge } from "./store/actions";
+import { doMyRecharge, getPlans } from "./store/actions";
 import OfferSlider from "../../Components/Carousel/OfferSlider";
 import ConfirmModal from "../../Components/Modal/ConfirmModal";
 import MobileOfferModal from "../../Components/Modal/MobileOfferModal";
@@ -14,7 +14,7 @@ const ShowService = (props) => {
   const dispatch = useDispatch();
   const isUser = getToken();
   const navigate = useNavigate();
-  const { allOperators } = useSelector((state) => state.service);
+  const { allOperators, loading } = useSelector((state) => state.service);
   const { stateList } = useSelector((state) => state.auth);
   const [isPlanShow, setIsPlanShow] = useState(false);
   const [listingData, setListingData] = useState([]);
@@ -105,9 +105,10 @@ const ShowService = (props) => {
       operator: "Jio",
     };
     console.log("payload", payload);
-    await props.getPlanDetails(payload).then((res) => {
-      console.log("res.data", res.data);
-    });
+    dispatch(getPlans(payload));
+    // await props.getPlanDetails(payload).then((res) => {
+    //   console.log("res.data", res.data);
+    // });
   };
 
   const handleContinue = () => {
@@ -134,11 +135,12 @@ const ShowService = (props) => {
     };
 
     if (values?.mobileNo && selectedMplanOperator.operator) {
-      await props.getPlanDetails(payload).then((res) => {
-        console.log(res.data);
-        setPlanlisting(res.data);
-        setIsPlanShow(true);
-      });
+      dispatch(getPlans(payload));
+      // await props.getPlanDetails(payload).then((res) => {
+      //   console.log(res.data);
+      //   setPlanlisting(res.data);
+      //   setIsPlanShow(true);
+      // });
     }
   };
 
@@ -300,8 +302,9 @@ const ShowService = (props) => {
                     onClick={() => {
                       handleContinue();
                     }}
+                    disabled={loading}
                   >
-                    Continue
+                    {loading ? "loading..." : "Continue"}
                   </button>{" "}
                 </div>
               </div>
@@ -324,7 +327,7 @@ const ShowService = (props) => {
           selectCircle={values?.state}
         />
       )}
-      {
+      {isConfirmShow && (
         <ConfirmModal
           isModalShow={isConfirmShow}
           setModalClose={() => setIsConfirmShow(false)}
@@ -333,7 +336,7 @@ const ShowService = (props) => {
           accountNo={values?.mobileNo}
           type={"mobile"}
         />
-      }
+      )}
     </>
   );
 };

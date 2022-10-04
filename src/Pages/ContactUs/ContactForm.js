@@ -187,7 +187,7 @@ const ContactForm = (props) => {
               type="button"
               className="btn btn-primary btn-wide transition-3d-hover mb-4"
               disabled={apiCall}
-              onClick={submitHandler}
+              onClick={(e) => submitHandler(e)}
             >
               Submit
             </button>

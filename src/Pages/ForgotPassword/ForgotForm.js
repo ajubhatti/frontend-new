@@ -66,7 +66,7 @@ const ForgotForm = (props) => {
             type="button"
             className="btn btn-primary transition-3d-hover"
             disabled={apiCall}
-            onClick={submitHandler}
+            onClick={(e) => submitHandler(e)}
           >
             Request Reset Link
           </button>

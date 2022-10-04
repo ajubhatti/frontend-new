@@ -105,7 +105,7 @@ const ChangePin = (props) => {
           </div>
           <div className="w-lg-50">
             <button
-              onClick={submitHandler}
+              onClick={(e) => submitHandler(e)}
               type="button"
               className="btn btn-sm btn-primary transition-3d-hover mr-1"
             >
