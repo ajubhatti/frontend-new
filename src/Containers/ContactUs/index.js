@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import ContactUs from "../../Pages/ContactUs";
-import { sendContactDetails } from "../../Redux/Actions/ContactUs/contact";
+import { sendContactDetails } from "../../Helper/fetch_helper/contact";
 
 const ContactContainer = (props) => <ContactUs {...props} />;
 

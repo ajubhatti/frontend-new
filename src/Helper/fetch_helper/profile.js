@@ -1,6 +1,6 @@
-import { configData, config } from "../../../Helper";
-import { fetchUrl } from "../../../Helper/fetchUrl";
-import { profile } from "../../apiList";
+import { configData, config } from "..";
+import { fetchUrl } from "../fetchUrl";
+import { profile } from "./apiList";
 
 export const getAdminBankList = () => () =>
   new Promise((resolve, reject) => {

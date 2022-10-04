@@ -55,7 +55,7 @@ const ContactForm = (props) => {
       </div>
 
       <div className="w-lg-80 mx-auto">
-        <Form name="login-form" submitHandler={submitHandler}>
+        <Form name="login-form">
           <div className="row">
             <div className="col-sm-6 mb-6">
               <div className="js-form-message">
@@ -184,9 +184,10 @@ const ContactForm = (props) => {
 
           <div className="text-center">
             <button
-              type="submit"
+              type="button"
               className="btn btn-primary btn-wide transition-3d-hover mb-4"
               disabled={apiCall}
+              onClick={submitHandler}
             >
               Submit
             </button>

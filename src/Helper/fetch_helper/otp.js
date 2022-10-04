@@ -1,7 +1,7 @@
-import { configData } from "../../../Helper";
-import { fetchUrl } from "../../../Helper/fetchUrl";
-import LocalStorage, { Crypto, localStorageKey } from "../../../Helper/LocalStorage";
-import { auth } from "../../apiList";
+import { configData } from "..";
+import { fetchUrl } from "../fetchUrl";
+import LocalStorage, { Crypto, localStorageKey } from "../LocalStorage";
+import { auth } from "./apiList";
 
 export const verifyOtp = (data) => () =>
   new Promise((resolve, reject) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Login from "../../Pages/Login";
-import { login } from "../../Redux/Actions/Auth/auth";
+import { login } from "../../Helper/fetch_helper/auth";
 
 const LoginContainer = (props) => <Login {...props} />;
 

@@ -99,11 +99,7 @@ const RegisterForm = (props) => {
   };
 
   return (
-    <Form
-      name="register-form"
-      submitHandler={submitHandler}
-      className="sl-form"
-    >
+    <Form name="register-form" className="sl-form">
       <div className="form-group">
         <label className="form-label">
           Referral Code <small className="text-muted">(optional)</small>
@@ -299,7 +295,7 @@ const RegisterForm = (props) => {
 
         <div className="col-4 text-right">
           <button
-            type="submit"
+            type="button"
             className="btn btn-primary transition-3d-hover"
             onClick={submitHandler}
             disabled={apiCall}

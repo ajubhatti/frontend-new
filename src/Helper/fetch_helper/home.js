@@ -1,6 +1,6 @@
-import { configData, config } from "../../../Helper";
-import { fetchUrl } from "../../../Helper/fetchUrl";
-import { home } from "../../apiList";
+import { configData, config } from "..";
+import { fetchUrl } from "../fetchUrl";
+import { home } from "./apiList";
 
 export const getBanner = () => () =>
   new Promise((resolve, reject) => {
@@ -10,7 +10,6 @@ export const getBanner = () => () =>
       })
       .catch((err) => reject(err));
   });
-
 
 export const getTicker = () => () =>
   new Promise((resolve, reject) => {

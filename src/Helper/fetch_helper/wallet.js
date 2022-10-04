@@ -1,6 +1,6 @@
-import { configData } from "../../../Helper";
-import { fetchUrl } from "../../../Helper/fetchUrl";
-import { profile } from "../../apiList";
+import { configData } from "..";
+import { fetchUrl } from "../fetchUrl";
+import { profile } from "./apiList";
 
 export const walletListing = (data) => () =>
   new Promise((resolve, reject) => {

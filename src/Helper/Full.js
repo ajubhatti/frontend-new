@@ -12,7 +12,6 @@ import ChangePasswordContainer from "../Containers/Profile/ChangePassword";
 import ChangePinContainer from "../Containers/Profile/ChangePin";
 import RegisterContainer from "../Containers/Register";
 import ResetPasswordContainer from "../Containers/ResetPassword";
-import verifyEmailContainer from "../Containers/verifyEmail";
 import ReferContainer from "../Containers/Refer";
 import ServiceContainer from "../Containers/Service";
 import Service2Container from "../Containers/Service2";

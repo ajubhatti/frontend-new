@@ -66,7 +66,7 @@ const ResetForm = (props) => {
     }
   };
   return (
-    <Form name="reset-password-form" submitHandler={submitHandler}>
+    <Form name="reset-password-form">
       <div className="form-group">
         <label className="form-label">Password</label>
         <div className="d-flex justify-content-center mb-5">
@@ -139,7 +139,7 @@ const ResetForm = (props) => {
         )}
       </div>
       <button
-        type="submit"
+        type="button"
         className="btn btn-primary transition-3d-hover"
         onClick={submitHandler}
         disabled={apiCall}

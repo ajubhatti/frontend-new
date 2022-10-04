@@ -7,7 +7,7 @@ import {
   getServiceProviderByType,
   ambikaRechargeApi,
   getPlanDetails,
-} from "../../Redux/Actions/Service/service";
+} from "../../Helper/fetch_helper/service";
 
 const Service2Container = (props) => <AllSerices {...props} />;
 

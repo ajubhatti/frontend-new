@@ -5,7 +5,7 @@ import {
   register,
   getRefererUser,
   stateListing,
-} from "../../Redux/Actions/Auth/auth";
+} from "../../Helper/fetch_helper/auth";
 
 const RegisterContainer = (props) => <Register {...props} />;
 

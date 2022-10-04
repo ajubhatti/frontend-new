@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
 import Wallet from "../../Pages/Wallet";
-import { walletListing } from "../../Redux/Actions/Wallet/wallet";
+import { walletListing } from "../../Helper/fetch_helper/wallet";
 import {
   getAdminBankList,
   addMoneyInWallet,
-} from "../../Redux/Actions/Profile/profile";
+} from "../../Helper/fetch_helper/profile";
 
 const WalletContainer = (props) => <Wallet {...props} />;
 

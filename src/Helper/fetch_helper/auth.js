@@ -1,10 +1,10 @@
-import { config, configData } from "../../../Helper";
-import { fetchUrl } from "../../../Helper/fetchUrl";
+import { config, configData } from "..";
+import { fetchUrl } from "../fetchUrl";
 import LocalStorage, {
   Crypto,
   localStorageKey,
-} from "../../../Helper/LocalStorage";
-import { auth } from "../../apiList";
+} from "../LocalStorage";
+import { auth } from "./apiList";
 
 export const login = (data) => () =>
   new Promise(async (resolve, reject) => {

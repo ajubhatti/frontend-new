@@ -9,6 +9,7 @@ export const auth = {
   resendOtp: { method: "post", url: "/auth/resendOtp" },
   referer: { method: "post", url: "/auth/getByReferralCode" },
   state: { method: "get", url: "/state" },
+  getUserById: { method: "post", url: "/auth/getUserById" },
 };
 
 export const home = {

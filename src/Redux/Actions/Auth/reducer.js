@@ -7,6 +7,7 @@ import {
   SET_TOKEN,
   SET_IS_AUTH,
   SET_STATE_DATA,
+  SET_USER_DETAIL,
 } from "./actionTypes";
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   loading: false,
   isAuth: false,
   stateList: [],
+  userDetails: null,
 };
 
 const authReducer = produce((state = initialState, action) => {
@@ -46,6 +48,8 @@ const authReducer = produce((state = initialState, action) => {
     case SET_STATE_DATA:
       state.stateList = payload;
       break;
+    case SET_USER_DETAIL:
+      state.userDetails = payload;
     default:
       return state;
   }

@@ -13,3 +13,5 @@ export const SET_PROFILE = "SET_PROFILE";
 export const SET_IS_AUTH = "SET_IS_AUTH";
 
 export const SET_STATE_DATA = "SET_STATE_DATA";
+
+export const SET_USER_DETAIL = "SET_USER_DETAIL";

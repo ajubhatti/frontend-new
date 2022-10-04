@@ -37,7 +37,7 @@ const ChangePin = (props) => {
     <div className="bg-light">
       <Menu />
       <div className="container space-2">
-        <Form name="login-form" submitHandler={submitHandler}>
+        <Form name="login-form">
           <div className="js-form-message mb-6">
             <label className="form-label"> Current pin </label>
 
@@ -99,21 +99,20 @@ const ChangePin = (props) => {
                 }
               />
               {submitted && !values.fullName && (
-                <div className="invalid-feedback">
-                  Please enter conform pin
-                </div>
+                <div className="invalid-feedback">Please enter conform pin</div>
               )}
             </div>
           </div>
           <div className="w-lg-50">
             <button
-              type="submit"
+              onClick={submitHandler}
+              type="button"
               className="btn btn-sm btn-primary transition-3d-hover mr-1"
             >
               Save Transaction Pin
             </button>
             <button
-              type="submit"
+              type="button"
               className="btn btn-sm btn-soft-secondary transition-3d-hover"
             >
               Cancel

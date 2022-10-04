@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Home from "../../Pages/Home";
-import { getBanner, getTicker } from "../../Redux/Actions/Home/home";
+import { getBanner, getTicker } from "../../Helper/fetch_helper/home";
 
 const HomeContainer = (props) => <Home {...props} />;
 

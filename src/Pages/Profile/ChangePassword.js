@@ -37,7 +37,7 @@ const ChangePassword = (props) => {
     <div className="bg-light">
       <Menu />
       <div className="container space-2">
-        <Form name="login-form" submitHandler={submitHandler}>
+        <Form name="login-form">
           <div className="js-form-message mb-6">
             <label className="form-label"> Current password </label>
 
@@ -107,13 +107,14 @@ const ChangePassword = (props) => {
           </div>
           <div className="w-lg-50">
             <button
-              type="submit"
+              type="button"
+              onClick={submitHandler}
               className="btn btn-sm btn-primary transition-3d-hover mr-1"
             >
               Save Password
             </button>
             <button
-              type="submit"
+              type="button"
               className="btn btn-sm btn-soft-secondary transition-3d-hover"
             >
               Cancel

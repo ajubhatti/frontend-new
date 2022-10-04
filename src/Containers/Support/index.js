@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Support from "../../Pages/Support";
-import { supportListing } from "../../Redux/Actions/Support/support";
+import { supportListing } from "../../Helper/fetch_helper/support";
 
 const SupportContainer = (props) => <Support {...props} />;
 

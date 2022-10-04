@@ -4,7 +4,7 @@ import ProfileTransaction from "../../Pages/Profile/Transaction";
 import {
   getAdminBankList,
   addMoneyInWallet,
-} from "../../Redux/Actions/Profile/profile";
+} from "../../Helper/fetch_helper/profile";
 
 const ProfileTransactionContainer = (props) => (
   <ProfileTransaction {...props} />

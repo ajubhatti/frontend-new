@@ -1,4 +1,4 @@
-import { company, recharge, service } from "../../../Redux/apiList";
+import { company, recharge, service } from "../../../Helper/fetch_helper/apiList";
 import {
   FETCH_ALL_SERVICE,
   SET_LOADING,
@@ -7,7 +7,7 @@ import {
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getPlanDetails } from "../../../Redux/Actions/Service/service";
+import { getPlanDetails } from "../../../Helper/fetch_helper/service";
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
 

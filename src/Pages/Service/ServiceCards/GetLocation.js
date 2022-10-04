@@ -31,7 +31,7 @@ const GetLocation = () => {
     <div>
       The latitude is {latitude}
       The longitude is {longitude}
-      <form onSubmit={(e) => updateCoordinates(e)}>
+      <form>
         <div className="form-group">
           <label htmlFor="address">Address</label>
           <input
@@ -44,7 +44,11 @@ const GetLocation = () => {
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
-        <button className="btn mb-4 btn-primary" type="submit">
+        <button
+          className="btn mb-4 btn-primary"
+          type="button"
+          onSubmit={(e) => updateCoordinates(e)}
+        >
           Search Location
         </button>
       </form>

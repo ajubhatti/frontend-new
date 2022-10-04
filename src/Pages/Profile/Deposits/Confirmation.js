@@ -19,7 +19,7 @@ const Confirmation = (props) => {
       </div>
       <div className="d-flex justify-content-end">
         <button
-          type="submit"
+          type="button"
           className="btn btn-primary transition-3d-hover mr-1"
           onClick={saveAndContinue}
           disabled={props.loading}

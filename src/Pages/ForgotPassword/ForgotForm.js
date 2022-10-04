@@ -35,11 +35,7 @@ const ForgotForm = (props) => {
     }
   };
   return (
-    <Form
-      name="reset-password-form"
-      submitHandler={submitHandler}
-      className="sl-form"
-    >
+    <Form name="reset-password-form" className="sl-form">
       <div className="form-group">
         <label className="form-label">Phone Number</label>
         <input
@@ -51,8 +47,7 @@ const ForgotForm = (props) => {
           value={phoneNumber}
           onChange={handlerChange}
           className={
-            "form-control" +
-            (submitted && !phoneNumber ? " is-invalid" : "")
+            "form-control" + (submitted && !phoneNumber ? " is-invalid" : "")
           }
         />
         {submitted && !phoneNumber && (
@@ -68,10 +63,10 @@ const ForgotForm = (props) => {
 
         <div className="col-8 col-sm-6 text-right">
           <button
-            type="submit"
+            type="button"
             className="btn btn-primary transition-3d-hover"
-            onClick={submitHandler}
             disabled={apiCall}
+            onClick={submitHandler}
           >
             Request Reset Link
           </button>

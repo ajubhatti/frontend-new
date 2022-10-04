@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Refer from "../../Pages/Refer";
-import { generateReferCode } from "../../Redux/Actions/Refer/refer";
+import { generateReferCode } from "../../Helper/fetch_helper/refer";
 
 const ReferContainer = (props) => <Refer {...props} />;
 

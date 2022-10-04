@@ -4,7 +4,7 @@ import ChangePin from "../../Pages/Profile/ChangePin";
 import {
   getAdminBankList,
   addMoneyInWallet,
-} from "../../Redux/Actions/Profile/profile";
+} from "../../Helper/fetch_helper/profile";
 
 const ChangePinContainer = (props) => <ChangePin {...props} />;
 

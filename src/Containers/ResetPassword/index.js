@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import ResetPassword from "../../Pages/ResetPassword";
-import { resetPassword } from "../../Redux/Actions/Auth/auth";
+import { resetPassword } from "../../Helper/fetch_helper/auth";
 
 const ResetPasswordContainer = (props) => <ResetPassword {...props} />;
 

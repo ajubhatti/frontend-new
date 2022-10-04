@@ -1,16 +1,16 @@
 import axios from "axios";
-import { auth } from "../../apiList";
+import { auth } from "../../../Helper/fetch_helper/apiList";
 import {
   LOGOUT,
   SET_AUTH_DATA,
   SET_TOKEN,
   SET_TOKEN_LOADING,
   SET_TOKEN_ERROR,
-  SET_PROFILE,
   SET_IS_AUTH,
   SET_STATE_DATA,
+  SET_USER_DETAIL,
 } from "./actionTypes";
-import { stateListing } from "./auth";
+
 const API_URL = process.env.REACT_APP_FETCH_URL;
 // import { ACCESS_TOKEN_URL, GET_PROFILE_INFO } from "constants/urls";
 // import { axiosAccount } from "services/api";
@@ -72,6 +72,20 @@ export const getStateList = () => async (dispatch) => {
   }
 };
 
+export const getUserDetails = (data) => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const res = await axios.post(API_URL + auth.getUserById.url, data);
+    if (res) {
+      console.log("user detail res.data.data :>> ", res?.data);
+      dispatch(setUserData(res?.data));
+    }
+  } catch (error) {
+    dispatch(setError(error));
+    dispatch(setLoading(false));
+  }
+};
+
 export const setAuthData = (data) => ({
   type: SET_AUTH_DATA,
   payload: data,
@@ -103,5 +117,9 @@ export const setIsAuth = (data) => ({
 
 export const setStateList = (data) => ({
   type: SET_STATE_DATA,
+  payload: data,
+});
+export const setUserData = (data) => ({
+  type: SET_USER_DETAIL,
   payload: data,
 });

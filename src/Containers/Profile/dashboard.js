@@ -4,7 +4,7 @@ import ProfileDashboard from "../../Pages/Profile/Dashboard";
 import {
   getAdminBankList,
   addMoneyInWallet,
-} from "../../Redux/Actions/Profile/profile";
+} from "../../Helper/fetch_helper/profile";
 
 const ProfileDashboardContainer = (props) => <ProfileDashboard {...props} />;
 

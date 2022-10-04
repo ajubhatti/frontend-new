@@ -1,6 +1,6 @@
-import { configData } from "../../../Helper";
-import { fetchUrl } from "../../../Helper/fetchUrl";
-import { service } from "../../apiList";
+import { configData } from "..";
+import { service } from "./apiList";
+import { fetchUrl } from "../fetchUrl";
 
 export const serviceListing = (data) => () =>
   new Promise((resolve, reject) => {

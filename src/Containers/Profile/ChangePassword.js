@@ -4,7 +4,7 @@ import ChangePassword from "../../Pages/Profile/ChangePassword";
 import {
   getAdminBankList,
   addMoneyInWallet,
-} from "../../Redux/Actions/Profile/profile";
+} from "../../Helper/fetch_helper/profile";
 
 const ChangePasswordContainer = (props) => <ChangePassword {...props} />;
 

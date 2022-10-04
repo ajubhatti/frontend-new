@@ -4,6 +4,8 @@ import { getUser } from "../../Helper/LocalStorage";
 import FormModal from "../Profile/Deposits/FormModal";
 import * as moment from "moment";
 import routes from "../../Helper/routes";
+import { getUserDetails } from "../../Redux/Actions/Auth/actions";
+import { useDispatch } from "react-redux";
 
 const headerName = [
   {
@@ -54,6 +56,7 @@ const headerName = [
 ];
 
 const Wallet = (props) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
 
@@ -73,6 +76,12 @@ const Wallet = (props) => {
 
     getWalletTransaction();
   }, [props]);
+
+  useEffect(() => {
+    const userDetails = getUser();
+    const userDetailsdata = dispatch(getUserDetails({ id: userDetails.id }));
+    console.log("userDetailsdata", userDetailsdata);
+  }, []);
 
   const buttonHandler = () => {
     setOpen(true);

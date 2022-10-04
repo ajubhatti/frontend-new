@@ -45,7 +45,7 @@ const LoginForm = (props) => {
   };
 
   return (
-    <Form name="login-form" submitHandler={submitHandler}>
+    <Form name="login-form">
       <div className="form-group">
         <label className="form-label">Phone Number</label>
         <input
@@ -104,10 +104,10 @@ const LoginForm = (props) => {
 
         <div className="col-6 text-right">
           <button
-            type="submit"
+            type="button"
             className="btn btn-primary transition-3d-hover"
-            onClick={submitHandler}
             disabled={apiCall}
+            onClick={submitHandler}
           >
             Get Started
           </button>
