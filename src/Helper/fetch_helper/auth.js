@@ -1,19 +1,15 @@
 import { config, configData } from "..";
 import { fetchUrl } from "../fetchUrl";
-import LocalStorage, {
-  Crypto,
-  localStorageKey,
-} from "../LocalStorage";
+import LocalStorage, { Crypto, localStorageKey } from "../LocalStorage";
 import { auth } from "./apiList";
 
 export const login = (data) => () =>
   new Promise(async (resolve, reject) => {
     await fetchUrl(auth.login.method, auth.login.url, data, configData)
       .then((res) => {
-        console.log("res :>> ", res);
         const resData = res.data ? Crypto.encrypt(res.data) : null;
         LocalStorage.set(localStorageKey.user, resData);
-        window.location.reload();
+
         resolve(res);
       })
       .catch((err) => reject(err));

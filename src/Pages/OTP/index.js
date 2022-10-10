@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
-// import OtpInput from "react-otp-input";
+import { useLocation, useNavigate } from "react-router-dom";
+import OtpInput from "react-otp-input";
 import routes from "../../Helper/routes";
 
 const Otp = (props) => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [mobileNo, setMobileNo] = useState("");
 
+  console.log({ location });
   useEffect(() => {
-    const getPhone = props.history.location.state.mobileNo;
+    const getPhone = location.state.mobileNo;
     setMobileNo(getPhone);
-  }, [props]);
+  }, [location.state.mobileNo, props]);
 
   const handleChange = (otp) => setOtp(otp);
 
   const submitHandler = async () => {
     await props.verifyOtp({ otp: otp, mobileNo: mobileNo }).then((res) => {
       if (res.data) {
-        props.history.push(routes.home);
-        window.location.reload();
+        navigate(routes.home);
+        // props.history.push(routes.home);
+        // window.location.reload();
       }
     });
   };
@@ -35,7 +40,7 @@ const Otp = (props) => {
             Enter the verification code we just send you on your phone number.
           </p>
           <div className="d-flex justify-content-center mb-5">
-            {/* <OtpInput
+            <OtpInput
               value={otp}
               onChange={handleChange}
               numInputs={6}
@@ -60,7 +65,7 @@ const Otp = (props) => {
               focusStyle={{
                 borderBottom: "2px solid #3451FF",
               }}
-            /> */}
+            />
           </div>
           <div
             className="btn btn-primary btn-pill transition-3d-hover px-5"

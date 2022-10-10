@@ -12,7 +12,7 @@ const Menu = (props) => {
 
   const logout = async () => {
     LocalStorage.clean();
-    window.location.reload();
+    window.location.href = routes.login;
   };
 
   const buttonHandler = () => {

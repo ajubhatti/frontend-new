@@ -32,49 +32,51 @@ const ServiceRender = (props) => {
   }, [dispatch]);
 
   return (
-    <div className="bg-primary-light pt-5 pb-5">
-      <div className="container">
-        <div className="row">
-          <div className="col-lg-12">
-            <div className="main-service-card border  rounded">
-              {/* <!-- menu Navigation start -->  */}
-              <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
-                {serviceList.map((item) => (
-                  <li
-                    key={item._id}
-                    className="nav-item"
-                    onClick={() => {
-                      setSelectedService(item);
-                      setSelectedServiceTab({
-                        id: item._id,
-                        title: item.serviceName,
-                      });
-                    }}
-                  >
-                    <div
-                      className={
-                        selectedServiceTab._id === item._id
-                          ? "nav-link active"
-                          : "nav-link"
-                      }
+    <>
+      <div className="bg-primary-light pt-5 pb-5">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="main-service-card border  rounded">
+                {/* <!-- menu Navigation start -->  */}
+                <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
+                  {serviceList.map((item) => (
+                    <li
+                      key={item._id}
+                      className="nav-item"
+                      onClick={() => {
+                        setSelectedService(item);
+                        setSelectedServiceTab({
+                          id: item._id,
+                          title: item.serviceName,
+                        });
+                      }}
                     >
-                      <span className="service-icons">
-                        {/* <FontAwesomeIcon icon={item?.serviceImage} /> */}
-                      </span>
-                      <h5 className="service-iconsTitle mb-0">
-                        {item.serviceName}
-                      </h5>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              {/* <!-- menu Navigation end -->  */}
-              <ShowService selectedService={selectedService} />
+                      <div
+                        className={
+                          selectedServiceTab._id === item._id
+                            ? "nav-link active"
+                            : "nav-link"
+                        }
+                      >
+                        <span className="service-icons">
+                          {/* <FontAwesomeIcon icon={item?.serviceImage} /> */}
+                        </span>
+                        <h5 className="service-iconsTitle mb-0">
+                          {item.serviceName}
+                        </h5>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                {/* <!-- menu Navigation end -->  */}
+                <ShowService selectedService={selectedService} />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

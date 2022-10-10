@@ -27,23 +27,13 @@ import Main from "./Main";
 import routes from "./routes";
 import Faq from "../Pages/FAQ/Faq";
 
-const PublicRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      getToken() ? <Navigate to={routes.home} /> : <Component {...props} />
-    }
-  />
-);
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      getToken() ? <Component {...props} /> : <Navigate to={routes.login} />
-    }
-  />
-);
+const ProtectedRoute = ({ children }) => {
+  const token = getToken();
+  if (!token) {
+    return <Navigate to={routes.login} replace />;
+  }
+  return children;
+};
 
 const Full = (props) => {
   return (
@@ -85,17 +75,35 @@ const Full = (props) => {
           name="Register"
           element={<RegisterContainer />}
         />
+        {console.log("profile routes", routes.profile)}
         <Route
           exact
-          name="profile"
+          // name="profile"
           path={routes.profile}
-          element={<ProfileContainer />}
+          element={
+            <ProtectedRoute>
+              <ProfileContainer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfileContainer />
+            </ProtectedRoute>
+          }
         />
         <Route
           exact
           name="account-dashboard"
           path={routes.profileDashboard}
-          element={<ProfileDashboardContainer />}
+          element={
+            <ProtectedRoute>
+              <ProfileDashboardContainer />
+            </ProtectedRoute>
+          }
         />
         <Route
           exact

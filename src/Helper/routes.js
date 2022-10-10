@@ -16,7 +16,7 @@ const routes = {
   service: "/service",
   service2: "/service2",
   support: "/support",
-  profileDashboard: "/dashboard",
+  profileDashboard: "/profile-dashboard",
   profileTransaction: "/transaction",
   profileChangePassword: "/change-password",
   profileChangePin: "/change-pin",

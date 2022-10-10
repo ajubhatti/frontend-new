@@ -1,10 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import NotFound from "../../Assets/404.png";
 import routes from "../../Helper/routes";
 
 const PageNotFound = (props) => {
+  const navigate = useNavigate();
+
   const redirectHandler = () => {
-    props.history.push(routes.home);
+    navigate(routes.home);
+    // props.history.push(routes.home);
   };
 
   return (

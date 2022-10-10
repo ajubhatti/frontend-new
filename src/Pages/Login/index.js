@@ -8,7 +8,7 @@ const Login = (props) => {
       <div className="container">
         <div className="row">
           <div className="col-md-6">
-            <div className="mb-7">
+            <div className="mt-8">
               <h2 className="h3 text-primary font-weight-normal mb-0">
                 Welcome <span className="font-weight-semi-bold">back</span>
               </h2>

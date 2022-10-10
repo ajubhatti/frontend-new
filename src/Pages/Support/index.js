@@ -3,8 +3,10 @@ import { Nav, Tab } from "react-bootstrap";
 import knowledgebaseCommunityImg from "../../Assets/knowledgebase-community.svg";
 import Icon62 from "../../Assets/icon62.svg";
 import routes from "../../Helper/routes";
+import { useNavigate } from "react-router-dom";
 
 const Support = (props) => {
+  const navigate = useNavigate();
   const [listingData, setListingData] = useState([]);
 
   useEffect(() => {
@@ -18,9 +20,10 @@ const Support = (props) => {
   }, [props]);
 
   const submitRedirect = () => {
-    props.history.push(routes.contactUs);
+    navigate(routes.contactUs);
+    // props.history.push(routes.contactUs);
   };
-
+  
   return (
     <>
       <div className="bg-light">
@@ -39,6 +42,7 @@ const Support = (props) => {
           </div>
         </div>
       </div>
+      
       <div className="container">
         <div className="space-2 space-md-3">
           <Tab.Container

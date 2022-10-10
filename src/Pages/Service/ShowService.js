@@ -9,6 +9,7 @@ import { doMyRecharge, getPlans } from "./store/actions";
 import OfferSlider from "../../Components/Carousel/OfferSlider";
 import ConfirmModal from "../../Components/Modal/ConfirmModal";
 import MobileOfferModal from "../../Components/Modal/MobileOfferModal";
+import LoginConfirmModal from "../../Components/Modal/LoginConfirmModal";
 
 const ShowService = (props) => {
   const dispatch = useDispatch();
@@ -32,6 +33,8 @@ const ShowService = (props) => {
     amount: "",
     state: "0",
   });
+
+  const [isLoginModalShow, setIsLoginModalShow] = useState(false);
 
   useEffect(() => {
     getPlan();
@@ -112,16 +115,20 @@ const ShowService = (props) => {
   };
 
   const handleContinue = () => {
-    setSubmitted(true);
-    if (
-      values?.operator !== "0" &&
-      values?.mobileNo !== "" &&
-      values?.amount !== "" &&
-      values?.state !== "0"
-    ) {
-      isUser ? setIsConfirmShow(true) : navigate("/login");
+    if (!isUser) {
+      setIsLoginModalShow(true);
     } else {
-      console.log("else part");
+      setSubmitted(true);
+      if (
+        values?.operator !== "0" &&
+        values?.mobileNo !== "" &&
+        values?.amount !== "" &&
+        values?.state !== "0"
+      ) {
+        isUser ? setIsConfirmShow(true) : navigate("/login");
+      } else {
+        console.log("else part");
+      }
     }
   };
 
@@ -335,6 +342,12 @@ const ShowService = (props) => {
           handleConfirm={handleConfirm}
           accountNo={values?.mobileNo}
           type={"mobile"}
+        />
+      )}
+      {isLoginModalShow && (
+        <LoginConfirmModal
+          isModalShow={isLoginModalShow}
+          setModalClose={() => setIsLoginModalShow(false)}
         />
       )}
     </>

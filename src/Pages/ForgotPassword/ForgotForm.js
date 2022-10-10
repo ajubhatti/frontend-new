@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 
 const ForgotForm = (props) => {
+  const navigate = useNavigate();
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -22,12 +23,17 @@ const ForgotForm = (props) => {
       try {
         await props.forgotPassword({ phoneNumber: phoneNumber }).then((res) => {
           toast.success(res.message);
-          props.history.push({
-            pathname: routes.reset,
+          navigate(routes.reset, {
             state: {
               mobileNo: phoneNumber,
             },
           });
+          // props.history.push({
+          //   pathname: routes.reset,
+          //   state: {
+          //     mobileNo: phoneNumber,
+          //   },
+          // });
         });
       } finally {
         setApiCall(false);
@@ -41,7 +47,7 @@ const ForgotForm = (props) => {
         <input
           type="tel"
           name="phoneNumber"
-          placeholder="12345678"
+          placeholder="90XXXXXXXX"
           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
           required
           value={phoneNumber}

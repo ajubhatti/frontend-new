@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 import { toast } from "react-toastify";
 
 const RegisterForm = (props) => {
+  const navigate = useNavigate();
   const [stateData, setStateData] = useState([]);
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -82,12 +83,17 @@ const RegisterForm = (props) => {
           };
           await props.register(payload).then((res) => {
             toast.success(res.message);
-            props.history.push({
-              pathname: routes.otp,
+            navigate(routes.otp, {
               state: {
                 mobileNo: values.phoneNumber,
               },
             });
+            // props.history.push({
+            //   pathname: routes.otp,
+            //   state: {
+            //     mobileNo: values.phoneNumber,
+            //   },
+            // });
           });
         } finally {
           setApiCall(false);

@@ -28,14 +28,19 @@ const LoginForm = (props) => {
         await props.login(values).then((res) => {
           console.log("res--------", res);
           if (res.data) {
-            navigate(routes.profileDashboard);
+            window.location.href = "/";
           } else {
-            props.history.push({
-              pathname: routes.otp,
+            navigate(routes.otp, {
               state: {
                 mobileNo: values.mobileNo,
               },
             });
+            // props.history.push({
+            //   pathname: routes.otp,
+            //   state: {
+            //     mobileNo: values.mobileNo,
+            //   },
+            // });
           }
         });
       } finally {
@@ -51,7 +56,7 @@ const LoginForm = (props) => {
         <input
           type="tel"
           name="mobileNo"
-          placeholder="123-45-678"
+          placeholder="90XXXXXXXX"
           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
           required
           value={values.mobileNo}
@@ -79,7 +84,7 @@ const LoginForm = (props) => {
         </label>
         <input
           type="password"
-          placeholder="Password"
+          placeholder="*******"
           required=""
           name="password"
           value={values.password}
@@ -97,7 +102,7 @@ const LoginForm = (props) => {
       <div className="row align-items-center mb-5">
         <div className="col-6">
           <span className="small text-muted">Don't have an account?</span>
-          <Link to={routes.register} className="small">
+          <Link to={routes.register} className="ml-1 small">
             Signup
           </Link>
         </div>

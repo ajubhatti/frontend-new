@@ -6,7 +6,7 @@ const ForgotPassword = (props) => {
     <>
       <div className="container space-2">
         <div className="w-md-75 w-lg-50 mx-md-auto">
-          <div className="mb-7">
+          <div className="mt-7">
             <h2 className="h3 text-primary font-weight-normal mb-0">
               Forgot your{" "}
               <span className="font-weight-semi-bold">password</span>

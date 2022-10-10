@@ -79,7 +79,7 @@ const Wallet = (props) => {
 
   useEffect(() => {
     const userDetails = getUser();
-    dispatch(getUserDetails({ id: userDetails.id }));
+    dispatch(getUserDetails({ id: userDetails?.id }));
   }, [dispatch]);
 
   const buttonHandler = () => {

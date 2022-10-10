@@ -3,9 +3,12 @@ import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 import { getQueryData } from "../../Helper";
 import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 // import OtpInput from "react-otp-input";
 
 const ResetForm = (props) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [values, setValues] = useState({
@@ -14,6 +17,8 @@ const ResetForm = (props) => {
     password: "",
     confirmPassword: "",
   });
+
+  console.log({ location });
 
   useEffect(() => {
     if (props.location) {
@@ -58,7 +63,8 @@ const ResetForm = (props) => {
         };
         await props.resetPassword(payload).then((res) => {
           toast.success(res.message);
-          props.history.push(routes.login);
+          navigate(routes.login);
+          // props.history.push(routes.login);
         });
       } finally {
         setApiCall(false);
