@@ -18,6 +18,7 @@ const routes = {
   support: "/support",
   profileDashboard: "/profile-dashboard",
   profileTransaction: "/transaction",
+  profileWalletHistory: "/wallet-history",
   profileChangePassword: "/change-password",
   profileChangePin: "/change-pin",
   otp: "/otp",

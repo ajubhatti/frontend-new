@@ -4,7 +4,7 @@ import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 import { columns, data } from "../../Shared/constant";
 
-const Table = () => {
+const Table = ({ data, columns }) => {
   const tableData = {
     columns,
     data,

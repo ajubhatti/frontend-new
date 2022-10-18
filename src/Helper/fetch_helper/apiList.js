@@ -27,6 +27,10 @@ export const profile = {
   adminBankList: { method: "get", url: "/bankAccount" },
   walletRequest: { method: "post", url: "/walletTransaction" },
   walletTransaction: { method: "post", url: "/walletTransaction/getByUserId" },
+  walletTransactionByUserId: {
+    method: "post",
+    url: "/walletTransaction/getByUserId",
+  },
 };
 
 export const service = {

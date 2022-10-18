@@ -1,0 +1,4 @@
+export const SET_LOADING = "SET_LOADING";
+
+// SERVICES
+export const FETCH_ALL_WALLET_LIST = "FETCH_ALL_WALLET_LIST";

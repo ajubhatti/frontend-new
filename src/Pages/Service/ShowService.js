@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getToken } from "../../Helper/LocalStorage";
+import { getToken, getUser } from "../../Helper/LocalStorage";
 import { mplanMobileOperatorList } from "../../Shared/constant";
 import { simplePlanData } from "../../Shared/MplanStaticResponse";
 import { doMyRecharge, getPlans } from "./store/actions";
@@ -14,6 +14,7 @@ import LoginConfirmModal from "../../Components/Modal/LoginConfirmModal";
 const ShowService = (props) => {
   const dispatch = useDispatch();
   const isUser = getToken();
+  const user = getUser();
   const navigate = useNavigate();
   const { allOperators, loading } = useSelector((state) => state.service);
   const { stateList } = useSelector((state) => state.auth);
@@ -118,16 +119,26 @@ const ShowService = (props) => {
     if (!isUser) {
       setIsLoginModalShow(true);
     } else {
-      setSubmitted(true);
-      if (
-        values?.operator !== "0" &&
-        values?.mobileNo !== "" &&
-        values?.amount !== "" &&
-        values?.state !== "0"
-      ) {
-        isUser ? setIsConfirmShow(true) : navigate("/login");
+      if (user.walletAmount > 0) {
+        if (user.transactionPin) {
+          setSubmitted(true);
+          if (
+            values?.operator !== "0" &&
+            values?.mobileNo !== "" &&
+            values?.amount !== "" &&
+            values?.state !== "0"
+          ) {
+            isUser ? setIsConfirmShow(true) : navigate("/login");
+          } else {
+            console.log("else part");
+          }
+        } else {
+          toast.error(
+            "transaction pin created , please create a new transaction pin."
+          );
+        }
       } else {
-        console.log("else part");
+        toast.error("wallet amount is not enough to continue!");
       }
     }
   };

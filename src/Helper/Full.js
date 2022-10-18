@@ -26,6 +26,7 @@ import { getToken } from "./LocalStorage";
 import Main from "./Main";
 import routes from "./routes";
 import Faq from "../Pages/FAQ/Faq";
+import WalletHistory from "../Pages/Wallet/WalletHistory";
 
 const ProtectedRoute = ({ children }) => {
   const token = getToken();
@@ -184,6 +185,12 @@ const Full = (props) => {
           name="wallet"
           element={<WalletContainer />}
         />
+        <Route
+          exact
+          path={routes.profileWalletHistory}
+          element={<WalletHistory />}
+        />
+
         <Route exact path={routes.otp} name="otp" element={<OtpContainer />} />
         {/* <Navigate from="/" to={routes.home} /> */}
         <Route path="*" exact element={<PageNotFound />} />

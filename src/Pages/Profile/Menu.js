@@ -104,6 +104,14 @@ const Menu = (props) => {
                         </Link>
                       </li>
                       <li className="nav-item u-header__nav-item">
+                        <Link
+                          to={routes.profileWalletHistory}
+                          className="nav-link u-header__nav-link u-header__nav-link-toggle"
+                        >
+                          wallet history
+                        </Link>
+                      </li>
+                      <li className="nav-item u-header__nav-item">
                         <span
                           className="nav-link u-header__nav-link u-header__nav-link-toggle pointer"
                           onClick={logout}
