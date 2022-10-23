@@ -1,5 +1,5 @@
 .slider__slide {
-  height: 15vw;
+  height: 550px;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -14,8 +14,8 @@
 .slide {
   position: relative;
   overflow: hidden;
-  height: 15vw;
-  padding: 0;
+  height: 550px;
+  padding: 95px 0 0;
 }
 .leftArrow {
   bottom: 20px;

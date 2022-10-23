@@ -42,7 +42,7 @@ const Home = (props) => {
       <div className="slide">
         <Carousel slides={bannerList} />
       </div>
-      <div className="space-2">
+      <div className="py-3">
         <Marquee>
           {tickerList.map((theElement, index) => {
             return (

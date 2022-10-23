@@ -10,6 +10,8 @@ export const auth = {
   referer: { method: "post", url: "/auth/getByReferralCode" },
   state: { method: "get", url: "/state" },
   getUserById: { method: "post", url: "/auth/getUserById" },
+  changePassword: { method: "post", url: "/changePassword" },
+  changeTransactionPin: { method: "post", url: "/changeTransactionPin" },
 };
 
 export const home = {

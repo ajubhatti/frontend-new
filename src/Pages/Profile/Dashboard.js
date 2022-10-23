@@ -1,11 +1,28 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect } from "react";
 import { Coin, CurrencyDollar, CurrencyExchange } from "react-bootstrap-icons";
+import { auth, service } from "../../Helper/fetch_helper/apiList";
+import { getUser } from "../../Helper/LocalStorage";
 import Activity from "./Activity";
 import Balance from "./Balance";
 import Deposits from "./Deposite";
 import Menu from "./Menu";
 
+const API_URL = process.env.REACT_APP_FETCH_URL;
+
 const ProfileDashboard = (props) => {
+  const user = getUser();
+  console.log({ user });
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  const getUserData = async () => {
+    await axios.post(API_URL + auth.getUserById.url, {
+      id: user.id,
+    });
+  };
+
   return (
     <>
       <Menu {...props} />

@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import Form from "../../Components/Form";
 import Menu from "./Menu";
+import { updateUserPassword } from "./store/actions";
 
 const ChangePassword = (props) => {
+  const dispatch = useDispatch();
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [values, setValues] = useState({
@@ -24,6 +28,8 @@ const ChangePassword = (props) => {
     setSubmitted(true);
     if (values.currentPassword !== "" && values.newPassword !== "") {
       try {
+        console.log({ values });
+        dispatch(updateUserPassword(values));
         // await props.changePassword(values).then((res) => {
         //   toast.success(res.message);
         // });

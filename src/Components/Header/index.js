@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import routes from "../../Helper/routes";
 import Logo from "../../Assets/logo.jpg";
 import { getToken } from "../../Helper/LocalStorage";
-import { FiChevronDown } from "react-icons/fi";
+// import { FiChevronDown } from "react-icons/fi";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -12,8 +12,7 @@ const Header = () => {
   console.log("isUser", isUser);
 
   const Links = [
-    { title: "Home", link: routes.home },
-    { title: "Service", link: routes.service },
+    // { title: "Home", link: routes.home },
     { title: "Support", link: routes.support },
     { title: "About Us", link: routes.aboutUs },
     { title: "Contact US", link: routes.contactUs },
@@ -33,6 +32,13 @@ const Header = () => {
     //   link: isUser ? routes.profileDashboard : routes.login,
     // },
   ];
+
+  const subLinks =[
+    {title:"Mobile", link:"#"},
+    {title:"DTH", link:"#"},
+    {title:"Electricity", link:"#"},
+  ];
+
   return (
     <header className="u-header">
       <div className="u-header__section">
@@ -61,6 +67,33 @@ const Header = () => {
                 }`}
               >
                 <ul className="navbar-nav u-header__navbar-nav">
+                <li className="nav-item hs-has-mega-menu u-header__nav-item">
+                <Link to="/" className="nav-link u-header__nav-link u-header__nav-link-toggle">
+                          <span className="me-1">Home</span>
+                 </Link>
+                </li>
+                <li className="nav-item hs-has-mega-menu u-header__nav-item dropdown"> 
+                    <Link
+                      className="nav-link  dropdown-toggle"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      to="#"
+                    >
+                      Service
+                    </Link>
+                    <ul className="dropdown-menu">
+                    {subLinks?.map((items) =>{
+                      return(
+                        <li key={items.title}>
+                        <Link className="dropdown-item" to={items.link}>
+                         <span>{items.title}</span>
+                        </Link>
+                      </li>
+                      )
+                    })}
+                    </ul>
+                      </li>
                   {Links.map((item) => {
                     return (
                       <li
@@ -72,11 +105,11 @@ const Header = () => {
                           className="nav-link u-header__nav-link u-header__nav-link-toggle"
                         >
                           <span className="me-1"> {item.title}</span>
-                          <FiChevronDown className="down-icon" />
                         </Link>
                       </li>
                     );
                   })}
+                  
                 </ul>
               </div>
             </div>

@@ -3505,7 +3505,10 @@ input[type="button"].btn-block {
   border: 0 solid rgba(0, 0, 0, 0.15);
   border-radius: 0.3125rem;
 }
-
+.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0; 
+}
 .dropdown-menu-left {
   right: auto;
   left: 0;
@@ -5808,6 +5811,9 @@ a.badge-indigo.focus {
   background-size: 1rem 1rem;
 }
 
+.profile{
+  padding: 95px 0 0;
+}
 .progress-bar-animated {
   -webkit-animation: progress-bar-stripes 1s linear infinite;
   animation: progress-bar-stripes 1s linear infinite;
@@ -8863,6 +8869,7 @@ button.bg-indigo:focus {
 .my-10 {
   margin-top: 4.5rem !important;
 }
+
 
 .mr-10,
 .mx-10 {

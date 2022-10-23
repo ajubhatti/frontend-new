@@ -25,7 +25,7 @@ const Menu = (props) => {
 
   return (
     <>
-      <div className="bg-primary mt-10">
+      <div className="bg-primary profile">
         <div className="container space-top-1 pb-3">
           <div className="row">
             <div className="col-lg-7 order-lg-1">

@@ -77,3 +77,26 @@ export const stateListing = (data) => () =>
       })
       .catch((err) => reject(err));
   });
+
+export const updatePassword = (data) => () =>
+  new Promise((resolve, reject) => {
+    fetchUrl(
+      auth.changePassword.method,
+      auth.changePassword.url,
+      data,
+      configData
+    )
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => reject(err));
+  });
+
+export const updateTransactionPin = (data) => () =>
+  new Promise((resolve, reject) => {
+    fetchUrl(auth.changeTransactionPin.method, auth.changeTransactionPin.url, data, configData)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => reject(err));
+  });

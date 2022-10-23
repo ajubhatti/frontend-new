@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Form from "../../Components/Form";
 import Menu from "./Menu";
+import { updateUserPassword } from "./store/actions";
 
 const ChangePin = (props) => {
+  const dispatch = useDispatch();
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [values, setValues] = useState({
@@ -24,11 +27,10 @@ const ChangePin = (props) => {
     setSubmitted(true);
     if (values.currentPin !== "" && values.newPin !== "") {
       try {
-        // await props.changePin(values).then((res) => {
-        //   toast.success(res.message);
-        // });
+        console.log({ values });
+        dispatch(updateUserPassword(values));
       } finally {
-        setApiCall(false);
+        setApiCall(false);  
       }
     }
   };
