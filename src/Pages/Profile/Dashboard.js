@@ -1,27 +1,27 @@
-import axios from "axios";
 import React, { useEffect } from "react";
 import { Coin, CurrencyDollar, CurrencyExchange } from "react-bootstrap-icons";
-import { auth, service } from "../../Helper/fetch_helper/apiList";
+import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../Helper/LocalStorage";
 import Activity from "./Activity";
 import Balance from "./Balance";
 import Deposits from "./Deposite";
 import Menu from "./Menu";
-
-const API_URL = process.env.REACT_APP_FETCH_URL;
+import { fetchProfile } from "./store/actions";
 
 const ProfileDashboard = (props) => {
+  const dispatch = useDispatch();
   const user = getUser();
-  console.log({ user });
-  useEffect(() => {
-    getUserData();
-  }, []);
 
-  const getUserData = async () => {
-    await axios.post(API_URL + auth.getUserById.url, {
-      id: user.id,
-    });
-  };
+  const { userData } = useSelector((state) => state.profile);
+  console.log({ userData });
+
+  useEffect(() => {
+    dispatch(
+      fetchProfile({
+        id: user.id,
+      })
+    );
+  }, [dispatch, user.id]);
 
   return (
     <>
@@ -36,7 +36,9 @@ const ProfileDashboard = (props) => {
                     <CurrencyDollar />
                   </span>
                   <div className="media-body">
-                    <span className="d-block font-size-3">$45.99</span>
+                    <span className="d-block font-size-3">
+                      ${userData?.walletBalance || 0}
+                    </span>
                     <h2 className="h6 text-secondary font-weight-normal mb-0">
                       Available balance
                     </h2>
@@ -51,7 +53,9 @@ const ProfileDashboard = (props) => {
                     <Coin />
                   </span>
                   <div className="media-body">
-                    <span className="d-block font-size-3">$1.32</span>
+                    <span className="d-block font-size-3">
+                      ${userData?.rewardedBalance || 0}
+                    </span>
                     <h3 className="h6 text-secondary font-weight-normal mb-0">
                       Reward balance
                     </h3>
@@ -66,7 +70,9 @@ const ProfileDashboard = (props) => {
                     <CurrencyExchange />
                   </span>
                   <div className="media-body">
-                    <span className="d-block font-size-3">$0.00</span>
+                    <span className="d-block font-size-3">
+                      ${userData?.pendingAmount || 0}
+                    </span>
                     <h3 className="h6 text-secondary font-weight-normal mb-0">
                       Pending balance
                     </h3>

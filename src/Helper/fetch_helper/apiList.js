@@ -7,11 +7,17 @@ export const auth = {
   verifyEmail: { method: "post", url: "/auth/verify-email" },
   verifyPhone: { method: "post", url: "/auth/verify-phone-no" },
   resendOtp: { method: "post", url: "/auth/resendOtp" },
+  
   referer: { method: "post", url: "/auth/getByReferralCode" },
   state: { method: "get", url: "/state" },
   getUserById: { method: "post", url: "/auth/getUserById" },
+
   changePassword: { method: "post", url: "/changePassword" },
   changeTransactionPin: { method: "post", url: "/changeTransactionPin" },
+  userWalletList: { method: "post", url: "/wallet" },
+  userWalletData: { method: "post", url: "/walletData" },
+  userTransactionList: { method: "post", url: "/transaction" },
+  updateUser: { method: "post", url: "/update" },
 };
 
 export const home = {

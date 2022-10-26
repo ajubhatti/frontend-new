@@ -1,48 +1,203 @@
-import { auth, recharge, service } from "../../../Helper/fetch_helper/apiList";
+import { auth } from "../../../Helper/fetch_helper/apiList";
 import {
-  FETCH_ALL_SERVICE,
-  SET_LOADING,
-  FETCH_ALL_OPERATOR,
+  SET_PROFILE_LOADING,
+  SET_PROFILE,
+  SET_USERNAME,
+  SET_USER_WALLET_DATA,
+  SET_USER_WALLET_LISTING,
+  SET_USER_TRANSACTION_LISTING,
+  FETCH_BANK_LIST,
 } from "./actionTypes";
 
 import axios from "axios";
 import { toast } from "react-toastify";
-const API_URL = process.env.REACT_APP_FETCH_URL + "/auth";
+import {
+  addMoneyInWallet,
+  getAdminBankList,
+} from "../../../Helper/fetch_helper/profile";
+
+const API_URL = process.env.REACT_APP_FETCH_URL;
+
+export const fetchProfile = (payload) => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const res = await axios.post(API_URL + auth.getUserById.url, payload);
+
+    console.log("res --", res);
+    if (res.data?.data) {
+      dispatch(setProfileData(res?.data?.data));
+    }
+    dispatch(setLoading(false));
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message);
+    dispatch(setLoading(false));
+  }
+};
+
+export const updateProfile = (payload, cb) => async (dispatch) => {
+  try {
+    const res = await axios.post(API_URL + auth.updateUser.url, payload);
+    if (res.status) {
+      if (res.data?.message) {
+        dispatch(fetchProfile());
+        dispatch(setProfileData(payload));
+        toast.success(res.data.message);
+        cb(true);
+      }
+    }
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message);
+    cb(false);
+  }
+};
 
 export const updateUserPassword = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
     const res = await axios.post(API_URL + auth.changePassword.url, payload);
     if (res) {
-      dispatch(setLoading(false));
+      dispatch(fetchProfile());
+      toast.success(res.data.message);
     }
+    dispatch(setLoading(false));
   } catch (err) {
     dispatch(setLoading(false));
     toast.error(err);
   }
 };
 
-export const updateUserTransactionPin = (payload) => async (dispatch) => {
+export const createOrUpdateUserTransactionPin =
+  (payload) => async (dispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const res = await axios.post(
+        API_URL + auth.changeTransactionPin.url,
+        payload
+      );
+      if (res.status) {
+        dispatch(fetchProfile());
+        if (res.data?.message) {
+          toast.success(res.data.message);
+        }
+      }
+      dispatch(setLoading(false));
+    } catch (err) {
+      toast.error(err.response?.data?.message || err.message);
+    }
+  };
+
+export const userWalletData = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
+    const res = await axios.post(API_URL + auth.userWalletData.url, payload);
+    if (res) {
+      dispatch(setUserWalletData(res?.data?.data));
+      toast.success(res);
+    }
+    dispatch(setLoading(false));
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message);
+  }
+};
+
+export const fetchUserWalletList = (payload) => async (dispatch) => {
+  try {
+    console.log("user wallet list");
+    dispatch(setLoading(true));
+    const res = await axios.post(API_URL + auth.userWalletList.url, payload);
+    if (res) {
+      toast.success(res);
+    }
+    dispatch(setLoading(false));
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message);
+  }
+};
+
+export const fetchUserTransactionsList = (payload) => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    console.log("user transaction list");
     const res = await axios.post(
-      API_URL + recharge.rechargeOrBill.url,
+      API_URL + auth.userTransactionList.url,
       payload
     );
-
-    if (res.data) {
-      dispatch(setLoading(false));
-      toast.success(
-        res?.data?.data?.responseData?.TRNSTATUSDESC || res?.data?.data?.status
-      );
+    if (res) {
+      toast.success(res);
     }
-  } catch (err) {
     dispatch(setLoading(false));
-    toast.error(err);
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message);
+  }
+};
+
+export const fetchBankList = (payload) => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const res = await dispatch(getAdminBankList());
+    console.log("res", res);
+    if (res) {
+      dispatch(setBankList(res));
+    }
+    dispatch(setLoading(false));
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message);
+  }
+};
+
+export const walletBalanceUpdate = (payload) => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const res = await dispatch(addMoneyInWallet(payload));
+    console.log("res", res);
+    if (res) {
+      toast.success(res.message);
+      // dispatch(setBankList(res));
+    }
+    dispatch(setLoading(false));
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message);
   }
 };
 
 export const setLoading = (data) => ({
-  type: SET_LOADING,
+  type: SET_PROFILE_LOADING,
+  payload: data,
+});
+
+export const setUsername = (data) => ({
+  type: SET_USERNAME,
+  payload: data,
+});
+
+export const setProfileData = (data) => ({
+  type: SET_PROFILE,
+  payload: data,
+});
+
+// update address
+export const setUserWalletData = (data) => {
+  return {
+    type: SET_USER_WALLET_DATA,
+    payload: data,
+  };
+};
+
+export const setUserWalletListing = (data) => {
+  return {
+    type: SET_USER_WALLET_LISTING,
+    payload: data,
+  };
+};
+
+export const setUserTransactionListing = (data) => {
+  return {
+    type: SET_USER_TRANSACTION_LISTING,
+    payload: data,
+  };
+};
+
+export const setBankList = (data) => ({
+  type: FETCH_BANK_LIST,
   payload: data,
 });
