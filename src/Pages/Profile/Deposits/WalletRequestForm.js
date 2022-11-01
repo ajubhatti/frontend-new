@@ -15,7 +15,7 @@ const WalletRequestForm = (props) => {
   const [step, setStep] = useState(1);
   const [values, setValues] = useState({
     userId: "",
-    requestAmount: 0,
+    requestAmount: null,
     slipNo: "",
     remark: "",
     creditAccount: 0,

@@ -31,3 +31,10 @@ export const RESET = "RESET";
 
 // --------------------
 export const FETCH_BANK_LIST = "FETCH_BANK_LIST";
+
+
+
+//Activity
+
+export const GET_ACTIVITY_LOADING = "GET_ACTIVITY_LOADING"
+export const GET_ACTIVITY = "GET_ACTIVITY"

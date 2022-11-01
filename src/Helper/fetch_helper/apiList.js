@@ -18,6 +18,7 @@ export const auth = {
   userWalletData: { method: "post", url: "/walletData" },
   userTransactionList: { method: "post", url: "/transaction" },
   updateUser: { method: "post", url: "/update" },
+  activityData: { method: "post", url:"/transaction/getByUserId"}
 };
 
 export const home = {

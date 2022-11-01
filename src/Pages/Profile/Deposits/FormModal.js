@@ -6,8 +6,8 @@ import WalletRequestForm from "./WalletRequestForm";
 const FormModal = (props) => {
   return (
     <Modal {...props} aria-labelledby="contained-modal-title-vcenter" centered>
-      <MultiStepForm {...props} />
-      {/* <WalletRequestForm {...props} /> */}
+      {/* <MultiStepForm {...props} /> */}
+      <WalletRequestForm {...props} />
     </Modal>
   );
 };

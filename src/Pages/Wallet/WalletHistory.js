@@ -34,7 +34,7 @@ const WalletHistory = () => {
       sortable: true,
       cell: (d) => (
         <div className="align-middle">
-          <span>{d.isActive}</span>
+          <span className="text-capitalize">{ ""+d.isActive }</span>
         </div>
       ),
     },
@@ -74,7 +74,6 @@ const WalletHistory = () => {
     },
   ];
 
-  console.log({ user, userWalletData });
 
   useEffect(() => {
     let payload = { userId: user.id };

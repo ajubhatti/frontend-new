@@ -1,7 +1,6 @@
 import React from "react";
 
 const AccountListing = (props) => {
-
   const saveAndContinue = () => {
     props.nextStep();
   };
@@ -9,7 +8,7 @@ const AccountListing = (props) => {
   const addBankDetail = (id) => {
     props.handleChange(id);
     saveAndContinue();
-  }
+  };
   return (
     <>
       <div className="mb-4">
@@ -19,7 +18,7 @@ const AccountListing = (props) => {
               <div
                 className="card card-frame mb-2 pointer"
                 key={index}
-                onClick={() => addBankDetail(bank.bankId)}
+                onClick={() => addBankDetail(bank._id)}
               >
                 <div className="card-body align-items-sm-center p-2">
                   <div className="media align-items-center">
@@ -33,7 +32,10 @@ const AccountListing = (props) => {
                     <div className="media-body">
                       <h4 className="h6 mb-0">{bank.bankName}</h4>
                       <small className="d-block text-secondary">
-                        {bank.ifscCode}
+                        Ifsc code : {bank.ifscCode}
+                      </small>
+                      <small className="d-block text-secondary">
+                        Account No : {bank.accountNo}
                       </small>
                     </div>
                   </div>

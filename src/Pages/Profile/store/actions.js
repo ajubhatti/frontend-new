@@ -7,6 +7,8 @@ import {
   SET_USER_WALLET_LISTING,
   SET_USER_TRANSACTION_LISTING,
   FETCH_BANK_LIST,
+  GET_ACTIVITY_LOADING,
+  GET_ACTIVITY
 } from "./actionTypes";
 
 import axios from "axios";
@@ -160,6 +162,25 @@ export const walletBalanceUpdate = (payload) => async (dispatch) => {
   }
 };
 
+export const getActivityData = (payload) => async (dispatch) => {
+  try {
+    dispatch(getActiveLogLoading(true));
+    console.log("hi")
+    const res = await axios.post(
+      API_URL + auth.activityData.url,
+      payload
+    );
+    if (res) {
+      // toast.success(res);
+      dispatch(getActiveLog(res.data.data))
+    }
+    dispatch(getActiveLogLoading(false));
+  } catch (err) {
+    dispatch(getActiveLogLoading(false));
+    toast.error(err.response?.data?.message || err.message);
+  }
+};
+
 export const setLoading = (data) => ({
   type: SET_PROFILE_LOADING,
   payload: data,
@@ -199,5 +220,15 @@ export const setUserTransactionListing = (data) => {
 
 export const setBankList = (data) => ({
   type: FETCH_BANK_LIST,
+  payload: data,
+});
+
+export const getActiveLogLoading = (data) => ({
+  type: GET_ACTIVITY_LOADING,
+  payload: data,
+});
+
+export const getActiveLog = (data) => ({
+  type: GET_ACTIVITY,
   payload: data,
 });

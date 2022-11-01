@@ -6,12 +6,15 @@ import {
   SET_USER_TRANSACTION_LISTING,
   SET_USER_WALLET_DATA,
   SET_USER_WALLET_LISTING,
+  GET_ACTIVITY_LOADING,
+  GET_ACTIVITY
 } from "./actionTypes";
 
 import produce from "immer";
 
 const initialState = {
   profileLoading: false,
+  getActivityLoading: false,
   userData: {},
   userWallet: {},
   userWalletList: [],
@@ -19,6 +22,7 @@ const initialState = {
   activeMemberships: [],
   volumesMemberships: [],
   bankList: [],
+  activity: []
 };
 
 const profileReducer = produce((state = initialState, action) => {
@@ -81,6 +85,14 @@ const profileReducer = produce((state = initialState, action) => {
         bankList: payload,
       };
 
+    case GET_ACTIVITY_LOADING:
+      state.getActivityLoading = payload;
+      break;
+    
+    case GET_ACTIVITY:
+      state.activity = payload;
+      break;
+    
     default:
       return state;
   }
