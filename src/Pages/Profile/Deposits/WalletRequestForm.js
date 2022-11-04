@@ -19,7 +19,7 @@ const WalletRequestForm = (props) => {
     slipNo: "",
     remark: "",
     creditAccount: 0,
-    paymentType: 1,
+    paymentType: "636503acf2c7df71df257a03",
   });
 
   const [apiCall, setApiCall] = useState(false);
@@ -34,22 +34,6 @@ const WalletRequestForm = (props) => {
     dispatch(fetchBankList());
   }, [dispatch]);
 
-  const nextStep = () => {
-    setStep((prevCount) => prevCount + 1);
-  };
-
-  const prevStep = () => {
-    setStep((prevCount) => prevCount - 1);
-  };
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   const bankHandleChange = (id) => {
     setValues((prevState) => ({
       ...prevState,
@@ -57,18 +41,40 @@ const WalletRequestForm = (props) => {
     }));
   };
 
+  const cancelHandler = () => {
+    props.onHide();
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    console.log({ name, value });
+    setValues((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  // const submitHandler = async () => {
+  //   setApiCall(true);
+  //   try {
+  //     await props.addMoneyInWallet(values).then((res) => {
+  //       props.onHide();
+  //       toast.success(res.message);
+  //     });
+  //   } finally {
+  //     setApiCall(false);
+  //   }
+  // };
+
   const submitHandler = async () => {
     setApiCall(true);
+    console.log({ values });
     try {
       dispatch(walletBalanceUpdate(values));
       props.onHide();
     } finally {
       setApiCall(false);
     }
-  };
-
-  const cancelHandler = () => {
-    props.onHide();
   };
 
   return (
@@ -84,6 +90,7 @@ const WalletRequestForm = (props) => {
             nextStep={submitHandler}
             prevStep={cancelHandler}
             handleChange={handleChange}
+            bankHandleChange={bankHandleChange}
             inputValues={values}
             list={bankList}
           />

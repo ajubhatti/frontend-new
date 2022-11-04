@@ -1,7 +1,7 @@
 import React from "react";
 
 const PaymentDetail2 = (props) => {
-  const back = (e) => {
+  const cancelHandler = (e) => {
     e.preventDefault();
     props.prevStep();
   };
@@ -11,13 +11,7 @@ const PaymentDetail2 = (props) => {
     props.nextStep();
   };
 
-  const addBankDetail = (id) => {
-    props.handleChange(id);
-    saveAndContinue();
-  };
-
-  const { inputValues, handleChange } = props;
-
+  const { inputValues, handleChange, bankHandleChange } = props;
   return (
     <>
       <div className="row">
@@ -26,8 +20,8 @@ const PaymentDetail2 = (props) => {
           <select
             className="custom-select custom-select-sm"
             name="PayerType"
-            onChange={() => {
-              handleChange();
+            onChange={(e) => {
+              bankHandleChange(e.target.value);
             }}
             aria-invalid
             onSelect={(e) => {
@@ -37,8 +31,8 @@ const PaymentDetail2 = (props) => {
             {props.list.length > 0 &&
               props.list.map((bank, index) => {
                 return (
-                  <option value={bank.bankId} key={bank.bankId + index}>
-                    {bank.bankName} - {bank.ifscCode}
+                  <option value={bank?._id} key={bank?.bankId + index}>
+                    {bank?.bankName} - {bank?.ifscCode}
                   </option>
                 );
               })}
@@ -54,7 +48,7 @@ const PaymentDetail2 = (props) => {
                 type="number"
                 className="form-control"
                 name="requestAmount"
-                value={inputValues.requestAmount}
+                value={inputValues?.requestAmount || ""}
                 onChange={handleChange}
                 placeholder="00000"
                 required
@@ -74,7 +68,7 @@ const PaymentDetail2 = (props) => {
                 type="number"
                 className="form-control"
                 name="slipNo"
-                value={inputValues.slipNo}
+                value={inputValues?.slipNo || ""}
                 onChange={handleChange}
                 placeholder=""
                 required
@@ -114,7 +108,7 @@ const PaymentDetail2 = (props) => {
               className="form-control"
               rows="2"
               name="remark"
-              value={inputValues.remark}
+              value={inputValues?.remark || ""}
               onChange={handleChange}
               placeholder="Your payer will see this description on the payment request"
               required
@@ -136,7 +130,7 @@ const PaymentDetail2 = (props) => {
         <button
           type="button"
           className="btn btn-soft-secondary transition-3d-hover mr-1"
-          onClick={back}
+          onClick={cancelHandler}
         >
           Cancel
         </button>

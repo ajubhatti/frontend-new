@@ -14,7 +14,7 @@ const MultiStepForm = (props) => {
     slipNo: "",
     remark: "",
     creditAccount: 0,
-    paymentType: 1,
+    paymentType: "636503acf2c7df71df257a03",
   });
   const [adminBankList, setAdminBankList] = useState([]);
   const [apiCall, setApiCall] = useState(false);

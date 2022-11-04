@@ -25,7 +25,7 @@ export const addMoneyInWallet = (data) => () =>
       config
     )
       .then((res) => {
-        resolve(res.data);
+        resolve(res);
       })
       .catch((err) => reject(err));
   });
