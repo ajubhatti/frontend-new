@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const PaymentDetail2 = (props) => {
   const cancelHandler = (e) => {
@@ -12,6 +13,9 @@ const PaymentDetail2 = (props) => {
   };
 
   const { inputValues, handleChange, bankHandleChange } = props;
+
+  const { type } = useSelector((state) => state.profile);
+
   return (
     <>
       <div className="row">
@@ -28,6 +32,7 @@ const PaymentDetail2 = (props) => {
               console.log(e);
             }}
           >
+            <option value={0}>Select the bank</option>
             {props.list.length > 0 &&
               props.list.map((bank, index) => {
                 return (
@@ -90,13 +95,11 @@ const PaymentDetail2 = (props) => {
             onChange={handleChange}
             aria-invalid
           >
-            <option value="1">NEFT (National Electronic Fund Transfer)</option>
-            <option value="2">RTGS (Real Time Gross Settlement)</option>
-            <option value="3">IMPS (Immediate Payment Service)</option>
-            <option value="4">UPI (Unified Payments Interface)</option>
-            <option value="5">Cheque</option>
-            <option value="6">Cash</option>
-            <option value="7">Credit</option>
+            <option value={0}>Select the type</option>
+            {type.length !== 0 &&
+              type?.map((item) => (
+                <option value={item?._id}>{item?.modeName}</option>
+              ))}
           </select>
         </div>
       </div>

@@ -4,6 +4,7 @@ import Menu from "./Menu";
 import Table from "./Table";
 import { getUser } from "../../Helper/LocalStorage";
 import { getActivityData } from "./store/actions";
+import moment from "moment";
 
 
 const ProfileTransaction = () => {
@@ -42,7 +43,7 @@ const ProfileTransaction = () => {
     {
       name: "remark",
       selector: "remark",
-      sortable: true,
+      // sortable: true,
       cell: (d) => (
         <div className="align-middle">
           <span>{!!d?.remark ? d?.remark :"-"}</span>
@@ -60,15 +61,15 @@ const ProfileTransaction = () => {
     {
       name: "created",
       selector: "created",
-      sortable: true,
+      // sortable: true,
       cell: (d) => (
-        <div className="align-middle text-secondary">{d?.created}</div>
+        <div className="align-middle text-secondary">{moment(d?.created).format("DD-MM-YYYY h:mm:ss a")}</div>
       ),
     },
     {
       name: "status",
       selector: "status",
-      sortable: true,
+      // sortable: true,
       cell: (d) => (
         <div
           className={`align-middle text-${d?.status === "completed"

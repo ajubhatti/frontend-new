@@ -6,7 +6,7 @@ import { getStateList } from "../../Redux/Actions/Auth/actions";
 import "./service.css";
 import ServiceRender2 from "./ServiceRender2";
 
-const AllSerices = (props) => {
+const AllSerices = () => {
   const dispatch = useDispatch();
   const { allServices } = useSelector((state) => state.service);
   const [selectedService, setSelectedService] = useState({});

@@ -5,6 +5,8 @@ import Confirmation from "./Confirmation";
 import PaymentDetail from "./PaymentDetail";
 import { getUser } from "../../../Helper/LocalStorage";
 import { toast } from "react-toastify";
+import { fetchType } from "../store/actions";
+import { useDispatch } from "react-redux";
 
 const MultiStepForm = (props) => {
   const [step, setStep] = useState(1);
@@ -18,6 +20,11 @@ const MultiStepForm = (props) => {
   });
   const [adminBankList, setAdminBankList] = useState([]);
   const [apiCall, setApiCall] = useState(false);
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchType())
+  },[dispatch])
 
   useEffect(() => {
     const getUserData = getUser();

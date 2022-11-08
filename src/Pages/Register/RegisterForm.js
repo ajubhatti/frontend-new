@@ -129,7 +129,7 @@ const RegisterForm = (props) => {
         <label className="form-label">Full Name</label>
         <input
           type="text"
-          placeholder="Mukul Joshi"
+          placeholder="As Per PAN Card"
           required
           name="userName"
           value={values.userName}
@@ -144,11 +144,11 @@ const RegisterForm = (props) => {
         )}
       </div>
       <div className="form-group">
-        <label className="form-label">Phone Number</label>
+        <label className="form-label">Mobile Number</label>
         <input
           type="tel"
           name="phoneNumber"
-          placeholder="12345678"
+          placeholder="Mobile Number"
           pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
           required
           value={values.phoneNumber}
@@ -184,7 +184,7 @@ const RegisterForm = (props) => {
         <label className="form-label">City</label>
         <input
           type="text"
-          placeholder="surat"
+          placeholder="City/Address"
           required
           name="city"
           value={values.city}
@@ -201,7 +201,7 @@ const RegisterForm = (props) => {
         <label className="form-label">Pin Code</label>
         <input
           type="number"
-          placeholder="394212"
+          placeholder="Pin code"
           required
           name="pincode"
           value={values.pincode}
@@ -250,10 +250,10 @@ const RegisterForm = (props) => {
         )}
       </div>
       <div className="form-group">
-        <label className="form-label">Conform Password</label>
+        <label className="form-label">Confirm Password</label>
         <input
           type="password"
-          placeholder="conform password"
+          placeholder="confirm password"
           required
           name="ConformPassword"
           value={values.ConformPassword}
@@ -306,7 +306,7 @@ const RegisterForm = (props) => {
             onClick={(e) => submitHandler(e)}
             disabled={apiCall}
           >
-            Get Started
+            Submit
           </button>
         </div>
       </div>

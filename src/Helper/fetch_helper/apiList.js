@@ -57,3 +57,7 @@ export const company = {
 export const recharge = {
   rechargeOrBill: { method: "post", url: "/rechargeOrBill" },
 };
+
+export const wallet = {
+  type: { method: "get", url:"/paymentMode"}
+}

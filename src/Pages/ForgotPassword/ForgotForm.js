@@ -43,7 +43,7 @@ const ForgotForm = (props) => {
   return (
     <Form name="reset-password-form" className="sl-form">
       <div className="form-group">
-        <label className="form-label">Phone Number</label>
+        <label className="form-label">Mobile Number</label>
         <input
           type="tel"
           name="phoneNumber"
@@ -74,7 +74,7 @@ const ForgotForm = (props) => {
             disabled={apiCall}
             onClick={(e) => submitHandler(e)}
           >
-            Request Reset Link
+            Send OTP
           </button>
         </div>
       </div>

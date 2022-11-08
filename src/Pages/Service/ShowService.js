@@ -119,7 +119,7 @@ const ShowService = (props) => {
     if (!isUser) {
       setIsLoginModalShow(true);
     } else {
-      if (user.walletAmount > 0) {
+      if (user.walletAmount > 0 || user.walletAmount > values?.amount) {
         if (user.transactionPin) {
           setSubmitted(true);
           if (

@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../Helper/LocalStorage";
@@ -24,14 +25,14 @@ const WalletHistory = () => {
       sortable: true,
       cell: (d) => (
         <div className="align-middle text-secondary font-weight-normal">
-          #{d.slipNo}
+          {!!d?.slipNo ? "# "+d?.slipNo : "-"}
         </div>
       ),
     },
     {
       name: "isActive",
       selector: "isActive",
-      sortable: true,
+      // sortable: true,
       cell: (d) => (
         <div className="align-middle">
           <span className="text-capitalize">{ ""+d.isActive }</span>
@@ -49,15 +50,15 @@ const WalletHistory = () => {
     {
       name: "Date",
       selector: "created",
-      sortable: true,
+      // sortable: true,
       cell: (d) => (
-        <div className="align-middle text-secondary">{d.created}</div>
+        <div className="align-middle text-secondary">{moment(d.created).format("DD-MM-YYYY h:mm:ss a")}</div>
       ),
     },
     {
       name: "Status",
       selector: "statusOfWalletRequest",
-      sortable: true,
+      // sortable: true,
       cell: (d) => (
         <div
           className={`align-middle text-${

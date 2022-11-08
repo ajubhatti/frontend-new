@@ -12,7 +12,8 @@ const ForgotPassword = (props) => {
               <span className="font-weight-semi-bold">password</span>
             </h2>
             <p>
-              Enter your email address below and we'll get you back on track.
+              Enter your mobile number below and we'll send you OTP for back on
+              track.
             </p>
           </div>
           <ForgotForm {...props} />

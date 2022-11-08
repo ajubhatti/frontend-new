@@ -17,7 +17,7 @@ const Header = () => {
     { title: "About Us", link: routes.aboutUs },
     { title: "Contact US", link: routes.contactUs },
     { title: "Referral", link: routes.refer },
-    { title: "Wallet", link: routes.wallet },
+    // { title: "Wallet", link: routes.wallet },
     isUser
       ? {
           title: "My Profile",
@@ -27,16 +27,12 @@ const Header = () => {
           title: "Login",
           link: routes.login,
         },
-    // {
-    //   title: isUser ? "My Profile" : "Login",
-    //   link: isUser ? routes.profileDashboard : routes.login,
-    // },
   ];
 
-  const subLinks =[
-    {title:"Mobile", link:"#"},
-    {title:"DTH", link:"#"},
-    {title:"Electricity", link:"#"},
+  const subLinks = [
+    { title: "Mobile", link: "#" },
+    { title: "DTH", link: "#" },
+    { title: "Electricity", link: "#" },
   ];
 
   return (
@@ -67,12 +63,15 @@ const Header = () => {
                 }`}
               >
                 <ul className="navbar-nav u-header__navbar-nav">
-                <li className="nav-item hs-has-mega-menu u-header__nav-item">
-                <Link to="/" className="nav-link u-header__nav-link u-header__nav-link-toggle">
-                          <span className="me-1">Home</span>
-                 </Link>
-                </li>
-                <li className="nav-item hs-has-mega-menu u-header__nav-item dropdown"> 
+                  <li className="nav-item hs-has-mega-menu u-header__nav-item">
+                    <Link
+                      to="/"
+                      className="nav-link u-header__nav-link u-header__nav-link-toggle"
+                    >
+                      <span className="me-1">Home</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item hs-has-mega-menu u-header__nav-item dropdown">
                     <Link
                       className="nav-link  dropdown-toggle"
                       role="button"
@@ -83,17 +82,17 @@ const Header = () => {
                       Service
                     </Link>
                     <ul className="dropdown-menu">
-                    {subLinks?.map((items) =>{
-                      return(
-                        <li key={items.title}>
-                        <Link className="dropdown-item" to={items.link}>
-                         <span>{items.title}</span>
-                        </Link>
-                      </li>
-                      )
-                    })}
+                      {subLinks?.map((items) => {
+                        return (
+                          <li key={items.title}>
+                            <Link className="dropdown-item" to={items.link}>
+                              <span>{items.title}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
-                      </li>
+                  </li>
                   {Links.map((item) => {
                     return (
                       <li
@@ -109,7 +108,6 @@ const Header = () => {
                       </li>
                     );
                   })}
-                  
                 </ul>
               </div>
             </div>

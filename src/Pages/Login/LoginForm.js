@@ -52,7 +52,7 @@ const LoginForm = (props) => {
   return (
     <Form name="login-form">
       <div className="form-group">
-        <label className="form-label">Phone Number</label>
+        <label className="form-label">Mobile Number</label>
         <input
           type="tel"
           name="mobileNo"
@@ -114,7 +114,7 @@ const LoginForm = (props) => {
             disabled={apiCall}
             onClick={(e) => submitHandler(e)}
           >
-            Get Started
+            Login
           </button>
         </div>
       </div>

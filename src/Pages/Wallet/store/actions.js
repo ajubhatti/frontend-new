@@ -16,6 +16,8 @@ import { toast } from "react-toastify";
 import { getPlanDetails } from "../../../Helper/fetch_helper/service";
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
+// const API_URL = "https://api.badipay.co.in"
+
 
 export const getAllUserWalletList = (payload) => async (dispatch) => {
   try {

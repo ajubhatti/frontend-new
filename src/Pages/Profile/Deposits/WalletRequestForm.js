@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import PaymentDetail2 from "./PaymentDetail2";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBankList, walletBalanceUpdate } from "../store/actions";
+import { fetchType } from "../store/actions";
+
 
 const WalletRequestForm = (props) => {
   const dispatch = useDispatch();
@@ -23,6 +25,10 @@ const WalletRequestForm = (props) => {
   });
 
   const [apiCall, setApiCall] = useState(false);
+
+  useEffect(() => {
+    dispatch(fetchType())
+  }, [dispatch])
 
   useEffect(() => {
     const getUserData = getUser();

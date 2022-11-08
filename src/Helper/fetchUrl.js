@@ -5,6 +5,8 @@ import LocalStorage, { getToken } from "./LocalStorage";
 import routes from "./routes";
 
 const baseUrl = process.env.REACT_APP_FETCH_URL;
+// const baseUrl = "https://api.badipay.co.in"
+
 
 const GET = "GET";
 const DELETE = "DELETE";

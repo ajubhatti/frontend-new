@@ -4,7 +4,6 @@ import iconChecked from "../../Assets/iconChecked.svg";
 import routes from "../../Helper/routes";
 
 const VerifyEmail = (props) => {
-
   const clickHandler = async () => {
     // await props.verify().then((res) => {
     //   toast.success(res.message);
@@ -24,7 +23,7 @@ const VerifyEmail = (props) => {
           <div className="mb-5">
             <h1 className="h3 font-weight-medium">Welcome!</h1>
             <p>
-              We're excited to have you get started. First, you need conform
+              We're excited to have you get started. First, you need confirm
               your account. just press the button below.
             </p>
           </div>
@@ -32,7 +31,7 @@ const VerifyEmail = (props) => {
             className="btn btn-primary btn-pill transition-3d-hover px-5"
             onClick={clickHandler}
           >
-            Conform Account
+            Confirm Account
           </button>
         </div>
       </div>

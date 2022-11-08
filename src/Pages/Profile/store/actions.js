@@ -1,4 +1,4 @@
-import { auth } from "../../../Helper/fetch_helper/apiList";
+import { auth, wallet } from "../../../Helper/fetch_helper/apiList";
 import {
   SET_PROFILE_LOADING,
   SET_PROFILE,
@@ -9,6 +9,8 @@ import {
   FETCH_BANK_LIST,
   GET_ACTIVITY_LOADING,
   GET_ACTIVITY,
+  GET_TYPE_LOADING,
+  GET_TYPE
 } from "./actionTypes";
 
 import axios from "axios";
@@ -19,6 +21,7 @@ import {
 } from "../../../Helper/fetch_helper/profile";
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
+// const API_URL = "https://api.badipay.co.in"
 
 export const fetchProfile = (payload) => async (dispatch) => {
   try {
@@ -178,6 +181,23 @@ export const getActivityData = (payload) => async (dispatch) => {
   }
 };
 
+export const fetchType = () => async (dispatch) => {
+  try {
+    dispatch(getTypeLoading(true));
+    console.log('wallet.url', wallet.type.url)
+    const res = await axios.get(API_URL + wallet.type.url);
+    if (res) {
+      console.log('res====>', res.data.data)
+      // toast.success(res);
+      dispatch(getType(res.data.data));
+    }
+    dispatch(getTypeLoading(false));
+  } catch (err) {
+    dispatch(getTypeLoading(false));
+    toast.error(err.response?.data?.message || err.message);
+  }
+};
+
 export const setLoading = (data) => ({
   type: SET_PROFILE_LOADING,
   payload: data,
@@ -229,3 +249,13 @@ export const getActiveLog = (data) => ({
   type: GET_ACTIVITY,
   payload: data,
 });
+
+export const getTypeLoading = (data) =>({
+  type: GET_TYPE_LOADING,
+  payload:data
+})
+
+export const getType = (data) => ({
+  type: GET_TYPE,
+  payload: data
+})

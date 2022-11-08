@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Form from "../../Components/Form";
+import { sendContactDetails } from "../../Helper/fetch_helper/contact";
 
 const ContactForm = (props) => {
   const [apiCall, setApiCall] = useState(false);
@@ -33,7 +34,7 @@ const ContactForm = (props) => {
       values.description !== ""
     ) {
       try {
-        await props.sendContactDetails(values).then((res) => {
+        await sendContactDetails(values).then((res) => {
           toast.success(res.message);
         });
       } finally {

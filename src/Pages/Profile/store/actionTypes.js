@@ -38,3 +38,7 @@ export const FETCH_BANK_LIST = "FETCH_BANK_LIST";
 
 export const GET_ACTIVITY_LOADING = "GET_ACTIVITY_LOADING"
 export const GET_ACTIVITY = "GET_ACTIVITY"
+
+export const GET_TYPE_LOADING = "GET_TYPE_LOADING"
+export const GET_TYPE = "GET_TYPE"
+
