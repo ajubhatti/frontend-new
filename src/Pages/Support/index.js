@@ -21,8 +21,9 @@ const Support = (props) => {
 
   const submitRedirect = () => {
     navigate(routes.contactUs);
+    // props.history.push(routes.contactUs);
   };
-
+  
   return (
     <>
       <div className="bg-light">
@@ -41,7 +42,7 @@ const Support = (props) => {
           </div>
         </div>
       </div>
-
+      
       <div className="container">
         <div className="space-2 space-md-3">
           <Tab.Container

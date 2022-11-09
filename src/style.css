@@ -24713,3 +24713,11 @@ span.sc-bZkfAO.sc-ikZpkk.lmGpws.kBhHpT {
 .pointer {
   cursor: pointer !important;
 }
+
+
+/* saurav */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

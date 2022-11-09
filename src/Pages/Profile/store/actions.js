@@ -150,13 +150,14 @@ export const fetchBankList = (payload) => async (dispatch) => {
   }
 };
 
-export const walletBalanceUpdate = (payload) => async (dispatch) => {
+export const walletBalanceUpdate = (payload,cb) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
     const res = await dispatch(addMoneyInWallet(payload));
     if (res) {
       console.log("res", res);
       toast.success(res.message);
+      cb(res)
       // dispatch(setBankList(res));
     }
     dispatch(setLoading(false));
