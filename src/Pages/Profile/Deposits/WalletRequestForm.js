@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBankList, walletBalanceUpdate } from "../store/actions";
 import { fetchType } from "../store/actions";
 
-
 const WalletRequestForm = (props) => {
   const dispatch = useDispatch();
   const { bankList } = useSelector((state) => state.profile);
@@ -27,8 +26,8 @@ const WalletRequestForm = (props) => {
   const [apiCall, setApiCall] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchType())
-  }, [dispatch])
+    dispatch(fetchType());
+  }, [dispatch]);
 
   useEffect(() => {
     const getUserData = getUser();
@@ -60,21 +59,8 @@ const WalletRequestForm = (props) => {
     }));
   };
 
-  // const submitHandler = async () => {
-  //   setApiCall(true);
-  //   try {
-  //     await props.addMoneyInWallet(values).then((res) => {
-  //       props.onHide();
-  //       toast.success(res.message);
-  //     });
-  //   } finally {
-  //     setApiCall(false);
-  //   }
-  // };
-
   const submitHandler = async () => {
     setApiCall(true);
-    console.log({ values });
     try {
       dispatch(walletBalanceUpdate(values));
       props.onHide();
@@ -93,7 +79,6 @@ const WalletRequestForm = (props) => {
       <div className="card-body bg-white">
         <div className="py-4">
           <PaymentDetail2
-            nextStep={submitHandler}
             prevStep={cancelHandler}
             handleChange={handleChange}
             bankHandleChange={bankHandleChange}

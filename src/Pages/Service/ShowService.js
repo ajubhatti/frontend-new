@@ -116,11 +116,15 @@ const ShowService = (props) => {
   };
 
   const handleContinue = () => {
-    if (!isUser) {
-      setIsLoginModalShow(true);
-    } else {
-      if (user.walletAmount > 0 || user.walletAmount > values?.amount) {
-        if (user.transactionPin) {
+    requestValidate(values);
+    if (requestValidate(values)) {
+      if (!isUser) {
+        setIsLoginModalShow(true);
+      } else {
+        console.log({ user, values });
+
+        if (user.walletBalance > 0 || user.walletBalance > values?.amount) {
+          // if (user.transactionPin) {
           setSubmitted(true);
           if (
             values?.operator !== "0" &&
@@ -132,15 +136,30 @@ const ShowService = (props) => {
           } else {
             console.log("else part");
           }
+          // } else {
+          //   toast.error(
+          //     "transaction pin created , please create a new transaction pin."
+          //   );
+          // }
         } else {
-          toast.error(
-            "transaction pin created , please create a new transaction pin."
-          );
+          toast.error("wallet amount is not enough to continue!");
         }
-      } else {
-        toast.error("wallet amount is not enough to continue!");
       }
+    } else {
+      toast.error("Enter valid data!");
     }
+  };
+
+  const requestValidate = () => {
+    if (
+      values?.operator !== "0" &&
+      values?.mobileNo !== "" &&
+      values?.amount !== "" &&
+      values?.state !== "0"
+    ) {
+      return true;
+    }
+    return false;
   };
 
   const getCustomerDetail = async (type) => {

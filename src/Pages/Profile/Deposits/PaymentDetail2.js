@@ -1,19 +1,24 @@
 import React from "react";
-import { useFormik } from 'formik';
-import { useSelector,useDispatch } from "react-redux";
-import * as Yup from 'yup';
+import { useFormik } from "formik";
+import { useSelector, useDispatch } from "react-redux";
+import * as Yup from "yup";
 import { CheckLg } from "react-bootstrap-icons";
 import { walletBalanceUpdate } from "../store/actions";
+import { getUser } from "../../../Helper/LocalStorage";
+
+const getUserData = getUser();
 
 const initialValues = {
-  PayerType:"",
-  requestAmount:"",
-  slipNo:"",
-  paymentType:""
-}
+  PayerType: "",
+  requestAmount: "",
+  slipNo: "",
+  paymentType: "",
+  remark: "",
+  userId: getUserData?.id,
+};
 
 const validationSchema = Yup.object().shape({
-  PayerType : Yup.string().required("Please select the bank"),
+  PayerType: Yup.string().required("Please select the bank"),
   requestAmount: Yup.number()
     .positive("Amount is must be greater than 0")
     .integer("Amount is must be greater than 0")
@@ -23,40 +28,49 @@ const validationSchema = Yup.object().shape({
     .integer("Transaction number is must be greater than 0")
     .required("Transaction number is required"),
   paymentType: Yup.string().required("Please select the type"),
-    
-})
+});
 const PaymentDetail2 = (props) => {
   const cancelHandler = (e) => {
     e.preventDefault();
     props.prevStep();
   };
 
-  const saveAndContinue = (e) => {
-    e.preventDefault();
-    props.nextStep();
+  const saveAndContinue = (values) => {
+    // e.preventDefault();
+    // props.nextStep();
+    // alert(JSON.stringify(values, null, 2));
+    console.log("values======>", values);
+    dispatch(
+      walletBalanceUpdate(values, (status) => {
+        if (status) {
+          // cancelHandler()
+          props.prevStep();
+          resetForm();
+          setFieldValue(initialValues);
+          // setFieldValue("paymentType", "");
+        }
+      })
+    );
   };
 
-  const { inputValues,onHide } = props;
+  const { type } = useSelector((state) => state.profile);
 
-  const { type } = useSelector((state)=>state.profile)
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-  
-  const { handleChange, values, errors, touched, handleSubmit, handleBlur, setFieldValue,resetForm
-    } = useFormik({
+  const {
+    handleChange,
+    values,
+    errors,
+    touched,
+    handleSubmit,
+    handleBlur,
+    setFieldValue,
+    resetForm,
+  } = useFormik({
     initialValues: initialValues,
     validationSchema: validationSchema,
-    onSubmit: values => {
-      // alert(JSON.stringify(values, null, 2));
-      console.log('values======>', values)
-      dispatch(walletBalanceUpdate(values,(status)=>{
-        if(status){
-          // cancelHandler()
-          resetForm();
-          setFieldValue("PayerType", "")
-          setFieldValue("paymentType", "")
-        }
-      }));
+    onSubmit: (values) => {
+      saveAndContinue(values);
     },
   });
 
@@ -68,14 +82,10 @@ const PaymentDetail2 = (props) => {
           <select
             className="custom-select custom-select-sm"
             name="PayerType"
-            onChange={(e) =>
-              setFieldValue("PayerType", e.target.value)
-            }
+            onChange={(e) => setFieldValue("PayerType", e.target.value)}
             onBlur={handleBlur}
           >
-            <option value={""}>  
-              Select the bank 
-            </option>
+            <option value={""}>Select the bank</option>
             {props.list.length > 0 &&
               props.list.map((bank, index) => {
                 return (
@@ -86,7 +96,9 @@ const PaymentDetail2 = (props) => {
               })}
           </select>
           {errors.PayerType && touched.PayerType && (
-            <span className="text-danger" style={{ fontSize: "12px" }}>{errors.PayerType}</span>
+            <span className="text-danger" style={{ fontSize: "12px" }}>
+              {errors.PayerType}
+            </span>
           )}
         </div>
       </div>
@@ -106,7 +118,9 @@ const PaymentDetail2 = (props) => {
               />
             </div>
             {errors.requestAmount && touched.requestAmount && (
-              <span className="text-danger" style={{ fontSize: "12px" }}>{errors.requestAmount}</span>
+              <span className="text-danger" style={{ fontSize: "12px" }}>
+                {errors.requestAmount}
+              </span>
             )}
           </div>
         </div>
@@ -125,8 +139,10 @@ const PaymentDetail2 = (props) => {
               />
             </div>
             {errors.slipNo && touched.slipNo && (
-              <span className="text-danger" style={{fontSize:"12px"}}>{errors.slipNo}</span>
-            ) }
+              <span className="text-danger" style={{ fontSize: "12px" }}>
+                {errors.slipNo}
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -136,22 +152,19 @@ const PaymentDetail2 = (props) => {
           <select
             className="custom-select custom-select-sm"
             name="paymentType"
-            onChange={(e) =>
-              setFieldValue("paymentType", e.target.value)
-            }
+            onChange={(e) => setFieldValue("paymentType", e.target.value)}
             onBlur={handleBlur}
           >
-            <option value={""}>
-              Select the type
-            </option>
-            {
-              type.length !== 0 && type?.map((item)=>
-                <option value={item?._id}>{item?.modeName }</option>
-               )
-            }
+            <option value={""}>Select the type</option>
+            {type.length !== 0 &&
+              type?.map((item) => (
+                <option value={item?._id}>{item?.modeName}</option>
+              ))}
           </select>
           {errors.paymentType && touched.paymentType && (
-            <span className="text-danger" style={{ fontSize: "12px" }}>{errors.paymentType}</span>
+            <span className="text-danger" style={{ fontSize: "12px" }}>
+              {errors.paymentType}
+            </span>
           )}
         </div>
       </div>
@@ -163,10 +176,10 @@ const PaymentDetail2 = (props) => {
               className="form-control"
               rows="2"
               name="remark"
-              value={inputValues?.remark || ""}
+              value={values?.remark || ""}
               onChange={handleChange}
               placeholder="Your payer will see this description on the payment request"
-              ></textarea>
+            ></textarea>
           </div>
         </div>
       </div>
