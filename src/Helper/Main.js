@@ -14,6 +14,7 @@ const Main = (props) => {
     hideLoader();
   }, []);
   const user = getUser();
+
   return (
     <div>
       <ToastContainer />

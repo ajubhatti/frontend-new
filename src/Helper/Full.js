@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { Route } from "react-router-dom";
@@ -22,19 +22,27 @@ import AboutUs from "../Pages/AboutUs";
 import PageNotFound from "../Pages/PageNotFound";
 import PrivacyPolicy from "../Pages/PrivacyPolicy";
 import TermsCondition from "../Pages/TermsCondition";
-import { getToken } from "./LocalStorage";
+import { getToken, getUser } from "./LocalStorage";
 import Main from "./Main";
 import routes from "./routes";
 import Faq from "../Pages/FAQ/Faq";
 import WalletHistory from "../Pages/Wallet/WalletHistory";
+import { useDispatch } from "react-redux";
+import { fetchProfile } from "../Pages/Profile/store/actions";
+
 
 const ProtectedRoute = ({ children }) => {
+  const dispatch = useDispatch();
+  const user = getUser();
+  dispatch(fetchProfile({ id: user?.id }))
   const token = getToken();
   if (!token) {
     return <Navigate to={routes.login} replace />;
   }
   return children;
 };
+
+
 
 const Full = (props) => {
   return (
@@ -116,13 +124,19 @@ const Full = (props) => {
           exact
           name="change-password"
           path={routes.profileChangePassword}
-          element={<ChangePasswordContainer />}
+          element={
+            <ChangePasswordContainer />
+          }
         />
         <Route
           exact
           name="change-pin"
           path={routes.profileChangePin}
-          element={<ChangePinContainer />}
+          element={
+            <ProtectedRoute>
+              <ChangePinContainer />
+            </ProtectedRoute>
+          }
         />
         <Route
           exact

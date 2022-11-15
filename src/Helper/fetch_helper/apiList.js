@@ -12,8 +12,8 @@ export const auth = {
   state: { method: "get", url: "/state" },
   getUserById: { method: "post", url: "/auth/getUserById" },
 
-  changePassword: { method: "post", url: "/changePassword" },
-  changeTransactionPin: { method: "post", url: "/changeTransactionPin" },
+  changePassword: { method: "post", url: "/auth/changePassword" },
+  changeTransactionPin: { method: "post", url: "/auth/changeTransactionPin" },
   userWalletList: { method: "post", url: "/wallet" },
   userWalletData: { method: "post", url: "/walletData" },
   userTransactionList: { method: "post", url: "/transaction" },

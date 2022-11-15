@@ -1,66 +1,125 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import Form from "../../Components/Form";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../Helper/LocalStorage";
 import Menu from "./Menu";
-import { updateUserPassword } from "./store/actions";
+import { handleAddAndChangePin } from "./store/actions";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
+
+const getUserData = getUser();
+
+const initialValues = {
+  currentPin: "",
+  newPin: "",
+  confirmNewPin: "",
+  hasTransactionPin: "",
+};
+const validationSchema = Yup.object().shape({
+  currentPin: Yup.string()
+    .trim()
+    .when("hasTransactionPin", {
+      is: true,
+      then: Yup.string().trim().required("Current pin is required"),
+    }),
+  newPin: Yup.string().trim().required("New pin is required"),
+  confirmNewPin: Yup.string()
+    .trim()
+    .required("Confirm pin is required")
+    .oneOf(
+      [Yup.ref("newPin"), null],
+      "New pin and confirm pin is must be same"
+    ),
+});
 
 const ChangePin = (props) => {
   const dispatch = useDispatch();
-  const [apiCall, setApiCall] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [values, setValues] = useState({
-    currentPin: "",
-    newPin: "",
+
+  const [loading, setLoading] = useState(false);
+
+  const { user } = useSelector((state) => state.auth);
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (values) => {
+      handleSubmit(values);
+    },
   });
 
-  const handlerChange = (event) => {
-    const { name, value } = event.target;
-    setValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  const handleSubmit = (values) => {
+    setLoading(true);
+    let payload = user?.isVerified
+      ? {
+          userId: user?.id,
+          transactionPin: values?.currentPin,
+          newTransactionPin: values?.newPin,
+        }
+      : {
+          userId: user?.id,
+          transactionPin: values?.newPin,
+        };
+    dispatch(
+      handleAddAndChangePin(payload, (status) => {
+        if (status) {
+          console.log("res main", status);
+          formik.resetForm();
+          setLoading(false);
+          toast.success("pin updated successfully");
+          formik.setFieldValue(
+            "hasTransactionPin",
+            user?.hasTransactionPin || false
+          );
+        }
+      })
+    );
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setApiCall(true);
-    setSubmitted(true);
-    if (values.currentPin !== "" && values.newPin !== "") {
-      try {
-        console.log({ values });
-        dispatch(updateUserPassword(values));
-      } finally {
-        setApiCall(false);  
-      }
+  useEffect(() => {
+    if (user) {
+      formik.setFieldValue(
+        "hasTransactionPin",
+        user?.hasTransactionPin || false
+      );
     }
-  };
+  }, [user]);
 
   return (
     <div className="bg-light">
       <Menu />
       <div className="container space-2">
-        <Form name="login-form">
-          <div className="js-form-message mb-6">
-            <label className="form-label"> Current pin </label>
-
-            <div className="form-group">
-              <input
-                type="password"
-                placeholder="Enter your current pin"
-                required
-                name="currentPin"
-                value={values.currentPin}
-                onChange={handlerChange}
-                className={
-                  "form-control" +
-                  (submitted && !values.currentPin ? " is-invalid" : "")
-                }
-              />
-              {submitted && !values.fullName && (
-                <div className="invalid-feedback">Please enter pin</div>
-              )}
+        <form onSubmit={formik.handleSubmit} name="login-form">
+          {console.log(
+            "formik?.values?.hasTransactionPin :>> ",
+            formik?.values?.hasTransactionPin
+          )}
+          {formik?.values?.hasTransactionPin && (
+            <div className="js-form-message mb-6">
+              <label className="form-label"> Current pin </label>
+              <div className="form-group">
+                <input
+                  type="password"
+                  placeholder="Enter your current pin"
+                  // required
+                  name="currentPin"
+                  value={formik.values.currentPin}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className={
+                    "form-control" +
+                    (formik.errors.currentPin && formik.touched.currentPin
+                      ? " is-invalid"
+                      : "")
+                  }
+                />
+                {formik.errors.currentPin && formik.touched.currentPin && (
+                  <div className="invalid-feedback">
+                    {formik.errors.currentPin}
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )}
           <div className="mb-6">
             <div className="js-form-message">
               <label className="form-label"> New pin </label>
@@ -69,21 +128,29 @@ const ChangePin = (props) => {
                 <input
                   type="password"
                   placeholder="Enter your pin"
-                  required
+                  // required
                   name="newPin"
-                  value={values.newPin}
-                  onChange={handlerChange}
+                  value={formik.values.newPin}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                   className={
                     "form-control" +
-                    (submitted && !values.newPin ? " is-invalid" : "")
+                    (formik.errors.newPin && formik.touched.newPin
+                      ? " is-invalid"
+                      : "")
                   }
                 />
-                {submitted && !values.fullName && (
-                  <div className="invalid-feedback">Please enter pin</div>
+                {formik.errors.newPin && formik.touched.newPin && (
+                  <div className="invalid-feedback">{formik.errors.newPin}</div>
                 )}
               </div>
             </div>
           </div>
+          <input
+            type={"hidden"}
+            name="hasTransactionPin"
+            value={formik.values.hasTransactionPin}
+          />
           <div className="js-form-message mb-6">
             <label className="form-label"> Confirm pin </label>
 
@@ -91,27 +158,34 @@ const ChangePin = (props) => {
               <input
                 type="password"
                 placeholder="Confirm your pin"
-                required
+                // required
                 name="confirmNewPin"
-                value={values.confirmNewPin}
-                onChange={handlerChange}
+                value={formik.values.confirmNewPin}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 className={
                   "form-control" +
-                  (submitted && !values.confirmNewPin ? " is-invalid" : "")
+                  (formik.errors.confirmNewPin && formik.touched.confirmNewPin
+                    ? " is-invalid"
+                    : "")
                 }
               />
-              {submitted && !values.fullName && (
-                <div className="invalid-feedback">Please enter conform pin</div>
+              {formik.errors.confirmNewPin && formik.touched.confirmNewPin && (
+                <div className="invalid-feedback">
+                  {formik.errors.confirmNewPin}
+                </div>
               )}
             </div>
           </div>
           <div className="w-lg-50">
             <button
-              onClick={(e) => submitHandler(e)}
-              type="button"
-              className="btn btn-sm btn-primary transition-3d-hover mr-1"
+              // onClick={(e) => submitHandler(e)}
+              type="submit"
+              className={`btn btn-sm btn-primary transition-3d-hover mr-1 ${
+                loading && "disabled"
+              }`}
             >
-              Save Transaction Pin
+              {loading ? "saving.." : "Save Transaction Pin"}
             </button>
             <button
               type="button"
@@ -120,7 +194,7 @@ const ChangePin = (props) => {
               Cancel
             </button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );

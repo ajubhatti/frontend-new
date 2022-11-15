@@ -2,16 +2,22 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Form from "../../Components/Form";
+import { getUser } from "../../Helper/LocalStorage";
 import Menu from "./Menu";
 import { updateUserPassword } from "./store/actions";
+
+const getUserData = getUser();
 
 const ChangePassword = (props) => {
   const dispatch = useDispatch();
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState({
     currentPassword: "",
     newPassword: "",
+    confirmNewPassword: "",
   });
 
   const handlerChange = (event) => {
@@ -22,20 +28,49 @@ const ChangePassword = (props) => {
     }));
   };
 
+  console.log("loading", loading);
+
   const submitHandler = async (e) => {
-    e.preventDefault();
-    setApiCall(true);
-    setSubmitted(true);
-    if (values.currentPassword !== "" && values.newPassword !== "") {
-      try {
-        console.log({ values });
-        dispatch(updateUserPassword(values));
-        // await props.changePassword(values).then((res) => {
-        //   toast.success(res.message);
-        // });
-      } finally {
-        setApiCall(false);
+    if (values.confirmNewPassword === values.newPassword) {
+      e.preventDefault();
+      setApiCall(true);
+      setSubmitted(true);
+      if (values.currentPassword !== "" && values.newPassword !== "") {
+        setErrorMessage();
+        try {
+          console.log("come hii");
+          setLoading(true);
+          dispatch(
+            updateUserPassword(
+              {
+                currentPassword: values.currentPassword,
+                newPassword: values.newPassword,
+                confirmNewPassword: values.confirmNewPassword,
+                userId: getUserData.id,
+              },
+              (status) => {
+                if (status) {
+                  setValues({
+                    currentPassword: "",
+                    newPassword: "",
+                    confirmNewPassword: "",
+                  });
+                  console.log("status==========>", status);
+                  setLoading(false);
+                }
+              }
+            )
+          );
+          // await props.changePassword(values).then((res) => {
+          //   toast.success(res.message);
+          // });
+        } finally {
+          setLoading(false);
+          setApiCall(false);
+        }
       }
+    } else {
+      setErrorMessage("new password and confirm password is  not match");
     }
   };
 
@@ -79,7 +114,11 @@ const ChangePassword = (props) => {
                   onChange={handlerChange}
                   className={
                     "form-control" +
-                    (submitted && !values.newPassword ? " is-invalid" : "")
+                    (submitted && !values.newPassword
+                      ? " is-invalid"
+                      : errorMessage
+                      ? " is-invalid"
+                      : "")
                   }
                 />
                 {submitted && !values.fullName && (
@@ -88,7 +127,7 @@ const ChangePassword = (props) => {
               </div>
             </div>
           </div>
-          <div className="js-form-message mb-6">
+          <div className="js-form-message mb-3">
             <label className="form-label"> Confirm password </label>
 
             <div className="form-group">
@@ -101,7 +140,11 @@ const ChangePassword = (props) => {
                 onChange={handlerChange}
                 className={
                   "form-control" +
-                  (submitted && !values.confirmNewPassword ? " is-invalid" : "")
+                  (submitted && !values.confirmNewPassword
+                    ? " is-invalid"
+                    : errorMessage
+                    ? " is-invalid"
+                    : "")
                 }
               />
               {submitted && !values.fullName && (
@@ -109,15 +152,21 @@ const ChangePassword = (props) => {
                   Please enter conform password
                 </div>
               )}
+              {errorMessage && (
+                <div className="invalid-feedback">{errorMessage}</div>
+              )}
             </div>
           </div>
+
           <div className="w-lg-50">
             <button
               type="button"
               onClick={(e) => submitHandler(e)}
-              className="btn btn-sm btn-primary transition-3d-hover mr-1"
+              className={`btn btn-sm btn-primary transition-3d-hover mr-1 ${
+                loading && "disabled"
+              }`}
             >
-              Save Password
+              {loading ? "Saving.." : "Save Password"}
             </button>
             <button
               type="button"

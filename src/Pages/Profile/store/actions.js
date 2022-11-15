@@ -10,7 +10,7 @@ import {
   GET_ACTIVITY_LOADING,
   GET_ACTIVITY,
   GET_TYPE_LOADING,
-  GET_TYPE
+  GET_TYPE,
 } from "./actionTypes";
 
 import axios from "axios";
@@ -19,6 +19,9 @@ import {
   addMoneyInWallet,
   getAdminBankList,
 } from "../../../Helper/fetch_helper/profile";
+import { getUser } from "../../../Helper/LocalStorage";
+
+const getUserData = getUser();
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
 // const API_URL = "https://api.badipay.co.in"
@@ -44,7 +47,7 @@ export const updateProfile = (payload, cb) => async (dispatch) => {
     const res = await axios.post(API_URL + auth.updateUser.url, payload);
     if (res.status) {
       if (res.data?.message) {
-        dispatch(fetchProfile());
+        dispatch(fetchProfile({ id: getUserData.id }));
         dispatch(setProfileData(payload));
         toast.success(res.data.message);
         cb(true);
@@ -56,16 +59,20 @@ export const updateProfile = (payload, cb) => async (dispatch) => {
   }
 };
 
-export const updateUserPassword = (payload) => async (dispatch) => {
+export const updateUserPassword = (payload, cb) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
+
+    console.log("payload", payload);
     const res = await axios.post(API_URL + auth.changePassword.url, payload);
     if (res) {
-      dispatch(fetchProfile());
+      dispatch(fetchProfile({ id: getUserData.id }));
       toast.success(res.data.message);
+      cb(res.data);
     }
     dispatch(setLoading(false));
   } catch (err) {
+    cb(err);
     dispatch(setLoading(false));
     toast.error(err);
   }
@@ -80,7 +87,7 @@ export const createOrUpdateUserTransactionPin =
         payload
       );
       if (res.status) {
-        dispatch(fetchProfile());
+        dispatch(fetchProfile({ id: getUserData.id }));
         if (res.data?.message) {
           toast.success(res.data.message);
         }
@@ -150,14 +157,14 @@ export const fetchBankList = (payload) => async (dispatch) => {
   }
 };
 
-export const walletBalanceUpdate = (payload,cb) => async (dispatch) => {
+export const walletBalanceUpdate = (payload, cb) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
     const res = await dispatch(addMoneyInWallet(payload));
     if (res) {
       console.log("res", res);
       toast.success(res.message);
-      cb(res)
+      cb(res);
       // dispatch(setBankList(res));
     }
     dispatch(setLoading(false));
@@ -185,10 +192,10 @@ export const getActivityData = (payload) => async (dispatch) => {
 export const fetchType = () => async (dispatch) => {
   try {
     dispatch(getTypeLoading(true));
-    console.log('wallet.url', wallet.type.url)
+    console.log("wallet.url", wallet.type.url);
     const res = await axios.get(API_URL + wallet.type.url);
     if (res) {
-      console.log('res====>', res.data.data)
+      console.log("res====>", res.data.data);
       // toast.success(res);
       dispatch(getType(res.data.data));
     }
@@ -196,6 +203,21 @@ export const fetchType = () => async (dispatch) => {
   } catch (err) {
     dispatch(getTypeLoading(false));
     toast.error(err.response?.data?.message || err.message);
+  }
+};
+
+export const handleAddAndChangePin = (payload, cb) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      API_URL + "/auth/changeTransactionPin",
+      payload
+    );
+    if (res) {
+      dispatch(setProfileData(res?.data?.data));
+      cb(res);
+    }
+  } catch (err) {
+    toast.error(err.response?.data?.message);
   }
 };
 
@@ -251,12 +273,12 @@ export const getActiveLog = (data) => ({
   payload: data,
 });
 
-export const getTypeLoading = (data) =>({
+export const getTypeLoading = (data) => ({
   type: GET_TYPE_LOADING,
-  payload:data
-})
+  payload: data,
+});
 
 export const getType = (data) => ({
   type: GET_TYPE,
-  payload: data
-})
+  payload: data,
+});

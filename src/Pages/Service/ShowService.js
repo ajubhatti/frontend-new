@@ -12,6 +12,8 @@ import MobileOfferModal from "../../Components/Modal/MobileOfferModal";
 import LoginConfirmModal from "../../Components/Modal/LoginConfirmModal";
 
 const ShowService = (props) => {
+  const getUserData = getUser();
+
   const dispatch = useDispatch();
   const isUser = getToken();
   const user = getUser();
@@ -33,6 +35,7 @@ const ShowService = (props) => {
     mobileNo: "",
     amount: "",
     state: "0",
+    userId: getUserData?.id,
   });
 
   const [isLoginModalShow, setIsLoginModalShow] = useState(false);

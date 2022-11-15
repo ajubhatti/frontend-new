@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import * as Yup from "yup";
@@ -40,17 +40,17 @@ const PaymentDetail2 = (props) => {
     // props.nextStep();
     // alert(JSON.stringify(values, null, 2));
     console.log("values======>", values);
-    dispatch(
-      walletBalanceUpdate(values, (status) => {
-        if (status) {
-          // cancelHandler()
-          props.prevStep();
-          resetForm();
-          setFieldValue(initialValues);
-          // setFieldValue("paymentType", "");
-        }
-      })
-    );
+    // dispatch(
+    //   walletBalanceUpdate(values, (status) => {
+    //     if (status) {
+    //       // cancelHandler()
+    //       props.prevStep();
+    //       resetForm();
+    //       setFieldValue(initialValues);
+    //       // setFieldValue("paymentType", "");
+    //     }
+    //   })
+    // );
   };
 
   const { type } = useSelector((state) => state.profile);
@@ -73,6 +73,12 @@ const PaymentDetail2 = (props) => {
       saveAndContinue(values);
     },
   });
+  const [selectedBankDetail, setSelectedBankDetail] = useState({});
+
+  useEffect(() => {
+    const res = props.list.find((x) => x._id === values.PayerType);
+    setSelectedBankDetail(values.PayerType ? res : {});
+  }, [values.PayerType]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -99,6 +105,15 @@ const PaymentDetail2 = (props) => {
             <span className="text-danger" style={{ fontSize: "12px" }}>
               {errors.PayerType}
             </span>
+          )}
+
+          {Object.keys(selectedBankDetail).length ? (
+            <div className="ml-2">
+              <div>{selectedBankDetail.accountName}</div>
+              <div>{selectedBankDetail.accountNo}</div>
+            </div>
+          ) : (
+            ""
           )}
         </div>
       </div>
