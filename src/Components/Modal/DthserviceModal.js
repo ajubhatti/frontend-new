@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
 const DthserviceModal = ({ isModalShow, setModalClose, listingData }) => {
-  console.log("listingData", listingData);
   return (
     <>
       <Modal

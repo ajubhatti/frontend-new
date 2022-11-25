@@ -61,13 +61,11 @@ const ShowService = (props) => {
   useEffect(() => {
     if (listingData.length !== 0 && values?.operator !== 0) {
       let operator = listingData.find((x) => x._id === values?.operator);
-      console.log({ operator });
 
       setSelectedOperator(operator);
       let mplanLOperator = mplanMobileOperatorList.find(
         (x) => x.id === operator?.serviceProvider
       );
-      console.log({ mplanLOperator });
 
       setSelectedMplanOperator(mplanLOperator);
     }
@@ -87,7 +85,6 @@ const ShowService = (props) => {
 
   const handlerChange = (event) => {
     const { name, value } = event.target;
-    console.log("name,value", name, value);
     setValues((prevState) => ({
       ...prevState,
       [name]: value,
@@ -101,7 +98,6 @@ const ShowService = (props) => {
   };
 
   const handleRecharge = () => {
-    console.log("payload :>> ", values);
     dispatch(doMyRecharge(values));
   };
 
@@ -111,10 +107,8 @@ const ShowService = (props) => {
       phone: "9033501636",
       operator: "Jio",
     };
-    console.log("payload", payload);
     dispatch(getPlans(payload));
     // await props.getPlanDetails(payload).then((res) => {
-    //   console.log("res.data", res.data);
     // });
   };
 
@@ -124,7 +118,6 @@ const ShowService = (props) => {
       if (!isUser) {
         setIsLoginModalShow(true);
       } else {
-        console.log({ user, values });
 
         if (user.walletBalance > 0 || user.walletBalance > values?.amount) {
           // if (user.transactionPin) {
@@ -137,7 +130,6 @@ const ShowService = (props) => {
           ) {
             isUser ? setIsConfirmShow(true) : navigate("/login");
           } else {
-            console.log("else part");
           }
           // } else {
           //   toast.error(
@@ -177,7 +169,6 @@ const ShowService = (props) => {
     if (values?.mobileNo && selectedMplanOperator.operator) {
       dispatch(getPlans(payload));
       // await props.getPlanDetails(payload).then((res) => {
-      //   console.log(res.data);
       //   setPlanlisting(res.data);
       //   setIsPlanShow(true);
       // });

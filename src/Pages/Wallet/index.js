@@ -65,7 +65,6 @@ const Wallet = (props) => {
 
     const getWalletTransaction = async () => {
       if (userDetails) {
-        console.log("userDetails", userDetails);
         await props.walletListing({ userId: userDetails?.id }).then((res) => {
           setData(res.data);
         });

@@ -14,7 +14,6 @@ const ConfirmModal = ({
 }) => {
   const [transactionPin, setTransactionPin] = useState("");
 
-  console.log("userSelectedPlan :>> ", userSelectedPlan);
   return (
     <>
       <Modal

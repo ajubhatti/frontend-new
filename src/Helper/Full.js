@@ -84,7 +84,6 @@ const Full = (props) => {
           name="Register"
           element={<RegisterContainer />}
         />
-        {console.log("profile routes", routes.profile)}
         <Route
           exact
           // name="profile"

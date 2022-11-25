@@ -9,7 +9,6 @@ const Otp = (props) => {
   const [otp, setOtp] = useState("");
   const [mobileNo, setMobileNo] = useState("");
 
-  console.log({ location });
   useEffect(() => {
     const getPhone = location.state.mobileNo;
     setMobileNo(getPhone);

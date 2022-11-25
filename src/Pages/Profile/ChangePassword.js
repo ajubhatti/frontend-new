@@ -28,7 +28,6 @@ const ChangePassword = (props) => {
     }));
   };
 
-  console.log("loading", loading);
 
   const submitHandler = async (e) => {
     if (values.confirmNewPassword === values.newPassword) {
@@ -38,7 +37,6 @@ const ChangePassword = (props) => {
       if (values.currentPassword !== "" && values.newPassword !== "") {
         setErrorMessage();
         try {
-          console.log("come hii");
           setLoading(true);
           dispatch(
             updateUserPassword(
@@ -55,7 +53,6 @@ const ChangePassword = (props) => {
                     newPassword: "",
                     confirmNewPassword: "",
                   });
-                  console.log("status==========>", status);
                   setLoading(false);
                 }
               }

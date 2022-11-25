@@ -15,13 +15,11 @@ const ProfileTransaction = () => {
   const { activity } = useSelector((state) => state.profile);
 
   useEffect(()=>{
-    console.log("class")
     dispatch(getActivityData({
       userId:user.id
     }))
   },[])
 
-  console.log('activity', activity)
   
   const columns = [
     {

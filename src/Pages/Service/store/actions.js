@@ -66,7 +66,6 @@ export const doMyRecharge = (payload) => async (dispatch) => {
       );
     }
 
-    console.log("res of recharge-------", res);
   } catch (err) {
     dispatch(setLoading(false));
     toast.error(err);

@@ -63,7 +63,7 @@ export const showErrorAsToast = (error, { type }) => {
       const { errors } = value;
       Object.keys(errors).forEach((x) => {
         Object.keys(errors[x]).forEach((y) => {
-          toast.alert(errors[x][y]);
+          toast.error(errors[x][y]);
         });
       });
     }
@@ -75,13 +75,13 @@ export const showErrorAsToast = (error, { type }) => {
     }
     if (value.message !== undefined) {
       if (typeof value.message === "string") {
-        toast.alert(value.message);
+        toast.error(value.message);
       } else {
         return Promise.reject(value.message);
       }
     }
   } else if (type.toUpperCase() !== "GET") {
-    toast.alert("Something went wrong, Please do try again !");
+    toast.error("Something went wrong, Please do try again !");
   }
 
   if (Object.prototype.hasOwnProperty.call(error.response, "data")) {

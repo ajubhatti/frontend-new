@@ -2,31 +2,40 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
+import { useFormik } from "formik";
+import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
+import * as Yup from 'yup';
+import { CloudLightning } from "react-bootstrap-icons";
+
+const initialValues ={
+  mobileNo: "",
+  password: "",
+}
+const validationSchema = Yup.object().shape({
+  mobileNo: Yup.string()
+    .min(10, 'Mobile number is must be 10 digit')
+    .max(10, 'Mobile number is must be 10 digit')
+    .required('Phone number is required'),
+  password: Yup.string()
+    .min(4, 'Password is Too Short!')
+    .max(20, 'Password is Too Long!')
+    .required('Password is required'),
+});
 
 const LoginForm = (props) => {
   const navigate = useNavigate();
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [values, setValues] = useState({
-    mobileNo: "",
-    password: "",
-  });
 
-  const handlerChange = (event) => {
-    const { name, value } = event.target;
-    setValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const submitHandler = async (e) => {
+  const onSubmit = async (e) => {
     setApiCall(true);
     setSubmitted(true);
-    if (values.mobileNo !== "" && values.password !== "") {
       try {
-        await props.login(values).then((res) => {
-          console.log("res--------", res);
+        await props.login({
+          mobileNo: formik.values.mobileNo,
+          password: formik.values.password,
+        }).then((res) => {
+          formik.resetForm()
           if (res.data) {
             window.location.href = "/";
           } else {
@@ -44,30 +53,39 @@ const LoginForm = (props) => {
           }
         });
       } finally {
+        formik.resetForm()
         setApiCall(false);
       }
-    }
   };
 
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit
+  })
+
+  console.log(formik.values,formik.errors)
+
   return (
-    <Form name="login-form">
+    <form onSubmit={formik.handleSubmit} name="login-form">
       <div className="form-group">
         <label className="form-label">Mobile Number</label>
         <input
           type="tel"
           name="mobileNo"
           placeholder="90XXXXXXXX"
-          pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-          required
-          value={values.mobileNo}
-          onChange={handlerChange}
+          // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+          // required
+          value={formik.values.mobileNo}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (submitted && !values.mobileNo ? " is-invalid" : "")
+            (formik.errors.mobileNo && formik.touched.mobileNo ? " is-invalid" : "")
           }
         />
-        {submitted && !values.mobileNo && (
-          <div className="invalid-feedback">Phone Number is required</div>
+        {formik.errors.mobileNo && formik.touched.mobileNo && (
+          <div className="invalid-feedback">{ formik.errors.mobileNo }</div>
         )}
       </div>
       <div className="form-group">
@@ -85,17 +103,18 @@ const LoginForm = (props) => {
         <input
           type="password"
           placeholder="*******"
-          required=""
+          // required=""
           name="password"
-          value={values.password}
-          onChange={handlerChange}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (submitted && !values.password ? " is-invalid" : "")
+            (formik.errors.password && formik.touched.password ? " is-invalid" : "")
           }
         />
-        {submitted && !values.password && (
-          <div className="invalid-feedback">Password is required</div>
+        {formik.errors.password && formik.touched.password && (
+          <div className="invalid-feedback">{ formik.errors.password }</div>
         )}
       </div>
 
@@ -109,16 +128,16 @@ const LoginForm = (props) => {
 
         <div className="col-6 text-right">
           <button
-            type="button"
+            type="submit"
             className="btn btn-primary transition-3d-hover"
             disabled={apiCall}
-            onClick={(e) => submitHandler(e)}
+            // onClick={(e) => submitHandler(e)}
           >
             Login
           </button>
         </div>
       </div>
-    </Form>
+    </form>
   );
 };
 

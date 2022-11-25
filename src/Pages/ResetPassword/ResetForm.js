@@ -18,7 +18,6 @@ const ResetForm = (props) => {
     confirmPassword: "",
   });
 
-  console.log({ location });
 
   useEffect(() => {
     if (props.location) {

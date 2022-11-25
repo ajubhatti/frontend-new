@@ -9,8 +9,6 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const isUser = getToken();
 
-  console.log("isUser", isUser);
-
   const Links = [
     // { title: "Home", link: routes.home },
     { title: "Support", link: routes.support },

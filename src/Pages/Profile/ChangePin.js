@@ -62,7 +62,6 @@ const ChangePin = (props) => {
     dispatch(
       handleAddAndChangePin(payload, (status) => {
         if (status) {
-          console.log("res main", status);
           formik.resetForm();
           setLoading(false);
           toast.success("pin updated successfully");
@@ -89,10 +88,6 @@ const ChangePin = (props) => {
       <Menu />
       <div className="container space-2">
         <form onSubmit={formik.handleSubmit} name="login-form">
-          {console.log(
-            "formik?.values?.hasTransactionPin :>> ",
-            formik?.values?.hasTransactionPin
-          )}
           {formik?.values?.hasTransactionPin && (
             <div className="js-form-message mb-6">
               <label className="form-label"> Current pin </label>

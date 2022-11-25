@@ -40,7 +40,6 @@ export const getServiceProviderByType = (data) => () =>
   });
 
 export const ambikaRechargeApi = (data) => () => {
-  console.log({ data });
   new Promise((resolve, reject) => {
     fetchUrl(
       service.ambikaRecharge.method,

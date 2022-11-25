@@ -31,7 +31,6 @@ export const fetchProfile = (payload) => async (dispatch) => {
     dispatch(setLoading(true));
     const res = await axios.post(API_URL + auth.getUserById.url, payload);
 
-    console.log("res --", res);
     if (res.data?.data) {
       dispatch(setProfileData(res?.data?.data));
     }
@@ -63,7 +62,6 @@ export const updateUserPassword = (payload, cb) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
 
-    console.log("payload", payload);
     const res = await axios.post(API_URL + auth.changePassword.url, payload);
     if (res) {
       dispatch(fetchProfile({ id: getUserData.id }));
@@ -114,7 +112,6 @@ export const userWalletData = (payload) => async (dispatch) => {
 
 export const fetchUserWalletList = (payload) => async (dispatch) => {
   try {
-    console.log("user wallet list");
     dispatch(setLoading(true));
     const res = await axios.post(API_URL + auth.userWalletList.url, payload);
     if (res) {
@@ -129,7 +126,6 @@ export const fetchUserWalletList = (payload) => async (dispatch) => {
 export const fetchUserTransactionsList = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
-    console.log("user transaction list");
     const res = await axios.post(
       API_URL + auth.userTransactionList.url,
       payload
@@ -147,7 +143,6 @@ export const fetchBankList = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
     const res = await dispatch(getAdminBankList());
-    console.log("res", res);
     if (res) {
       dispatch(setBankList(res));
     }
@@ -162,7 +157,6 @@ export const walletBalanceUpdate = (payload, cb) => async (dispatch) => {
     dispatch(setLoading(true));
     const res = await dispatch(addMoneyInWallet(payload));
     if (res) {
-      console.log("res", res);
       toast.success(res.message);
       cb(res);
       // dispatch(setBankList(res));
@@ -176,7 +170,6 @@ export const walletBalanceUpdate = (payload, cb) => async (dispatch) => {
 export const getActivityData = (payload) => async (dispatch) => {
   try {
     dispatch(getActiveLogLoading(true));
-    console.log("hi");
     const res = await axios.post(API_URL + auth.activityData.url, payload);
     if (res) {
       // toast.success(res);
@@ -192,10 +185,8 @@ export const getActivityData = (payload) => async (dispatch) => {
 export const fetchType = () => async (dispatch) => {
   try {
     dispatch(getTypeLoading(true));
-    console.log("wallet.url", wallet.type.url);
     const res = await axios.get(API_URL + wallet.type.url);
     if (res) {
-      console.log("res====>", res.data.data);
       // toast.success(res);
       dispatch(getType(res.data.data));
     }

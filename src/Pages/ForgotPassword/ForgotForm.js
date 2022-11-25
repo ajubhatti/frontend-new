@@ -57,7 +57,7 @@ const ForgotForm = (props) => {
           }
         />
         {submitted && !phoneNumber && (
-          <div className="invalid-feedback">Phone Number is required</div>
+          <div className="invalid-feedback">Phone number is required</div>
         )}
       </div>
       <div className="row align-items-center mb-5">

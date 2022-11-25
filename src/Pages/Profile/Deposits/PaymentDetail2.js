@@ -39,7 +39,6 @@ const PaymentDetail2 = (props) => {
     // e.preventDefault();
     // props.nextStep();
     // alert(JSON.stringify(values, null, 2));
-    console.log("values======>", values);
     // dispatch(
     //   walletBalanceUpdate(values, (status) => {
     //     if (status) {
