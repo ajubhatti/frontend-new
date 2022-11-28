@@ -8,9 +8,8 @@ const Activity = () => {
       return (
         <li className="media u-indicator-vertical-dashed-item" key={index}>
           <span
-            className={`btn btn-xs btn-icon btn-${
-              statusColor[index % statusColor.length].colorName
-            } rounded-circle mr-3`}
+            className={`btn btn-xs btn-icon btn-${statusColor[index % statusColor.length].colorName
+              } rounded-circle mr-3`}
           >
             <span className="btn-icon__inner">{x.title.charAt(0)}</span>
           </span>
@@ -28,28 +27,29 @@ const Activity = () => {
 
   return (
     <div className="card">
-      <div className="card-body pt-4 pb-5 px-5 mb-3 mb-md-0">
+      <div className="card-header p-4">
         <div className="d-flex justify-content-between align-items-center">
-          <h6 className="mb-0">Activity</h6>
+          <h5 className="mb-0">Activity</h5>
           <div className="position-relative"></div>
         </div>
-        <hr className="mt-3 mb-4" />
+      </div>
+      <div className="card-body pt-5 pb-4 px-4 mb-3 mb-md-0">
         <div className="overflow-hidden">
           <div
             className="pr-3 mCustomScrollbar _mCS_1 mCS-autoHide"
             style={{
-              maxHeight: "300px",
+
               position: "relative",
               overflow: "visible",
             }}
           >
             <div
               className="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside"
-              style={{ maxHeight: "300px" }}
+
             >
               <div
                 className="mCSB_container"
-                style={{ maxHeight: "300px", overflowY: "scroll" }}
+                style={{ overflowY: "scroll" }}
               >
                 <ul className="list-unstyled u-indicator-vertical-dashed">
                   {ActivityList.length > 0

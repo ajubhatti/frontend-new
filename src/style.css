@@ -4990,7 +4990,27 @@ input[type="button"].btn-block {
   border: 1px solid #e7eaf3;
   border-radius: 0.3125rem;
 }
-
+.profile-detCard .card{
+  margin-bottom: 30px;
+}
+.profile-inner .profile-icon{
+  width: 65px;
+    height: 65px;
+    line-height: 65px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+}
+.profile-inner .profile-icon svg{
+  font-size: 25px;
+}
+/* chart css */
+.deposits-chart svg{
+  display: flex;
+  margin:  0 auto;
+}
 .card > hr {
   margin-right: 0;
   margin-left: 0;

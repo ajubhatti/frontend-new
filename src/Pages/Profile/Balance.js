@@ -4,12 +4,14 @@ import BarChart from "../../Components/Charts/BarChart";
 const Balance = () => {
   return (
     <div className="card mb-7 mb-lg-0">
-      <div className="card-body pt-4 pb-5 px-5 mb-3 mb-md-0">
+      <div className="card-header p-4">
         <div className="d-flex justify-content-between align-items-center">
-          <h6 className="mb-0">Balance</h6>
+          <h5 className="mb-0">Balance</h5>
           <div className="position-relative"></div>
         </div>
-        <hr className="mt-3 mb-4" />
+      </div>
+      <div className="card-body pt-5 pb-4 px-4 mb-3 mb-md-0">
+
         <div className="row align-items-center mb-4">
           <div className="col-6 u-ver-divider">
             <label className="d-block small text-muted mb-0">Available:</label>

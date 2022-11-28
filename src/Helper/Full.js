@@ -52,7 +52,8 @@ const Full = (props) => {
           exact
           path={routes.home}
           name="Home"
-          element={<HomeContainer />}
+          element={
+          <HomeContainer />}
         />
         <Route
           exact

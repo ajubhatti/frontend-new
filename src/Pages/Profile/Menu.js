@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LocalStorage, { getUser } from "../../Helper/LocalStorage";
 import routes from "../../Helper/routes";
-import ProfileImg from "../../Assets/profile.png";
+import ProfileImg from "../../Assets/user.jpg";
 import FormModal from "./Deposits/FormModal";
 import { Plus } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
@@ -24,7 +24,7 @@ const Menu = (props) => {
     setOpen(false);
   };
 
-  const { user } = useSelector((state)=>state.auth)
+  const { user } = useSelector((state) => state.auth)
 
   console.log(user)
 
@@ -46,9 +46,9 @@ const Menu = (props) => {
                   </span>
                 </div>
                 <div className="media-body">
-                  <h1 className="h3 text-white font-weight-medium mb-1">
+                  <h3 className="h3 text-white font-weight-medium mb-1 text-capitalize">
                     {userDetails?.userName || "Gest"}
-                  </h1>
+                  </h3>
                   <span className="d-block text-white">
                     {userDetails?.email}
                   </span>
@@ -97,9 +97,9 @@ const Menu = (props) => {
                           to={routes.profileChangePin}
                           className="nav-link u-header__nav-link u-header__nav-link-toggle"
                         >
-                        {
+                          {
                             user?.hasTransactionPin ? "Change Transaction pin" : "Create Transaction pin"
-                        }
+                          }
                         </Link>
                       </li>
                       <li className="nav-item u-header__nav-item">
