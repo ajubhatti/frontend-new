@@ -49,16 +49,16 @@ const ChangePin = (props) => {
 
   const handleSubmit = (values) => {
     setLoading(true);
-    let payload = user?.isVerified
+    let payload = user?.hasTransactionPin
       ? {
-        userId: user?.id,
-        transactionPin: values?.currentPin,
-        newTransactionPin: values?.newPin,
-      }
+          userId: user?.id,
+          transactionPin: values?.currentPin,
+          newTransactionPin: values?.newPin,
+        }
       : {
-        userId: user?.id,
-        transactionPin: values?.newPin,
-      };
+          userId: user?.id,
+          transactionPin: values?.newPin,
+        };
     dispatch(
       handleAddAndChangePin(payload, (status) => {
         if (status) {
@@ -138,7 +138,9 @@ const ChangePin = (props) => {
                       }
                     />
                     {formik.errors.newPin && formik.touched.newPin && (
-                      <div className="invalid-feedback">{formik.errors.newPin}</div>
+                      <div className="invalid-feedback">
+                        {formik.errors.newPin}
+                      </div>
                     )}
                   </div>
                 </div>
@@ -162,24 +164,27 @@ const ChangePin = (props) => {
                     onBlur={formik.handleBlur}
                     className={
                       "form-control" +
-                      (formik.errors.confirmNewPin && formik.touched.confirmNewPin
+                      (formik.errors.confirmNewPin &&
+                      formik.touched.confirmNewPin
                         ? " is-invalid"
                         : "")
                     }
                   />
-                  {formik.errors.confirmNewPin && formik.touched.confirmNewPin && (
-                    <div className="invalid-feedback">
-                      {formik.errors.confirmNewPin}
-                    </div>
-                  )}
+                  {formik.errors.confirmNewPin &&
+                    formik.touched.confirmNewPin && (
+                      <div className="invalid-feedback">
+                        {formik.errors.confirmNewPin}
+                      </div>
+                    )}
                 </div>
               </div>
               <div className="w-lg-50">
                 <button
                   // onClick={(e) => submitHandler(e)}
                   type="submit"
-                  className={`btn btn-sm btn-primary transition-3d-hover mr-2 ${loading && "disabled"
-                    }`}
+                  className={`btn btn-sm btn-primary transition-3d-hover mr-2 ${
+                    loading && "disabled"
+                  }`}
                 >
                   {loading ? "saving.." : "Save Transaction Pin"}
                 </button>
@@ -191,9 +196,7 @@ const ChangePin = (props) => {
                 </button>
               </div>
             </form>
-
           </div>
-
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Banner from "../../Components/Banner";
 import iconAccount from "../../Assets/iconAccount.svg";
 import iconProAccount from "../../Assets/iconProAccount.svg";
@@ -14,10 +15,22 @@ import businessAnalysis from "../../Assets/businessAnalysis.svg";
 import Carousel from "../../Components/Carousel";
 import Marquee from "react-fast-marquee";
 import ServiceRender from "../Service/ServiceRender";
+import { fetchProfile } from "../Profile/store/actions";
+import { getUser } from "../../Helper/LocalStorage";
 
 const Home = (props) => {
+  const dispatch = useDispatch();
+  const user = getUser();
   const [bannerList, setBannerList] = useState([]);
   const [tickerList, setTickerList] = useState([]);
+
+  useEffect(() => {
+    dispatch(
+      fetchProfile({
+        id: user.id,
+      })
+    );
+  }, [dispatch, user.id]);
 
   useEffect(() => {
     const getBanners = async () => {

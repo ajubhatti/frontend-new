@@ -30,19 +30,18 @@ import WalletHistory from "../Pages/Wallet/WalletHistory";
 import { useDispatch } from "react-redux";
 import { fetchProfile } from "../Pages/Profile/store/actions";
 
-
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
   const user = getUser();
-  dispatch(fetchProfile({ id: user?.id }))
+  dispatch(fetchProfile({ id: user?.id }));
   const token = getToken();
+
+  console.log({ token });
   if (!token) {
     return <Navigate to={routes.login} replace />;
   }
   return children;
 };
-
-
 
 const Full = (props) => {
   return (
@@ -52,8 +51,7 @@ const Full = (props) => {
           exact
           path={routes.home}
           name="Home"
-          element={
-          <HomeContainer />}
+          element={<HomeContainer />}
         />
         <Route
           exact
@@ -124,9 +122,7 @@ const Full = (props) => {
           exact
           name="change-password"
           path={routes.profileChangePassword}
-          element={
-            <ChangePasswordContainer />
-          }
+          element={<ChangePasswordContainer />}
         />
         <Route
           exact

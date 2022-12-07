@@ -13,8 +13,6 @@ import LoginConfirmModal from "../../Components/Modal/LoginConfirmModal";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { Link } from "react-router-dom";
 const ShowService = (props) => {
-  const getUserData = getUser();
-
   const dispatch = useDispatch();
   const isUser = getToken();
   const user = getUser();
@@ -31,16 +29,26 @@ const ShowService = (props) => {
   const [isChecked, setIsChecked] = useState(false);
   const [selectedMplanOperator, setSelectedMplanOperator] = useState("");
   const [planlisting, setPlanlisting] = useState({});
-  const [transactionOpen,setTransactionOpen] = useState(false)
+  const [transactionOpen, setTransactionOpen] = useState(false);
   const [values, setValues] = useState({
     operator: "0",
     mobileNo: "",
     amount: "",
     state: "0",
-    userId: getUserData?.id,
+    userId: user?.id,
+    transactionPin: "",
   });
 
   const [isLoginModalShow, setIsLoginModalShow] = useState(false);
+
+  const [transactionPin, setTransactionPin] = useState("");
+
+  useEffect(() => {
+    setValues((prev) => ({
+      ...prev,
+      transactionPin: transactionPin,
+    }));
+  }, [transactionPin]);
 
   useEffect(() => {
     getPlan();
@@ -115,48 +123,45 @@ const ShowService = (props) => {
   };
 
   const handleContinue = () => {
-    if (!!user?.transactionPin){
-
+    if (!!user?.hasTransactionPin) {
       requestValidate(values);
       if (requestValidate(values)) {
-      if (!isUser) {
-        setIsLoginModalShow(true);
-      } else {
-
-        if (user.walletBalance > 0 || user.walletBalance > values?.amount) {
-          // if (user.transactionPin) {
-          setSubmitted(true);
-          if (
-            values?.operator !== "0" &&
-            values?.mobileNo !== "" &&
-            values?.amount !== "" &&
-            values?.state !== "0"
-          ) {
-            isUser ? setIsConfirmShow(true) : navigate("/login");
-          } else {
-          }
-          // } else {
-            //   toast.error(
-              //     "transaction pin created , please create a new transaction pin."
-              //   );
-              // }
-            } else {
-              toast.error("wallet amount is not enough to continue!");
-            }
-          }
+        if (!isUser) {
+          setIsLoginModalShow(true);
         } else {
-          toast.error("Enter valid data!");
+          if (user.walletBalance > 0 || user.walletBalance > values?.amount) {
+            // if (user.transactionPin) {
+            setSubmitted(true);
+            if (
+              values?.operator !== "0" &&
+              values?.mobileNo !== "" &&
+              values?.amount !== "" &&
+              values?.state !== "0"
+            ) {
+              isUser ? setIsConfirmShow(true) : navigate("/login");
+            } else {
+            }
+            // } else {
+            //   toast.error(
+            //     "transaction pin created , please create a new transaction pin."
+            //   );
+            // }
+          } else {
+            toast.error("wallet amount is not enough to continue!");
+          }
         }
-      }else{
-        setTransactionOpen(true)
+      } else {
+        toast.error("Enter valid data!");
       }
-      };
-    
-  const closeTransactionPinModal = () =>{
-    setTransactionOpen(!transactionOpen)
+    } else {
+      setTransactionOpen(true);
+    }
+  };
 
-  }
-      
+  const closeTransactionPinModal = () => {
+    setTransactionOpen(!transactionOpen);
+  };
+
   const requestValidate = () => {
     if (
       values?.operator !== "0" &&
@@ -375,9 +380,13 @@ const ShowService = (props) => {
           isModalShow={isConfirmShow}
           setModalClose={() => setIsConfirmShow(false)}
           userSelectedPlan={mySelectedPlan}
-          handleConfirm={handleConfirm}
+          handleConfirm={() => {
+            handleConfirm();
+          }}
           accountNo={values?.mobileNo}
           type={"mobile"}
+          transactionPin={transactionPin}
+          setTransactionPin={setTransactionPin}
         />
       )}
       {isLoginModalShow && (
@@ -387,15 +396,16 @@ const ShowService = (props) => {
         />
       )}
       <Modal isOpen={transactionOpen} toggle={closeTransactionPinModal}>
-        <ModalHeader>
-          Transaction Pin Alert
-        </ModalHeader>
+        <ModalHeader>Transaction Pin Alert</ModalHeader>
         <ModalBody>
-          <span>Please generate <Link to="/change-pin">transaction pin</Link></span>
-          
+          <span>
+            Please generate <Link to="/change-pin">transaction pin</Link>
+          </span>
         </ModalBody>
         <ModalFooter>
-          <button className="btn btn-danger" onClick={closeTransactionPinModal}>Close</button>
+          <button className="btn btn-danger" onClick={closeTransactionPinModal}>
+            Close
+          </button>
         </ModalFooter>
       </Modal>
     </>

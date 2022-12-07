@@ -4,22 +4,22 @@ import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 import { useFormik } from "formik";
 import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 import { CloudLightning } from "react-bootstrap-icons";
 
-const initialValues ={
+const initialValues = {
   mobileNo: "",
   password: "",
-}
+};
 const validationSchema = Yup.object().shape({
   mobileNo: Yup.string()
-    .min(10, 'Mobile number is must be 10 digit')
-    .max(10, 'Mobile number is must be 10 digit')
-    .required('Phone number is required'),
+    .min(10, "Mobile number is must be 10 digit")
+    .max(10, "Mobile number is must be 10 digit")
+    .required("Phone number is required"),
   password: Yup.string()
-    .min(4, 'Password is Too Short!')
-    .max(20, 'Password is Too Long!')
-    .required('Password is required'),
+    .min(4, "Password is Too Short!")
+    .max(20, "Password is Too Long!")
+    .required("Password is required"),
 });
 
 const LoginForm = (props) => {
@@ -30,12 +30,14 @@ const LoginForm = (props) => {
   const onSubmit = async (e) => {
     setApiCall(true);
     setSubmitted(true);
-      try {
-        await props.login({
+    try {
+      await props
+        .login({
           mobileNo: formik.values.mobileNo,
           password: formik.values.password,
-        }).then((res) => {
-          formik.resetForm()
+        })
+        .then((res) => {
+          formik.resetForm();
           if (res.data) {
             window.location.href = "/";
           } else {
@@ -52,19 +54,17 @@ const LoginForm = (props) => {
             // });
           }
         });
-      } finally {
-        formik.resetForm()
-        setApiCall(false);
-      }
+    } finally {
+      formik.resetForm();
+      setApiCall(false);
+    }
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit
-  })
-
-  console.log(formik.values,formik.errors)
+    onSubmit,
+  });
 
   return (
     <form onSubmit={formik.handleSubmit} name="login-form">
@@ -81,11 +81,13 @@ const LoginForm = (props) => {
           onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (formik.errors.mobileNo && formik.touched.mobileNo ? " is-invalid" : "")
+            (formik.errors.mobileNo && formik.touched.mobileNo
+              ? " is-invalid"
+              : "")
           }
         />
         {formik.errors.mobileNo && formik.touched.mobileNo && (
-          <div className="invalid-feedback">{ formik.errors.mobileNo }</div>
+          <div className="invalid-feedback">{formik.errors.mobileNo}</div>
         )}
       </div>
       <div className="form-group">
@@ -110,11 +112,13 @@ const LoginForm = (props) => {
           onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (formik.errors.password && formik.touched.password ? " is-invalid" : "")
+            (formik.errors.password && formik.touched.password
+              ? " is-invalid"
+              : "")
           }
         />
         {formik.errors.password && formik.touched.password && (
-          <div className="invalid-feedback">{ formik.errors.password }</div>
+          <div className="invalid-feedback">{formik.errors.password}</div>
         )}
       </div>
 

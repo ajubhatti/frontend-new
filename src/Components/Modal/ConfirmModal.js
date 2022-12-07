@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const ConfirmModal = ({
   isModalShow,
@@ -11,155 +12,69 @@ const ConfirmModal = ({
   accountNo,
   handleConfirm,
   type,
+  transactionPin,
+  setTransactionPin,
 }) => {
-  const [transactionPin, setTransactionPin] = useState("");
+  const handleSubmit = () => {
+    if (!transactionPin) {
+      toast.error("please enter transaction pin");
+      return;
+    }
+    handleConfirm();
+  };
 
   return (
     <>
       <Modal
         show={isModalShow}
         onHide={setModalClose}
-         centered
+        centered
         size="lg"
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Header closeButton>
           <Modal.Title>Confirm</Modal.Title>
         </Modal.Header>
-        {type === "mobile" && (
-          <Modal.Body>
-            <Form>
-              <Form.Group className="row g-3 mb-4" method="post">
-                <div className="col-12 col-sm-6 col-lg-3">
-                  mobile no : {accountNo}
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3">
-                  Amount :{userSelectedPlan.rs}
-                </div>
+
+        <Modal.Body>
+          <Form>
+            <Form.Group className="row g-3 mb-4" method="post">
+              <div className="col-12 col-sm-6 col-lg-3">
+                {type === "mobile" ? "Mobile No." : "Customer No."} :{" "}
+                {accountNo}
+              </div>
+              <div className="col-12 col-sm-6 col-lg-3">
+                Amount : {userSelectedPlan.rs}
+              </div>
+              {(type === "dth" || type === "mobile") && (
                 <div className="col-12 col-sm-6 col-lg-3">
                   Description : {userSelectedPlan.desc}
                 </div>
-                <div className="col-12 col-sm-6 col-lg-3 d-grid">
-                  <input
-                    type="text"
-                    className="form-control"
-                    data-bv-field="number"
-                    id="transaction pin"
-                    required=""
-                    placeholder="Enter transaction pin"
-                    value={transactionPin}
-                    onChange={(e) => {
-                      setTransactionPin(e.target.value);
-                    }}
-                  />
-                </div>
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-        )}
-        {type === "dth" && (
-          <Modal.Body>
-            <Form>
-              <Form.Group className="row g-3 mb-4" method="post">
-                <div className="col-12 col-sm-6 col-lg-3">
-                  Customer No. : {accountNo}
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3">
-                  Amount : {userSelectedPlan.rs}
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3">
-                  Description : {userSelectedPlan.desc}
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3 d-grid">
-                  <input
-                    type="text"
-                    className="form-control"
-                    data-bv-field="number"
-                    id="transaction pin"
-                    required=""
-                    placeholder="Enter transaction pin"
-                    value={transactionPin}
-                    onChange={(e) => {
-                      setTransactionPin(e.target.value);
-                    }}
-                  />
-                </div>
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-        )}
+              )}
 
-        {(type === "electricity" ||
-          type === "broadband" ||
-          type === "gasBill" ||
-          type === "fastTag" ||
-          type === "cableTv" ||
-          type === "Water" ||
-          type === "postpaid") && (
-          <Modal.Body>
-            <Form>
-              <Form.Group className="row g-3 mb-4" method="post">
-                <div className="col-12 col-sm-6 col-lg-3">
-                  Customer No. : {accountNo}
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3">
-                  Amount : {userSelectedPlan.rs}
-                </div>
-
-                <div className="col-12 col-sm-6 col-lg-3 d-grid">
-                  <input
-                    type="text"
-                    className="form-control"
-                    data-bv-field="number"
-                    id="transaction pin"
-                    required=""
-                    placeholder="Enter transaction pin"
-                    value={transactionPin}
-                    onChange={(e) => {
-                      setTransactionPin(e.target.value);
-                    }}
-                  />
-                </div>
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-        )}
-
-        {type === "broadband" && (
-          <Modal.Body>
-            <Form>
-              <Form.Group className="row g-3 mb-4" method="post">
-                <div className="col-12 col-sm-6 col-lg-3">
-                  Customer No. : {accountNo}
-                </div>
-                <div className="col-12 col-sm-6 col-lg-3">
-                  Amount : {userSelectedPlan.rs}
-                </div>
-
-                <div className="col-12 col-sm-6 col-lg-3 d-grid">
-                  <input
-                    type="text"
-                    className="form-control"
-                    data-bv-field="number"
-                    id="transaction pin"
-                    required=""
-                    placeholder="Enter transaction pin"
-                    value={transactionPin}
-                    onChange={(e) => {
-                      setTransactionPin(e.target.value);
-                    }}
-                  />
-                </div>
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-        )}
+              <div className="col-12 col-sm-6 col-lg-3 d-grid">
+                <input
+                  type="text"
+                  className="form-control"
+                  data-bv-field="number"
+                  id="transaction pin"
+                  required=""
+                  placeholder="Enter transaction pin"
+                  value={transactionPin}
+                  onChange={(e) => {
+                    setTransactionPin(e.target.value);
+                  }}
+                />
+              </div>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={setModalClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleConfirm}>
+          <Button variant="primary" onClick={handleSubmit}>
             Confirm
           </Button>
         </Modal.Footer>

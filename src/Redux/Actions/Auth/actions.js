@@ -1,5 +1,9 @@
 import axios from "axios";
 import { auth } from "../../../Helper/fetch_helper/apiList";
+import LocalStorage, {
+  Crypto,
+  localStorageKey,
+} from "../../../Helper/LocalStorage";
 import {
   LOGOUT,
   SET_AUTH_DATA,
@@ -76,6 +80,8 @@ export const getUserDetails = (data) => async (dispatch) => {
     dispatch(setLoading(true));
     const res = await axios.post(API_URL + auth.getUserById.url, data);
     if (res) {
+      const resData = res.data ? Crypto.encrypt(res.data.data) : null;
+      LocalStorage.set(localStorageKey.user, resData);
       dispatch(setUserData(res?.data?.data));
     }
   } catch (error) {

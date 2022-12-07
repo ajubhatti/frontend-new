@@ -14,7 +14,7 @@ const ProfileDashboard = (props) => {
 
   const { userData } = useSelector((state) => state.profile);
 
-  // useEffect(() => { 
+  // useEffect(() => {
   //   dispatch(
   //     fetchProfile({
   //       id: user.id,

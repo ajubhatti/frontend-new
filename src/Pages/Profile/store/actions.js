@@ -19,7 +19,11 @@ import {
   addMoneyInWallet,
   getAdminBankList,
 } from "../../../Helper/fetch_helper/profile";
-import { getUser } from "../../../Helper/LocalStorage";
+import LocalStorage, {
+  Crypto,
+  getUser,
+  localStorageKey,
+} from "../../../Helper/LocalStorage";
 
 const getUserData = getUser();
 
@@ -32,6 +36,8 @@ export const fetchProfile = (payload) => async (dispatch) => {
     const res = await axios.post(API_URL + auth.getUserById.url, payload);
 
     if (res.data?.data) {
+      const resData = res.data ? Crypto.encrypt(res.data.data) : null;
+      LocalStorage.set(localStorageKey.user, resData);
       dispatch(setProfileData(res?.data?.data));
     }
     dispatch(setLoading(false));

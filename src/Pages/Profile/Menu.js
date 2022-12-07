@@ -24,9 +24,7 @@ const Menu = (props) => {
     setOpen(false);
   };
 
-  const { user } = useSelector((state) => state.auth)
-
-  console.log(user)
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <>
@@ -97,9 +95,9 @@ const Menu = (props) => {
                           to={routes.profileChangePin}
                           className="nav-link u-header__nav-link u-header__nav-link-toggle"
                         >
-                          {
-                            user?.hasTransactionPin ? "Change Transaction pin" : "Create Transaction pin"
-                          }
+                          {user?.hasTransactionPin
+                            ? "Change Transaction pin"
+                            : "Create Transaction pin"}
                         </Link>
                       </li>
                       <li className="nav-item u-header__nav-item">

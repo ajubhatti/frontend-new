@@ -94,7 +94,12 @@ export const updatePassword = (data) => () =>
 
 export const updateTransactionPin = (data) => () =>
   new Promise((resolve, reject) => {
-    fetchUrl(auth.changeTransactionPin.method, auth.changeTransactionPin.url, data, configData)
+    fetchUrl(
+      auth.changeTransactionPin.method,
+      auth.changeTransactionPin.url,
+      data,
+      configData
+    )
       .then((res) => {
         resolve(res);
       })

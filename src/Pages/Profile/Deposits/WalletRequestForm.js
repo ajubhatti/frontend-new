@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Bank, CheckCircle, Wallet } from "react-bootstrap-icons";
-import AccountListing from "./AccountListing";
-import Confirmation from "./Confirmation";
 import PaymentDetail from "./PaymentDetail";
 import { getUser } from "../../../Helper/LocalStorage";
 import { toast } from "react-toastify";
-import PaymentDetail2 from "./PaymentDetail2";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBankList, walletBalanceUpdate } from "../store/actions";
 import { fetchType } from "../store/actions";
@@ -27,10 +24,9 @@ const WalletRequestForm = (props) => {
 
   useEffect(() => {
     dispatch(fetchType());
-  }, [dispatch]);
 
-  useEffect(() => {
     const getUserData = getUser();
+
     setValues((prevState) => ({
       ...prevState,
       userId: getUserData?.id,
@@ -77,8 +73,8 @@ const WalletRequestForm = (props) => {
       </header>
       <div className="card-body bg-white">
         <div className="py-4">
-          <PaymentDetail2
-            prevStep={cancelHandler}
+          <PaymentDetail
+            cancelHandler={cancelHandler}
             handleChange={handleChange}
             bankHandleChange={bankHandleChange}
             inputValues={values}
