@@ -25,12 +25,14 @@ const Home = (props) => {
   const [tickerList, setTickerList] = useState([]);
 
   useEffect(() => {
-    dispatch(
-      fetchProfile({
-        id: user.id,
-      })
-    );
-  }, [dispatch, user.id]);
+    if (user && user?.id) {
+      dispatch(
+        fetchProfile({
+          id: user?.id,
+        })
+      );
+    }
+  }, [dispatch, user?.id]);
 
   useEffect(() => {
     const getBanners = async () => {
