@@ -210,6 +210,7 @@ export const handleAddAndChangePin = (payload, cb) => async (dispatch) => {
       payload
     );
     if (res) {
+      console.log(res.data.data)
       dispatch(setProfileData(res?.data?.data));
       cb(res);
     }

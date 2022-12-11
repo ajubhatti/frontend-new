@@ -60,10 +60,10 @@ const ChangePin = (props) => {
           transactionPin: values?.newPin,
         };
     dispatch(
-      handleAddAndChangePin(payload, (status) => {
-        if (status) {
+      handleAddAndChangePin(payload, (result) => {
+        console.log({ result });
+        if (result) {
           formik.resetForm();
-          setLoading(false);
           toast.success("pin updated successfully");
           formik.setFieldValue(
             "hasTransactionPin",
@@ -72,6 +72,7 @@ const ChangePin = (props) => {
         }
       })
     );
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -186,7 +187,7 @@ const ChangePin = (props) => {
                     loading && "disabled"
                   }`}
                 >
-                  {loading ? "saving.." : "Save Transaction Pin"}
+                  {loading ? "Saving.." : "Save"}
                 </button>
                 <button
                   type="button"

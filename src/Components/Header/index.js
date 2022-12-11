@@ -19,13 +19,13 @@ const Header = () => {
     // { title: "Wallet", link: routes.wallet },
     isUser
       ? {
-        title: "My Profile",
-        link: routes.profileDashboard,
-      }
+          title: "My Profile",
+          link: routes.profileDashboard,
+        }
       : {
-        title: "Login",
-        link: routes.login,
-      },
+          title: "Login",
+          link: routes.login,
+        },
   ];
 
   const subLinks = [
@@ -34,10 +34,11 @@ const Header = () => {
     { title: "Electricity", link: "#" },
   ];
   const profileLink = [
-    { title: "View profile", link: "#" },
-    { title: "Wallet History", link: "#" },
-    { title: "Activity", link: "#" },
-    { title: "Change Transaction Pin", link: "#" },
+    { title: "View profile", link: routes.profileDashboard },
+    { title: "Wallet History", link: routes.profileWalletHistory },
+    { title: "Activity", link: routes.profileTransaction },
+    { title: "Change Transaction Pin", link: routes.profileChangePin },
+    { title: "Change password", link: routes.profileChangePassword },
   ];
 
   return (
@@ -53,8 +54,9 @@ const Header = () => {
                 <img src={Logo} alt="" />
               </Link>
               <button
-                className={`navbar-toggler btn u-hamburger ${open ? "" : "collapsed"
-                  }`}
+                className={`navbar-toggler btn u-hamburger ${
+                  open ? "" : "collapsed"
+                }`}
                 onClick={() => setOpen(!open)}
               >
                 <span className="u-hamburger__box">
@@ -62,8 +64,9 @@ const Header = () => {
                 </span>
               </button>
               <div
-                className={`navbar-collapse u-header__navbar-collapse ${open ? "d-block" : "d-none"
-                  }`}
+                className={`navbar-collapse u-header__navbar-collapse ${
+                  open ? "d-block" : "d-none"
+                }`}
               >
                 <ul className="navbar-nav u-header__navbar-nav">
                   <li className="nav-item hs-has-mega-menu u-header__nav-item">
@@ -112,19 +115,26 @@ const Header = () => {
                     );
                   })}
                   <li className="nav-item dropdown">
-                    <Link className="profile-toggle nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <Link
+                      className="profile-toggle nav-link dropdown-toggle"
+                      to="#"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
                       <span className="user-title">Hello demo</span>
                       <img src={userImg} alt="userImg" />
                     </Link>
                     <ul className="dropdown-menu">
                       {profileLink.map((item) => {
                         return (
-                          <li><Link className="dropdown-item" to={item.link}>
-                            <span>{item.title}</span>
-                          </Link></li>
-                        )
-                      })
-                      }
+                          <li>
+                            <Link className="dropdown-item" to={item.link}>
+                              <span>{item.title}</span>
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </li>
                 </ul>

@@ -3,25 +3,45 @@ import { Link, useNavigate } from "react-router-dom";
 import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 import { toast } from "react-toastify";
+import { useFormik } from "formik";
+import * as Yup from 'yup';
+
+const initialValues = {
+  userName: "",
+  phoneNumber: "",
+  state:"",
+  city: "",
+  pincode: "",
+  email: "",
+  password: "",
+  ConformPassword: "",
+  referrelId: "",
+}
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+const validationSchema = Yup.object().shape({
+  userName: Yup.string().required("User name is required!"),
+  phoneNumber: Yup.string()
+    .required("required")
+    .matches(phoneRegExp, 'Phone number is not valid')
+    .min(10, "Phone must be 10 digits")
+    .max(10, "Phone must be 10 digits"), 
+  state: Yup.string().required("State is required!"),
+  city: Yup.string().required("City is required!"),
+  pincode: Yup.string().required("Pin code is required!"),
+  email: Yup.string().email('Email format is not valid!').required("Email is required!"),
+  password: Yup.string().required("Password is required!"),
+  ConformPassword: Yup.string().required("Confirm password is required!")
+    .oneOf([Yup.ref('password'), null], 'Passwords and confirm password is not matched'),
+});
 
 const RegisterForm = (props) => {
   const navigate = useNavigate();
   const [stateData, setStateData] = useState([]);
   const [apiCall, setApiCall] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [refererName, setRefererName] = useState("");
   const [checked, setChecked] = useState(false);
-  const [values, setValues] = useState({
-    userName: "",
-    phoneNumber: "",
-    state: stateData[0]?._id || "",
-    city: "",
-    pincode: "",
-    email: "",
-    password: "",
-    ConformPassword: "",
-    referrelId: "",
-  });
 
   useEffect(() => {
     const getStateListing = async () => {
@@ -33,14 +53,6 @@ const RegisterForm = (props) => {
     getStateListing();
   }, [props]);
 
-  const handlerChange = (event) => {
-    const { name, value } = event.target;
-    setValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
   const referCodeChangeHandler = (event) => {
     const { name, value } = event.target;
     if (value.length > 8) {
@@ -50,24 +62,14 @@ const RegisterForm = (props) => {
     } else {
       setRefererName("");
     }
-    setValues((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    // setValues((prevState) => ({
+    //   ...prevState,
+    //   [name]: value,
+    // }));
+    formik.setFieldValue(name,value)
   };
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    if (
-      values.userName !== "" &&
-      values.phoneNumber !== "" &&
-      values.city !== "" &&
-      values.pincode !== "" &&
-      values.email !== "" &&
-      values.password !== "" &&
-      values.ConformPassword !== ""
-    ) {
+  const submitHandler = async (values) => {
       if (checked) {
         setApiCall(true);
         try {
@@ -88,12 +90,6 @@ const RegisterForm = (props) => {
                 mobileNo: values.phoneNumber,
               },
             });
-            // props.history.push({
-            //   pathname: routes.otp,
-            //   state: {
-            //     mobileNo: values.phoneNumber,
-            //   },
-            // });
           });
         } finally {
           setApiCall(false);
@@ -101,11 +97,18 @@ const RegisterForm = (props) => {
       } else {
         toast.error("please accept terms and conditions");
       }
-    }
   };
 
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: values => {
+      submitHandler(values);
+    },
+  })
+
   return (
-    <Form name="register-form" className="sl-form">
+    <form onSubmit={formik.handleSubmit} name="register-form" className="sl-form">
       <div className="form-group">
         <label className="form-label">
           Referral Code <small className="text-muted">(optional)</small>
@@ -114,7 +117,7 @@ const RegisterForm = (props) => {
           type="text"
           placeholder="XXXXXX"
           name="referrelId"
-          value={values.referrelId}
+          value={formik.values.referrelId}
           onChange={referCodeChangeHandler}
           className="form-control"
         />
@@ -130,46 +133,58 @@ const RegisterForm = (props) => {
         <input
           type="text"
           placeholder="As Per PAN Card"
-          required
+          // required
           name="userName"
-          value={values.userName}
-          onChange={handlerChange}
+          value={formik.values.userName}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (submitted && !values.userName ? " is-invalid" : "")
+            (formik.errors.userName && formik.touched.userName ? " is-invalid" : "")
           }
         />
-        {submitted && !values.userName && (
-          <div className="invalid-feedback">User Name is required</div>
+        {formik.errors.userName && formik.touched.userName && (
+          <div className="invalid-feedback">{formik.errors.userName}</div>
         )}
       </div>
       <div className="form-group">
         <label className="form-label">Mobile Number</label>
         <input
-          type="tel"
+          type="text"
           name="phoneNumber"
           placeholder="Mobile Number"
-          pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-          required
-          value={values.phoneNumber}
-          onChange={handlerChange}
+          // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+          // required
+          value={formik.values.phoneNumber}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (submitted && !values.phoneNumber ? " is-invalid" : "")
+            (formik.errors.phoneNumber && formik.touched.phoneNumber ? " is-invalid" : "")
           }
         />
-        {submitted && !values.phoneNumber && (
-          <div className="invalid-feedback">Phone Number is required</div>
+        {formik.errors.phoneNumber && formik.touched.phoneNumber && (
+          <div className="invalid-feedback">{formik.errors.phoneNumber}</div>
         )}
       </div>
       <div className="form-group">
         <label className="form-label">State</label>
         <select
-          value={values.state}
+          value={formik.values.state}
           name="state"
-          onChange={handlerChange}
-          className="form-control"
+          onChange={(e)=>{
+            formik.setFieldValue("state",e.target.value)
+          }}
+          onBlur={formik.handleBlur}
+          className={
+            "form-control" +
+            (formik.errors.state && formik.touched.state ? " is-invalid" : "")
+          }
+          placeholder="Please select state"
         >
+        <option>
+              Please select state 
+                </option>
           {stateData.length > 0 &&
             stateData.map((state, index) => {
               return (
@@ -179,22 +194,25 @@ const RegisterForm = (props) => {
               );
             })}
         </select>
+        {formik.errors.state && formik.touched.state && (
+          <div className="invalid-feedback">{formik.errors.state}</div>
+        )}
       </div>
       <div className="form-group">
         <label className="form-label">City</label>
         <input
           type="text"
           placeholder="City/Address"
-          required
           name="city"
-          value={values.city}
-          onChange={handlerChange}
+          value={formik.values.city}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
-            "form-control" + (submitted && !values.city ? " is-invalid" : "")
+            "form-control" + (formik.errors.city && formik.touched.city ? " is-invalid" : "")
           }
         />
-        {submitted && !values.city && (
-          <div className="invalid-feedback">City is required</div>
+        {formik.errors.city && formik.touched.city && (
+          <div className="invalid-feedback">{formik.errors.city}</div>
         )}
       </div>
       <div className="form-group">
@@ -202,16 +220,16 @@ const RegisterForm = (props) => {
         <input
           type="number"
           placeholder="Pin code"
-          required
           name="pincode"
-          value={values.pincode}
-          onChange={handlerChange}
+          value={formik.values.pincode}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
-            "form-control" + (submitted && !values.pincode ? " is-invalid" : "")
+            "form-control" + (formik.errors.pincode && formik.touched.pincode ? " is-invalid" : "")
           }
         />
-        {submitted && !values.pincode && (
-          <div className="invalid-feedback">Pin Code is required</div>
+        {formik.errors.pincode && formik.touched.pincode && (
+          <div className="invalid-feedback">{formik.errors.pincode}</div>
         )}
       </div>
       <div className="form-group">
@@ -219,16 +237,17 @@ const RegisterForm = (props) => {
         <input
           type="email"
           placeholder="example@gmail.com"
-          required
+          // required
           name="email"
-          value={values.email}
-          onChange={handlerChange}
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
-            "form-control" + (submitted && !values.email ? " is-invalid" : "")
+            "form-control" + (formik.errors.email && formik.touched.email ? " is-invalid" : "")
           }
         />
-        {submitted && !values.email && (
-          <div className="invalid-feedback">Email is required</div>
+        {formik.errors.email && formik.touched.email && (
+          <div className="invalid-feedback">{formik.errors.email}</div>
         )}
       </div>
       <div className="form-group">
@@ -236,17 +255,18 @@ const RegisterForm = (props) => {
         <input
           type="password"
           placeholder="password"
-          required
+          // required
           name="password"
-          value={values.password}
-          onChange={handlerChange}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (submitted && !values.password ? " is-invalid" : "")
+            (formik.errors.password && formik.touched.password ? " is-invalid" : "")
           }
         />
-        {submitted && !values.password && (
-          <div className="invalid-feedback">Password is required</div>
+        {formik.errors.password && formik.touched.password && (
+          <div className="invalid-feedback">{formik.errors.password}</div>
         )}
       </div>
       <div className="form-group">
@@ -254,19 +274,20 @@ const RegisterForm = (props) => {
         <input
           type="password"
           placeholder="confirm password"
-          required
+          // required
           name="ConformPassword"
-          value={values.ConformPassword}
-          onChange={handlerChange}
+          value={formik.values.ConformPassword}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (submitted && values.password != values.ConformPassword
+            (formik.errors.ConformPassword && formik.touched.ConformPassword
               ? " is-invalid"
               : "")
           }
         />
-        {submitted && values.password != values.ConformPassword && (
-          <div className="invalid-feedback">Password is invalid</div>
+        {formik.errors.ConformPassword && formik.touched.ConformPassword && (
+          <div className="invalid-feedback">{formik.errors.ConformPassword}</div>
         )}
       </div>
 
@@ -301,16 +322,16 @@ const RegisterForm = (props) => {
 
         <div className="col-4 text-right">
           <button
-            type="button"
+            type="submit"
             className="btn btn-primary transition-3d-hover"
-            onClick={(e) => submitHandler(e)}
+            // onClick={(e) => submitHandler(e)}
             disabled={apiCall}
           >
             Submit
           </button>
         </div>
       </div>
-    </Form>
+    </form>
   );
 };
 

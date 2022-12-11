@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
 
-const Table = ({ data, columns }) => {
+const Table = ({ data, columns, conditionalRowStyles }) => {
   const tableData = {
     columns,
     data,
@@ -20,6 +20,7 @@ const Table = ({ data, columns }) => {
         defaultSortField="id"
         defaultSortAsc={false}
         pagination
+        conditionalRowStyles={conditionalRowStyles}
         // highlightOnHover
       />
     </DataTableExtensions>
