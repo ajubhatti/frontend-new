@@ -28,7 +28,6 @@ const ChangePassword = (props) => {
     }));
   };
 
-
   const submitHandler = async (e) => {
     if (values.confirmNewPassword === values.newPassword) {
       e.preventDefault();
@@ -47,6 +46,7 @@ const ChangePassword = (props) => {
                 userId: getUserData.id,
               },
               (status) => {
+                console.log({ status });
                 if (status) {
                   setValues({
                     currentPassword: "",
@@ -58,16 +58,19 @@ const ChangePassword = (props) => {
               }
             )
           );
-          // await props.changePassword(values).then((res) => {
-          //   toast.success(res.message);
-          // });
+        } catch (err) {
+          res
+            .status(400)
+            .json({ status: 400, message: "Something went wrong", data: err });
         } finally {
+          setSubmitted(false);
           setLoading(false);
           setApiCall(false);
         }
       }
     } else {
-      setErrorMessage("new password and confirm password is  not match");
+      setSubmitted(false);
+      setErrorMessage("new password and confirm password is not match");
     }
   };
 
@@ -91,11 +94,15 @@ const ChangePassword = (props) => {
                     onChange={handlerChange}
                     className={
                       "form-control" +
-                      (submitted && !values.currentPassword ? " is-invalid" : "")
+                      (submitted && !values.currentPassword
+                        ? " is-invalid"
+                        : "")
                     }
                   />
                   {submitted && !values.fullName && (
-                    <div className="invalid-feedback">Please enter password</div>
+                    <div className="invalid-feedback">
+                      Please enter password
+                    </div>
                   )}
                 </div>
               </div>
@@ -116,12 +123,14 @@ const ChangePassword = (props) => {
                         (submitted && !values.newPassword
                           ? " is-invalid"
                           : errorMessage
-                            ? " is-invalid"
-                            : "")
+                          ? " is-invalid"
+                          : "")
                       }
                     />
                     {submitted && !values.fullName && (
-                      <div className="invalid-feedback">Please enter password</div>
+                      <div className="invalid-feedback">
+                        Please enter password
+                      </div>
                     )}
                   </div>
                 </div>
@@ -142,13 +151,13 @@ const ChangePassword = (props) => {
                       (submitted && !values.confirmNewPassword
                         ? " is-invalid"
                         : errorMessage
-                          ? " is-invalid"
-                          : "")
+                        ? " is-invalid"
+                        : "")
                     }
                   />
                   {submitted && !values.fullName && (
                     <div className="invalid-feedback">
-                      Please enter conform password
+                      Please enter confirm password
                     </div>
                   )}
                   {errorMessage && (
@@ -161,8 +170,9 @@ const ChangePassword = (props) => {
                 <button
                   type="button"
                   onClick={(e) => submitHandler(e)}
-                  className={`btn btn-sm btn-primary transition-3d-hover mr-2 ${loading && "disabled"
-                    }`}
+                  className={`btn btn-sm btn-primary transition-3d-hover mr-2 ${
+                    loading && "disabled"
+                  }`}
                 >
                   {loading ? "Saving.." : "Save Password"}
                 </button>
@@ -174,9 +184,7 @@ const ChangePassword = (props) => {
                 </button>
               </div>
             </Form>
-
           </div>
-
         </div>
       </div>
     </div>

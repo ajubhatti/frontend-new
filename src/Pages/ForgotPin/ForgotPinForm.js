@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 import Form from "../../Components/Form";
 import { auth } from "../../Helper/fetch_helper/apiList";
 import routes from "../../Helper/routes";
-import ResetPasswordOtp from "./ResetPasswordOtp";
+import ResetPasswordOtp from "./ResetPinOtp";
 
-const ForgotForm = () => {
+const ForgotPinForm = () => {
   const API_URL = process.env.REACT_APP_FETCH_URL;
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -91,4 +91,4 @@ const ForgotForm = () => {
   );
 };
 
-export default ForgotForm;
+export default ForgotPinForm;

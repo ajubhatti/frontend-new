@@ -1,5 +1,6 @@
 import React from "react";
 import ForgotForm from "./ForgotForm";
+import ResetPasswordOtp from "./ResetPasswordOtp";
 
 const ForgotPassword = (props) => {
   return (

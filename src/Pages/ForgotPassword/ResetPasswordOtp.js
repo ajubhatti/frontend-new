@@ -2,39 +2,72 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import routes from "../../Helper/routes";
+import axios from "axios";
+import { auth } from "../../Helper/fetch_helper/apiList";
+import { toast } from "react-toastify";
 
-const Otp = (props) => {
-  const location = useLocation();
+const ResetPasswordOtp = ({ phoneNumber }) => {
+  const API_URL = process.env.REACT_APP_FETCH_URL;
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
   const [mobileNo, setMobileNo] = useState("");
 
   useEffect(() => {
-    const getPhone = location?.state?.mobileNo;
-    setMobileNo(getPhone);
-  }, [location?.state?.mobileNo, props]);
+    setMobileNo(phoneNumber);
+  }, [phoneNumber]);
 
   const handleChange = (otp) => setOtp(otp);
 
   const submitHandler = async () => {
-    await props.verifyOtp({ otp: otp, mobileNo: mobileNo }).then((res) => {
-      if (res.data) {
-        navigate(routes.home);
-        // props.history.push(routes.home);
-        // window.location.reload();
+    try {
+      const subRes = await axios.post(API_URL + auth.verifyPhoneOtp.url, {
+        otp: otp,
+        mobileNo: mobileNo,
+      });
+      if (subRes?.data?.status == 200) {
+        toast.success(subRes?.data?.message);
+        navigate(routes.reset, {
+          state: {
+            mobileNo: mobileNo,
+          },
+        });
+      } else {
+        toast.error(subRes?.message);
       }
-    });
+    } catch (err) {
+      toast.error(err?.response?.data?.message);
+    }
   };
 
-  const resendOtp = () => {
-    props.resendOtp({ mobileNo: mobileNo });
+  const handleResendOtp = async () => {
+    try {
+      console.log({ mobileNo });
+      const API_URL = process.env.REACT_APP_FETCH_URL;
+      const subRes = await axios.post(API_URL + auth.forgotPass.url, {
+        phoneNumber: mobileNo,
+      });
+
+      if (subRes?.data?.status == 200) {
+        toast.success(subRes?.data?.message);
+        navigate(routes.reset, {
+          state: {
+            mobileNo: mobileNo,
+          },
+        });
+      } else {
+        toast.error(subRes?.message);
+      }
+    } catch (err) {
+      console.error(err);
+
+      toast.error(err?.response?.data?.message);
+    }
   };
 
   return (
-    <div className="container space-2 space-lg-3">
+    <div className="container">
       <div className="w-md-80 w-lg-50 text-center mx-md-auto">
         <div className="mb-5">
-          <h1 className="h3 font-weight-medium">Access Code</h1>
           <p>
             Enter the verification code we just send you on your phone number.
           </p>
@@ -43,7 +76,6 @@ const Otp = (props) => {
               value={otp}
               onChange={handleChange}
               numInputs={6}
-              //   separator={<span>-</span>}
               inputStyle={{
                 color: "#2C2C2C",
                 fontSize: "24px",
@@ -70,10 +102,10 @@ const Otp = (props) => {
             className="btn btn-primary btn-pill transition-3d-hover px-5"
             onClick={(e) => submitHandler()}
           >
-            Continue
+            Verify
           </div>
-          <div>
-            <small onClick={resendOtp} className="pointer">
+          <div className="mt-2">
+            <small onClick={handleResendOtp} className="pointer">
               Resend OTP
             </small>
           </div>
@@ -83,4 +115,4 @@ const Otp = (props) => {
   );
 };
 
-export default Otp;
+export default ResetPasswordOtp;

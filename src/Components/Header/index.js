@@ -88,32 +88,28 @@ const Header = () => {
                       Service
                     </Link>
                     <ul className="dropdown-menu">
-                      {subLinks?.map((items) => {
-                        return (
-                          <li key={items.title}>
-                            <Link className="dropdown-item" to={items.link}>
-                              <span>{items.title}</span>
-                            </Link>
-                          </li>
-                        );
-                      })}
+                      {subLinks?.map((items) => (
+                        <li key={items?.title}>
+                          <Link className="dropdown-item" to={items?.link}>
+                            <span>{items?.title}</span>
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </li>
-                  {Links.map((item) => {
-                    return (
-                      <li
-                        className="nav-item hs-has-mega-menu u-header__nav-item"
-                        key={item.title}
+                  {Links.map((item) => (
+                    <li
+                      className="nav-item hs-has-mega-menu u-header__nav-item"
+                      key={item?.title}
+                    >
+                      <Link
+                        to={item?.link}
+                        className="nav-link u-header__nav-link u-header__nav-link-toggle"
                       >
-                        <Link
-                          to={item.link}
-                          className="nav-link u-header__nav-link u-header__nav-link-toggle"
-                        >
-                          <span className="me-1"> {item.title}</span>
-                        </Link>
-                      </li>
-                    );
-                  })}
+                        <span className="me-1"> {item?.title}</span>
+                      </Link>
+                    </li>
+                  ))}
                   <li className="nav-item dropdown">
                     <Link
                       className="profile-toggle nav-link dropdown-toggle"
@@ -126,15 +122,17 @@ const Header = () => {
                       <img src={userImg} alt="userImg" />
                     </Link>
                     <ul className="dropdown-menu">
-                      {profileLink.map((item) => {
-                        return (
-                          <li>
-                            <Link className="dropdown-item" to={item.link}>
-                              <span>{item.title}</span>
-                            </Link>
-                          </li>
-                        );
-                      })}
+                      {profileLink.map((item) => (
+                        <li>
+                          <Link
+                            className="dropdown-item"
+                            to={item?.link}
+                            key={item?.title}
+                          >
+                            <span>{item?.title}</span>
+                          </Link>
+                        </li>
+                      ))}
                     </ul>
                   </li>
                 </ul>

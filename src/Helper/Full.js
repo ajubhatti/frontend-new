@@ -29,6 +29,7 @@ import Faq from "../Pages/FAQ/Faq";
 import WalletHistory from "../Pages/Wallet/WalletHistory";
 import { useDispatch } from "react-redux";
 import { fetchProfile } from "../Pages/Profile/store/actions";
+import ForgotTransactionPin from "../Pages/ForgotPin";
 
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
@@ -131,6 +132,16 @@ const Full = (props) => {
           element={
             <ProtectedRoute>
               <ChangePinContainer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          name="change-pin"
+          path={routes.profileForgotPin}
+          element={
+            <ProtectedRoute>
+              <ForgotTransactionPin />
             </ProtectedRoute>
           }
         />

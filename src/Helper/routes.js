@@ -21,6 +21,7 @@ const routes = {
   profileWalletHistory: "/wallet-history",
   profileChangePassword: "/change-password",
   profileChangePin: "/change-pin",
+  profileForgotPin: "/forgot-pin",
   otp: "/otp",
   wallet: "/wallet",
 };

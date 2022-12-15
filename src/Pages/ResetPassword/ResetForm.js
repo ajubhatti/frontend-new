@@ -4,9 +4,12 @@ import routes from "../../Helper/routes";
 import { getQueryData } from "../../Helper";
 import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
-// import OtpInput from "react-otp-input";
+import OtpInput from "react-otp-input";
+import { auth } from "../../Helper/fetch_helper/apiList";
+import axios from "axios";
 
 const ResetForm = (props) => {
+  const API_URL = process.env.REACT_APP_FETCH_URL;
   const navigate = useNavigate();
   const location = useLocation();
   const [apiCall, setApiCall] = useState(false);
@@ -18,16 +21,15 @@ const ResetForm = (props) => {
     confirmPassword: "",
   });
 
-
   useEffect(() => {
-    if (props.location) {
-      const getPhone = props.history.location.state.mobileNo;
+    const getPhone = location?.state?.mobileNo;
+    if (getPhone) {
       setValues((prevState) => ({
         ...prevState,
         mobileNo: getPhone,
       }));
     }
-  }, [props]);
+  }, [location?.state?.mobileNo, props]);
 
   const handlerChange = (event) => {
     const { name, value } = event.target;
@@ -37,74 +39,39 @@ const ResetForm = (props) => {
     }));
   };
 
-  const otpHandler = (value) => {
-    setValues((prevState) => ({
-      ...prevState,
-      otp: value,
-    }));
-  };
-
   const submitHandler = async (e) => {
     e.preventDefault();
     setApiCall(true);
     setSubmitted(true);
-    if (
-      values.otp !== "" &&
-      values.mobileNo !== "" &&
-      values.password !== "" &&
-      values.confirmPassword !== ""
-    ) {
+    if (values.password !== "" && values.confirmPassword !== "") {
       try {
         const payload = {
-          token: values.otp,
           phoneNumber: values.mobileNo,
           password: values.password,
         };
-        await props.resetPassword(payload).then((res) => {
+        console.log({ payload });
+
+        let res = await axios.post(API_URL + auth.resetPass.url, payload);
+
+        console.log({ res });
+        if (res?.data?.status == 200) {
           toast.success(res.message);
+
           navigate(routes.login);
-          // props.history.push(routes.login);
-        });
-      } finally {
+        }
+        // await resetPassword(payload).then((res) => {
+        //   navigate(routes.login);
+        //   // props.history.push(routes.login);
+        // });
+      } catch (err) {
+        console.log(err);
+        toast.error(err);
         setApiCall(false);
       }
     }
   };
   return (
     <Form name="reset-password-form">
-      <div className="form-group">
-        <label className="form-label">Password</label>
-        <div className="d-flex justify-content-center mb-5">
-          {/* <OtpInput
-            value={values.otp}
-            onChange={otpHandler}
-            numInputs={6}
-            inputStyle={{
-              color: "#2C2C2C",
-              fontSize: "24px",
-              width: "38px",
-              height: "40px",
-              display: "flex",
-              alignItems: "center",
-              justifySelf: "center",
-              textAlign: "center",
-              marginRight: "5px",
-              background: "transparent",
-              borderBottom: "2px solid #848484",
-              borderLeft: 0,
-              borderRight: 0,
-              borderTop: 0,
-              outline: "none",
-            }}
-            focusStyle={{
-              borderBottom: "2px solid #3451FF",
-            }}
-          /> */}
-          {submitted && !values.otp && (
-            <div className="invalid-feedback">OTP is required</div>
-          )}
-        </div>
-      </div>
       <div className="form-group">
         <label className="form-label">Password</label>
         <input
@@ -124,10 +91,10 @@ const ResetForm = (props) => {
         )}
       </div>
       <div className="form-group">
-        <label className="form-label">Conform Password</label>
+        <label className="form-label">Confirm Password</label>
         <input
           type="password"
-          placeholder="Conform Password"
+          placeholder="Confirm Password"
           required=""
           name="confirmPassword"
           value={values.confirmPassword}
@@ -140,7 +107,7 @@ const ResetForm = (props) => {
           }
         />
         {submitted && values.password != values.confirmPassword && (
-          <div className="invalid-feedback">Conform Password is required</div>
+          <div className="invalid-feedback">Confirm Password is required</div>
         )}
       </div>
       <button

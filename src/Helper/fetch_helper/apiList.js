@@ -6,8 +6,9 @@ export const auth = {
   resetPass: { method: "post", url: "/auth/reset-password" },
   verifyEmail: { method: "post", url: "/auth/verify-email" },
   verifyPhone: { method: "post", url: "/auth/verify-phone-no" },
+  verifyPhoneOtp: { method: "post", url: "/auth/verify-phone-no-otp" },
   resendOtp: { method: "post", url: "/auth/resendOtp" },
-  
+
   referer: { method: "post", url: "/auth/getByReferralCode" },
   state: { method: "get", url: "/state" },
   getUserById: { method: "post", url: "/auth/getUserById" },
@@ -18,7 +19,7 @@ export const auth = {
   userWalletData: { method: "post", url: "/walletData" },
   userTransactionList: { method: "post", url: "/transaction" },
   updateUser: { method: "post", url: "/update" },
-  activityData: { method: "post", url:"/transaction/getByUserId"}
+  activityData: { method: "post", url: "/transaction/getByUserId" },
 };
 
 export const home = {
@@ -59,5 +60,5 @@ export const recharge = {
 };
 
 export const wallet = {
-  type: { method: "get", url:"/paymentMode"}
-}
+  type: { method: "get", url: "/paymentMode" },
+};

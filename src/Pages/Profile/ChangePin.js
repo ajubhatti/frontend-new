@@ -6,6 +6,9 @@ import { handleAddAndChangePin } from "./store/actions";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
+import ForgotPin from "./ForgotPin";
+import { useNavigate } from "react-router-dom";
+import routes from "../../Helper/routes";
 
 const getUserData = getUser();
 
@@ -34,7 +37,7 @@ const validationSchema = Yup.object().shape({
 
 const ChangePin = (props) => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
@@ -75,6 +78,10 @@ const ChangePin = (props) => {
     setLoading(false);
   };
 
+  const handleForgotPin = () => {
+    navigate(routes.profileForgotPin);
+  };
+
   useEffect(() => {
     if (user) {
       formik.setFieldValue(
@@ -88,7 +95,7 @@ const ChangePin = (props) => {
     <div className="bg-light">
       <Menu />
       <div className="container space-2">
-        <div className="card">
+        <div className="card col-md-6">
           <div className="card-body">
             <form onSubmit={formik.handleSubmit} name="login-form">
               {formik?.values?.hasTransactionPin && (
@@ -179,22 +186,26 @@ const ChangePin = (props) => {
                     )}
                 </div>
               </div>
-              <div className="w-lg-50">
-                <button
-                  // onClick={(e) => submitHandler(e)}
-                  type="submit"
-                  className={`btn btn-sm btn-primary transition-3d-hover mr-2 ${
-                    loading && "disabled"
-                  }`}
-                >
-                  {loading ? "Saving.." : "Save"}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-sm btn-soft-secondary transition-3d-hover"
-                >
-                  Cancel
-                </button>
+
+              <div className=" d-flex justify-content-between pointer">
+                <div className="">
+                  <button
+                    // onClick={(e) => submitHandler(e)}
+                    type="submit"
+                    className={`btn btn-sm btn-primary transition-3d-hover mr-2 ${
+                      loading && "disabled"
+                    }`}
+                  >
+                    {loading ? "Saving.." : "Save"}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-soft-secondary transition-3d-hover"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <span onClick={handleForgotPin}> Forgot Transaction Pin</span>
               </div>
             </form>
           </div>
