@@ -4,36 +4,49 @@ import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-import * as Yup from 'yup';
+import * as Yup from "yup";
 
 const initialValues = {
   userName: "",
   phoneNumber: "",
-  state:"",
+  state: "",
   city: "",
   pincode: "",
   email: "",
   password: "",
   ConformPassword: "",
   referrelId: "",
-}
+};
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+// const phoneRegExp =
+//   /^((\\+[1-9]{1,4}[ \\-])|(\\([0-9]{2,3}\\)[ \\-])|([0-9]{2,4})[ \\-])?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const validationSchema = Yup.object().shape({
   userName: Yup.string().required("User name is required!"),
   phoneNumber: Yup.string()
     .required("required")
-    .matches(phoneRegExp, 'Phone number is not valid')
+    .matches(phoneRegExp, "Phone number is not valid")
     .min(10, "Phone must be 10 digits")
-    .max(10, "Phone must be 10 digits"), 
+    .max(10, "Phone must be 10 digits"),
   state: Yup.string().required("State is required!"),
   city: Yup.string().required("City is required!"),
-  pincode: Yup.string().required("Pin code is required!"),
-  email: Yup.string().email('Email format is not valid!').required("Email is required!"),
+  pincode: Yup.string()
+    .required("Pin code is required!")
+    .min(6, "Phone must be 6 digits")
+    .max(6, "Phone must be 6 digits"),
+  email: Yup.string()
+    .email("Email format is not valid!")
+    .required("Email is required!"),
   password: Yup.string().required("Password is required!"),
-  ConformPassword: Yup.string().required("Confirm password is required!")
-    .oneOf([Yup.ref('password'), null], 'Passwords and confirm password is not matched'),
+  ConformPassword: Yup.string()
+    .required("Confirm password is required!")
+    .oneOf(
+      [Yup.ref("password"), null],
+      "Passwords and confirm password is not matched"
+    ),
 });
 
 const RegisterForm = (props) => {
@@ -66,49 +79,53 @@ const RegisterForm = (props) => {
     //   ...prevState,
     //   [name]: value,
     // }));
-    formik.setFieldValue(name,value)
+    formik.setFieldValue(name, value);
   };
 
   const submitHandler = async (values) => {
-      if (checked) {
-        setApiCall(true);
-        try {
-          const payload = {
-            userName: values.userName,
-            phoneNumber: values.phoneNumber,
-            stateId: values.stateId,
-            city: values.city,
-            pincode: values.pincode,
-            email: values.email,
-            password: values.password,
-            referrelId: values.referrelId,
-          };
-          await props.register(payload).then((res) => {
-            toast.success(res.message);
-            navigate(routes.otp, {
-              state: {
-                mobileNo: values.phoneNumber,
-              },
-            });
+    if (checked) {
+      setApiCall(true);
+      try {
+        const payload = {
+          userName: values.userName,
+          phoneNumber: values.phoneNumber,
+          stateId: values.stateId,
+          city: values.city,
+          pincode: values.pincode,
+          email: values.email,
+          password: values.password,
+          referrelId: values.referrelId,
+        };
+        await props.register(payload).then((res) => {
+          toast.success(res.message);
+          navigate(routes.otp, {
+            state: {
+              mobileNo: values.phoneNumber,
+            },
           });
-        } finally {
-          setApiCall(false);
-        }
-      } else {
-        toast.error("please accept terms and conditions");
+        });
+      } finally {
+        setApiCall(false);
       }
+    } else {
+      toast.error("please accept terms and conditions");
+    }
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: values => {
+    onSubmit: (values) => {
       submitHandler(values);
     },
-  })
+  });
 
   return (
-    <form onSubmit={formik.handleSubmit} name="register-form" className="sl-form">
+    <form
+      onSubmit={formik.handleSubmit}
+      name="register-form"
+      className="sl-form"
+    >
       <div className="form-group">
         <label className="form-label">
           Referral Code <small className="text-muted">(optional)</small>
@@ -140,7 +157,9 @@ const RegisterForm = (props) => {
           onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (formik.errors.userName && formik.touched.userName ? " is-invalid" : "")
+            (formik.errors.userName && formik.touched.userName
+              ? " is-invalid"
+              : "")
           }
         />
         {formik.errors.userName && formik.touched.userName && (
@@ -160,7 +179,9 @@ const RegisterForm = (props) => {
           onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (formik.errors.phoneNumber && formik.touched.phoneNumber ? " is-invalid" : "")
+            (formik.errors.phoneNumber && formik.touched.phoneNumber
+              ? " is-invalid"
+              : "")
           }
         />
         {formik.errors.phoneNumber && formik.touched.phoneNumber && (
@@ -172,8 +193,8 @@ const RegisterForm = (props) => {
         <select
           value={formik.values.state}
           name="state"
-          onChange={(e)=>{
-            formik.setFieldValue("state",e.target.value)
+          onChange={(e) => {
+            formik.setFieldValue("state", e.target.value);
           }}
           onBlur={formik.handleBlur}
           className={
@@ -182,9 +203,7 @@ const RegisterForm = (props) => {
           }
           placeholder="Please select state"
         >
-        <option>
-              Please select state 
-                </option>
+          <option>Please select state</option>
           {stateData.length > 0 &&
             stateData.map((state, index) => {
               return (
@@ -208,7 +227,8 @@ const RegisterForm = (props) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           className={
-            "form-control" + (formik.errors.city && formik.touched.city ? " is-invalid" : "")
+            "form-control" +
+            (formik.errors.city && formik.touched.city ? " is-invalid" : "")
           }
         />
         {formik.errors.city && formik.touched.city && (
@@ -225,7 +245,10 @@ const RegisterForm = (props) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           className={
-            "form-control" + (formik.errors.pincode && formik.touched.pincode ? " is-invalid" : "")
+            "form-control" +
+            (formik.errors.pincode && formik.touched.pincode
+              ? " is-invalid"
+              : "")
           }
         />
         {formik.errors.pincode && formik.touched.pincode && (
@@ -243,7 +266,8 @@ const RegisterForm = (props) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           className={
-            "form-control" + (formik.errors.email && formik.touched.email ? " is-invalid" : "")
+            "form-control" +
+            (formik.errors.email && formik.touched.email ? " is-invalid" : "")
           }
         />
         {formik.errors.email && formik.touched.email && (
@@ -262,7 +286,9 @@ const RegisterForm = (props) => {
           onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (formik.errors.password && formik.touched.password ? " is-invalid" : "")
+            (formik.errors.password && formik.touched.password
+              ? " is-invalid"
+              : "")
           }
         />
         {formik.errors.password && formik.touched.password && (
@@ -287,7 +313,9 @@ const RegisterForm = (props) => {
           }
         />
         {formik.errors.ConformPassword && formik.touched.ConformPassword && (
-          <div className="invalid-feedback">{formik.errors.ConformPassword}</div>
+          <div className="invalid-feedback">
+            {formik.errors.ConformPassword}
+          </div>
         )}
       </div>
 

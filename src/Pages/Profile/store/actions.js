@@ -70,7 +70,6 @@ export const updateUserPassword = (payload, cb) => async (dispatch) => {
 
     const res = await axios.post(API_URL + auth.changePassword.url, payload);
     if (res) {
-      console.log({ res });
       dispatch(fetchProfile({ id: getUserData.id }));
       toast.success(res.data.message);
       cb(res.data);
@@ -211,7 +210,6 @@ export const handleAddAndChangePin = (payload, cb) => async (dispatch) => {
       payload
     );
     if (res) {
-      console.log(res.data.data);
       dispatch(setProfileData(res?.data?.data));
       cb(res);
     }

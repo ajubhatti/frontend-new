@@ -6,7 +6,7 @@ import axios from "axios";
 import { auth } from "../../Helper/fetch_helper/apiList";
 import { toast } from "react-toastify";
 
-const ResetPasswordOtp = ({ phoneNumber }) => {
+const ResetTransactionPinOtpForm = ({ phoneNumber, setIsOtpVerified }) => {
   const API_URL = process.env.REACT_APP_FETCH_URL;
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
@@ -26,11 +26,7 @@ const ResetPasswordOtp = ({ phoneNumber }) => {
       });
       if (subRes?.data?.status == 200) {
         toast.success(subRes?.data?.message);
-        navigate(routes.reset, {
-          state: {
-            mobileNo: mobileNo,
-          },
-        });
+        setIsOtpVerified(true);
       } else {
         toast.error(subRes?.message);
       }
@@ -41,7 +37,6 @@ const ResetPasswordOtp = ({ phoneNumber }) => {
 
   const handleResendOtp = async () => {
     try {
-      console.log({ mobileNo });
       const API_URL = process.env.REACT_APP_FETCH_URL;
       const subRes = await axios.post(API_URL + auth.forgotPass.url, {
         phoneNumber: mobileNo,
@@ -49,11 +44,6 @@ const ResetPasswordOtp = ({ phoneNumber }) => {
 
       if (subRes?.data?.status == 200) {
         toast.success(subRes?.data?.message);
-        navigate(routes.reset, {
-          state: {
-            mobileNo: mobileNo,
-          },
-        });
       } else {
         toast.error(subRes?.message);
       }
@@ -115,4 +105,4 @@ const ResetPasswordOtp = ({ phoneNumber }) => {
   );
 };
 
-export default ResetPasswordOtp;
+export default ResetTransactionPinOtpForm;

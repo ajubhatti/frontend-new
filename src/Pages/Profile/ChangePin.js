@@ -64,7 +64,6 @@ const ChangePin = (props) => {
         };
     dispatch(
       handleAddAndChangePin(payload, (result) => {
-        console.log({ result });
         if (result) {
           formik.resetForm();
           toast.success("pin updated successfully");

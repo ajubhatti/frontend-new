@@ -6,28 +6,23 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { auth } from "../../Helper/fetch_helper/apiList";
 import axios from "axios";
 
-const ResetForm = (props) => {
+const ResetTransactionPin = ({ phoneNumber }) => {
   const API_URL = process.env.REACT_APP_FETCH_URL;
-  const navigate = useNavigate();
   const location = useLocation();
   const [apiCall, setApiCall] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [values, setValues] = useState({
-    otp: "",
     mobileNo: "",
-    password: "",
-    confirmPassword: "",
+    transactionPin: "",
+    confirmTransactionPin: "",
   });
 
   useEffect(() => {
-    const getPhone = location?.state?.mobileNo;
-    if (getPhone) {
-      setValues((prevState) => ({
-        ...prevState,
-        mobileNo: getPhone,
-      }));
-    }
-  }, [location?.state?.mobileNo, props]);
+    setValues((prevState) => ({
+      ...prevState,
+      mobileNo: phoneNumber,
+    }));
+  }, [phoneNumber]);
 
   const handlerChange = (event) => {
     const { name, value } = event.target;
@@ -41,18 +36,21 @@ const ResetForm = (props) => {
     e.preventDefault();
     setApiCall(true);
     setSubmitted(true);
-    if (values.password !== "" && values.confirmPassword !== "") {
+    if (values.transactionPin !== "" && values.confirmTransactionPin !== "") {
       try {
         const payload = {
           phoneNumber: values.mobileNo,
-          password: values.password,
+          transactionPin: values.transactionPin,
         };
 
-        let res = await axios.post(API_URL + auth.resetPass.url, payload);
+        let res = await axios.post(
+          API_URL + auth.resetTransactionPin.url,
+          payload
+        );
         if (res?.data?.status == 200) {
-          toast.success(res.message);
-          navigate(routes.login);
+          toast.success(res?.data?.message);
         }
+        setApiCall(false);
       } catch (err) {
         toast.error(err);
         setApiCall(false);
@@ -62,41 +60,43 @@ const ResetForm = (props) => {
   return (
     <Form name="reset-password-form">
       <div className="form-group">
-        <label className="form-label">Password</label>
+        <label className="form-label">Transaction Pin</label>
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Transaction Pin"
           required=""
-          name="password"
-          value={values.password}
+          name="transactionPin"
+          value={values.transactionPin}
           onChange={handlerChange}
           className={
             "form-control" +
-            (submitted && !values.password ? " is-invalid" : "")
+            (submitted && !values.transactionPin ? " is-invalid" : "")
           }
         />
-        {submitted && !values.password && (
-          <div className="invalid-feedback">Password is required</div>
+        {submitted && !values.transactionPin && (
+          <div className="invalid-feedback">Transaction Pin is required</div>
         )}
       </div>
       <div className="form-group">
-        <label className="form-label">Confirm Password</label>
+        <label className="form-label">Confirm Transaction Pin</label>
         <input
           type="password"
-          placeholder="Confirm Password"
+          placeholder="Confirm Transaction Pin"
           required=""
-          name="confirmPassword"
-          value={values.confirmPassword}
+          name="confirmTransactionPin"
+          value={values.confirmTransactionPin}
           onChange={handlerChange}
           className={
             "form-control" +
-            (submitted && values.password != values.confirmPassword
+            (submitted && values.transactionPin != values.confirmTransactionPin
               ? " is-invalid"
               : "")
           }
         />
-        {submitted && values.password != values.confirmPassword && (
-          <div className="invalid-feedback">Confirm Password is required</div>
+        {submitted && values.transactionPin != values.confirmTransactionPin && (
+          <div className="invalid-feedback">
+            Confirm Transaction Pin is required
+          </div>
         )}
       </div>
       <button
@@ -111,4 +111,4 @@ const ResetForm = (props) => {
   );
 };
 
-export default ResetForm;
+export default ResetTransactionPin;

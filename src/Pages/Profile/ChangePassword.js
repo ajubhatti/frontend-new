@@ -46,7 +46,6 @@ const ChangePassword = (props) => {
                 userId: getUserData.id,
               },
               (status) => {
-                console.log({ status });
                 if (status) {
                   setValues({
                     currentPassword: "",

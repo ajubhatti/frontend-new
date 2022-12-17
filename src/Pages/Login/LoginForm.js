@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 import { useFormik } from "formik";
-import { hasFormSubmit } from "@testing-library/user-event/dist/utils";
 import * as Yup from "yup";
-import { CloudLightning } from "react-bootstrap-icons";
 
 const initialValues = {
   mobileNo: "",
@@ -37,7 +34,6 @@ const LoginForm = (props) => {
           password: formik.values.password,
         })
         .then((res) => {
-          formik.resetForm();
           if (res.data) {
             window.location.href = "/";
           } else {
@@ -46,16 +42,9 @@ const LoginForm = (props) => {
                 mobileNo: values.mobileNo,
               },
             });
-            // props.history.push({
-            //   pathname: routes.otp,
-            //   state: {
-            //     mobileNo: values.mobileNo,
-            //   },
-            // });
           }
         });
-    } finally {
-      formik.resetForm();
+    } catch (err) {
       setApiCall(false);
     }
   };
@@ -74,8 +63,6 @@ const LoginForm = (props) => {
           type="tel"
           name="mobileNo"
           placeholder="90XXXXXXXX"
-          // pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-          // required
           value={formik.values.mobileNo}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
@@ -105,7 +92,6 @@ const LoginForm = (props) => {
         <input
           type="password"
           placeholder="*******"
-          // required=""
           name="password"
           value={formik.values.password}
           onChange={formik.handleChange}
@@ -135,7 +121,6 @@ const LoginForm = (props) => {
             type="submit"
             className="btn btn-primary transition-3d-hover"
             disabled={apiCall}
-            // onClick={(e) => submitHandler(e)}
           >
             Login
           </button>
