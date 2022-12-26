@@ -24,6 +24,7 @@ const routes = {
   profileForgotPin: "/forgot-pin",
   otp: "/otp",
   wallet: "/wallet",
+  editProfile: "/edit-profile"
 };
 
 export default routes;

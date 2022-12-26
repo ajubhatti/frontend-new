@@ -57,7 +57,7 @@ const Home = (props) => {
       <div className="slide">
         <Carousel slides={bannerList} />
       </div>
-      <div className="py-3">
+      <div className="py-2">
         <Marquee>
           {tickerList.map((theElement, index) => {
             return (

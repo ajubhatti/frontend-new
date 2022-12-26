@@ -2,7 +2,9 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <div className="container space-2 space-top-md-4 space-top-lg-3">
+    <div className="container">
+    <div className="row">
+    <div className="col-md-12">
       <div className="w-lg-80 text-center mx-lg-auto">
         <div className="mb-11">
           <h1 className="display-4 font-weight-semi-bold">About Us</h1>
@@ -14,12 +16,8 @@ const AboutUs = () => {
           </p>
         </div>
       </div>
-      <div className="container">
-        <div className="w-lg-65 mx-lg-auto">
-          <hr className="my-0" />
-        </div>
-      </div>
-      <div className="container space-2 space-lg-3">
+    </div>
+    </div>
         <div className="row justify-content-lg-between">
           <div className="col-lg-4 mb-5 mb-lg-0">
             <h2 className="font-weight-semi-bold">
@@ -53,7 +51,6 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

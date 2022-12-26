@@ -742,6 +742,24 @@ pre code {
   flex: 0 0 16.66667%;
   max-width: 16.66667%;
 }
+/* custom  scroll-bar  */
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #2C74B3;
+}
 
 .col-3 {
   -ms-flex: 0 0 25%;
@@ -13205,6 +13223,11 @@ table th {
 .fas {
   font-weight: 900;
 }
+/* content pages css */
+.content-pages{
+ /* padding-top: 110px; */
+}
+
 
 /*------------------------------------
   Highlight Color
@@ -13516,6 +13539,10 @@ header.u-header{
   z-index: 1;
   background-color: #fff;
   box-shadow: 0 1px 10px rgba(151, 164, 175, 0.1);
+  height: 75px;
+}
+.u-header__section  nav{
+  height: 75px;
 }
 
 .u-header__section-divider {
@@ -13552,7 +13579,7 @@ header.u-header{
   padding-bottom: 0;
   width: 100%;
   height: auto;
-  max-width: 150px;
+  max-width: 135px;
   object-fit: cover;
   
 }
@@ -24763,3 +24790,12 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.profileImage{
+  min-height: 250px;
+}
+.profileName{
+  font-weight: 500;
+  font-size: 2rem;
+}
+

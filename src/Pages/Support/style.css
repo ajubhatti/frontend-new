@@ -1,0 +1,9 @@
+.help-heading{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+.helping-img  figure img{
+    
+}

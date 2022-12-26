@@ -7,8 +7,10 @@ export const login = (data) => () =>
   new Promise(async (resolve, reject) => {
     await fetchUrl(auth.login.method, auth.login.url, data, configData)
       .then((res) => {
-        const resData = res.data ? Crypto.encrypt(res.data) : null;
-        LocalStorage.set(localStorageKey.user, resData);
+        if (res.status == 200) {
+          const resData = res.data ? Crypto.encrypt(res.data) : null;
+          LocalStorage.set(localStorageKey.user, resData);
+        }
 
         resolve(res);
       })

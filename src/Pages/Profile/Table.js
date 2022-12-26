@@ -2,8 +2,19 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
+import ReactDatePicker from "../../Components/DateRangePicker/ReactDatePicker";
 
-const Table = ({ data, columns, conditionalRowStyles }) => {
+const Table = ({
+  data,
+  columns,
+  conditionalRowStyles,
+  totalRows,
+  handlePageChange,
+  handlePerRowsChange,
+  setDateRange,
+  dateRange,
+  showDatePicker,
+}) => {
   const tableData = {
     columns,
     data,
@@ -12,18 +23,31 @@ const Table = ({ data, columns, conditionalRowStyles }) => {
     filterDigit: 3,
   };
   return (
-    <DataTableExtensions {...tableData}>
-      <DataTable
-        columns={columns}
-        data={data}
-        noHeader
-        defaultSortField="id"
-        defaultSortAsc={false}
-        pagination
-        conditionalRowStyles={conditionalRowStyles}
-        // highlightOnHover
-      />
-    </DataTableExtensions>
+    <>
+      {showDatePicker && (
+        <ReactDatePicker setRangeDate={setDateRange} rangeDate={dateRange} />
+      )}
+
+      <DataTableExtensions {...tableData}>
+        <DataTable
+          columns={columns}
+          data={data}
+          noHeader
+          defaultSortField="id"
+          defaultSortAsc={false}
+          pagination
+          conditionalRowStyles={conditionalRowStyles}
+          paginationServer
+          paginationTotalRows={totalRows}
+          onChangePage={handlePageChange}
+          onChangeRowsPerPage={handlePerRowsChange}
+          highlightOnHover
+          paginationComponentOptions={{
+            noRowsPerPage: true,
+          }}
+        />
+      </DataTableExtensions>
+    </>
   );
 };
 

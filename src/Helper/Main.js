@@ -19,7 +19,9 @@ const Main = (props) => {
     <div>
       <ToastContainer />
       <Header {...user} />
+      <div className="content-pages bg-light">
       <Contain>{props?.children}</Contain>
+      </div>
       <Footer />
     </div>
   );

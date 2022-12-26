@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import routes from "../../Helper/routes";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 const initialValues = {
   mobileNo: "",
@@ -34,12 +35,14 @@ const LoginForm = (props) => {
           password: formik.values.password,
         })
         .then((res) => {
-          if (res.data) {
+          if (res.status == 200) {
             window.location.href = "/";
-          } else {
+          }
+          if (res.status == 203) {
+            toast.warning(res.message);
             navigate(routes.otp, {
               state: {
-                mobileNo: values.mobileNo,
+                mobileNo: formik.values.mobileNo,
               },
             });
           }

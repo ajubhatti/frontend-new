@@ -40,9 +40,13 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Email format is not valid!")
     .required("Email is required!"),
-  password: Yup.string().required("Password is required!"),
+  password: Yup.string().required("Password is required!")
+    .min(6, "Password is must be greater than 6 digits")
+    .max(20, "Password is too big."),
   ConformPassword: Yup.string()
     .required("Confirm password is required!")
+    .min(6, "Confirm Password is must be greater than 6 digits")
+    .max(20, "Confirm Password is too big.")
     .oneOf(
       [Yup.ref("password"), null],
       "Passwords and confirm password is not matched"
@@ -279,7 +283,6 @@ const RegisterForm = (props) => {
         <input
           type="password"
           placeholder="password"
-          // required
           name="password"
           value={formik.values.password}
           onChange={formik.handleChange}

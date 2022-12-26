@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Menu from "./Menu";
 import Table from "./Table";
@@ -6,22 +6,37 @@ import { getUser } from "../../Helper/LocalStorage";
 import { getActivityData } from "./store/actions";
 import moment from "moment";
 
-
 const ProfileTransaction = () => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const user = getUser();
 
   const { activity } = useSelector((state) => state.profile);
 
-  useEffect(()=>{
-    dispatch(getActivityData({
-      userId:user.id
-    }))
-  },[])
+  useEffect(() => {
+    dispatch(
+      getActivityData({
+        userId: user.id,
+      })
+    );
+  }, []);
 
-  
   const columns = [
+    {
+      name: "created",
+      selector: "created",
+      sortable: true,
+      cell: (d) => (
+        <div className="align-middle text-secondary">
+          {moment(d?.created).format("DD-MM-YYYY h:mm:ss a")}
+        </div>
+      ),
+    },
+    {
+      name: "Payment type",
+      selector: "type",
+      sortable: true,
+      cell: (d) => <div>{d.type}</div>,
+    },
     {
       name: "_id",
       selector: "_id",
@@ -44,7 +59,7 @@ const ProfileTransaction = () => {
       // sortable: true,
       cell: (d) => (
         <div className="align-middle">
-          <span>{!!d?.remark ? d?.remark :"-"}</span>
+          <span>{!!d?.remark ? d?.remark : "-"}</span>
         </div>
       ),
     },
@@ -61,7 +76,9 @@ const ProfileTransaction = () => {
       selector: "created",
       // sortable: true,
       cell: (d) => (
-        <div className="align-middle text-secondary">{moment(d?.created).format("DD-MM-YYYY h:mm:ss a")}</div>
+        <div className="align-middle text-secondary">
+          {moment(d?.created).format("DD-MM-YYYY h:mm:ss a")}
+        </div>
       ),
     },
     {
@@ -70,12 +87,13 @@ const ProfileTransaction = () => {
       // sortable: true,
       cell: (d) => (
         <div
-          className={`align-middle text-${d?.status === "completed"
+          className={`align-middle text-${
+            d?.status === "completed"
               ? "success"
-            : d?.status === "pending"
-                ? "warning"
-                : "danger"
-            }`}
+              : d?.status === "pending"
+              ? "warning"
+              : "danger"
+          }`}
         >
           {d?.status}
         </div>
@@ -83,13 +101,15 @@ const ProfileTransaction = () => {
     },
   ];
 
+  console.log("activity", activity);
+
   return (
     <div className="bg-light">
       <Menu />
       <div className="container space-2">
         <div className="card">
           <div className="card-body p-4">
-            <Table columns={columns} data={activity} />
+            <Table columns={columns} data={activity.data} />
           </div>
         </div>
       </div>

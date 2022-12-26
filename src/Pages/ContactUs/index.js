@@ -5,6 +5,7 @@ import PhoneIcon from "../../Assets/phone.svg";
 import FaxIcon from "../../Assets/fax.svg";
 import ContactCard from "./ContactCard";
 import ContactForm from "./ContactForm";
+import "./style.css";
 
 const ContactUs = (props) => {
   const cards = [
@@ -31,7 +32,8 @@ const ContactUs = (props) => {
   ];
   return (
     <>
-      <div className="space-2 space-top-md-4 space-top-lg-3">
+    <div className="container">
+      <div className="question-section">
         <div className="w-lg-80 text-center mx-lg-auto">
           <div className="mb-11">
             <h1 className="display-4 font-weight-semi-bold">Got a question?</h1>
@@ -42,7 +44,7 @@ const ContactUs = (props) => {
           </div>
         </div>
         <ContactForm {...props} />
-        <hr className="my-0" />
+        {/* <hr className="my-0" /> */}
         <div className="clearfix space-2">
           <div className="row no-gutters">
             {cards.length > 0 &&
@@ -52,6 +54,7 @@ const ContactUs = (props) => {
           </div>
         </div>
       </div>
+    </div>
       <hr className="my-0" />
     </>
   );

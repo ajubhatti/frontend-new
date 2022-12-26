@@ -4,7 +4,7 @@ import RegisterForm from "./RegisterForm";
 
 const Register = (props) => {
   return (
-    <div className="space-2">
+    
       <div className="container">
         <div className="row">
           <div className="col-md-6">
@@ -24,7 +24,7 @@ const Register = (props) => {
           </div>
         </div>
       </div>
-    </div>
+   
   );
 };
 

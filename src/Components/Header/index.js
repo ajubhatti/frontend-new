@@ -118,7 +118,7 @@ const Header = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      <span className="user-title">Hello demo</span>
+                      <span className="user-title">Hello</span>
                       <img src={userImg} alt="userImg" />
                     </Link>
                     <ul className="dropdown-menu">

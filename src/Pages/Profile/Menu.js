@@ -76,10 +76,10 @@ const Menu = (props) => {
                       </li>
                       <li className="nav-item u-header__nav-item">
                         <Link
-                          to={routes.profileDashboard}
+                          to={routes.editProfile}
                           className="nav-link u-header__nav-link u-header__nav-link-toggle"
                         >
-                          Edit profile
+                          Profile
                         </Link>
                       </li>
                       <li className="nav-item u-header__nav-item">

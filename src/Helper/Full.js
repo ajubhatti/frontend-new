@@ -30,6 +30,7 @@ import WalletHistory from "../Pages/Wallet/WalletHistory";
 import { useDispatch } from "react-redux";
 import { fetchProfile } from "../Pages/Profile/store/actions";
 import ForgotTransactionPin from "../Pages/ForgotPin";
+import EditProfile from "../Pages/Profile/EditProfile";
 
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
@@ -110,6 +111,16 @@ const Full = (props) => {
           element={
             <ProtectedRoute>
               <ProfileDashboardContainer />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          name="account-dashboard"
+          path={routes.editProfile}
+          element={
+            <ProtectedRoute>
+              <EditProfile />
             </ProtectedRoute>
           }
         />

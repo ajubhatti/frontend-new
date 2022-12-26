@@ -4,6 +4,7 @@ import knowledgebaseCommunityImg from "../../Assets/knowledgebase-community.svg"
 import Icon62 from "../../Assets/icon62.svg";
 import routes from "../../Helper/routes";
 import { useNavigate } from "react-router-dom";
+import "./style.css";
 
 const Support = (props) => {
   const navigate = useNavigate();
@@ -26,22 +27,24 @@ const Support = (props) => {
   
   return (
     <>
-      <div className="bg-light">
+     
         <div className="container">
           <div className="row justify-content-md-between">
-            <div className="col-md-6 space-2 space-bottom-lg-3 space-top-md-5">
-              <div className="mb-5">
+            <div className="col-md-7">
+              <div className="help-heading">
                 <h1 className="font-weight-medium">How can we help?</h1>
               </div>
             </div>
-            <div className="col-md-5 align-self-md-end d-none d-md-inline-block">
-              <figure className="ie-knowledgebase-community mb-n3">
+            <div className="col-md-5">
+            <div className="helping-img">
+              <figure className="ie-knowledgebase-community">
                 <img src={knowledgebaseCommunityImg} alt="" />
               </figure>
             </div>
+            </div>
           </div>
         </div>
-      </div>
+     
       
       <div className="container">
         <div className="space-2 space-md-3">

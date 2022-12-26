@@ -2,7 +2,7 @@ import { FETCH_ALL_WALLET_LIST, SET_LOADING } from "./actionTypes";
 
 const initialState = {
   walletLoading: false,
-  userWalletData: [],
+  userWalletData: {},
 };
 
 const walletReducer = (state = initialState, action) => {

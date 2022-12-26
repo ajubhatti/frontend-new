@@ -1,121 +1,284 @@
 import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../Helper/LocalStorage";
 import Menu from "../Profile/Menu";
 import Table from "../Profile/Table";
 import { getAllUserWalletList } from "./store/actions";
+import { DateRange } from "react-date-range";
+import APDateRangePicker from "../../Components/DateRangePicker";
+
+import { DateRangePicker } from "react-date-range";
+import { addDays } from "date-fns";
+import ReactDateRange from "../../Components/DateRangePicker/ReactDateRange";
+import useOutsideClick from "../../Hooks/useOutSideClick";
+import ReactDatePicker from "../../Components/DateRangePicker/ReactDatePicker";
 
 const WalletHistory = () => {
   const dispatch = useDispatch();
   const user = getUser();
+
+  const ref = useRef();
   const { userWalletData } = useSelector((state) => state.wallet);
   const [data, setData] = useState([]);
+  const [totalRows, setTotalRows] = useState(300);
+  const [perPage, setPerPage] = useState(10);
 
-  const columns = [
-    {
-      name: "No",
-      selector: "_id",
-      sortable: false,
-      Cell: (props) => <div>{props.page * 10 + props.index + 1}</div>,
-    },
-    {
-      name: "slip No",
-      selector: "slipNo",
-      sortable: true,
-      cell: (d) => (
-        <div className="align-middle text-secondary font-weight-normal">
-          {!!d?.slipNo ? "# " + d?.slipNo : "-"}
-        </div>
-      ),
-    },
-    {
-      name: "isActive",
-      selector: "isActive",
-      // sortable: true,
-      cell: (d) => (
-        <div className="align-middle">
-          <span className="text-capitalize">{"" + d.isActive}</span>
-        </div>
-      ),
-    },
-    {
-      name: "Amount",
-      selector: "requestAmount",
-      sortable: true,
-      cell: (d) => (
-        <div className="align-middle text-primary">${d.requestAmount}</div>
-      ),
-    },
-    {
-      name: "Date",
-      selector: "created",
-      // sortable: true,
-      cell: (d) => (
-        <div className="align-middle text-secondary">
-          {moment(d.created).format("DD-MM-YYYY h:mm:ss a")}
-        </div>
-      ),
-    },
-    {
-      name: "Status",
-      selector: "statusOfWalletRequest",
-      // sortable: true,
-      cell: (d) => (
-        <div
-          className={`align-middle text-${
-            d.statusOfWalletRequest === "approve"
-              ? "success"
-              : d.statusOfWalletRequest === "pending"
-              ? "warning"
-              : "danger"
-          }`}
-        >
-          {d.statusOfWalletRequest}
-        </div>
-      ),
-    },
-  ];
+  const [show, setShow] = useState(false);
+  const [closeDate, setCloseDate] = useState(false);
+  const [inputDate, setInputDate] = useState("");
 
-  const conditionalRowStyles = [
+  const [rangeDate, setRangeDate] = useState([
     {
-      when: (row) => row.statusOfWalletRequest === "approve",
-      style: {
-        backgroundColor: "rgba(63, 195, 128, 0.9)",
-        color: "white",
-        "&:hover": {
-          cursor: "pointer",
-        },
-      },
+      startDate: addDays(new Date(), -7),
+      endDate: new Date(),
+      key: "selection",
     },
-    {
-      when: (row) => row.statusOfWalletRequest === "pending",
-      style: {
-        backgroundColor: "rgba(248, 148, 6, 0.9)",
-        color: "white",
-        "&:hover": {
-          cursor: "pointer",
-        },
+  ]);
+
+  const [dateRange, setDateRange] = useState([null, null]);
+
+  const [payloadData, setPayloadData] = useState({
+    userId: user.id,
+    page: 1,
+    limits: 20,
+    sortBy: "created",
+    orderBy: "desc",
+    skip: 0,
+    search: "",
+    startDate: "", //"10-15-2022",
+    endDate: "", //"10-30-2022",
+  });
+
+  const columns = useMemo(
+    () => [
+      {
+        name: "#",
+        // selector: "_id",
+        sortable: false,
+        cell: (props) => <div>{props.page * 10 + props.index + 1}</div>,
       },
-    },
-    {
-      when: (row) =>
-        row.statusOfWalletRequest !== "approve" &&
-        row.statusOfWalletRequest !== "pending",
-      style: {
-        backgroundColor: "rgba(242, 38, 19, 0.9)",
-        color: "white",
-        "&:hover": {
-          cursor: "not-allowed",
-        },
+      {
+        name: "Date",
+        selector: "created",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle">
+            {moment(d.created).format("DD-MM-YYYY h:mm:ss a")}
+          </div>
+        ),
       },
-    },
-  ];
+      {
+        name: "Payment Id",
+        selector: "walletTransactionId",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle font-weight-normal">
+            {!!d?.walletTransactionId ? d?.walletTransactionId : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Payment Type",
+        selector: "paymentMode.modeName",
+        // sortable: true,
+        cell: (d) => (
+          <div className="align-middle font-weight-normal">
+            {!!d?.paymentMode?.modeName ? d?.paymentMode?.modeName : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Slip No",
+        selector: "slipNo",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle font-weight-normal">
+            {!!d?.slipNo ? "#" + d?.slipNo : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Remark",
+        selector: "remark",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle font-weight-normal">
+            {!!d?.remark ? d?.remark : "-"}
+          </div>
+        ),
+      },
+
+      {
+        name: "Request Amount",
+        selector: "requestAmount",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle text-primary">{d.requestAmount}</div>
+        ),
+      },
+      {
+        name: "Debit Amount",
+        selector: "requestAmount",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle text-primary">
+            {!!d?.debitAmount ? d?.debitAmount : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Final Amount",
+        selector: "finalWalletAmount",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle text-primary">
+            {!!d?.finalWalletAmount ? d?.finalWalletAmount : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Status",
+        selector: "statusOfWalletRequest",
+        // sortable: true,
+        cell: (d) => (
+          <div
+            className={`align-middle text-${
+              d.statusOfWalletRequest === "approve"
+                ? "success"
+                : d.statusOfWalletRequest === "pending"
+                ? "warning"
+                : "danger"
+            }`}
+          >
+            {d.statusOfWalletRequest}
+          </div>
+        ),
+      },
+      {
+        name: "Is Active",
+        selector: "isActive",
+        // sortable: true,
+        cell: (d) => (
+          <div className="align-middle">
+            <span className="text-capitalize">{"" + d.isActive}</span>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
+
+  // const conditionalRowStyles = [
+  //   {
+  //     when: (row) => row.statusOfWalletRequest === "approve",
+  //     style: {
+  //       backgroundColor: "rgba(63, 195, 128, 0.9)",
+  //       color: "white",
+  //       "&:hover": {
+  //         cursor: "pointer",
+  //       },
+  //     },
+  //   },
+  //   {
+  //     when: (row) => row.statusOfWalletRequest === "pending",
+  //     style: {
+  //       backgroundColor: "rgba(248, 148, 6, 0.9)",
+  //       color: "white",
+  //       "&:hover": {
+  //         cursor: "pointer",
+  //       },
+  //     },
+  //   },
+  //   {
+  //     when: (row) =>
+  //       row.statusOfWalletRequest !== "approve" &&
+  //       row.statusOfWalletRequest !== "pending",
+  //     style: {
+  //       backgroundColor: "rgba(242, 38, 19, 0.9)",
+  //       color: "white",
+  //       "&:hover": {
+  //         cursor: "not-allowed",
+  //       },
+  //     },
+  //   },
+  // ];
 
   useEffect(() => {
-    let payload = { userId: user.id };
-    dispatch(getAllUserWalletList(payload));
-  }, []);
+    console.log(userWalletData);
+    setTotalRows(userWalletData.total);
+  }, [userWalletData]);
+
+  useEffect(() => {
+    if (dateRange[0] && dateRange[1]) {
+      const selectedStartDate = moment(dateRange[0]).format("yyyy-MM-DD");
+      const selectedEndDate = moment(dateRange[1]).format("yyyy-MM-DD");
+      if (selectedStartDate && selectedEndDate)
+        console.log({ dateRange, selectedStartDate, selectedEndDate });
+      setPayloadData((prev) => ({
+        ...prev,
+        startDate: selectedStartDate,
+        endDate: selectedEndDate,
+      }));
+    }
+  }, [dateRange]);
+
+  useEffect(() => {
+    const selectedStartDate = moment(rangeDate[0]?.startDate).format(
+      "yyyy-MM-DD"
+    );
+    const selectedEndDate = moment(rangeDate[0]?.endDate).format("yyyy-MM-DD");
+    setInputDate(
+      moment(selectedStartDate).format("MM/DD/yyyy") +
+        " - " +
+        moment(selectedEndDate).format("MM/DD/yyyy")
+    );
+
+    console.log({ rangeDate });
+    if (rangeDate[0]?.endDate) {
+      handleCloseCalendar;
+    }
+
+    // let data = {
+    //   hub_id: parseInt(hubId),
+    //   start_date: selectedStartDate,
+    //   end_date: selectedEndDate,
+    // };
+
+    // dispatch(getVisitorReport({ data, cb: handleCloseCalendar }));
+  }, [rangeDate]);
+
+  const handleCloseCalendar = () => {
+    setCloseDate(true);
+  };
+
+  useEffect(() => {
+    console.log({ payloadData });
+    dispatch(getAllUserWalletList(payloadData));
+  }, [payloadData]);
+
+  const handlePageChange = (page) => {
+    console.log({ page });
+    setPayloadData((prev) => ({
+      ...prev,
+      page: page,
+    }));
+    // fetchData(page, perPage);
+  };
+
+  const handlePerRowsChange = async (newPerPage, page) => {
+    setPerPage(newPerPage);
+  };
+
+  const handleDataRange = () => {
+    if (show === false) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  };
+
+  useOutsideClick(ref, handleCloseCalendar);
 
   return (
     <div className="bg-light">
@@ -124,9 +287,15 @@ const WalletHistory = () => {
         <div className="card">
           <div className="card-body p-4">
             <Table
-              data={userWalletData}
+              data={userWalletData.data}
               columns={columns}
+              totalRows={totalRows}
+              handlePageChange={handlePageChange}
+              handlePerRowsChange={handlePerRowsChange}
               // conditionalRowStyles={conditionalRowStyles}
+              showDatePicker={true}
+              setDateRange={setDateRange}
+              dateRange={dateRange}
             />
           </div>
         </div>

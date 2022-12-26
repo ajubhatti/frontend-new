@@ -32,7 +32,7 @@ const ServiceRender2 = (props) => {
   }, [dispatch]);
 
   return (
-    <div className="bg-primary-light pt-5 pb-5">
+    <div className="bg-primary-light pt-4 pb-4">
       <div className="container">
         <div className="row">
           <div className="col-lg-12">

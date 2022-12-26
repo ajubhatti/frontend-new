@@ -44,7 +44,7 @@ const ContactForm = (props) => {
   };
 
   return (
-    <div className="container space-2 space-md-3">
+    <div className="container ">
       <div className="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
         <h2 className="text-primary font-weight-normal">
           Tell us about <span className="font-weight-semi-bold">yourself</span>
@@ -56,6 +56,8 @@ const ContactForm = (props) => {
       </div>
 
       <div className="w-lg-80 mx-auto">
+      <div className="card">
+        <div className="card-body p-4">
         <Form name="login-form">
           <div className="row">
             <div className="col-sm-6 mb-6">
@@ -195,6 +197,8 @@ const ContactForm = (props) => {
             <p className="small">We'll get back to you in 1-2 business days.</p>
           </div>
         </Form>
+        </div>
+      </div>
       </div>
     </div>
   );
