@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../Helper/LocalStorage";
 import Menu from "../Profile/Menu";
-import Table from "../Profile/Table";
 import { getAllUserWalletList } from "./store/actions";
 import { DateRange } from "react-date-range";
 import APDateRangePicker from "../../Components/DateRangePicker";
@@ -13,6 +12,7 @@ import { addDays } from "date-fns";
 import ReactDateRange from "../../Components/DateRangePicker/ReactDateRange";
 import useOutsideClick from "../../Hooks/useOutSideClick";
 import ReactDatePicker from "../../Components/DateRangePicker/ReactDatePicker";
+import BasicDataTable from "../../Components/Tables/BasicDataTable";
 
 const WalletHistory = () => {
   const dispatch = useDispatch();
@@ -286,7 +286,7 @@ const WalletHistory = () => {
       <div className="container space-2">
         <div className="card">
           <div className="card-body p-4">
-            <Table
+            <BasicDataTable
               data={userWalletData.data}
               columns={columns}
               totalRows={totalRows}

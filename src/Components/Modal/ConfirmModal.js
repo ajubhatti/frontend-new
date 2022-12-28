@@ -54,7 +54,7 @@ const ConfirmModal = ({
 
               <div className="col-12 col-sm-6 col-lg-3 d-grid">
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
                   data-bv-field="number"
                   id="transaction pin"

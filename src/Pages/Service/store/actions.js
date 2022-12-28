@@ -58,17 +58,17 @@ export const doMyRecharge = (payload) => async (dispatch) => {
       API_URL + recharge.rechargeOrBill.url,
       payload
     );
-
+    console.log("res ----", res.data);
     if (res.data) {
       dispatch(setLoading(false));
       toast.success(
         res?.data?.data?.responseData?.TRNSTATUSDESC || res?.data?.data?.status
       );
     }
-
   } catch (err) {
+    console.log(err);
     dispatch(setLoading(false));
-    toast.error(err);
+    toast.error(err?.response?.data?.message || "Something went wrong!");
   }
 };
 

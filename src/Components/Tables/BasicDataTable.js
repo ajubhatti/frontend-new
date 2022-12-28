@@ -2,9 +2,9 @@ import React from "react";
 import DataTable from "react-data-table-component";
 import DataTableExtensions from "react-data-table-component-extensions";
 import "react-data-table-component-extensions/dist/index.css";
-import ReactDatePicker from "../../Components/DateRangePicker/ReactDatePicker";
+import ReactDatePicker from "../DateRangePicker/ReactDatePicker";
 
-const Table = ({
+const BasicDataTable = ({
   data,
   columns,
   conditionalRowStyles,
@@ -51,4 +51,4 @@ const Table = ({
   );
 };
 
-export default Table;
+export default BasicDataTable;
