@@ -7,7 +7,7 @@ import "./service.css";
 
 const ServiceRender2 = (props) => {
   const dispatch = useDispatch();
-  const { allServices } = useSelector((state) => state.service);
+  const { allServices } = useSelector((state) => state.serviceReducers);
   const [selectedService, setSelectedService] = useState({});
   const [serviceList, setServiceList] = useState([]);
   const [selectedServiceTab, setSelectedServiceTab] = useState({

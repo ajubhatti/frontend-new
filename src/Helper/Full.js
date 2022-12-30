@@ -31,6 +31,7 @@ import { useDispatch } from "react-redux";
 import { fetchProfile } from "../Pages/Profile/store/actions";
 import ForgotTransactionPin from "../Pages/ForgotPin";
 import EditProfile from "../Pages/Profile/EditProfile";
+import TransactionHistory from "../Pages/Transactions/TransactionHistory";
 
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
@@ -128,7 +129,7 @@ const Full = (props) => {
           exact
           name="account-transaction"
           path={routes.profileTransaction}
-          element={<ProfileTransactionContainer />}
+          element={<TransactionHistory />}
         />
         <Route
           exact

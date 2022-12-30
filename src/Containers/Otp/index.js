@@ -6,7 +6,7 @@ import { verifyOtp, resendOtp } from "../../Helper/fetch_helper/otp";
 const OtpContainer = (props) => <Otp {...props} />;
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  auth: state.authReducer,
 });
 
 export default connect(mapStateToProps, { verifyOtp, resendOtp })(OtpContainer);

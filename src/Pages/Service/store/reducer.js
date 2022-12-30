@@ -1,3 +1,4 @@
+import produce from "immer";
 import {
   FETCH_ALL_OPERATOR,
   FETCH_ALL_SERVICE,
@@ -10,7 +11,7 @@ const initialState = {
   allOperators: {},
 };
 
-const serviceReducer = (state = initialState, action) => {
+const serviceReducer = produce((state = initialState, action) => {
   const { type, payload } = action;
 
   switch (type) {
@@ -35,6 +36,5 @@ const serviceReducer = (state = initialState, action) => {
     default:
       return state;
   }
-};
-
+});
 export default serviceReducer;

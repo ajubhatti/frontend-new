@@ -24,7 +24,7 @@ const Menu = (props) => {
     setOpen(false);
   };
 
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.authReducer);
 
   return (
     <>

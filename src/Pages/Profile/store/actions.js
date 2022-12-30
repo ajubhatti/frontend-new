@@ -176,7 +176,7 @@ export const walletBalanceUpdate = (payload, cb) => async (dispatch) => {
 export const getActivityData = (payload) => async (dispatch) => {
   try {
     dispatch(getActiveLogLoading(true));
-    const res = await axios.post(API_URL + auth.activityData.url, payload);
+    const res = await axios.post(API_URL + auth.transactions.url, payload);
     if (res) {
       // toast.success(res);
       dispatch(getActiveLog(res.data.data));

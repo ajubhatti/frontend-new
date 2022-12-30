@@ -50,7 +50,7 @@ const PaymentDetail = (props) => {
     );
   };
 
-  const { type } = useSelector((state) => state.profile);
+  const { type } = useSelector((state) => state.profileReducer);
 
   const {
     handleChange,

@@ -5,7 +5,7 @@ import AllSerices from "../../Pages/Service/AllSerices";
 const Service2Container = (props) => <AllSerices {...props} />;
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  auth: state.authReducer,
 });
 
 export default connect(mapStateToProps)(Service2Container);

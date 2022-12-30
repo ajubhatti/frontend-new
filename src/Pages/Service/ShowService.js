@@ -17,8 +17,10 @@ const ShowService = (props) => {
   const isUser = getToken();
   const user = getUser();
   const navigate = useNavigate();
-  const { allOperators, loading } = useSelector((state) => state.service);
-  const { stateList } = useSelector((state) => state.auth);
+  const { allOperators, loading } = useSelector(
+    (state) => state.serviceReducers
+  );
+  const { stateList } = useSelector((state) => state.authReducer);
   const [isPlanShow, setIsPlanShow] = useState(false);
   const [listingData, setListingData] = useState([]);
   const [mySelectedPlan, setMySelectedPlan] = useState({});

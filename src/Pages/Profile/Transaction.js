@@ -10,7 +10,7 @@ const ProfileTransaction = () => {
   const dispatch = useDispatch();
   const user = getUser();
 
-  const { activity } = useSelector((state) => state.profile);
+  const { activity } = useSelector((state) => state.profileReducer);
 
   useEffect(() => {
     dispatch(

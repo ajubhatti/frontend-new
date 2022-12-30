@@ -6,7 +6,7 @@ import { generateReferCode } from "../../Helper/fetch_helper/refer";
 const ReferContainer = (props) => <Refer {...props} />;
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  auth: state.authReducer,
 });
 
 export default connect(mapStateToProps, { generateReferCode })(ReferContainer);

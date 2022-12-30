@@ -8,13 +8,12 @@ import { AiOutlineHome } from "react-icons/ai";
 
 const ServiceRender = (props) => {
   const dispatch = useDispatch();
-  const { allServices } = useSelector((state) => state.service);
+  const { allServices } = useSelector((state) => state.serviceReducers);
   const [selectedService, setSelectedService] = useState({});
   const [serviceList, setServiceList] = useState([]);
   const [selectedServiceTab, setSelectedServiceTab] = useState({
     id: 0,
     title: "",
-
   });
 
   useEffect(() => {
@@ -41,14 +40,18 @@ const ServiceRender = (props) => {
             <div className="col-lg-12">
               <div className="main-service-card border  rounded">
                 {/* <!-- menu Navigation start -->  */}
-                 <h6 className="pt-4 px-4 mb-0">Mobile recharge & Bill payment</h6>
+                <h6 className="pt-4 px-4 mb-0">
+                  Mobile recharge & Bill payment
+                </h6>
                 <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
                   {serviceList.map((item) => (
                     <li
                       key={item._id}
-                      className={selectedServiceTab._id === item._id
-                            ? "nav-item active"
-                            : "nav-item Inactive"} 
+                      className={
+                        selectedServiceTab._id === item._id
+                          ? "nav-item active"
+                          : "nav-item Inactive"
+                      }
                       onClick={() => {
                         setSelectedService(item);
                         setSelectedServiceTab({
@@ -59,9 +62,9 @@ const ServiceRender = (props) => {
                     >
                       <div
                         className="nav-link"
-                          // selectedServiceTab._id === item._id
-                          //   ? "nav-link active"
-                          //   : "nav-link"
+                        // selectedServiceTab._id === item._id
+                        //   ? "nav-link active"
+                        //   : "nav-link"
                         // }
                       >
                         <span className="service-icons">
@@ -78,11 +81,12 @@ const ServiceRender = (props) => {
                 <h6 className="pt-4 px-4 mb-0">Online Ticket booking </h6>
                 <ul className="nav secondary-nav alternate p-3 pb-0 booing-list">
                   <li className="nav-item">
-                  <div className="nav-link">
-                          <AiOutlineHome />
-                      <h5 className="service-iconsTitle mb-0">Ticket Booking</h5>
-
-                  </div>
+                    <div className="nav-link">
+                      <AiOutlineHome />
+                      <h5 className="service-iconsTitle mb-0">
+                        Ticket Booking
+                      </h5>
+                    </div>
                   </li>
                 </ul>
                 {/* <!-- menu Navigation end -->  */}

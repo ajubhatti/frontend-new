@@ -52,7 +52,7 @@ const PaymentDetail2 = (props) => {
     // );
   };
 
-  const { type } = useSelector((state) => state.profile);
+  const { type } = useSelector((state) => state.profileReducer);
 
   const dispatch = useDispatch();
 

@@ -13228,7 +13228,9 @@ table th {
  /* padding-top: 110px; */
 }
 
-
+.about-heading{
+padding-top: 110px;
+}
 /*------------------------------------
   Highlight Color
 ------------------------------------*/

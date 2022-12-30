@@ -15,18 +15,22 @@ import useOutsideClick from "../../Hooks/useOutSideClick";
 import BasicDataTable from "../../Components/Tables/BasicDataTable";
 import { sizePerPageList } from "../../Constants/table";
 import CustomTable from "../../Components/Tables/CustomTable";
-import ReactDatePicker from "../../Components/DateRangePicker/ReactDatePicker";
 
 const WalletHistory = () => {
   const dispatch = useDispatch();
   const user = getUser();
 
+  const ref = useRef();
   const {
     userWalletData,
-    walletLoading,
+    loading,
+    subscriptions,
     page,
     sizePerPage,
     totalSize,
+    activeStatus,
+    loadingTotalSubscriptionDetails,
+    totalSubscriptionDetails,
     search,
     sortField,
     sortOrder,
@@ -66,12 +70,123 @@ const WalletHistory = () => {
   const columns = useMemo(
     () => [
       {
-        dataField: "sl.no",
-        text: "Sl no.",
-        formatter: (cell, row, rowIndex, formatExtraData) =>
-          page * 10 + rowIndex + 1,
-        sort: true,
+        name: "#",
+        // selector: "_id",
+        sortable: false,
+        cell: (props) => <div>{props.page * 10 + props.index + 1}</div>,
       },
+      {
+        name: "Date",
+        selector: "created",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle">
+            {moment(d.created).format("DD-MM-YYYY h:mm:ss a")}
+          </div>
+        ),
+      },
+      {
+        name: "Payment Id",
+        selector: "walletTransactionId",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle font-weight-normal">
+            {!!d?.walletTransactionId ? d?.walletTransactionId : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Payment Type",
+        selector: "paymentMode.modeName",
+        // sortable: true,
+        cell: (d) => (
+          <div className="align-middle font-weight-normal">
+            {!!d?.paymentMode?.modeName ? d?.paymentMode?.modeName : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Slip No",
+        selector: "slipNo",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle font-weight-normal">
+            {!!d?.slipNo ? "#" + d?.slipNo : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Remark",
+        selector: "remark",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle font-weight-normal">
+            {!!d?.remark ? d?.remark : "-"}
+          </div>
+        ),
+      },
+
+      {
+        name: "Request Amount",
+        selector: "requestAmount",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle text-primary">{d.requestAmount}</div>
+        ),
+      },
+      {
+        name: "Debit Amount",
+        selector: "requestAmount",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle text-primary">
+            {!!d?.debitAmount ? d?.debitAmount : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Final Amount",
+        selector: "finalWalletAmount",
+        sortable: true,
+        cell: (d) => (
+          <div className="align-middle text-primary">
+            {!!d?.finalWalletAmount ? d?.finalWalletAmount : "-"}
+          </div>
+        ),
+      },
+      {
+        name: "Status",
+        selector: "statusOfWalletRequest",
+        // sortable: true,
+        cell: (d) => (
+          <div
+            className={`align-middle text-${
+              d.statusOfWalletRequest === "approve"
+                ? "success"
+                : d.statusOfWalletRequest === "pending"
+                ? "warning"
+                : "danger"
+            }`}
+          >
+            {d.statusOfWalletRequest}
+          </div>
+        ),
+      },
+      {
+        name: "Is Active",
+        selector: "isActive",
+        // sortable: true,
+        cell: (d) => (
+          <div className="align-middle">
+            <span className="text-capitalize">{"" + d.isActive}</span>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
+  const columns2 = useMemo(
+    () => [
       {
         dataField: "created",
         text: "Date",
@@ -218,6 +333,41 @@ const WalletHistory = () => {
     });
   }, [sizePerPage, page]);
 
+  // const conditionalRowStyles = [
+  //   {
+  //     when: (row) => row.statusOfWalletRequest === "approve",
+  //     style: {
+  //       backgroundColor: "rgba(63, 195, 128, 0.9)",
+  //       color: "white",
+  //       "&:hover": {
+  //         cursor: "pointer",
+  //       },
+  //     },
+  //   },
+  //   {
+  //     when: (row) => row.statusOfWalletRequest === "pending",
+  //     style: {
+  //       backgroundColor: "rgba(248, 148, 6, 0.9)",
+  //       color: "white",
+  //       "&:hover": {
+  //         cursor: "pointer",
+  //       },
+  //     },
+  //   },
+  //   {
+  //     when: (row) =>
+  //       row.statusOfWalletRequest !== "approve" &&
+  //       row.statusOfWalletRequest !== "pending",
+  //     style: {
+  //       backgroundColor: "rgba(242, 38, 19, 0.9)",
+  //       color: "white",
+  //       "&:hover": {
+  //         cursor: "not-allowed",
+  //       },
+  //     },
+  //   },
+  // ];
+
   useEffect(() => {
     setTotalRows(userWalletData.total);
   }, [userWalletData]);
@@ -306,31 +456,39 @@ const WalletHistory = () => {
     }
   };
 
+  useOutsideClick(ref, handleCloseCalendar);
+  {
+    console.log("walletListData----", { userWalletData, walletListData });
+  }
   return (
     <div className="bg-light">
       <Menu />
       <div className="container space-2">
         <div className="card">
           <div className="card-body p-4">
+            <BasicDataTable
+              data={userWalletData.data}
+              columns={columns}
+              totalRows={totalRows}
+              handlePageChange={handlePageChange}
+              handlePerRowsChange={handlePerRowsChange}
+              // conditionalRowStyles={conditionalRowStyles}
+              showDatePicker={true}
+              setDateRange={setDateRange}
+              dateRange={dateRange}
+            />
             <CustomTable
               showAddButton={false}
               pageOptions={pageOptions}
               keyField="wallet_id"
               data={walletListData}
-              columns={columns}
+              columns={columns2}
               showSearch={false}
               onTableChange={onTableChange}
-              withPagination={true}
-              loading={walletLoading}
+              withPagination={false}
+              loading={loading}
               withCard={false}
-            >
-              {/* {showDatePicker && ( */}
-              <ReactDatePicker
-                setRangeDate={setDateRange}
-                rangeDate={dateRange}
-              />
-              {/* // )} */}
-            </CustomTable>
+            ></CustomTable>
           </div>
         </div>
       </div>

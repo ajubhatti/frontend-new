@@ -6,9 +6,14 @@ import {
 } from "../../../Helper/fetch_helper/apiList";
 import {
   FETCH_ALL_SERVICE,
-  SET_LOADING,
+  SET_LOADING_WALLET,
   FETCH_ALL_OPERATOR,
   FETCH_ALL_WALLET_LIST,
+  SET_PAGE_WALLET,
+  SET_SIZE_PER_PAGE_WALLET,
+  SET_SEARCH_WALLET,
+  SET_SORT_FIELD_WALLET,
+  SET_SORT_ORDER_WALLET,
 } from "./actionTypes";
 
 import axios from "axios";
@@ -18,8 +23,7 @@ import { getPlanDetails } from "../../../Helper/fetch_helper/service";
 const API_URL = process.env.REACT_APP_FETCH_URL;
 // const API_URL = "https://api.badipay.co.in"
 
-
-export const getAllUserWalletList = (payload) => async (dispatch) => {
+export const fetchAllUserWalletList = (payload) => async (dispatch) => {
   try {
     dispatch(setWalletLoading(true));
     const res = await axios.post(
@@ -42,6 +46,31 @@ export const setAllWalletList = (data) => ({
 });
 
 export const setWalletLoading = (data) => ({
-  type: SET_LOADING,
+  type: SET_LOADING_WALLET,
+  payload: data,
+});
+
+export const setPerWallet = (data) => ({
+  type: SET_PAGE_WALLET,
+  payload: data,
+});
+
+export const setSizePerPageWallet = (data) => ({
+  type: SET_SIZE_PER_PAGE_WALLET,
+  payload: data,
+});
+
+export const setSearchWallet = (data) => ({
+  type: SET_SEARCH_WALLET,
+  payload: data,
+});
+
+export const setSortFieldOfWallet = (data) => ({
+  type: SET_SORT_FIELD_WALLET,
+  payload: data,
+});
+
+export const setSortOrderOfWallet = (data) => ({
+  type: SET_SORT_ORDER_WALLET,
   payload: data,
 });

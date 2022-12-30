@@ -5,7 +5,7 @@ import ChangePin from "../../Pages/Profile/ChangePin";
 const ChangePinContainer = (props) => <ChangePin {...props} />;
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  auth: state.authReducer,
 });
 
 export default connect(mapStateToProps)(ChangePinContainer);

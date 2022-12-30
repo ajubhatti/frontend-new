@@ -40,7 +40,7 @@ const ChangePin = (props) => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.authReducer);
 
   const formik = useFormik({
     initialValues,

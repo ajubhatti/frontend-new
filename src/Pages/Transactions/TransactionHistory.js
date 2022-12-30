@@ -3,44 +3,38 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser } from "../../Helper/LocalStorage";
 import Menu from "../Profile/Menu";
-import {
-  fetchAllUserWalletList,
-  setPerWallet,
-  setSizePerPageWallet,
-  setSortFieldOfWallet,
-  setSortOrderOfWallet,
-} from "./store/actions";
 import { addDays } from "date-fns";
-import useOutsideClick from "../../Hooks/useOutSideClick";
-import BasicDataTable from "../../Components/Tables/BasicDataTable";
 import { sizePerPageList } from "../../Constants/table";
 import CustomTable from "../../Components/Tables/CustomTable";
 import ReactDatePicker from "../../Components/DateRangePicker/ReactDatePicker";
+import {
+  fetchAllUserTransactionList,
+  setPerTransaction,
+  setSizePerPageTransaction,
+  setSortFieldOfTransaction,
+  setSortOrderOfTransaction,
+} from "./store/actions";
 
-const WalletHistory = () => {
+const TransactionHistory = () => {
   const dispatch = useDispatch();
   const user = getUser();
-
   const {
-    userWalletData,
-    walletLoading,
+    userTransactionsData,
+    transactionsLoading,
     page,
     sizePerPage,
     totalSize,
     search,
     sortField,
     sortOrder,
-    walletListData,
-  } = useSelector((state) => state.walletReducer);
+    transactionListData,
+  } = useSelector((state) => state.transactionReducer);
 
-  const [data, setData] = useState([]);
-  const [totalRows, setTotalRows] = useState(300);
   const [perPage, setPerPage] = useState(10);
-
   const [show, setShow] = useState(false);
   const [closeDate, setCloseDate] = useState(false);
   const [inputDate, setInputDate] = useState("");
-
+  const [dateRange, setDateRange] = useState([null, null]);
   const [rangeDate, setRangeDate] = useState([
     {
       startDate: addDays(new Date(), -7),
@@ -48,9 +42,6 @@ const WalletHistory = () => {
       key: "selection",
     },
   ]);
-
-  const [dateRange, setDateRange] = useState([null, null]);
-
   const [payloadData, setPayloadData] = useState({
     userId: user.id,
     page: 1,
@@ -73,126 +64,136 @@ const WalletHistory = () => {
         sort: true,
       },
       {
+        text: "created",
         dataField: "created",
-        text: "Date",
         sort: true,
-        formatter: (cellContent, row) => (
-          <span>
-            <div className="align-middle">
-              {row?.created
-                ? moment(row?.created).format("DD/MM/YYYY h:mm:ss a")
-                : "-"}
-            </div>
-          </span>
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle text-secondary">
+            {moment(row?.created).format("DD-MM-YYYY h:mm:ss a")}
+          </div>
         ),
       },
       {
-        dataField: "walletTransactionId",
-        text: "Payment Id",
+        text: "Payment type",
+        dataField: "type",
         sort: true,
-        formatter: (cellContent, row) => {
-          return (
-            <span>
-              {row?.walletTransactionId ? row?.walletTransactionId : "-"}
-            </span>
-          );
-        },
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle text-secondary">{row?.type}</div>
+        ),
       },
       {
-        dataField: "paymentMode.modeName",
-        text: "Payment Type",
-        sort: true,
-        formatter: (cellContent, row) => {
-          return (
-            <span>
-              {row?.paymentMode?.modeName ? row?.paymentMode?.modeName : "-"}
-            </span>
-          );
-        },
+        text: "Transaction Id",
+        dataField: "transactionId",
+        sort: false,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div>{row?.page * 10 + rowIndex + 1}</div>
+        ),
       },
       {
+        text: "slip No",
         dataField: "slipNo",
-        text: "Slip No",
         sort: true,
-        formatter: (cellContent, row) => {
-          return (
-            <div className="align-middle font-weight-normal">
-              {!!row?.slipNo ? "#" + row?.slipNo : "-"}
-            </div>
-          );
-        },
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div>{row?.slipNo}</div>
+        ),
       },
       {
+        text: "remark",
         dataField: "remark",
-        text: "Remark",
-        sort: true,
-        formatter: (cellContent, row) => {
-          return (
-            <div className="align-middle font-weight-normal">
-              {!!row?.remark ? row?.remark : "-"}
-            </div>
-          );
-        },
+        // sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle">
+            <span>{!!row?.remark ? row?.remark : "-"}</span>
+          </div>
+        ),
       },
       {
-        dataField: "requestAmount",
+        text: "Customer No",
+        dataField: "customerNo",
+        sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle ">{row?.customerNo}</div>
+        ),
+      },
+      {
+        text: "Balance",
+        dataField: "userBalance",
+        sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle ">{row?.userBalance}</div>
+        ),
+      },
+      {
         text: "Request Amount",
-        sort: true,
-        formatter: (cellContent, row) => {
-          return (
-            <div className="align-middle text-primary">
-              {row.requestAmount ? row.requestAmount : "-"}
-            </div>
-          );
-        },
-      },
-      {
         dataField: "requestAmount",
-        text: "Debit Amount",
         sort: true,
-        formatter: (cellContent, row) => {
-          return (
-            <div className="align-middle text-primary">
-              {!!row?.debitAmount ? row?.debitAmount : "-"}
-            </div>
-          );
-        },
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle ">{row?.requestAmount}</div>
+        ),
       },
       {
-        dataField: "finalWalletAmount",
-        text: "Final Amount",
-        sortable: true,
-        formatter: (cellContent, row) => {
-          return (
-            <div className="align-middle text-primary">
-              {!!row?.finalWalletAmount ? row?.finalWalletAmount : "-"}
-            </div>
-          );
-        },
+        text: "Recharge Amount",
+        dataField: "rechargeAmount",
+        sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle ">{row?.rechargeAmount}</div>
+        ),
       },
       {
-        dataField: "statusOfWalletRequest",
-        text: "Status",
-        formatter: (cellContent, row) => {
-          return (
-            <div
-              className={`align-middle text-${
-                row?.statusOfWalletRequest === "approve"
-                  ? "success"
-                  : row?.statusOfWalletRequest === "pending"
-                  ? "warning"
-                  : "danger"
-              }`}
-            >
-              {row?.statusOfWalletRequest}
-            </div>
-          );
-        },
+        text: "CashBack Amount",
+        dataField: "cashBackAmount",
+        sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle ">{row?.cashBackAmount}</div>
+        ),
+      },
+      {
+        text: "FinalBalance",
+        dataField: "userFinalBalance",
+        sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle ">{row?.userFinalBalance}</div>
+        ),
+      },
+      {
+        text: "amount",
+        dataField: "amount",
+        sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle ">{row?.amount}</div>
+        ),
+      },
+      {
+        text: "created",
+        dataField: "created",
+        // sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle text-secondary">
+            {moment(row?.created).format("DD-MM-YYYY h:mm:ss a")}
+          </div>
+        ),
+      },
+      {
+        text: "status",
+        dataField: "status",
+        // sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div
+            className={`align-middle text-${
+              row?.status === "completed"
+                ? "success"
+                : row?.status === "pending"
+                ? "warning"
+                : "danger"
+            }`}
+          >
+            {row?.status}
+          </div>
+        ),
       },
     ],
     []
   );
-
   const pageOptions = useMemo(
     () => ({
       page,
@@ -217,10 +218,6 @@ const WalletHistory = () => {
       endDate: "",
     });
   }, [sizePerPage, page]);
-
-  useEffect(() => {
-    setTotalRows(userWalletData.total);
-  }, [userWalletData]);
 
   useEffect(() => {
     if (dateRange[0] && dateRange[1]) {
@@ -266,8 +263,7 @@ const WalletHistory = () => {
   };
 
   useEffect(() => {
-    console.log({ payloadData });
-    dispatch(fetchAllUserWalletList(payloadData));
+    dispatch(fetchAllUserTransactionList(payloadData));
   }, [payloadData]);
 
   const handlePageChange = (page) => {
@@ -276,7 +272,6 @@ const WalletHistory = () => {
       ...prev,
       page: page,
     }));
-    // fetchData(page, perPage);
   };
 
   const handlePerRowsChange = async (newPerPage, page) => {
@@ -294,12 +289,12 @@ const WalletHistory = () => {
   const onTableChange = (type, { page, sizePerPage, sortField, sortOrder }) => {
     switch (type) {
       case "sort":
-        dispatch(setSortFieldOfWallet(sortField));
-        dispatch(setSortOrderOfWallet(sortOrder.toUpperCase()));
+        dispatch(setSortFieldOfTransaction(sortField));
+        dispatch(setSortOrderOfTransaction(sortOrder.toUpperCase()));
         break;
       case "pagination":
-        dispatch(setPerWallet(page));
-        dispatch(setSizePerPageWallet(sizePerPage));
+        dispatch(setPerTransaction(page));
+        dispatch(setSizePerPageTransaction(sizePerPage));
         break;
       default:
         break;
@@ -315,21 +310,19 @@ const WalletHistory = () => {
             <CustomTable
               showAddButton={false}
               pageOptions={pageOptions}
-              keyField="wallet_id"
-              data={walletListData}
+              keyField="transaction_id"
+              data={transactionListData}
               columns={columns}
               showSearch={false}
               onTableChange={onTableChange}
               withPagination={true}
-              loading={walletLoading}
+              loading={transactionsLoading}
               withCard={false}
             >
-              {/* {showDatePicker && ( */}
               <ReactDatePicker
                 setRangeDate={setDateRange}
                 rangeDate={dateRange}
               />
-              {/* // )} */}
             </CustomTable>
           </div>
         </div>
@@ -338,4 +331,4 @@ const WalletHistory = () => {
   );
 };
 
-export default WalletHistory;
+export default TransactionHistory;

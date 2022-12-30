@@ -6,7 +6,7 @@ import { walletListing } from "../../Helper/fetch_helper/wallet";
 const WalletContainer = (props) => <Wallet {...props} />;
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  auth: state.authReducer,
 });
 
 export default connect(mapStateToProps, {
