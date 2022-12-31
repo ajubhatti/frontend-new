@@ -17,6 +17,12 @@ import { sizePerPageList } from "../../Constants/table";
 import CustomTable from "../../Components/Tables/CustomTable";
 import ReactDatePicker from "../../Components/DateRangePicker/ReactDatePicker";
 
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { CheckLg } from "react-bootstrap-icons";
+
+
 const WalletHistory = () => {
   const dispatch = useDispatch();
   const user = getUser();
@@ -40,6 +46,17 @@ const WalletHistory = () => {
   const [show, setShow] = useState(false);
   const [closeDate, setCloseDate] = useState(false);
   const [inputDate, setInputDate] = useState("");
+
+  const [showDatePicker, setShowDatePicker] = useState(false)
+
+  const [dates, setDates] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: 'selection'
+    }
+  ])
+
 
   const [rangeDate, setRangeDate] = useState([
     {
@@ -80,7 +97,7 @@ const WalletHistory = () => {
           <span>
             <div className="align-middle">
               {row?.created
-                ? moment(row?.created).format("DD/MM/YYYY h:mm:ss a")
+                ? moment(row?.created).format("DD/MM/YYYY, h:mm:ss a")
                 : "-"}
             </div>
           </span>
@@ -176,15 +193,21 @@ const WalletHistory = () => {
         formatter: (cellContent, row) => {
           return (
             <div
-              className={`align-middle text-${
-                row?.statusOfWalletRequest === "approve"
+              className={`align-middle text-${row?.statusOfWalletRequest === "approve"
                   ? "success"
                   : row?.statusOfWalletRequest === "pending"
-                  ? "warning"
-                  : "danger"
-              }`}
+                    ? "warning"
+                    : "danger"
+                }`}
             >
-              {row?.statusOfWalletRequest}
+
+              <span className={`text-capitalize text-white p-1 rounded ${row?.statusOfWalletRequest === "approve"
+                  ? "bg-success"
+                  : row?.statusOfWalletRequest === "pending"
+                    ? "bg-warning"
+                    : "bg-danger"}`}>{row?.statusOfWalletRequest}</span>
+            
+            
             </div>
           );
         },
@@ -243,13 +266,13 @@ const WalletHistory = () => {
     const selectedEndDate = moment(rangeDate[0]?.endDate).format("yyyy-MM-DD");
     setInputDate(
       moment(selectedStartDate).format("MM/DD/yyyy") +
-        " - " +
-        moment(selectedEndDate).format("MM/DD/yyyy")
+      " - " +
+      moment(selectedEndDate).format("MM/DD/yyyy")
     );
 
     console.log({ rangeDate });
     if (rangeDate[0]?.endDate) {
-      handleCloseCalendar;
+      handleCloseCalendar();
     }
 
     // let data = {
@@ -306,6 +329,11 @@ const WalletHistory = () => {
     }
   };
 
+  const handleChangeDate = (e) => {
+    console.log(e);
+    setDates([e.selection])
+  }
+
   return (
     <div className="bg-light">
       <Menu />
@@ -325,11 +353,28 @@ const WalletHistory = () => {
               withCard={false}
             >
               {/* {showDatePicker && ( */}
-              <ReactDatePicker
+              {/* <ReactDatePicker
                 setRangeDate={setDateRange}
                 rangeDate={dateRange}
-              />
+              /> */}
               {/* // )} */}
+              <div className="position-relative" >
+
+                <div className="d-flex justify-content-end">
+                  <input type="text" style={{ width: "200px" }} className="form-control" onClick={() => setShowDatePicker(!showDatePicker)} value={moment(dates[0]?.startDate).format("MM DD, YYYY") + " - " + moment(dates[0]?.endDate).format("MM DD, YYYY")} />
+                </div>
+                <div className="position-absolute" style={{ right: "0px", top: "55px" }}>
+
+                  {
+                    showDatePicker &&
+                    <DateRangePicker
+                      ranges={dates}
+                      onChange={handleChangeDate}
+                      showSelectionPreview={true}
+                    />
+                  }
+                </div>
+              </div>
             </CustomTable>
           </div>
         </div>
