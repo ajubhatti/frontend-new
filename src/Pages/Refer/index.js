@@ -151,33 +151,47 @@ const Refer = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-md-4">
-              <div className="iconBox">
+          <div className="card">
                 <img src={Analysis} alt="analysis"></img>
+          <div className="card-body">
+              <div className="iconBox">
                 <h5>Refer friends</h5>
                 <p>
                   Send referrals to your friends either here or in your app.
                 </p>
               </div>
+          </div>
+          </div>
             </div>
             <div className="col-md-4">
-              <div className="iconBox">
+            <div className="card">
                 <img src={InTheOffice} alt="InTheOffice"></img>
+            <div className="card-body">
+              <div className="iconBox">
                 <h5>Follow along</h5>
                 <p>
                   Follow your friend's progress and send encouraging messages
                   along the way.
                 </p>
               </div>
+
+            </div>
+
+            </div>
             </div>
             <div className="col-md-4">
-              <div className="iconBox">
+            <div className="card">
                 <img src={MakeItRain} alt="MakeItRain"></img>
+            <div className="card-body">
+              <div className="iconBox">
                 <h5>Get paid</h5>
                 <p>
                   When your friend starts building, you'll get paid after their
                   first task completion.
                 </p>
               </div>
+            </div>
+            </div>
             </div>
           </div>
         </div>

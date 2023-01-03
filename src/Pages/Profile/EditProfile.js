@@ -16,21 +16,23 @@ const EditProfile = () => {
   return (
     <>
       <Menu />
-      <div className="container space-2">
+         <div  className="edit-pages">
+         <div className="container">
+         <div className="row justify-content-center">
+         <div className="col-md-8">
         <div className="card">
           <div className="card-body">
             <div className="row">
-              <div className="col-lg-4 col-sm-12">
-                <div>
+              <div className="col-lg-12">
+                <div className="user-image">
                   <img
-                    className="w-100 profileImage"
+                    className=""
                     src="https://th.bing.com/th/id/OIP.TUDe74-_OR6O3P4V-3_FYQHaE7?pid=ImgDet&rs=1"
                     alt="Profile"
                   />
                 </div>
               </div>
-
-              <div className="col-lg-8 col-sm-12">
+              <div className="col-lg-12">
                 <div className="mx-4 me-4">
                   <div className="w-100 d-flex justify-content-between">
                     <div>
@@ -174,7 +176,12 @@ const EditProfile = () => {
             </div>
           </div>
         </div>
+
+         </div>
+         </div>
       </div>
+
+         </div>
       {isOpenModal && <EditProfileModal isOpen={isOpen} isClose={isClose} />}
     </>
   );

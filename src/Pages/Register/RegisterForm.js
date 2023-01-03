@@ -125,6 +125,7 @@ const RegisterForm = (props) => {
   });
 
   return (
+   
     <form
       onSubmit={formik.handleSubmit}
       name="register-form"
@@ -363,6 +364,7 @@ const RegisterForm = (props) => {
         </div>
       </div>
     </form>
+      
   );
 };
 

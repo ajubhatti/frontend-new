@@ -39,7 +39,9 @@ const Header = () => {
     { title: "Activity", link: routes.profileTransaction },
     { title: "Change Transaction Pin", link: routes.profileChangePin },
     { title: "Change password", link: routes.profileChangePassword },
+    { title: "Logout", link: "#" },
   ];
+ 
 
   return (
     <header className="u-header">

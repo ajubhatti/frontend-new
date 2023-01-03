@@ -1,0 +1,34 @@
+/* ------- edit pages css ------ */
+
+
+.edit-pages{
+    padding-top: 45px;
+}
+.user-image{
+
+    display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 0;
+}
+.user-image img{
+  width: 100%;
+  max-width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border: 1px solid #000;
+  border-radius: 100%;
+}
+
+/* ------ changes-password css ------- */
+
+
+.change-password-pages{
+  padding-top: 45px;
+}
+.change-password-btn{
+   display:flex;
+   align-items: center;
+   justify-content:center;
+   gap: 0 15px;
+}

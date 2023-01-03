@@ -34,14 +34,14 @@ const ServiceRender = (props) => {
 
   return (
     <>
-      <div className="bg-primary-light pt-4 pb-4">
+      <div className="bg-primary-light pt-3 pb-4">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="main-service-card border  rounded">
                 {/* <!-- menu Navigation start -->  */}
-                <h6 className="pt-4 px-4 mb-0">
-                  Mobile recharge & Bill payment
+                <h6 className="pt-3 px-4 mb-0">
+                  Recharge & Bill payment
                 </h6>
                 <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
                   {serviceList.map((item) => (
@@ -78,7 +78,7 @@ const ServiceRender = (props) => {
                     </li>
                   ))}
                 </ul>
-                <h6 className="pt-4 px-4 mb-0">Online Ticket booking </h6>
+                <h6 className="pt-4 px-4 mb-0">Booking </h6>
                 <ul className="nav secondary-nav alternate p-3 pb-0 booing-list">
                   <li className="nav-item">
                     <div className="nav-link">

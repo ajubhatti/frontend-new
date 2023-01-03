@@ -11,10 +11,10 @@ const Menu = (props) => {
   const [open, setOpen] = useState(false);
   const userDetails = getUser();
 
-  const logout = async () => {
-    LocalStorage.clean();
-    window.location.href = routes.login;
-  };
+  // const logout = async () => {
+  //   LocalStorage.clean();
+  //   window.location.href = routes.login;
+  // };
 
   const buttonHandler = () => {
     setOpen(true);
@@ -116,14 +116,14 @@ const Menu = (props) => {
                           wallet history
                         </Link>
                       </li>
-                      <li className="nav-item u-header__nav-item">
+                      {/* <li className="nav-item u-header__nav-item">
                         <span
                           className="nav-link u-header__nav-link u-header__nav-link-toggle pointer"
                           onClick={logout}
                         >
                           Logout
                         </span>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                 </nav>

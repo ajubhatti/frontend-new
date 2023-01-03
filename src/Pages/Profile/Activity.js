@@ -26,42 +26,46 @@ const Activity = () => {
     });
 
   return (
-    <div className="card">
-      <div className="card-header p-4">
-        <div className="d-flex justify-content-between align-items-center">
-          <h5 className="mb-0">Activity</h5>
-          <div className="position-relative"></div>
-        </div>
-      </div>
-      <div className="card-body pt-5 pb-4 px-4 mb-3 mb-md-0">
-        <div className="overflow-hidden">
-          <div
-            className="pr-3 mCustomScrollbar _mCS_1 mCS-autoHide"
-            style={{
+    // <div className="card">
+    //   <div className="card-header p-4">
+    //     <div className="d-flex justify-content-between align-items-center">
+    //       <h5 className="mb-0">Activity</h5>
+    //       <div className="position-relative"></div>
+    //     </div>
+    //   </div>
+    //   <div className="card-body pt-5 pb-4 px-4 mb-3 mb-md-0">
+    //     <div className="overflow-hidden">
+    //       <div
+    //         className="pr-3 mCustomScrollbar _mCS_1 mCS-autoHide"
+    //         style={{
 
-              position: "relative",
-              overflow: "visible",
-            }}
-          >
-            <div
-              className="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside"
+    //           position: "relative",
+    //           overflow: "visible",
+    //         }}
+    //       >
+    //         <div
+    //           className="mCustomScrollBox mCS-minimal-dark mCSB_vertical mCSB_outside"
 
-            >
-              <div
-                className="mCSB_container"
-                style={{ overflowY: "scroll" }}
-              >
-                <ul className="list-unstyled u-indicator-vertical-dashed">
-                  {ActivityList.length > 0
-                    ? ActivityList
-                    : "No Activity Found!"}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    //         >
+    //           <div
+    //             className="mCSB_container"
+    //             style={{ overflowY: "scroll" }}
+    //           >
+    //             <ul className="list-unstyled u-indicator-vertical-dashed">
+    //               {ActivityList.length > 0
+    //                 ? ActivityList
+    //                 : "No Activity Found!"}
+    //             </ul>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
+
+    <>
+      
+    </>
   );
 };
 

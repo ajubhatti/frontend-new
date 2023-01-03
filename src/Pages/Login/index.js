@@ -10,14 +10,11 @@ const Login = (props) => {
         <div className="col-md-6">
           <div className="card">
           <div className="card-body p-4">
-            <div className="mt-4">
               <h2 className="h3 text-primary font-weight-normal mb-0">
                 Welcome <span className="font-weight-semi-bold">back</span>
               </h2>
               <p>Login to manage your account.</p>
-            </div>
             <LoginForm {...props} />
-         
           </div>
           </div>
         </div>

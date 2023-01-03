@@ -58,9 +58,9 @@ const ChangePassword = (props) => {
             )
           );
         } catch (err) {
-          res
-            .status(400)
-            .json({ status: 400, message: "Something went wrong", data: err });
+          // res
+          //   .status(400)
+          //   .json({ status: 400, message: "Something went wrong", data: err });
         } finally {
           setSubmitted(false);
           setLoading(false);
@@ -76,7 +76,11 @@ const ChangePassword = (props) => {
   return (
     <div className="bg-light">
       <Menu />
-      <div className="container space-2">
+
+        <div className="change-password-pages">
+        <div className="container">
+      <div className="row">
+       <div className="col-md-6">
         <div className="card">
           <div className="card-body">
             <Form name="login-form">
@@ -165,7 +169,7 @@ const ChangePassword = (props) => {
                 </div>
               </div>
 
-              <div className="w-lg-50">
+              <div className="change-password-btn">
                 <button
                   type="button"
                   onClick={(e) => submitHandler(e)}
@@ -185,7 +189,10 @@ const ChangePassword = (props) => {
             </Form>
           </div>
         </div>
+       </div>
       </div>
+      </div>
+        </div>
     </div>
   );
 };

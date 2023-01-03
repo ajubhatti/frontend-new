@@ -244,12 +244,19 @@
     /* border-bottom: 3px solid #d1d1d1; */
 }
 .nav.secondary-nav.alternate .nav-item .nav-link{
-    padding: 10px;
     /* background-color: #2C74B3; */
-    width: 120px;
-    height: auto;
+    /* margin-bottom: 15px; */
+    padding: 0px;
+    /* background-color: #2C74B3; */
+    width: 121px;
+    height: 70px;
     color: #000;
     /* margin-bottom: 15px; */
+    margin: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
 }
 .nav.secondary-nav.alternate .nav-item .nav-link:hover{
@@ -354,8 +361,9 @@ a {
 
 
 .form-control:not(.form-control-sm) {
-    padding: 0.81rem 0.96rem;
-    height: inherit;
+    padding: 10px;
+    height: 38px;
+    padding-right: 10px !important;
 }
 
 .form-select:not(.form-select-sm) {

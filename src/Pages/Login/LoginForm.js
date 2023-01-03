@@ -84,12 +84,6 @@ const LoginForm = (props) => {
         <label className="form-label">
           <span className="d-flex justify-content-between align-items-center">
             Password
-            <Link
-              to={routes.forgot}
-              className="link-muted text-capitalize font-weight-normal"
-            >
-              Forgot Password?
-            </Link>
           </span>
         </label>
         <input
@@ -111,24 +105,29 @@ const LoginForm = (props) => {
         )}
       </div>
 
-      <div className="row align-items-center mb-5">
-        <div className="col-6">
+      <div className="login-card">
+      <div className="inner-login-card">
           <span className="small text-muted">Don't have an account?</span>
           <Link to={routes.register} className="ml-1 small">
             Signup
           </Link>
-        </div>
-
-        <div className="col-6 text-right">
+      </div>
+          <Link
+              to={routes.forgot}
+              className="link-muted text-capitalize font-weight-normal"
+            >
+              Forgot Password?
+            </Link>
+      </div>
+      <div className="text-center">
           <button
             type="submit"
-            className="btn btn-primary transition-3d-hover"
+            className="btn btn-outline-primary btn-md"
             disabled={apiCall}
           >
             Login
           </button>
         </div>
-      </div>
     </form>
   );
 };
