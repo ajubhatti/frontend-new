@@ -13,13 +13,20 @@ import {
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
 
-export const fetchAllUserTransactionList = (payload) => async (dispatch) => {
+export const fetchAllUserTransactionList = (payload,cb) => async (dispatch) => {
   try {
-    dispatch(setTransactionLoading(true));
+    if(!cb){
+      dispatch(setTransactionLoading(true));
+    }
     const res = await axios.post(API_URL + auth.transactions.url, payload);
     if (res) {
-      dispatch(setAllTransactionList(res?.data?.data));
-      dispatch(setTransactionLoading(false));
+      if(!cb){
+        dispatch(setAllTransactionList(res?.data?.data));
+        dispatch(setTransactionLoading(false));
+      }
+      if(cb){
+        cb(res?.data?.data)
+      }
     }
   } catch (err) {
     dispatch(setTransactionLoading(false));

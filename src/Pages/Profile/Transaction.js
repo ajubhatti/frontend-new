@@ -22,7 +22,7 @@ const ProfileTransaction = () => {
 
   const columns = [
     {
-      name: "created",
+      name: "Created",
       selector: "created",
       sortable: true,
       cell: (d) => (

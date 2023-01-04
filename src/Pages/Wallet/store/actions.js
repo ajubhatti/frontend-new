@@ -23,16 +23,23 @@ import { getPlanDetails } from "../../../Helper/fetch_helper/service";
 const API_URL = process.env.REACT_APP_FETCH_URL;
 // const API_URL = "https://api.badipay.co.in"
 
-export const fetchAllUserWalletList = (payload) => async (dispatch) => {
+export const fetchAllUserWalletList = (payload,cb) => async (dispatch) => {
   try {
-    dispatch(setWalletLoading(true));
+    if(!cb){
+      dispatch(setWalletLoading(true));
+    }
     const res = await axios.post(
       API_URL + profile.walletTransactionByUserId.url,
       payload
     );
     if (res) {
+      if(!cb){
       dispatch(setAllWalletList(res?.data?.data));
       dispatch(setWalletLoading(false));
+    }
+    if(cb){
+      cb(res?.data?.data)
+    }
     }
   } catch (err) {
     dispatch(setWalletLoading(false));
