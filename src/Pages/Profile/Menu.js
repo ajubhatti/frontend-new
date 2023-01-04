@@ -82,15 +82,15 @@ const Menu = (props) => {
                           Profile
                         </Link>
                       </li>
-                      <li className="nav-item u-header__nav-item">
+                      {/* <li className="nav-item u-header__nav-item">
                         <Link
                           to={routes.profileChangePassword}
                           className="nav-link u-header__nav-link u-header__nav-link-toggle"
                         >
                           Change password
                         </Link>
-                      </li>
-                      <li className="nav-item u-header__nav-item">
+                      </li> */}
+                      {/* <li className="nav-item u-header__nav-item">
                         <Link
                           to={routes.profileChangePin}
                           className="nav-link u-header__nav-link u-header__nav-link-toggle"
@@ -99,23 +99,23 @@ const Menu = (props) => {
                             ? "Change Transaction pin"
                             : "Create Transaction pin"}
                         </Link>
-                      </li>
-                      <li className="nav-item u-header__nav-item">
+                      </li> */}
+                      {/* <li className="nav-item u-header__nav-item">
                         <Link
                           to={routes.profileTransaction}
                           className="nav-link u-header__nav-link u-header__nav-link-toggle"
                         >
                           Activity
                         </Link>
-                      </li>
-                      <li className="nav-item u-header__nav-item">
+                      </li> */}
+                      {/* <li className="nav-item u-header__nav-item">
                         <Link
                           to={routes.profileWalletHistory}
                           className="nav-link u-header__nav-link u-header__nav-link-toggle"
                         >
                           wallet history
                         </Link>
-                      </li>
+                      </li> */}
                       {/* <li className="nav-item u-header__nav-item">
                         <span
                           className="nav-link u-header__nav-link u-header__nav-link-toggle pointer"

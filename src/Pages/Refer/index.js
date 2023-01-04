@@ -100,9 +100,9 @@ const Refer = (props) => {
   // ];
 
   return (
-    <div className="bg-light">
-      <section className="contact">
-        <div className="container space-2">
+    <>
+      <section className="contact-refer">
+        <div className="container ">
           <div className="row justify-content-md-between">
             <div className="col-md-6 mb-7 mb-md-0">
               <h3>Share a link and earn a bonus</h3>
@@ -196,7 +196,9 @@ const Refer = (props) => {
           </div>
         </div>
       </section>
-    </div>
+
+    </>
+   
   );
 };
 

@@ -2,6 +2,7 @@ import React from "react";
 
 const AboutUs = () => {
   return (
+    <section className="about-pages">
     <div className="container">
     <div className="row">
     <div className="col-md-12">
@@ -51,6 +52,7 @@ const AboutUs = () => {
           </div>
         </div>
       </div>
+    </section>
   );
 };
 

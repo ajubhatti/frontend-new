@@ -5,6 +5,7 @@ import routes from "../../Helper/routes";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import ClickLoading from "../../Components/ClickLoading";
 
 const initialValues = {
   userName: "",
@@ -59,6 +60,7 @@ const RegisterForm = (props) => {
   const [apiCall, setApiCall] = useState(false);
   const [refererName, setRefererName] = useState("");
   const [checked, setChecked] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const getStateListing = async () => {
@@ -123,7 +125,15 @@ const RegisterForm = (props) => {
       submitHandler(values);
     },
   });
+const loadingHandler = () =>{
+  
+    setLoading(true);
+    setTimeout(function(){ 
+      setLoading(false);
+     
+    }, 5000);
 
+}
   return (
    
     <form
@@ -323,7 +333,7 @@ const RegisterForm = (props) => {
         )}
       </div>
 
-      <div className="mb-5">
+      <div className="mb-3">
         <div className="custom-control custom-checkbox d-flex align-items-center text-muted">
           <input
             type="checkbox"
@@ -343,7 +353,7 @@ const RegisterForm = (props) => {
         </div>
       </div>
 
-      <div className="row align-items-center mb-5">
+      <div className="row align-items-center mb-3">
         <div className="col-8">
           <span className="small text-muted">Already have an account?</span>{" "}
           {""}
@@ -355,11 +365,13 @@ const RegisterForm = (props) => {
         <div className="col-4 text-right">
           <button
             type="submit"
-            className="btn btn-primary transition-3d-hover"
+            className="btn btn-primary btn-md"
             // onClick={(e) => submitHandler(e)}
             disabled={apiCall}
+            onClick={ loadingHandler}
           >
-            Submit
+            {isLoading ? <ClickLoading /> : <span> Submit</span> }
+            {/* Submit */}
           </button>
         </div>
       </div>

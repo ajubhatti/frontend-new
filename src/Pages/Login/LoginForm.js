@@ -114,15 +114,15 @@ const LoginForm = (props) => {
       </div>
           <Link
               to={routes.forgot}
-              className="link-muted text-capitalize font-weight-normal"
+              className="text-capitalize forget-link"
             >
               Forgot Password?
             </Link>
       </div>
-      <div className="text-center">
+      <div className="text-start">
           <button
             type="submit"
-            className="btn btn-outline-primary btn-md"
+            className="btn btn-primary btn-md"
             disabled={apiCall}
           >
             Login

@@ -1,4 +1,30 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+/* ------ spinner css ----- */
+.spinner .spinner-rotation{
+  animation: spinner 5s infinite;
+}
+
+@keyframes spinner {
+  0% {transform: rotate(90deg);}
+  100% {transform: rotate(180deg);}
+
+
+}
+
+
 /* ------- edit pages css ------ */
+.contact-refer{
+  padding-top: 110px;
+}
+.about-pages{
+  padding-top: 110px;
+  
+}
 
 
 .edit-pages{
