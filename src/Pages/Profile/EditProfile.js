@@ -3,6 +3,8 @@ import Menu from "./Menu";
 import { useSelector } from "react-redux";
 import phoneFormatter from "phone-formatter";
 import EditProfileModal from "./EditProfileModal";
+// import {FaRegEdit} from "react-icons/fa";
+import { FiEdit2 } from "react-icons/fi";
 
 const EditProfile = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -18,8 +20,8 @@ const EditProfile = () => {
       <Menu />
          <div  className="edit-pages">
          <div className="container">
-         <div className="row justify-content-center">
-         <div className="col-md-8">
+         <div className="row">
+         <div className="col-md-6">
         <div className="card">
           <div className="card-body">
             <div className="row">
@@ -50,7 +52,8 @@ const EditProfile = () => {
                         title="Edit profile"
                         onClick={isOpen}
                       >
-                        <i className="fa-solid fa-pen"></i>
+                        {/* <i className="fa-solid fa-pen"></i> */}
+                        <FiEdit2 />
                       </button>
                     </div>
                   </div>
@@ -58,7 +61,7 @@ const EditProfile = () => {
                     {userData?.role || "-"}
                   </h6>
                   <div className="mt-4 w-100 mb-5">
-                    <span style={{ color: "#726d6d" }} className="fw-500 fs-6">
+                    <span style={{ color: "#726d6d" }} className="">
                       Wallet Balance
                     </span>
                     <h3>
@@ -75,19 +78,14 @@ const EditProfile = () => {
                       Contact information
                     </h6>
                   </div>
-                  <div className="row">
-                    <div className="col-lg-2 col-sm-4">
+                  <div className="">
                       <span
-                        style={{ fontWeight: "700", maxWidth: "200px" }}
-                        className="fs-5"
+                        className=""
                       >
                         Phone:
                       </span>
-                    </div>
-                    <div className="col-lg-10 col-sm-8">
                       <span
-                        style={{ fontWeight: "700" }}
-                        className="fs-5 text-primary"
+                        className="text-primary"
                       >
                         {!!userData?.phoneNumber
                           ? phoneFormatter.format(
@@ -96,40 +94,29 @@ const EditProfile = () => {
                             )
                           : "-"}
                       </span>
-                    </div>
                   </div>
                   <div className="row mt-4">
-                    <div className="col-lg-2 col-sm-4">
                       <span
-                        style={{ fontWeight: "700", maxWidth: "200px" }}
-                        className="fs-5"
+                        className=""
                       >
                         Address:
                       </span>
-                    </div>
-                    <div className="col-lg-10 col-sm-8">
-                      <span style={{ fontWeight: "700" }} className="fs-5">
+                      <span  className="fs-5">
                         {!!userData?.address ? userData?.address : "-"}
                       </span>
-                    </div>
                   </div>
                   <div className="row mt-4 mb-5">
-                    <div className="col-lg-2 col-sm-4">
                       <span
-                        style={{ fontWeight: "700", maxWidth: "200px" }}
-                        className="fs-5"
+                        className=""
                       >
                         Email:
                       </span>
-                    </div>
-                    <div className="col-lg-10 col-sm-8">
                       <span
-                        style={{ fontWeight: "700" }}
-                        className="fs-5 text-primary"
+                        
+                        className=" text-primary"
                       >
                         {!!userData?.email ? userData?.email : "-"}
                       </span>
-                    </div>
                   </div>
                   <hr />
                   <div className="mt-4 w-100">
@@ -142,45 +129,34 @@ const EditProfile = () => {
                   </div>
 
                   <div className="row mt-4">
-                    <div className="col-lg-2 col-sm-4">
                       <span
-                        style={{ fontWeight: "700", maxWidth: "200px" }}
-                        className="fs-5"
+                        
+                        className=""
                       >
                         Birthday:
                       </span>
-                    </div>
-                    <div className="col-lg-10 col-sm-8">
-                      <span style={{ fontWeight: "700" }} className="fs-5">
+                      <span  className="">
                         {!!userData?.birthday ? userData?.birthday : "-"}
                       </span>
-                    </div>
                   </div>
                   <div className="row mt-4">
-                    <div className="col-lg-2 col-sm-4">
                       <span
-                        style={{ fontWeight: "700", maxWidth: "200px" }}
-                        className="fs-5"
+                        className=""
                       >
                         Gender:
                       </span>
-                    </div>
-                    <div className="col-lg-10 col-sm-8">
-                      <span style={{ fontWeight: "700" }} className="fs-5">
+                      <span  className="">
                         {!!userData?.gender ? userData?.gender : "-"}
                       </span>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
          </div>
          </div>
       </div>
-
          </div>
       {isOpenModal && <EditProfileModal isOpen={isOpen} isClose={isClose} />}
     </>
