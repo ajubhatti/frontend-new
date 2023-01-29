@@ -5,6 +5,8 @@ import Logo from "../../Assets/logo.jpg";
 import { getToken } from "../../Helper/LocalStorage";
 import userImg from "../../Assets/user.jpg";
 // import { FiChevronDown } from "react-icons/fi";
+import { BsWallet2 } from "react-icons/bs";
+import { BiRupee } from "react-icons/bi";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -112,6 +114,12 @@ const Header = () => {
                       </Link>
                     </li>
                   ))}
+                  <li  className="nav-item hs-has-mega-menu u-header__nav-item">
+                    <div className="wallet-card">
+                    <span><BiRupee/> 200</span>
+                    <BsWallet2  className="wallet-icon" />
+                    </div>
+                  </li>
                   <li className="nav-item dropdown">
                     <Link
                       className="profile-toggle nav-link dropdown-toggle"
@@ -120,7 +128,7 @@ const Header = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      <span className="user-title">Hello</span>
+                      {/* <span className="user-title">Hello</span> */}
                       <img src={userImg} alt="userImg" />
                     </Link>
                     <ul className="dropdown-menu">

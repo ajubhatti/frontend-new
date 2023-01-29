@@ -58,3 +58,26 @@
    justify-content:center;
    gap: 0 15px;
 }
+
+/* ----- wallet card css ------- */
+.wallet-card{
+ display:flex;
+ align-items: center;
+ justify-content:center;
+ gap: 0 10px;
+ cursor: pointer;
+
+}
+.wallet-icon{
+  font-size: 22px;
+  color: #0d6efd;
+}
+.wallet-card span{
+  font-size: 16px;
+  line-height: 0px;
+  font-weight: 600;
+  color: #0d6efd;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
