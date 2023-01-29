@@ -1,14 +1,14 @@
-import React from 'react';
-import { Row, Col, Card, CardBody } from 'reactstrap';
+import React from "react";
+import { Row, Col, Card, CardBody } from "reactstrap";
 
-import BootstrapTable from 'react-bootstrap-table-next';
+import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory, {
   PaginationProvider,
   SizePerPageDropdownStandalone,
-} from 'react-bootstrap-table2-paginator';
+} from "react-bootstrap-table2-paginator";
 // import CommonButton from "components/Common/Button/index";
-import up from '../../Assets/up.svg';
-import down from '../../Assets/down.svg';
+import up from "../../Assets/up.svg";
+import down from "../../Assets/down.svg";
 
 const CardWrapper = ({ children }) => {
   return (
@@ -46,13 +46,13 @@ const CustomBootstrapTable = ({
 }) => {
   const columnsData = columns.map((col) => ({
     ...col,
-    ...(col.hasOwnProperty('sort')
+    ...(col.hasOwnProperty("sort")
       ? {
           sortCaret: (order) => {
             return (
               <span className="sort-arrows cursor-pointer">
                 {!!order ? (
-                  order === 'desc' ? (
+                  order === "desc" ? (
                     <img src={down} alt="down" />
                   ) : (
                     <img src={up} alt="up" />
@@ -89,9 +89,9 @@ const CustomBootstrapTable = ({
               hover
               defaultSorted={defaultSorted}
               classes={`table align-middle table-nowrap table-check ${
-                bordered ? 'table-bordered' : ''
+                bordered ? "table-bordered" : ""
               }`}
-              headerWrapperClasses={`${light ? 'table-light' : ''}`}
+              headerWrapperClasses={`${light ? "table-light" : ""}`}
               noDataIndication={() => <NoDataIndiCation loading={loading} />}
               loading={loading}
             />
@@ -108,7 +108,7 @@ const Table = ({
   handleSearch,
   showAddButton = true,
   onAddButtonClick,
-  addButtonTitle = 'Add',
+  addButtonTitle = "Add",
   selectedRows,
   onMultiDeleteButtonClick,
   children,
@@ -166,7 +166,7 @@ const Table = ({
 };
 
 const pageListRenderer = ({ pages, onPageChange }) => {
-  const pageWithoutIndication = pages.filter((p) => typeof p.page !== 'string');
+  const pageWithoutIndication = pages.filter((p) => typeof p.page !== "string");
   return (
     <div>
       {pageWithoutIndication.map((p) => (
@@ -206,17 +206,17 @@ const withPagination =
             <div className="d-flex mt-2">
               <div className="d-flex align-items-center">
                 <span className="me-2 d-none d-md-block ">
-                  Records Per Page:{' '}
+                  Records Per Page:{" "}
                 </span>
                 <SizePerPageDropdownStandalone {...paginationProps} />
               </div>
               <div className="ms-auto pagination d-flex align-items-center">
                 <span className="me-2 d-flex align-items-center">
                   <span className="d-none d-md-block me-2">
-                    Showing results{' '}
+                    Showing results{" "}
                   </span>
-                  {(paginationProps.page - 1) * paginationProps.sizePerPage + 1}{' '}
-                  -{' '}
+                  {(paginationProps.page - 1) * paginationProps.sizePerPage + 1}{" "}
+                  -{" "}
                   {paginationProps.page * paginationProps.sizePerPage <=
                   paginationProps.totalSize
                     ? paginationProps.page * paginationProps.sizePerPage
@@ -249,13 +249,13 @@ const withPagination =
 
 const PaginationTable = withPagination(CustomBootstrapTable);
 
-const CustomTable = ({ withCard = true, ...rest }) => {
+const CustomTable = ({ withCard = true, ...rest }, ref) => {
   return withCard ? (
     <CardWrapper>
-      <Table {...rest} />
+      <Table {...rest} ref={ref} />
     </CardWrapper>
   ) : (
-    <Table {...rest} />
+    <Table {...rest} ref={ref} />
   );
 };
 export default CustomTable;

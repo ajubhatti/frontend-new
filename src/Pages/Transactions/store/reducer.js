@@ -54,7 +54,6 @@ const transactionReducer = produce((state = initialState, action) => {
     case SET_SEARCH_TRANSACTION:
       return {
         ...state,
-        search: "",
         search: payload,
       };
 

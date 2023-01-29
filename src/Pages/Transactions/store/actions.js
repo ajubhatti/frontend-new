@@ -13,26 +13,27 @@ import {
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
 
-export const fetchAllUserTransactionList = (payload,cb) => async (dispatch) => {
-  try {
-    if(!cb){
-      dispatch(setTransactionLoading(true));
-    }
-    const res = await axios.post(API_URL + auth.transactions.url, payload);
-    if (res) {
-      if(!cb){
-        dispatch(setAllTransactionList(res?.data?.data));
-        dispatch(setTransactionLoading(false));
+export const fetchAllUserTransactionList =
+  (payload, cb) => async (dispatch) => {
+    try {
+      if (!cb) {
+        dispatch(setTransactionLoading(true));
       }
-      if(cb){
-        cb(res?.data?.data)
+      const res = await axios.post(API_URL + auth.transactions.url, payload);
+      if (res) {
+        if (!cb) {
+          dispatch(setAllTransactionList(res?.data?.data));
+          dispatch(setTransactionLoading(false));
+        }
+        if (cb) {
+          cb(res?.data?.data);
+        }
       }
+    } catch (err) {
+      dispatch(setTransactionLoading(false));
+      toast.error(err.response?.data?.message || err.message);
     }
-  } catch (err) {
-    dispatch(setTransactionLoading(false));
-    toast.error(err.response?.data?.message || err.message);
-  }
-};
+  };
 
 export const setAllTransactionList = (data) => ({
   type: FETCH_ALL_TRANSACTION_LIST,
@@ -44,7 +45,7 @@ export const setTransactionLoading = (data) => ({
   payload: data,
 });
 
-export const setPerTransaction = (data) => ({
+export const setPageTransaction = (data) => ({
   type: SET_PAGE_TRANSACTION,
   payload: data,
 });

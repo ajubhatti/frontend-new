@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import moment from 'moment';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React, { useEffect } from "react";
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CustomDateRangePicker = ({ rangeDate, setRangeDate }) => {
   // const [dateRangeValue, setDateRangeValueValues] = useState({
@@ -34,7 +34,7 @@ const CustomDateRangePicker = ({ rangeDate, setRangeDate }) => {
       const start = moment(range && range.start);
       const end = moment(newValue);
 
-      if (end.isAfter(start)) {
+      if (end.isSameOrAfter(start)) {
         return end.toDate();
       }
 
@@ -64,7 +64,7 @@ const CustomDateRangePicker = ({ rangeDate, setRangeDate }) => {
           }}
           startDate={rangeDate.start}
           endDate={rangeDate.end}
-          maxDate={rangeDate.end}
+          // maxDate={rangeDate.end}
         />
       </div>
       <div className="me-2">

@@ -1,37 +1,50 @@
-import React, { useEffect } from "react";
-import { Routes } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-import { Route } from "react-router-dom";
-import ForgotPasswordContainer from "../Containers/ForgotPassword";
-import HomeContainer from "../Containers/Home";
-import LoginContainer from "../Containers/Login";
-import ProfileContainer from "../Containers/Profile";
-import ProfileDashboardContainer from "../Containers/Profile/dashboard";
-import ProfileTransactionContainer from "../Containers/Profile/Transaction";
-import ChangePasswordContainer from "../Containers/Profile/ChangePassword";
-import ChangePinContainer from "../Containers/Profile/ChangePin";
-import RegisterContainer from "../Containers/Register";
-import ResetPasswordContainer from "../Containers/ResetPassword";
-import ReferContainer from "../Containers/Refer";
-import ServiceContainer from "../Containers/Service";
-import SupportContainer from "../Containers/Support";
-import WalletContainer from "../Containers/Wallet";
-import ContactContainer from "../Containers/ContactUs";
-import OtpContainer from "../Containers/Otp";
-import AboutUs from "../Pages/AboutUs";
-import PageNotFound from "../Pages/PageNotFound";
-import PrivacyPolicy from "../Pages/PrivacyPolicy";
-import TermsCondition from "../Pages/TermsCondition";
+import React from "react";
+import { Routes, Navigate, Route } from "react-router-dom";
 import { getToken, getUser } from "./LocalStorage";
-import Main from "./Main";
-import routes from "./routes";
-import Faq from "../Pages/FAQ/Faq";
-import WalletHistory from "../Pages/Wallet/WalletHistory";
 import { useDispatch } from "react-redux";
 import { fetchProfile } from "../Pages/Profile/store/actions";
-import ForgotTransactionPin from "../Pages/ForgotPin";
-import EditProfile from "../Pages/Profile/EditProfile";
-import TransactionHistory from "../Pages/Transactions/TransactionHistory";
+import routes from "./routes";
+
+const HomeContainer = React.lazy(() => import("../Containers/Home"));
+const LoginContainer = React.lazy(() => import("../Containers/Login"));
+const ProfileContainer = React.lazy(() => import("../Containers/Profile"));
+const ForgotPasswordContainer = React.lazy(() =>
+  import("../Containers/ForgotPassword")
+);
+const ProfileDashboardContainer = React.lazy(() =>
+  import("../Containers/Profile/dashboard")
+);
+// const ProfileTransactionContainer = React.lazy(() =>
+//   import("../Containers/Profile/Transaction")
+// );
+const ChangePasswordContainer = React.lazy(() =>
+  import("../Containers/Profile/ChangePassword")
+);
+const ChangePinContainer = React.lazy(() =>
+  import("../Containers/Profile/ChangePin")
+);
+const RegisterContainer = React.lazy(() => import("../Containers/Register"));
+const ResetPasswordContainer = React.lazy(() =>
+  import("../Containers/ResetPassword")
+);
+const ReferContainer = React.lazy(() => import("../Containers/Refer"));
+const ServiceContainer = React.lazy(() => import("../Containers/Service"));
+const SupportContainer = React.lazy(() => import("../Containers/Support"));
+const WalletContainer = React.lazy(() => import("../Containers/Wallet"));
+const ContactContainer = React.lazy(() => import("../Containers/ContactUs"));
+const OtpContainer = React.lazy(() => import("../Containers/Otp"));
+const AboutUs = React.lazy(() => import("../Pages/AboutUs"));
+const PageNotFound = React.lazy(() => import("../Pages/PageNotFound"));
+const PrivacyPolicy = React.lazy(() => import("../Pages/PrivacyPolicy"));
+const TermsCondition = React.lazy(() => import("../Pages/TermsCondition"));
+const EditProfile = React.lazy(() => import("../Pages/Profile/EditProfile"));
+const TransactionHistory = React.lazy(() =>
+  import("../Pages/Transactions/TransactionHistory")
+);
+const ForgotTransactionPin = React.lazy(() => import("../Pages/ForgotPin"));
+const Main = React.lazy(() => import("./Main"));
+const Faq = React.lazy(() => import("../Pages/FAQ/Faq"));
+const WalletHistory = React.lazy(() => import("../Pages/Wallet/WalletHistory"));
 
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
@@ -200,12 +213,6 @@ const Full = (props) => {
           name="service"
           element={<ServiceContainer />}
         />
-        {/* <Route
-          exact
-          path={routes.service2}
-          name="service"
-          element={<Service2Container />}
-        /> */}
         <Route
           exact
           path={routes.support}

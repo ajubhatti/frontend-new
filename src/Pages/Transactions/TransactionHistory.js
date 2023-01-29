@@ -1,29 +1,30 @@
-import moment from 'moment';
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../Helper/LocalStorage';
-import Menu from '../Profile/Menu';
-import { addDays } from 'date-fns';
-import { sizePerPageList } from '../../Constants/table';
-import CustomTable from '../../Components/Tables/CustomTable';
-import CustomDateRangePicker from '../../Components/DateRangePicker/CustomDateRangePicker';
-import { ExportToCsv } from 'export-to-csv';
-import { toast } from 'react-toastify';
+import moment from "moment";
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../Helper/LocalStorage";
+import Menu from "../Profile/Menu";
+import { sizePerPageList } from "../../Constants/table";
+import CustomTable from "../../Components/Tables/CustomTable";
+import CustomDateRangePicker from "../../Components/DateRangePicker/CustomDateRangePicker";
+import { ExportToCsv } from "export-to-csv";
+import { toast } from "react-toastify";
 import {
   fetchAllUserTransactionList,
-  setPerTransaction,
+  setPageTransaction,
   setSizePerPageTransaction,
   setSortFieldOfTransaction,
   setSortOrderOfTransaction,
-} from './store/actions';
+} from "./store/actions";
+
+import { TablePrintWithHook } from "../../Components/TablePrint/TablePrintWithHook";
 
 const options = {
-  fieldSeparator: ',',
+  fieldSeparator: ",",
   quoteStrings: '"',
-  decimalSeparator: '.',
+  decimalSeparator: ".",
   showLabels: true,
   showTitle: true,
-  title: 'Activities',
+  title: "Activities",
   useTextFile: false,
   useBom: true,
   useKeysAsHeaders: true,
@@ -35,18 +36,14 @@ const TransactionHistory = () => {
   const dispatch = useDispatch();
   const user = getUser();
   const {
-    userTransactionsData,
     transactionsLoading,
     page,
     sizePerPage,
     totalSize,
-    search,
-    sortField,
-    sortOrder,
     transactionListData,
   } = useSelector((state) => state.transactionReducer);
 
-  const [dateRangeValue, setDateRangeValueValues] = useState({
+  const [dateRangeValue, setDateRangeValue] = useState({
     start: null,
     end: null,
   });
@@ -54,19 +51,21 @@ const TransactionHistory = () => {
     userId: user.id,
     page: 1,
     limits: 20,
-    sortBy: 'created',
-    orderBy: 'desc',
+    sortBy: "created",
+    orderBy: "desc",
     skip: 0,
-    search: '',
-    startDate: '', //"10-15-2022",
-    endDate: '', //"10-30-2022",
+    search: "",
+    startDate: "", //"10-15-2022",
+    endDate: "", //"10-30-2022",
   });
+
+  const [searchString, setSearchString] = useState("");
 
   const columns = useMemo(
     () => [
       {
-        dataField: 'no',
-        text: 'No.',
+        dataField: "no",
+        text: "No.",
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle">
             {sizePerPage * (page - 1) + rowIndex + 1}
@@ -75,138 +74,140 @@ const TransactionHistory = () => {
         sort: true,
       },
       {
-        text: 'Date',
-        dataField: 'created',
+        text: "Date",
+        dataField: "created",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle">
             {row?.created
-              ? moment(row?.created).format('DD/MM/YYYY h:mm:ss a')
-              : '-'}
+              ? moment(row?.created).format("DD/MM/YYYY hh:mm:ss")
+              : "-"}
           </div>
         ),
       },
       {
-        text: 'Payment type',
-        dataField: 'type',
-        sort: true,
-        formatter: (cell, row, rowIndex, formatExtraData) => (
-          <div className="align-middle">{row?.type ? row?.type : '-'}</div>
-        ),
-      },
-      {
-        text: 'Transaction Id',
-        dataField: 'transactionId',
+        text: "Transaction Id",
+        dataField: "transactionId",
         sort: false,
         formatter: (cell, row, rowIndex, formatExtraData) => (
-          <div>{row?.transactionId ? row?.transactionId : '-'}</div>
+          <div>{row?.transactionId ? row?.transactionId : "-"}</div>
         ),
       },
-      // {
-      //   text: 'slip No',
-      //   dataField: 'slipNo',
-      //   sort: true,
-      //   formatter: (cell, row, rowIndex, formatExtraData) => (
-      //     <div>{row?.slipNo ? row?.slipNo : '-'}</div>
-      //   ),
-      // },
-      // {
-      //   text: 'remark',
-      //   dataField: 'remark',
-      //   formatter: (cell, row, rowIndex, formatExtraData) => (
-      //     <div className="align-middle">
-      //       <span>{!!row?.remark ? row?.remark : '-'}</span>
-      //     </div>
-      //   ),
-      // },
       {
-        text: 'Customer No',
-        dataField: 'customerNo',
+        text: "Operator Id",
+        dataField: "operatorId",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle ">
-            {row?.customerNo ? row?.customerNo : '-'}
+            {row?.rechargeData?.OPRID
+              ? row?.rechargeData?.OPRID
+              : row?.rechargeData?.opid
+              ? row?.rechargeData?.opid
+              : "-"}
           </div>
         ),
       },
       {
-        text: 'Balance',
-        dataField: 'userBalance',
+        text: "Operator Name",
+        dataField: "operatorName",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle ">
-            {row?.userBalance ? row?.userBalance : '-'}
+            {row?.rechargeData?.rechargeOperator?.companyName
+              ? row?.rechargeData?.rechargeOperator?.companyName
+              : "-"}
           </div>
         ),
       },
       {
-        text: 'Request Amount',
-        dataField: 'requestAmount',
+        text: "Customer No",
+        dataField: "customerNo",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle ">
-            {row?.requestAmount ? row?.requestAmount : '-'}
+            {row?.customerNo ? row?.customerNo : "-"}
           </div>
         ),
       },
       {
-        text: 'Recharge Amount',
-        dataField: 'rechargeAmount',
+        text: "Balance",
+        dataField: "userBalance",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle ">
-            {row?.rechargeAmount ? row?.rechargeAmount : '-'}
+            {row?.userBalance ? row?.userBalance : "-"}
           </div>
         ),
       },
       {
-        text: 'CashBack Amount',
-        dataField: 'cashBackAmount',
+        text: "Request Amount",
+        dataField: "requestAmount",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle ">
-            {row?.cashBackAmount ? row?.cashBackAmount : '-'}
+            {row?.requestAmount ? row?.requestAmount : "-"}
           </div>
         ),
       },
       {
-        text: 'FinalBalance',
-        dataField: 'userFinalBalance',
+        text: "CashBack Amount",
+        dataField: "cashBackAmount",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle ">
-            {row?.userFinalBalance ? row?.userFinalBalance : '-'}
+            {row?.cashBackAmount ? row?.cashBackAmount : "-"}
           </div>
         ),
       },
       {
-        text: 'amount',
-        dataField: 'amount',
+        text: "Recharge Amount",
+        dataField: "rechargeAmount",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
-          <div className="align-middle ">{row?.amount ? row?.amount : '-'}</div>
+          <div className="align-middle ">
+            {row?.rechargeAmount ? row?.rechargeAmount : "-"}
+          </div>
         ),
       },
       {
-        text: 'status',
-        dataField: 'status',
+        text: "FinalBalance",
+        dataField: "userFinalBalance",
+        sort: true,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle ">
+            {row?.userFinalBalance ? row?.userFinalBalance : "-"}
+          </div>
+        ),
+      },
+      {
+        text: "remark",
+        dataField: "remark",
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div className="align-middle">
+            <span>{!!row?.remark ? row?.remark : "-"}</span>
+          </div>
+        ),
+      },
+      {
+        text: "status",
+        dataField: "status",
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div
             className={`align-middle text-${
-              row?.status === 'completed'
-                ? 'success'
-                : row?.status === 'pending'
-                ? 'warning'
-                : 'danger'
+              row?.status === "success"
+                ? "success"
+                : row?.status === "pending"
+                ? "warning"
+                : "danger"
             }`}
           >
             <span
               className={`text-capitalize text-white p-1 rounded bg-${
-                row?.status === 'completed'
-                  ? 'success'
-                  : row?.status === 'pending'
-                  ? 'warning'
-                  : 'danger'
+                row?.status === "success"
+                  ? "success"
+                  : row?.status === "pending"
+                  ? "warning"
+                  : "danger"
               }`}
             >
               {row?.status}
@@ -230,22 +231,17 @@ const TransactionHistory = () => {
   );
 
   useEffect(() => {
-    setPayloadData({
+    setPayloadData((previousData) => ({
+      ...previousData,
       userId: user.id,
       page: page,
       limits: sizePerPage,
-      sortBy: 'created',
-      orderBy: 'desc',
+      sortBy: "created",
+      orderBy: "desc",
       skip: 0,
-      search: '',
-      startDate: dateRangeValue.start
-        ? moment(dateRangeValue.start).format('MM-DD-YYYY')
-        : '',
-      endDate: dateRangeValue.end
-        ? moment(dateRangeValue.end).format('MM-DD-YYYY')
-        : '',
-    });
-  }, [sizePerPage, page, user.id, dateRangeValue]);
+      search: "",
+    }));
+  }, [sizePerPage, page, user.id]);
 
   useEffect(() => {
     dispatch(fetchAllUserTransactionList(payloadData));
@@ -253,12 +249,12 @@ const TransactionHistory = () => {
 
   const onTableChange = (type, { page, sizePerPage, sortField, sortOrder }) => {
     switch (type) {
-      case 'sort':
+      case "sort":
         dispatch(setSortFieldOfTransaction(sortField));
         dispatch(setSortOrderOfTransaction(sortOrder.toUpperCase()));
         break;
-      case 'pagination':
-        dispatch(setPerTransaction(page));
+      case "pagination":
+        dispatch(setPageTransaction(page));
         dispatch(setSizePerPageTransaction(sizePerPage));
         break;
       default:
@@ -267,10 +263,7 @@ const TransactionHistory = () => {
   };
 
   const handleSearch = (e) => {
-    setPayloadData((prev) => ({
-      ...prev,
-      search: e.target.value.trim(),
-    }));
+    setSearchString(e.target.value.trim());
   };
 
   const [exportLoading, setExportLoading] = useState(false);
@@ -288,21 +281,21 @@ const TransactionHistory = () => {
             const exportData = status?.data?.map((item) => {
               return {
                 date:
-                  moment(item?.created).format('DD/MM/YYYY, h:mm:ss a') || '-',
-                Payment_type: item?.type || '-',
-                Transaction_Id: item?.transactionId || '-',
-                Slip_No: !!item?.slipNo ? item?.slipNo : '-',
-                Remark: item?.remark || '-',
-                Customer_No: !!item?.customerNo ? item?.customerNo : '-',
-                Balance: item?.userBalance || '-',
-                Request_Amount: item?.requestAmount || '-',
-                Recharge_Amount: item?.rechargeAmount || '-',
+                  moment(item?.created).format("DD/MM/YYYY, h:mm:ss a") || "-",
+                Payment_type: item?.type || "-",
+                Transaction_Id: item?.transactionId || "-",
+                Slip_No: !!item?.slipNo ? item?.slipNo : "-",
+                Remark: item?.remark || "-",
+                Customer_No: !!item?.customerNo ? item?.customerNo : "-",
+                Balance: item?.userBalance || "-",
+                Request_Amount: item?.requestAmount || "-",
+                Recharge_Amount: item?.rechargeAmount || "-",
                 Cashback_Amount: !!item.cashBackAmount
                   ? item?.cashBackAmount
-                  : '-',
-                Final_Balance: item?.userFinalBalance || '-',
-                Amount: item?.amount || '-',
-                status: item?.status || '-',
+                  : "-",
+                Final_Balance: item?.userFinalBalance || "-",
+                Amount: item?.amount || "-",
+                status: item?.status || "-",
               };
             });
             setExportLoading(false);
@@ -316,12 +309,33 @@ const TransactionHistory = () => {
     }
   };
 
+  const handleFilterData = () => {
+    setPayloadData((prev) => ({
+      ...prev,
+      search: searchString,
+      startDate: dateRangeValue.start
+        ? moment(dateRangeValue.start).format("MM-DD-YYYY")
+        : "",
+      endDate: dateRangeValue.end
+        ? moment(dateRangeValue.end).format("MM-DD-YYYY")
+        : "",
+    }));
+  };
+
   return (
     <div className="bg-light">
       <Menu />
+
       <div className="container space-2">
-        <div className="card">
-          <div className="card-body p-4">
+        <div className="card-body p-4">
+          <div className="card">
+            <TablePrintWithHook
+              data={transactionListData}
+              columns={columns}
+              pageOptions={pageOptions}
+            />
+          </div>
+          <div className="card" id="non-printable">
             <CustomTable
               showAddButton={false}
               pageOptions={pageOptions}
@@ -349,17 +363,28 @@ const TransactionHistory = () => {
 
                     <CustomDateRangePicker
                       rangeDate={dateRangeValue}
-                      setRangeDate={setDateRangeValueValues}
+                      setRangeDate={setDateRangeValue}
                     />
+
+                    <div className="me-2 d-flex align-items-end">
+                      <button
+                        className={`btn btn-secondary ${
+                          exportLoading ? "disabled" : ""
+                        }`}
+                        onClick={handleFilterData}
+                      >
+                        Find
+                      </button>
+                    </div>
                   </div>
                   <div className="me-2 d-flex align-items-end">
                     <button
                       className={`btn btn-secondary ${
-                        exportLoading ? 'disabled' : ''
+                        exportLoading ? "disabled" : ""
                       }`}
                       onClick={handleCSV}
                     >
-                      {exportLoading ? 'Exporting..' : 'Export CSV'}
+                      {exportLoading ? "Exporting.." : "Export CSV"}
                     </button>
                   </div>
                 </div>

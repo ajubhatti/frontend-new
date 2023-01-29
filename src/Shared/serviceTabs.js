@@ -20,6 +20,7 @@ import {
   faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
 
+
 export const serviceTabs = [
   {
     id: 1,

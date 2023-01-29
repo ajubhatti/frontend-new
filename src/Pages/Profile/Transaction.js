@@ -18,7 +18,7 @@ const ProfileTransaction = () => {
         userId: user.id,
       })
     );
-  }, []);
+  }, [dispatch, user]);
 
   const columns = [
     {

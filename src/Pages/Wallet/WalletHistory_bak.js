@@ -399,7 +399,7 @@ const WalletHistory = () => {
 
     console.log({ rangeDate });
     if (rangeDate[0]?.endDate) {
-      handleCloseCalendar;
+      handleCloseCalendar();
     }
 
     // let data = {

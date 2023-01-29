@@ -24801,3 +24801,24 @@ input::-webkit-inner-spin-button {
   font-size: 2rem;
 }
 
+/* .relativeCSS{
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+} */
+
+#printable {
+  display: none;
+}
+
+ @media print {
+   #non-printable {
+     display: none;
+   }
+
+   #printable {
+     display: block;
+   }
+ }
