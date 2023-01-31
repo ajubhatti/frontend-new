@@ -70,12 +70,19 @@ const CustomBootstrapTable = ({
       : {}),
   }));
 
+  const rowStyle = (row, rowIndex) => {
+    const style = {};
+    // style.fontSize = 10;
+    return style;
+  };
+
   return (
     <React.Fragment>
       <div className="mb-2 d-flex flex-column ">
         <div className="flex-grow-1">
           <div className="table-responsive main-table">
             <BootstrapTable
+              rowStyle={rowStyle}
               {...rest}
               remote={remote}
               responsive

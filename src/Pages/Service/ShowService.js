@@ -12,6 +12,7 @@ import MobileOfferModal from "../../Components/Modal/MobileOfferModal";
 import LoginConfirmModal from "../../Components/Modal/LoginConfirmModal";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { Link } from "react-router-dom";
+import InvoiceModal from "../../Components/Modal/invoiceModal";
 const ShowService = (props) => {
   const dispatch = useDispatch();
   const isUser = getToken();
@@ -32,6 +33,8 @@ const ShowService = (props) => {
   const [selectedMplanOperator, setSelectedMplanOperator] = useState("");
   const [planlisting, setPlanlisting] = useState({});
   const [transactionOpen, setTransactionOpen] = useState(false);
+  const [invoiceData, setInvoiceData] = useState(null);
+  const [isInvoiceModal,setIsInvoiceModal] = useState(false)
   const [values, setValues] = useState({
     operator: "0",
     mobileNo: "",
@@ -110,7 +113,15 @@ const ShowService = (props) => {
   };
 
   const handleRecharge = () => {
-    dispatch(doMyRecharge(values));
+    dispatch(doMyRecharge(values, status => {
+      if (status) {
+        console.log(status);
+        setIsInvoiceModal(true)
+        setInvoiceData(status.data)
+      }
+    }
+
+    ));
   };
 
   const getPlan = async () => {
@@ -365,6 +376,15 @@ const ShowService = (props) => {
           </div>
         </div>
       </div>
+
+      {isInvoiceModal && (
+        <InvoiceModal
+          isInvoiceModal={isInvoiceModal}
+          setIsInvoiceModal={setIsInvoiceModal}
+          invoiceData={invoiceData}
+          setInvoiceData={setInvoiceData}
+        />
+      )}
 
       {isPlanShow && (
         <MobileOfferModal

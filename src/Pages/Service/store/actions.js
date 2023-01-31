@@ -60,6 +60,7 @@ export const doMyRecharge = (payload) => async (dispatch) => {
     );
     console.log("res ----", res.data);
     if (res.data) {
+      cb(res?.data)
       dispatch(setLoading(false));
       toast.success(
         res?.data?.data?.responseData?.TRNSTATUSDESC || res?.data?.data?.status

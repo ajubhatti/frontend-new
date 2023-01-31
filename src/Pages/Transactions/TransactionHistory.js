@@ -17,6 +17,9 @@ import {
 } from "./store/actions";
 
 import { TablePrintWithHook } from "../../Components/TablePrint/TablePrintWithHook";
+import { FaPrint } from "react-icons/fa";
+import Invoice from "../../common/Invoice";
+import InvoiceModal from "../../Components/Modal/invoiceModal";
 
 const options = {
   fieldSeparator: ",",
@@ -43,6 +46,9 @@ const TransactionHistory = () => {
     transactionListData,
   } = useSelector((state) => state.transactionReducer);
 
+  const [isInvoiceModal, setIsInvoiceModal] = useState(false);
+  const [invoiceData, setInvoiceData] = useState(null);
+
   const [dateRangeValue, setDateRangeValue] = useState({
     start: null,
     end: null,
@@ -66,6 +72,13 @@ const TransactionHistory = () => {
       {
         dataField: "no",
         text: "No.",
+        headerStyle: (colum, colIndex) => ({
+          width: "10%",
+          textAlign: "center",
+        }),
+
+        // headerStyle: { width: "50px" },
+        style: { height: "30px" },
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle">
             {sizePerPage * (page - 1) + rowIndex + 1}
@@ -77,6 +90,8 @@ const TransactionHistory = () => {
         text: "Date",
         dataField: "created",
         sort: true,
+        headerStyle: { width: "50px" },
+        style: { height: "30px" },
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle">
             {row?.created
@@ -189,6 +204,16 @@ const TransactionHistory = () => {
         ),
       },
       {
+        text: "print",
+        dataField: "print",
+        sort: false,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div onClick={() => printHandler(row)}>
+            <FaPrint />
+          </div>
+        ),
+      },
+      {
         text: "status",
         dataField: "status",
         formatter: (cell, row, rowIndex, formatExtraData) => (
@@ -229,6 +254,12 @@ const TransactionHistory = () => {
     }),
     [sizePerPage, totalSize, page]
   );
+
+  const printHandler = (data) => {
+    console.log({ data });
+    setInvoiceData(data);
+    setIsInvoiceModal(true);
+  };
 
   useEffect(() => {
     setPayloadData((previousData) => ({
@@ -326,15 +357,15 @@ const TransactionHistory = () => {
     <div className="bg-light">
       <Menu />
 
+      {/* <div className="card">
+        <TablePrintWithHook
+          data={transactionListData}
+          columns={columns}
+          pageOptions={pageOptions}
+        />
+      </div> */}
       <div className="container space-2">
         <div className="card-body p-4">
-          <div className="card">
-            <TablePrintWithHook
-              data={transactionListData}
-              columns={columns}
-              pageOptions={pageOptions}
-            />
-          </div>
           <div className="card" id="non-printable">
             <CustomTable
               showAddButton={false}
@@ -393,6 +424,15 @@ const TransactionHistory = () => {
           </div>
         </div>
       </div>
+
+      {isInvoiceModal && (
+        <InvoiceModal
+          isInvoiceModal={isInvoiceModal}
+          setIsInvoiceModal={setIsInvoiceModal}
+          invoiceData={invoiceData}
+          setInvoiceData={setInvoiceData}
+        />
+      )}
     </div>
   );
 };

@@ -12,17 +12,20 @@ const ComponentToPrint2 = forwardRef((props, ref) => {
         }
       </style>
       <div className="flash" /> */}
-
-      <CustomTable
-        showAddButton={false}
-        pageOptions={props.pageOptions}
-        keyField="transaction_id"
-        data={props.data}
-        columns={props.columns}
-        showSearch={false}
-        withPagination={false}
-        withCard={false}
-      ></CustomTable>
+      {props.type === "invoice" ? (
+        ""
+      ) : (
+        <CustomTable
+          showAddButton={false}
+          pageOptions={props.pageOptions}
+          keyField="transaction_id"
+          data={props.data}
+          columns={props.columns}
+          showSearch={false}
+          withPagination={false}
+          withCard={false}
+        ></CustomTable>
+      )}
     </div>
   );
 });

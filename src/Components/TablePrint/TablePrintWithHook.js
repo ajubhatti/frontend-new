@@ -3,7 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import { FaPrint } from "react-icons/fa";
 import ComponentToPrint2 from "./ComponentToPrint2";
 
-export const TablePrintWithHook = ({ data, columns, pageOptions }) => {
+export const TablePrintWithHook = ({ data, columns, pageOptions, type }) => {
   const componentRef = React.useRef(null);
 
   const onBeforeGetContentResolve = React.useRef(null);
@@ -70,6 +70,7 @@ export const TablePrintWithHook = ({ data, columns, pageOptions }) => {
         columns={columns}
         pageOptions={pageOptions}
         loading={loading}
+        type={type}
       />
     </div>
   );

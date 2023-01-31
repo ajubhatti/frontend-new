@@ -81,3 +81,11 @@
   align-items: flex-end;
   justify-content: center;
 }
+
+.invoice-table {
+  border: 1px solid #0d6efd !important;
+  border-radius: 10px;
+}
+.invoice-table td{
+  border-bottom: #e7eaf3 !important;
+}
