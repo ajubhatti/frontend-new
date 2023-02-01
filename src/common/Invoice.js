@@ -1,9 +1,13 @@
-import moment from 'moment';
-import React from 'react'
+import moment from "moment";
+import React, { forwardRef } from "react";
 
-const Invoice = ({data}) => {
-      return (
-    <table className="table table-responsive invoice-table">
+const Invoice = forwardRef(({ data }, ref) => {
+  return (
+    <table
+      className="table table-responsive invoice-table"
+      ref={ref}
+      id="invoice_card"
+    >
       <thead>
         <tr>
           <th style={{ borderBottom: "1px solid #377dff" }} colSpan={2}>
@@ -46,6 +50,6 @@ const Invoice = ({data}) => {
       </tbody>
     </table>
   );
-}
+});
 
-export default Invoice
+export default Invoice;
