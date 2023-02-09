@@ -51,7 +51,7 @@ export const getPlans = (payload) => async (dispatch) => {
   }
 };
 
-export const doMyRecharge = (payload) => async (dispatch) => {
+export const doMyRecharge = (payload,cb) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
     const res = await axios.post(
@@ -59,7 +59,7 @@ export const doMyRecharge = (payload) => async (dispatch) => {
       payload
     );
     console.log("res ----", res.data);
-    if (res.data) {
+    if (res.data) { 
       cb(res?.data)
       dispatch(setLoading(false));
       toast.success(

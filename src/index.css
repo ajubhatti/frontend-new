@@ -13410,7 +13410,7 @@ button:focus {
 /* Link Muted */
 .link-muted {
   color: #8c98a4;
-  border-bottom: 1px dashed #97a4af;
+  /* border-bottom: 1px dashed #97a4af; */
 }
 
 .link-muted:hover {

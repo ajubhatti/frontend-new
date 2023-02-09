@@ -1,6 +1,7 @@
 @media (min-width:1299px) {
     .container{
         max-width: 1200px !important;
+        padding: 0px  15px;
     }
 }
 @media (max-width:1366px){
@@ -38,5 +39,17 @@
 @media (max-width:768px){
     .u-header__section .navbar{
         padding: 0.5rem 15px !important;
+    }
+    .login-pages .order{
+        order: 2;
+    }
+    .login-pages .vector-img{
+       margin-bottom: 30px;
+    }
+}
+@media (max-width:567px){
+    .login-card{
+       align-items: flex-start !important;
+       flex-direction: column;
     }
 }

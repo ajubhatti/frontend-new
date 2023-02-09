@@ -1,3 +1,25 @@
 .forget-password-pages{
   padding-top: 110px;
 }
+.forget-password-pages .link-muted{
+  font-size: 16px;
+  text-transform: capitalize;
+  font-weight: 400;
+  line-height: 25px;
+  color: #333;
+}
+.forget-password-pages .link-muted:hover{
+   font-weight: bold;
+   text-decoration: underline;
+
+}
+.forget-password-pages .forget-footer-button{
+display:flex;
+align-items: center;
+justify-content:space-between;
+}
+.forget-password-pages .card{
+  margin-bottom: 30px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px rgb(151 164 175 / 10%);
+}

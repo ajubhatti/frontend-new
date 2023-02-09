@@ -68,14 +68,11 @@ const ForgotForm = () => {
       {showOtp ? (
         <ResetPasswordOtp phoneNumber={phoneNumber} />
       ) : (
-        <div className="row align-items-center mb-5">
-          <div className="col-4 col-sm-6">
+        <div className="row align-items-center mb-2">
+          <div className="forget-footer-button">
             <Link to={routes.login} className="small link-muted">
               Back to sign in
             </Link>
-          </div>
-
-          <div className="col-8 col-sm-6 text-right">
             <button
               type="button"
               className="btn btn-primary transition-3d-hover"
@@ -85,6 +82,10 @@ const ForgotForm = () => {
               Send OTP
             </button>
           </div>
+
+          {/* <div className="col-8 col-sm-6 text-right">
+            
+          </div> */}
         </div>
       )}
     </Form>
