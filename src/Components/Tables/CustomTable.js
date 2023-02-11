@@ -6,7 +6,6 @@ import paginationFactory, {
   PaginationProvider,
   SizePerPageDropdownStandalone,
 } from "react-bootstrap-table2-paginator";
-// import CommonButton from "components/Common/Button/index";
 import up from "../../Assets/up.svg";
 import down from "../../Assets/down.svg";
 

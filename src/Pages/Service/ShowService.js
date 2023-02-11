@@ -33,8 +33,150 @@ const ShowService = (props) => {
   const [selectedMplanOperator, setSelectedMplanOperator] = useState("");
   const [planlisting, setPlanlisting] = useState({});
   const [transactionOpen, setTransactionOpen] = useState(false);
-  const [invoiceData, setInvoiceData] = useState(null);
-  const [isInvoiceModal,setIsInvoiceModal] = useState(false)
+  const [invoiceData, setInvoiceData] = useState({
+    data: {
+      userId: "63067222d27a1a11021e10d1",
+      customerNo: "9662022120",
+      operator: "632b7af52887b2a0528a4e3c",
+      state: "62a48a45820b28f6adcb06ea",
+      amount: 10,
+      rechargeBy: {
+        discountByApi: [],
+        _id: "632b7af52887b2a0528a4e3c",
+        companyName: "Jio",
+        mobileAppCode: "Jio",
+        companyDetail: "Jio recharge",
+        image: "",
+        isActive: true,
+        isVisible: true,
+        providerType: "61ebf005b15b7b52ddc35dff",
+        minAmount: 1,
+        maxAmount: 1000,
+        referenceApis: [
+          {
+            _id: "632cd4c77cbd0e5d32d50fbd",
+            apiName: "RechargeWale",
+            apiDetail: "Recharge Wale",
+            apiImage: "",
+            isActive: true,
+            created: "2022-09-22T21:33:59.185Z",
+            __v: 0,
+            apiCode: "RJ",
+            pendingLimit: "2",
+            priority: "2",
+            failureLimit: "2",
+          },
+          {
+            _id: "632974511164a0942d5d56e1",
+            apiName: "Ambika",
+            apiDetail: "ambika api",
+            apiImage: "",
+            isActive: true,
+            created: "2022-09-20T08:05:37.763Z",
+            __v: 0,
+            updated: "2022-09-22T21:53:41.053Z",
+            apiCode: "116",
+            pendingLimit: "1",
+            priority: "1",
+            failureLimit: "1",
+          },
+        ],
+        created: "2022-09-21T20:58:29.993Z",
+        __v: 74,
+        updated: "2022-10-08T08:13:29.228Z",
+      },
+      rechargeByApi: {
+        _id: "632974511164a0942d5d56e1",
+        apiName: "Ambika",
+        apiDetail: "ambika api",
+        apiImage: "",
+        isActive: true,
+        created: "2022-09-20T08:05:37.763Z",
+        __v: 0,
+        updated: "2022-09-22T21:53:41.053Z",
+        apiCode: "116",
+        pendingLimit: "1",
+        priority: "1",
+        failureLimit: "1",
+      },
+      status: "pending",
+      responseData: {
+        account: "9662022120",
+        amount: 10,
+        rpid: "S2301302232422096D73",
+        agentid: "1675096403",
+        opid: "BR0008WJZP6A",
+        isRefundStatusShow: false,
+        status: 2,
+        msg: "SUCCESS",
+        bal: 740.92,
+        errorcode: "200",
+        rechargeApi: {
+          _id: "632974511164a0942d5d56e1",
+          apiName: "Ambika",
+          apiDetail: "ambika api",
+          apiImage: "",
+          isActive: true,
+          created: "2022-09-20T08:05:37.763Z",
+          __v: 0,
+          updated: "2022-09-22T21:53:41.053Z",
+          apiCode: "116",
+          pendingLimit: "1",
+          priority: "1",
+          failureLimit: "1",
+        },
+        rechargeOperator: {
+          discountByApi: [],
+          _id: "632b7af52887b2a0528a4e3c",
+          companyName: "Jio",
+          mobileAppCode: "Jio",
+          companyDetail: "Jio recharge",
+          image: "",
+          isActive: true,
+          isVisible: true,
+          providerType: "61ebf005b15b7b52ddc35dff",
+          minAmount: 1,
+          maxAmount: 1000,
+          referenceApis: [
+            {
+              _id: "632cd4c77cbd0e5d32d50fbd",
+              apiName: "RechargeWale",
+              apiDetail: "Recharge Wale",
+              apiImage: "",
+              isActive: true,
+              created: "2022-09-22T21:33:59.185Z",
+              __v: 0,
+              apiCode: "RJ",
+              pendingLimit: "2",
+              priority: "2",
+              failureLimit: "2",
+            },
+            {
+              _id: "632974511164a0942d5d56e1",
+              apiName: "Ambika",
+              apiDetail: "ambika api",
+              apiImage: "",
+              isActive: true,
+              created: "2022-09-20T08:05:37.763Z",
+              __v: 0,
+              updated: "2022-09-22T21:53:41.053Z",
+              apiCode: "116",
+              pendingLimit: "1",
+              priority: "1",
+              failureLimit: "1",
+            },
+          ],
+          created: "2022-09-21T20:58:29.993Z",
+          __v: 74,
+          updated: "2022-10-08T08:13:29.228Z",
+        },
+      },
+      _id: "63d7f159df05554691b9f51d",
+      created: "2023-01-30T16:33:29.177Z",
+      __v: 0,
+    },
+  });
+  const [isInvoiceModal, setIsInvoiceModal] = useState(false);
   const [values, setValues] = useState({
     operator: "0",
     mobileNo: "",
@@ -113,15 +255,15 @@ const ShowService = (props) => {
   };
 
   const handleRecharge = () => {
-    dispatch(doMyRecharge(values, status => {
-      if (status) {
-        console.log(status);
-        setIsInvoiceModal(true)
-        setInvoiceData(status.data)
-      }
-    }
-
-    ));
+    dispatch(
+      doMyRecharge(values, (status) => {
+        if (status) {
+          console.log(status);
+          setIsInvoiceModal(true);
+          setInvoiceData(status.data);
+        }
+      })
+    );
   };
 
   const getPlan = async () => {

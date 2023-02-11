@@ -56,7 +56,7 @@ const WalletHistory = () => {
   const [dateRange, setDateRange] = useState([null, null]);
 
   const [payloadData, setPayloadData] = useState({
-    userId: user.id,
+    userId: user?.id,
     page: 1,
     limits: 20,
     sortBy: "created",
@@ -321,7 +321,7 @@ const WalletHistory = () => {
 
   useEffect(() => {
     setPayloadData({
-      userId: user.id,
+      userId: user?.id,
       page: page,
       limits: sizePerPage,
       sortBy: "created",

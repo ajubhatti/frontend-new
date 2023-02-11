@@ -3,52 +3,61 @@ import React, { forwardRef } from "react";
 
 const Invoice = forwardRef(({ data }, ref) => {
   return (
-    <table
-      className="table table-responsive invoice-table"
-      ref={ref}
-      id="invoice_card"
-    >
-      <thead>
-        <tr>
-          <th style={{ borderBottom: "1px solid #377dff" }} colSpan={2}>
-            Transaction Details
-          </th>
-        </tr>
-        <tr>
-          <th colSpan={2}>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="w-75">Account/Consumer/Customer/Number:</td>
-          <td>{data?.customerNo || "-"}</td>
-        </tr>
-        <tr>
-          <td className="w-75">TX ID:</td>
-          <td>{"-"}</td>
-        </tr>
-        <tr>
-          <td className="w-75">Operator Id:</td>
-          <td>{data?.responseData?.opid || "-"}</td>
-        </tr>
-        <tr>
-          <td className="w-75">Operator</td>
-          <td>{data?.operator || "-"}</td>
-        </tr>
-        <tr>
-          <td className="w-75">Amount</td>
-          <td>{data?.amount || 0}</td>
-        </tr>
-        <tr>
-          <td className="w-75">Date</td>
-          <td>{moment(data?.created).format("MM/DD/yyyy" || "-")}</td>
-        </tr>
-        <tr>
-          <td className="w-75">Account/Consumer/Customer/Number</td>
-          <td>{data?.status || "-"}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div ref={ref} id="invoice_card" className="mt4">
+      <table
+        border="0"
+        className="table table-responsive-xl invoice-table "
+        // style={{
+        //   // backgroundColor: "#f5f5f5",
+        //   // width: "210mm",
+        //   // minHeight: "297mm",
+        //   // marginTop: "10px",
+        //   marginLeft: "auto",
+        //   marginRight: "auto",
+        //   border: "0",
+        // }}
+      >
+        <thead>
+          <tr>
+            <th colSpan={2} className="noBorder">
+              Receipt
+            </th>
+          </tr>
+        </thead>
+        <tbody className="noBorder">
+          <tr>
+            <td className="w-60">Account/Consumer/Customer/Number:</td>
+            <td>{data?.customerNo || "-"}</td>
+          </tr>
+          <tr>
+            <td className="w-60">Transaction ID:</td>
+            <td>{data?.transactionId || "-"}</td>
+          </tr>
+          <tr>
+            <td className="w-60">Operator ID:</td>
+            <td>{data?.rechargeData?.opid || "-"}</td>
+          </tr>
+          <tr>
+            <td className="w-60">Operator</td>
+            <td>{data?.rechargeData?.rechargeOperator?.companyName || "-"}</td>
+          </tr>
+          <tr>
+            <td className="w-60">Amount</td>
+            <td>{data?.amount || 0}</td>
+          </tr>
+          <tr>
+            <td className="w-60">Date</td>
+            <td>
+              {moment(data?.created).format("DD/MM/yyyy hh:mm:ss" || "-")}
+            </td>
+          </tr>
+          <tr>
+            <td className="w-60">Account/Consumer/Customer/Number:</td>
+            <td>{data?.status || "-"}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 });
 

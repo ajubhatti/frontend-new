@@ -24813,12 +24813,26 @@ input::-webkit-inner-spin-button {
   display: none;
 }
 
- @media print {
-   #non-printable {
-     display: none;
-   }
+@media print {
+  #non_printable {
+    display: none;
+  }
 
-   #printable {
-     display: block;
-   }
- }
+  #printable {
+    display: block;
+  }
+}
+
+#invoice_card table {
+  border: 3px solid black;
+}
+
+#invoice_card td {
+  /* background: linear-gradient(to right, #0033FF, #3399FF); */
+  /* color: white; */
+  border: none !important
+}
+
+.noBorder {
+  border: none !important;
+}

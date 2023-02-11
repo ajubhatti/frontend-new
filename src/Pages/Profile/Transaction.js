@@ -15,7 +15,7 @@ const ProfileTransaction = () => {
   useEffect(() => {
     dispatch(
       getActivityData({
-        userId: user.id,
+        userId: user?.id,
       })
     );
   }, [dispatch, user]);

@@ -8,6 +8,8 @@ import CustomTable from "../../Components/Tables/CustomTable";
 import CustomDateRangePicker from "../../Components/DateRangePicker/CustomDateRangePicker";
 import { ExportToCsv } from "export-to-csv";
 import { toast } from "react-toastify";
+import { FaPrint } from "react-icons/fa";
+import InvoiceModal from "../../Components/Modal/invoiceModal";
 import {
   fetchAllUserTransactionList,
   setPageTransaction,
@@ -15,11 +17,6 @@ import {
   setSortFieldOfTransaction,
   setSortOrderOfTransaction,
 } from "./store/actions";
-
-import { TablePrintWithHook } from "../../Components/TablePrint/TablePrintWithHook";
-import { FaPrint } from "react-icons/fa";
-import Invoice from "../../common/Invoice";
-import InvoiceModal from "../../Components/Modal/invoiceModal";
 
 const options = {
   fieldSeparator: ",",
@@ -46,15 +43,16 @@ const TransactionHistory = () => {
     transactionListData,
   } = useSelector((state) => state.transactionReducer);
 
+  const [exportLoading, setExportLoading] = useState(false);
+  const [searchString, setSearchString] = useState("");
   const [isInvoiceModal, setIsInvoiceModal] = useState(false);
   const [invoiceData, setInvoiceData] = useState(null);
-
   const [dateRangeValue, setDateRangeValue] = useState({
     start: null,
     end: null,
   });
   const [payloadData, setPayloadData] = useState({
-    userId: user.id,
+    userId: user?.id,
     page: 1,
     limits: 20,
     sortBy: "created",
@@ -65,13 +63,11 @@ const TransactionHistory = () => {
     endDate: "", //"10-30-2022",
   });
 
-  const [searchString, setSearchString] = useState("");
-
   const columns = useMemo(
     () => [
       {
-        dataField: "no",
         text: "No.",
+        dataField: "no",
         headerStyle: (colum, colIndex) => ({
           width: "10%",
           textAlign: "center",
@@ -203,16 +199,7 @@ const TransactionHistory = () => {
           </div>
         ),
       },
-      {
-        text: "print",
-        dataField: "print",
-        sort: false,
-        formatter: (cell, row, rowIndex, formatExtraData) => (
-          <div onClick={() => printHandler(row)}>
-            <FaPrint />
-          </div>
-        ),
-      },
+
       {
         text: "status",
         dataField: "status",
@@ -240,6 +227,16 @@ const TransactionHistory = () => {
           </div>
         ),
       },
+      {
+        text: "print",
+        dataField: "print",
+        sort: false,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div>
+            <FaPrint onClick={() => printHandler(row)} />
+          </div>
+        ),
+      },
     ],
     [page, sizePerPage]
   );
@@ -264,7 +261,7 @@ const TransactionHistory = () => {
   useEffect(() => {
     setPayloadData((previousData) => ({
       ...previousData,
-      userId: user.id,
+      userId: user?.id,
       page: page,
       limits: sizePerPage,
       sortBy: "created",
@@ -272,11 +269,11 @@ const TransactionHistory = () => {
       skip: 0,
       search: "",
     }));
-  }, [sizePerPage, page, user.id]);
+  }, [sizePerPage, page, user?.id]);
 
   useEffect(() => {
     dispatch(fetchAllUserTransactionList(payloadData));
-  }, [payloadData, dispatch]);
+  }, [dispatch, payloadData]);
 
   const onTableChange = (type, { page, sizePerPage, sortField, sortOrder }) => {
     switch (type) {
@@ -296,8 +293,6 @@ const TransactionHistory = () => {
   const handleSearch = (e) => {
     setSearchString(e.target.value.trim());
   };
-
-  const [exportLoading, setExportLoading] = useState(false);
 
   const handleCSV = () => {
     try {
@@ -365,8 +360,8 @@ const TransactionHistory = () => {
         />
       </div> */}
       <div className="container space-2">
-        <div className="card-body p-4">
-          <div className="card" id="non-printable">
+        <div className="card" id="non_printable">
+          <div className="card-body p-4">
             <CustomTable
               showAddButton={false}
               pageOptions={pageOptions}
