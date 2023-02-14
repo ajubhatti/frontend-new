@@ -22,3 +22,7 @@
  border: 1px solid transparent;
    box-shadow: 0 1px 10px rgb(151 164 175 / 10%);
 }
+.inner-login-card a{
+  font-weight: 700;
+  
+}

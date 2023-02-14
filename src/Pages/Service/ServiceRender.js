@@ -79,7 +79,7 @@ const ServiceRender = (props) => {
                   ))}
                 </ul>
                 <h6 className="pt-4 px-4 mb-0">Booking </h6>
-                <ul className="nav secondary-nav alternate p-3 pb-0 booing-list">
+                <ul className="nav secondary-nav alternate p-3 pb-0 booing-list mb-2">
                   <li className="nav-item">
                     <div className="nav-link">
                       <AiOutlineHome />

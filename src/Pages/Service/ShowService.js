@@ -479,7 +479,7 @@ const ShowService = (props) => {
                   )}
                 </div>
                 {values?.operator !== "" && (
-                  <div className="col-lg-12">
+                  <div className="roffer-view-link">
                     <button
                       type="button"
                       className="ml-2 mr-2 btn"
