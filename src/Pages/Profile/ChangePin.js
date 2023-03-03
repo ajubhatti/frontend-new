@@ -42,6 +42,8 @@ const ChangePin = (props) => {
 
   const { user } = useSelector((state) => state.authReducer);
 
+  console.log({ user });
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -204,7 +206,9 @@ const ChangePin = (props) => {
                     Cancel
                   </button>
                 </div>
-                <span onClick={handleForgotPin}> Forgot Transaction Pin</span>
+                {user?.hasTransactionPin && (
+                  <span onClick={handleForgotPin}> Forgot Transaction Pin</span>
+                )}
               </div>
             </form>
           </div>

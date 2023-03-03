@@ -384,7 +384,7 @@ const TransactionHistory = () => {
                         className="form-control"
                         placeholder="search"
                         onChange={handleSearch}
-                      />
+                      />x
                     </div>
 
                     <CustomDateRangePicker
