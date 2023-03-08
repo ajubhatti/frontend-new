@@ -7,10 +7,12 @@ import userImg from "../../Assets/user.jpg";
 // import { FiChevronDown } from "react-icons/fi";
 import { BsWallet2 } from "react-icons/bs";
 import { BiRupee } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const isUser = getToken();
+  const { userData } = useSelector((state) => state.profileReducer);
 
   const Links = [
     // { title: "Home", link: routes.home },
@@ -116,7 +118,7 @@ const Header = () => {
                   ))}
                   <li  className="nav-item hs-has-mega-menu u-header__nav-item">
                     <div className="wallet-card">
-                    <span><BiRupee/> 200</span>
+                    <span>${userData?.walletBalance || 0}</span>
                     <BsWallet2  className="wallet-icon" />
                     </div>
                   </li>

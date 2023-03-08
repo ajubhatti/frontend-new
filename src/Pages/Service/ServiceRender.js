@@ -70,7 +70,7 @@ const ServiceRender = (props) => {
                         <span className="service-icons">
                           {/* <FontAwesomeIcon icon={item?.serviceImage} /> */}
                           <AiOutlineHome />
-                        </span>
+                        </span> 
                         <h5 className="service-iconsTitle mb-0">
                           {item.serviceName}
                         </h5>

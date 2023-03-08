@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { BrowserRouter } from "react-router-dom";
-import "./style.css";
 import "./responsive.css";
+import "./style.css";
 import "./Assets/css/style.css";
 const Loader = React.lazy(() => import("./Components/Loader"));
 const Full = React.lazy(() => import("./Helper/Full"));

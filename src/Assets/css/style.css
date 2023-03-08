@@ -89,3 +89,41 @@
 .invoice-table td{
   border-bottom: #e7eaf3 !important;
 }
+.wallet-search-heading{
+display: flex;
+align-items: flex-end;
+gap: 0 20px;
+margin-bottom: 25px;
+}
+.wallet-search-heading .wallet-common-btn{
+  font-size: 14px;
+    line-height: 18px;
+    padding: 5px 12px;
+    font-weight: 400;
+}
+.main-table table thead tr th{
+  font-size: 14px;
+color: #333;
+line-height: 18px;
+padding: 4px;
+text-align: center; 
+}
+.main-table table thead tr th .sort-arrows img{
+ width: 8px;
+ height: 12px;
+}
+.main-table table thead{
+  background-color: #ededed;
+}
+.add-money-btn{  
+display: flex !important;
+padding: 10px 10px;
+width: 100%;
+min-width: 120px;
+font-size: 14px !important;
+font-weight: 700 !important;
+justify-content: space-between !important;
+}
+.add-money-btn svg{
+  font-size: 22px;
+}

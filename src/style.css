@@ -1641,12 +1641,12 @@ pre code {
   border-top: 1px solid #e7eaf3;
 }
 
-.table thead th {
+/* .table thead th {
   vertical-align: bottom;
   border-bottom: 2px solid #e7eaf3;
   width: 100px;
   min-width: 100px;
-}
+} */
 
 .table tbody + tbody {
   border-top: 2px solid #e7eaf3;

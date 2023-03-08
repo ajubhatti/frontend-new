@@ -52,14 +52,14 @@ const CustomBootstrapTable = ({
               <span className="sort-arrows cursor-pointer">
                 {!!order ? (
                   order === "desc" ? (
-                    <img src={down} alt="down" />
+                    <img src={down} alt="down" className="img-fluid" />
                   ) : (
-                    <img src={up} alt="up" />
+                    <img src={up} alt="up" className="img-fluid" />
                   )
                 ) : (
                   <>
-                    <img src={up} alt="up" />
-                    <img src={down} alt="down" />
+                    <img src={up} alt="up" className="img-fluid" />
+                    <img src={down} alt="down" className="img-fluid" />
                   </>
                 )}
               </span>
@@ -94,10 +94,10 @@ const CustomBootstrapTable = ({
               selectRow={selectRow}
               hover
               defaultSorted={defaultSorted}
-              classes={`table align-middle table-nowrap table-check ${
+              classes={`align-middle table-nowrap table-check ${
                 bordered ? "table-bordered" : ""
               }`}
-              headerWrapperClasses={`${light ? "table-light" : ""}`}
+              // headerWrapperClasses={`${light ? "table-light" : ""}`}
               noDataIndication={() => <NoDataIndiCation loading={loading} />}
               loading={loading}
             />
@@ -127,9 +127,9 @@ const Table = ({
 }) => {
   return (
     <>
-      <div className="d-flex flex-column flex-md-row align-items-start align-items-md-center gap-2 mb-3">
+      <div className="">
         <h4 className="m-0">{tableTitle}</h4>
-        <div className="d-flex align-items-center justify-content-start justify-content-md-end flex-grow-1 gap-2 flex-wrap">
+        <div className="">
           {showSearch && (
             <div className="position-relative search-box m-0 min-w-150">
               <input
@@ -212,7 +212,7 @@ const withPagination =
             <div className="d-flex mt-2">
               <div className="d-flex align-items-center">
                 <span className="me-2 d-none d-md-block ">
-                  Records Per Page:{" "}
+                  Records Per Page:
                 </span>
                 <SizePerPageDropdownStandalone {...paginationProps} />
               </div>
@@ -229,14 +229,14 @@ const withPagination =
                     : paginationProps.totalSize}
                 </span>
                 <button
-                  className="btn-prev"
+                  className="btn-prev btn btn-sm"
                   disabled={paginationProps.page === 1}
                   onClick={() => handlePrevPage(paginationProps)}
                 >
                   &lt;
                 </button>
                 <button
-                  className="btn-next"
+                  className="btn-next btn btn-sm"
                   onClick={() => handleNextPage(paginationProps)}
                   disabled={
                     paginationProps.page * paginationProps.sizePerPage >=

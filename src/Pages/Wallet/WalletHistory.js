@@ -285,7 +285,7 @@ const WalletHistory = () => {
       <Menu />
       <div className="container space-2">
         <div className="card">
-          <div className="card-body p-4">
+          <div className="card-body">
             <CustomTable
               showAddButton={false}
               pageOptions={pageOptions}
@@ -298,10 +298,8 @@ const WalletHistory = () => {
               loading={walletLoading}
               withCard={false}
             >
-              <div className="position-relative">
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <div className="me-2">
+              <div className="wallet-search-heading">
+                    <div className="">
                       <label>Search</label>
                       <input
                         type="text"
@@ -310,34 +308,28 @@ const WalletHistory = () => {
                         onChange={handleSearch}
                       />
                     </div>
-
                     <CustomDateRangePicker
                       rangeDate={dateRangeValue}
                       setRangeDate={setDateRangeValue}
                     />
-
-                    <div className="me-2 d-flex align-items-end">
+                    <div className="">
                       <button
-                        className={`btn btn-secondary ${
+                        className={`btn btn-secondary btn-md wallet-common-btn me-2${
                           exportLoading ? "disabled" : ""
                         }`}
                         onClick={handleFilterData}
                       >
                         Find
                       </button>
-                    </div>
-                  </div>
-                  <div className="me-2 d-flex align-items-end">
-                    <button
-                      className={`btn btn-secondary ${
+                      <button
+                      className={`btn btn-secondary btn-md wallet-common-btn ${
                         exportLoading ? "disabled" : ""
                       }`}
                       onClick={handleCSV}
                     >
                       {exportLoading ? "Exporting.." : "Export CSV"}
                     </button>
-                  </div>
-                </div>
+                    </div>
               </div>
             </CustomTable>
           </div>

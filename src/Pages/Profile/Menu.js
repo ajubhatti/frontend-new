@@ -130,12 +130,12 @@ const Menu = (props) => {
               </div>
             </div>
 
-            <div className="ml-lg-auto">
+            <div className="">
               <button
-                className="btn btn-sm btn-soft-white text-nowrap transition-3d-hover d-flex align-items-center justify-content-center"
+                className="btn btn-sm btn-primary add-money-btn"
                 onClick={buttonHandler}
               >
-                <Plus className="mr-1" style={{ fontSize: "22px" }} />
+                <Plus />
                 Add Money
               </button>
             </div>
