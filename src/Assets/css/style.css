@@ -105,7 +105,7 @@ margin-bottom: 25px;
   font-size: 14px;
 color: #333;
 line-height: 18px;
-padding: 4px;
+padding: 10px 4px;
 text-align: center; 
 }
 .main-table table thead tr th .sort-arrows img{
@@ -117,7 +117,7 @@ text-align: center;
 }
 .add-money-btn{  
 display: flex !important;
-padding: 10px 10px;
+padding: 10px 10px !important;
 width: 100%;
 min-width: 120px;
 font-size: 14px !important;
