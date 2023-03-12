@@ -110,7 +110,7 @@
     align-items: center;
     justify-content:center;
 } */
-.service-icons svg{
+.service-icons i{
     font-size: 24px;
     margin-bottom: 5px;
     font-weight: 700;
