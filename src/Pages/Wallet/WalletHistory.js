@@ -299,37 +299,37 @@ const WalletHistory = () => {
               withCard={false}
             >
               <div className="wallet-search-heading">
-                    <div className="">
-                      <label>Search</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="search"
-                        onChange={handleSearch}
-                      />
-                    </div>
-                    <CustomDateRangePicker
-                      rangeDate={dateRangeValue}
-                      setRangeDate={setDateRangeValue}
-                    />
-                    <div className="">
-                      <button
-                        className={`btn btn-secondary btn-md wallet-common-btn me-2${
-                          exportLoading ? "disabled" : ""
-                        }`}
-                        onClick={handleFilterData}
-                      >
-                        Find
-                      </button>
-                      <button
-                      className={`btn btn-secondary btn-md wallet-common-btn ${
-                        exportLoading ? "disabled" : ""
-                      }`}
-                      onClick={handleCSV}
-                    >
-                      {exportLoading ? "Exporting.." : "Export CSV"}
-                    </button>
-                    </div>
+                <div className="">
+                  <label>Search</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="search"
+                    onChange={handleSearch}
+                  />
+                </div>
+                <CustomDateRangePicker
+                  rangeDate={dateRangeValue}
+                  setRangeDate={setDateRangeValue}
+                />
+                <div className="">
+                  <button
+                    className={`btn btn-secondary btn-md wallet-common-btn me-2${
+                      exportLoading ? "disabled" : ""
+                    }`}
+                    onClick={handleFilterData}
+                  >
+                    Find
+                  </button>
+                  <button
+                    className={`btn btn-secondary btn-md wallet-common-btn ${
+                      exportLoading ? "disabled" : ""
+                    }`}
+                    onClick={handleCSV}
+                  >
+                    {exportLoading ? "Exporting.." : "Export CSV"}
+                  </button>
+                </div>
               </div>
             </CustomTable>
           </div>

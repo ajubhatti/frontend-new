@@ -199,7 +199,6 @@ const PaymentDetail = (props) => {
         <button
           type="Submit"
           className="btn btn-primary transition-3d-hover mr-1"
-          // onClick={() => saveAndContinue()}
         >
           Submit
         </button>

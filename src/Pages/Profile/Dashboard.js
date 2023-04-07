@@ -77,7 +77,7 @@ const ProfileDashboard = (props) => {
                     </span>
                     <div className="media-body">
                       <h3 className="d-block font-size-3 mb-2">
-                        ${userData?.pendingAmount || 0}
+                        ${userData?.pendingBalance || 0}
                       </h3>
                       <p className="h6 text-secondary font-weight-normal mb-0">
                         Pending balance

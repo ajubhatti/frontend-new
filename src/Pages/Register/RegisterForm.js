@@ -16,7 +16,7 @@ const initialValues = {
   email: "",
   password: "",
   ConformPassword: "",
-  referrelId: "",
+  referralId: "",
 };
 
 // const phoneRegExp =
@@ -41,7 +41,8 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Email format is not valid!")
     .required("Email is required!"),
-  password: Yup.string().required("Password is required!")
+  password: Yup.string()
+    .required("Password is required!")
     .min(6, "Password is must be greater than 6 digits")
     .max(20, "Password is too big."),
   ConformPassword: Yup.string()
@@ -100,7 +101,7 @@ const RegisterForm = (props) => {
           pincode: values.pincode,
           email: values.email,
           password: values.password,
-          referrelId: values.referrelId,
+          referralId: values.referralId,
         };
         await props.register(payload).then((res) => {
           toast.success(res.message);
@@ -125,17 +126,13 @@ const RegisterForm = (props) => {
       submitHandler(values);
     },
   });
-const loadingHandler = () =>{
-  
+  const loadingHandler = () => {
     setLoading(true);
-    setTimeout(function(){ 
+    setTimeout(function () {
       setLoading(false);
-     
     }, 5000);
-
-}
+  };
   return (
-   
     <form
       onSubmit={formik.handleSubmit}
       name="register-form"
@@ -148,8 +145,8 @@ const loadingHandler = () =>{
         <input
           type="text"
           placeholder="XXXXXX"
-          name="referrelId"
-          value={formik.values.referrelId}
+          name="referralId"
+          value={formik.values.referralId}
           onChange={referCodeChangeHandler}
           className="form-control"
         />
@@ -368,15 +365,14 @@ const loadingHandler = () =>{
             className="btn btn-primary btn-md"
             // onClick={(e) => submitHandler(e)}
             disabled={apiCall}
-            onClick={ loadingHandler}
+            onClick={loadingHandler}
           >
-            {isLoading ? <ClickLoading /> : <span> Submit</span> }
+            {isLoading ? <ClickLoading /> : <span> Submit</span>}
             {/* Submit */}
           </button>
         </div>
       </div>
     </form>
-      
   );
 };
 

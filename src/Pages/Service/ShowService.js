@@ -255,6 +255,8 @@ const ShowService = (props) => {
   };
 
   const handleRecharge = () => {
+    console.log("call----");
+
     dispatch(
       doMyRecharge(values, (status) => {
         if (status) {
@@ -279,11 +281,11 @@ const ShowService = (props) => {
 
   const handleContinue = () => {
     if (!!user?.hasTransactionPin) {
-      requestValidate(values);
       if (requestValidate(values)) {
         if (!isUser) {
           setIsLoginModalShow(true);
         } else {
+          console.log({ user });
           if (user.walletBalance > 0 || user.walletBalance > values?.amount) {
             // if (user.transactionPin) {
             setSubmitted(true);
