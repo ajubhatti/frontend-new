@@ -8,17 +8,19 @@ import MakeItRain from "../../Assets/makeItRain.svg";
 import { getUser } from "../../Helper/LocalStorage";
 import { toast } from "react-toastify";
 
-// import {
-//   FacebookShareButton,
-//   LinkedinShareButton,
-//   TwitterShareButton,
-//   WhatsappShareButton,
-// } from "react-share";
+import {
+  FacebookShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
 
-import FacebookIcon from "../../Assets/facebook_icon.png";
-import LinkedInIcon from "../../Assets/linkedin_icon.png";
-import TwitterIcon from "../../Assets/twitter_icon.png";
-import WhatsAppIcon from "../../Assets/whatsapp_icon.png";
+import {
+  WhatsappIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  FacebookIcon,
+} from "react-share";
 
 const sharedMsg =
   "Sign up for an account and we both get 10$ free credits. Use this referral code\n";
@@ -37,67 +39,47 @@ const Refer = (props) => {
     getReferCode();
   }, [props]);
 
-  // const shareInviteVia = (pathUrl) => [
-  //   <TwitterShareButton
-  //     windowWidth={800}
-  //     windowHeight={800}
-  //     url={pathUrl}
-  //     title={sharedMsg}
-  //     key={"Twitter"}
-  //     className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
-  //   >
-  //     <img
-  //       alt="Twitter"
-  //       className="img-fluid rounded-circle"
-  //       src={TwitterIcon}
-  //     />
-  //   </TwitterShareButton>,
-  //   <LinkedinShareButton
-  //     windowWidth={800}
-  //     windowHeight={800}
-  //     url={pathUrl}
-  //     title={sharedMsg}
-  //     summary={sharedMsg}
-  //     key={"LinkedIn"}
-  //     className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
-  //   >
-  //     <img
-  //       alt="LinkedIn"
-  //       className="img-fluid rounded-circle"
-  //       src={LinkedInIcon}
-  //     />
-  //   </LinkedinShareButton>,
-  //   <WhatsappShareButton
-  //     windowWidth={800}
-  //     windowHeight={800}
-  //     url={pathUrl}
-  //     title={sharedMsg}
-  //     separator=""
-  //     key={"WhatsApp"}
-  //     className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
-  //   >
-  //     <img
-  //       alt="WhatsApp"
-  //       className="img-fluid rounded-circle"
-  //       src={WhatsAppIcon}
-  //     />
-  //   </WhatsappShareButton>,
-  //   <FacebookShareButton
-  //     windowWidth={800}
-  //     windowHeight={800}
-  //     url={pathUrl}
-  //     quote={sharedMsg}
-  //     description={sharedMsg}
-  //     key={"Facebook"}
-  //     className="btn btn-sm btn-icon btn-soft-secondary rounded-circle"
-  //   >
-  //     <img
-  //       alt="Facebook"
-  //       className="img-fluid rounded-circle"
-  //       src={FacebookIcon}
-  //     />
-  //   </FacebookShareButton>,
-  // ];
+  const shareInviteVia = (pathUrl) => [
+    <TwitterShareButton
+      windowWidth={800}
+      windowHeight={800}
+      url={pathUrl}
+      title={sharedMsg}
+      key={"Twitter"}
+    >
+      <TwitterIcon size={32} round={true} />
+    </TwitterShareButton>,
+    <LinkedinShareButton
+      windowWidth={800}
+      windowHeight={800}
+      url={pathUrl}
+      title={sharedMsg}
+      summary={sharedMsg}
+      key={"LinkedIn"}
+    >
+      <LinkedinIcon size={32} round={true} />
+    </LinkedinShareButton>,
+    <WhatsappShareButton
+      windowWidth={800}
+      windowHeight={800}
+      url={pathUrl}
+      title={sharedMsg}
+      separator=""
+      key={"WhatsApp"}
+    >
+      <WhatsappIcon size={32} round={true} />
+    </WhatsappShareButton>,
+    <FacebookShareButton
+      windowWidth={800}
+      windowHeight={800}
+      url={pathUrl}
+      quote={sharedMsg}
+      description={sharedMsg}
+      key={"Facebook"}
+    >
+      <FacebookIcon size={32} round={true} />
+    </FacebookShareButton>,
+  ];
 
   return (
     <>
@@ -133,7 +115,7 @@ const Refer = (props) => {
                 Copy or share your referral link with friends
               </small>
               <ul className="list-inline mt-3">
-                {/* {shareInviteVia(window.location.origin).map(
+                {shareInviteVia(window.location.origin).map(
                   (platform, index) => {
                     return (
                       <li className="list-inline-item" key={index}>
@@ -141,7 +123,7 @@ const Refer = (props) => {
                       </li>
                     );
                   }
-                )} */}
+                )}
               </ul>
             </div>
           </div>
@@ -151,54 +133,50 @@ const Refer = (props) => {
         <div className="container">
           <div className="row">
             <div className="col-md-4">
-          <div className="card">
+              <div className="card">
                 <img src={Analysis} alt="analysis"></img>
-          <div className="card-body">
-              <div className="iconBox">
-                <h5>Refer friends</h5>
-                <p>
-                  Send referrals to your friends either here or in your app.
-                </p>
+                <div className="card-body">
+                  <div className="iconBox">
+                    <h5>Refer friends</h5>
+                    <p>
+                      Send referrals to your friends either here or in your app.
+                    </p>
+                  </div>
+                </div>
               </div>
-          </div>
-          </div>
             </div>
             <div className="col-md-4">
-            <div className="card">
+              <div className="card">
                 <img src={InTheOffice} alt="InTheOffice"></img>
-            <div className="card-body">
-              <div className="iconBox">
-                <h5>Follow along</h5>
-                <p>
-                  Follow your friend's progress and send encouraging messages
-                  along the way.
-                </p>
+                <div className="card-body">
+                  <div className="iconBox">
+                    <h5>Follow along</h5>
+                    <p>
+                      Follow your friend's progress and send encouraging
+                      messages along the way.
+                    </p>
+                  </div>
+                </div>
               </div>
-
-            </div>
-
-            </div>
             </div>
             <div className="col-md-4">
-            <div className="card">
+              <div className="card">
                 <img src={MakeItRain} alt="MakeItRain"></img>
-            <div className="card-body">
-              <div className="iconBox">
-                <h5>Get paid</h5>
-                <p>
-                  When your friend starts building, you'll get paid after their
-                  first task completion.
-                </p>
+                <div className="card-body">
+                  <div className="iconBox">
+                    <h5>Get paid</h5>
+                    <p>
+                      When your friend starts building, you'll get paid after
+                      their first task completion.
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-            </div>
             </div>
           </div>
         </div>
       </section>
-
     </>
-   
   );
 };
 
