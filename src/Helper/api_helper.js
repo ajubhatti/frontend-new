@@ -2,6 +2,7 @@ import axios from "axios";
 import { get, set } from "./cookie_helper.js";
 import store from "../Redux/store";
 import { setToken } from "../Redux/Actions/Auth/actions.js";
+import { getToken } from "./LocalStorage.js";
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -10,7 +11,8 @@ const axiosApi = axios.create({
 });
 
 const requestMiddleware = (req) => {
-  const token = get("token");
+  // const token = get("token");
+const token = getToken();
   if (!!token)
     req.headers.authorization = token.startsWith("Bearer ")
       ? token

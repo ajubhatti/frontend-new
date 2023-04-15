@@ -1,4 +1,4 @@
-import { configData } from "..";
+import { configData, config } from "..";
 import { fetchUrl } from "../fetchUrl";
 import { profile } from "./apiList";
 

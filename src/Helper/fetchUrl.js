@@ -35,9 +35,11 @@ const ACTION_HANDLERS = {
 
 export const setHeaders = (contentType, authToken) => {
   // set Login token
+  console.log(authToken);
   if (authToken) {
     const token = getToken();
     if (token) {
+      console.log("come");
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     } else {
       delete axios.defaults.headers.common.Authorization;
@@ -102,6 +104,8 @@ export const fetchUrl = (
   data,
   { authToken = true, fetchBaseResponse = false, contentType }
 ) => {
+
+  console.log(authToken);
   setHeaders(contentType, authToken);
   if (data && !data.shouldRefetch) {
     if (type.toUpperCase() === "GET") {
