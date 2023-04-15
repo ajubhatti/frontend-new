@@ -24,6 +24,7 @@ import LocalStorage, {
   getUser,
   localStorageKey,
 } from "../../../Helper/LocalStorage";
+import { axiosApi } from "../../../Helper/api_helper";
 
 const getUserData = getUser();
 
@@ -33,7 +34,7 @@ const API_URL = process.env.REACT_APP_FETCH_URL;
 export const fetchProfile = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
-    const res = await axios.post(API_URL + auth.getUserById.url, payload);
+    const res = await axiosApi.post(API_URL + auth.getUserById.url, payload);
 
     if (res.data?.data) {
       const resData = res.data ? Crypto.encrypt(res.data.data) : null;
@@ -176,7 +177,7 @@ export const walletBalanceUpdate = (payload, cb) => async (dispatch) => {
 export const getActivityData = (payload) => async (dispatch) => {
   try {
     dispatch(getActiveLogLoading(true));
-    const res = await axios.post(API_URL + auth.transactions.url, payload);
+    const res = await axiosApi.post(API_URL + auth.transactions.url, payload);
     if (res) {
       // toast.success(res);
       dispatch(getActiveLog(res.data.data));

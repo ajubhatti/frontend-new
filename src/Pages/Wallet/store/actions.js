@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify";
 import { getPlanDetails } from "../../../Helper/fetch_helper/service";
+import { axiosApi } from "../../../Helper/api_helper";
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
 // const API_URL = "https://api.badipay.co.in"
@@ -28,7 +29,7 @@ export const fetchAllUserWalletList = (payload,cb) => async (dispatch) => {
     if(!cb){
       dispatch(setWalletLoading(true));
     }
-    const res = await axios.post(
+    const res = await axiosApi.post(
       API_URL + profile.walletTransactionByUserId.url,
       payload
     );

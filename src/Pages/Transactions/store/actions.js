@@ -10,6 +10,7 @@ import {
   SET_SORT_FIELD_TRANSACTION,
   SET_SORT_ORDER_TRANSACTION,
 } from "./actionTypes";
+import { axiosApi } from "../../../Helper/api_helper";
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
 
@@ -19,7 +20,7 @@ export const fetchAllUserTransactionList =
       if (!cb) {
         dispatch(setTransactionLoading(true));
       }
-      const res = await axios.post(API_URL + auth.transactions.url, payload);
+      const res = await axiosApi.post(API_URL + auth.transactions.url, payload);
       if (res) {
         if (!cb) {
           dispatch(setAllTransactionList(res?.data?.data));
