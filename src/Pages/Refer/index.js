@@ -25,9 +25,10 @@ import {
 const sharedMsg =
   "Sign up for an account and we both get 10$ free credits. Use this referral code\n";
 
+
 const Refer = (props) => {
   const [code, setCode] = useState([]);
-
+  const url = `http://badipay.co.in/register?token=${code}`;
   useEffect(() => {
     const userDetails = getUser();
     const getReferCode = async () => {
@@ -35,15 +36,16 @@ const Refer = (props) => {
         setCode(res.data.referralCode);
       });
     };
-
     getReferCode();
+    
   }, [props]);
 
-  const shareInviteVia = (pathUrl) => [
+  
+  const shareInviteVia = () => [
     <TwitterShareButton
       windowWidth={800}
       windowHeight={800}
-      url={pathUrl}
+      url={url}
       title={sharedMsg}
       key={"Twitter"}
     >
@@ -52,7 +54,7 @@ const Refer = (props) => {
     <LinkedinShareButton
       windowWidth={800}
       windowHeight={800}
-      url={pathUrl}
+      url={url}
       title={sharedMsg}
       summary={sharedMsg}
       key={"LinkedIn"}
@@ -62,7 +64,7 @@ const Refer = (props) => {
     <WhatsappShareButton
       windowWidth={800}
       windowHeight={800}
-      url={pathUrl}
+      url={url}
       title={sharedMsg}
       separator=""
       key={"WhatsApp"}
@@ -72,7 +74,7 @@ const Refer = (props) => {
     <FacebookShareButton
       windowWidth={800}
       windowHeight={800}
-      url={pathUrl}
+      url={url}
       quote={sharedMsg}
       description={sharedMsg}
       key={"Facebook"}
@@ -115,7 +117,7 @@ const Refer = (props) => {
                 Copy or share your referral link with friends
               </small>
               <ul className="list-inline mt-3">
-                {shareInviteVia(window.location.origin).map(
+                {shareInviteVia().map(
                   (platform, index) => {
                     return (
                       <li className="list-inline-item" key={index}>
