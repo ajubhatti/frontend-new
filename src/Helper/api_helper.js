@@ -11,13 +11,13 @@ const axiosApi = axios.create({
 });
 
 const requestMiddleware = (req) => {
-  // const token = get("token");
-const token = getToken();
-  if (!!token)
+  const token = getToken();
+  if (!!token) {
     req.headers.authorization = token.startsWith("Bearer ")
       ? token
       : "Bearer " + token;
-  req.headers.AuthToken = token.startsWith("Bearer ") ? token : token;
+    req.headers.AuthToken = token.startsWith("Bearer ") ? token : token;
+  }
 
   return req;
 };

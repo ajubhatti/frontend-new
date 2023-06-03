@@ -106,28 +106,25 @@ const LoginForm = (props) => {
       </div>
 
       <div className="login-card">
-      <div className="inner-login-card">
+        <div className="inner-login-card">
           <span className="small text-muted">Don't have an account?</span>
           <Link to={routes.register} className="ml-1 small">
-            Signup
+            Sign Up
           </Link>
-      </div>
-          <Link
-              to={routes.forgot}
-              className="text-capitalize forget-link"
-            >
-              Forgot Password?
-            </Link>
+        </div>
+        <Link to={routes.forgot} className="text-capitalize forget-link">
+          Forgot Password?
+        </Link>
       </div>
       <div className="text-start">
-          <button
-            type="submit"
-            className="btn btn-primary btn-md"
-            disabled={apiCall}
-          >
-            Login
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="btn btn-primary btn-md"
+          disabled={apiCall}
+        >
+          Login
+        </button>
+      </div>
     </form>
   );
 };

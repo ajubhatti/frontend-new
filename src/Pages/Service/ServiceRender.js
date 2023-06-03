@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ShowService from "./ShowService";
 import { getStateList } from "../../Redux/Actions/Auth/actions";
 import "./service.css";
+import { icons } from "react-icons";
 
 const ServiceRender = (props) => {
   const dispatch = useDispatch();
@@ -39,41 +40,51 @@ const ServiceRender = (props) => {
     {
       id: "61ec45cad38e1298b77f7afa",
       icon: <i className="fa-solid fa-tv"></i>,
-    },{
-        id: "61ec4894fbbbc598502443b8",
-        icon: <i className="fa-solid fa-bolt"></i>, 
-    },{
-      id:"61ec43f29fdd23388b42960a",
+    },
+    {
+      id: "61ec4894fbbbc598502443b8",
+      icon: <i className="fa-solid fa-bolt"></i>,
+    },
+    {
+      id: "61ec43f29fdd23388b42960a",
       icon: <i className="fa-solid fa-tower-broadcast"></i>,
-    },{
-      id:"61ec48b1fbbbc598502443bb",
-      icon: <i className="fa-solid fa-truck-fast"></i>,  
-    },{
+    },
+    {
+      id: "61ec48b1fbbbc598502443bb",
+      icon: <i className="fa-solid fa-truck-fast"></i>,
+    },
+    {
       id: "61ec48d8fbbbc598502443be",
       icon: <i className="fa-solid fa-mask-ventilator"></i>,
-    },{
+    },
+    {
       id: "61ec48f0fbbbc598502443c1",
       icon: <i className="fa-solid fa-computer"></i>,
-    },{
-        id: "632cc67a55bbb2802f1806ea",
-        icon: <i className="fa-solid fa-house-crack"></i>,
-    },{
-      id:"632cca4e55bbb2802f18073e",
-      icon:<i className="fa-solid fa-faucet-drip"></i>,
-    },{
-      id:"632cca6055bbb2802f180742",
-      icon:<i className="fa-solid fa-land-mine-on"></i>,
-    },{
+    },
+    {
+      id: "632cc67a55bbb2802f1806ea",
+      icon: <i className="fa-solid fa-house-crack"></i>,
+    },
+    {
+      id: "632cca4e55bbb2802f18073e",
+      icon: <i className="fa-solid fa-faucet-drip"></i>,
+    },
+    {
+      id: "632cca6055bbb2802f180742",
+      icon: <i className="fa-solid fa-land-mine-on"></i>,
+    },
+    {
       id: "632cca7855bbb2802f180747",
       icon: <i className="fa-brands fa-usps"></i>,
-
-    },{
+    },
+    {
       id: "632cca8555bbb2802f18074d",
-      icon:<i className="fa-solid fa-chart-area"></i>,
-    },{
-      id:"632ccad455bbb2802f180751",
-      icon:<i className="fa-brands fa-google"></i>,
-    }
+      icon: <i className="fa-solid fa-chart-area"></i>,
+    },
+    {
+      id: "632ccad455bbb2802f180751",
+      icon: <i className="fa-brands fa-google"></i>,
+    },
   ];
 
   return (
@@ -87,47 +98,50 @@ const ServiceRender = (props) => {
                 <h6 className="pt-3 px-4 mb-0">Recharge & Bill payment</h6>
                 <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
                   {serviceList.map((item) => (
-                      <li
-                        key={item._id}
-                        className={
-                          selectedServiceTab._id === item._id
-                            ? "nav-item active"
-                            : "nav-item Inactive"
-                        }
-                        onClick={() => {
-                          setSelectedService(item);
-                          setSelectedServiceTab({
-                            id: item._id,
-                            title: item.serviceName,
-                          });
-                        }}
+                    <li
+                      key={item?._id}
+                      className={
+                        selectedServiceTab?._id === item?._id
+                          ? "nav-item active"
+                          : "nav-item Inactive"
+                      }
+                      onClick={() => {
+                        setSelectedService(item);
+                        setSelectedServiceTab({
+                          id: item?._id,
+                          title: item?.serviceName,
+                        });
+                      }}
+                    >
+                      <div
+                        className="nav-link"
+                        // selectedServiceTab._id === item._id
+                        //   ? "nav-link active"
+                        //   : "nav-link"
+                        // }
                       >
-                        <div
-                          className="nav-link"
-                          // selectedServiceTab._id === item._id
-                          //   ? "nav-link active"
-                          //   : "nav-link"
-                          // }
-                        >
-                          <span className="service-icons">
-                            {userIcon.map((icons) => {
-                              if (icons.id == item._id) {
-                                return icons.icon;
-                              }
-                            })}
-                          </span>
-                          <h5 className="service-iconsTitle mb-0">
-                            {item.serviceName}
-                          </h5>
-                        </div>
-                      </li>
+                        <span className="service-icons">
+                          {userIcon.map((icons) => {
+                            if (icons.id == item._id) {
+                              return <span key={icons.id}>{icons.icon}</span>;
+                            }
+                          })}
+                        </span>
+                        <h5 className="service-iconsTitle mb-0">
+                          {item.serviceName}
+                        </h5>
+                      </div>
+                    </li>
                   ))}
                 </ul>
                 <h6 className="pt-4 px-4 mb-0">Booking </h6>
                 <ul className="nav secondary-nav alternate p-3 pb-0 booing-list mb-2">
                   <li className="nav-item">
                     <div className="nav-link">
-                    <i className="fa-solid fa-ticket" style={{fontSize: "24px"}}></i>
+                      <i
+                        className="fa-solid fa-ticket"
+                        style={{ fontSize: "24px" }}
+                      ></i>
                       <h5 className="service-iconsTitle mb-0">
                         Ticket Booking
                       </h5>

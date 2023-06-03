@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import VectorImg from "../../Assets/vector.png";
-import LocalStorage from "../../Helper/LocalStorage";
+import LocalStorage, { getToken } from "../../Helper/LocalStorage";
 import LoginForm from "./LoginForm";
 import "./style.css";
 
 const Login = (props) => {
+  const isUser = getToken();
   useEffect(() => {
     LocalStorage.clean();
+    if (isUser) window.location.reload(false);
   }, []);
 
   return (

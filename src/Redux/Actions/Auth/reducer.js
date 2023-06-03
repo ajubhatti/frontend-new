@@ -8,6 +8,10 @@ import {
   SET_IS_AUTH,
   SET_STATE_DATA,
   SET_USER_DETAIL,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
 } from "./actionTypes";
 
 const initialState = {
@@ -38,6 +42,7 @@ const authReducer = produce((state = initialState, action) => {
       state.user = null;
       state.token = "";
       state.isAuth = false;
+      state.isLoggedIn = false;
       break;
     case SET_LOADING:
       state.loading = payload;
@@ -51,6 +56,32 @@ const authReducer = produce((state = initialState, action) => {
     case SET_USER_DETAIL:
       state.userDetails = payload;
       break;
+    // ====================================
+    case REGISTER_SUCCESS:
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
+    case REGISTER_FAIL:
+      return {
+        ...state,
+        isLoggedIn: false,
+      };
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+        isLoggedIn: true,
+        user: payload.user,
+      };
+    case LOGIN_FAIL:
+      return {
+        ...state,
+        isLoggedIn: false,
+        user: null,
+      };
+
+    // ====================================
+
     default:
       return state;
   }

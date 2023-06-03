@@ -12,7 +12,7 @@ const Carousel = (props) => {
       if (autoplay) {
         nextSlide();
       }
-    }, 1000);
+    }, 100);
     return () => clearInterval(intervalId);
   }, [autoplay]);
 

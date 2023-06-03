@@ -53,7 +53,7 @@ const WalletHistory = () => {
     page: 1,
     limits: 25,
     sortBy: "created",
-    orderBy: "desc",
+    orderBy: "DESC",
     skip: 0,
     search: "",
     startDate: "", //"10-15-2022",
@@ -67,7 +67,6 @@ const WalletHistory = () => {
       {
         text: "No.",
         dataField: "no",
-
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle">
             {sizePerPage * (page - 1) + rowIndex + 1}
@@ -200,15 +199,10 @@ const WalletHistory = () => {
   useEffect(() => {
     setPayloadData((previousData) => ({
       ...previousData,
-      userId: user?.id,
       page: page,
       limits: sizePerPage,
-      sortBy: "created",
-      orderBy: "desc",
-      skip: 0,
-      search: "",
     }));
-  }, [sizePerPage, page, user?.id]);
+  }, [sizePerPage, page]);
 
   useEffect(() => {
     dispatch(fetchAllUserWalletList(payloadData));

@@ -67,12 +67,12 @@ const Otp = (props) => {
             />
           </div>
           <div
-            className="btn btn-primary btn-pill transition-3d-hover px-5"
+            className="btn btn-primary btn-pill px-5"
             onClick={(e) => submitHandler()}
           >
             Continue
           </div>
-          <div>
+          <div className="m-2">
             <small onClick={resendOtp} className="pointer">
               Resend OTP
             </small>

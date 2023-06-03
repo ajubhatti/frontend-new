@@ -134,7 +134,12 @@ const Refer = (props) => {
           <div className="row">
             <div className="col-md-4">
               <div className="card">
-                <img src={Analysis} alt="analysis"></img>
+                <img
+                  src={Analysis}
+                  alt="analysis"
+                  height={250}
+                  className="m-2"
+                ></img>
                 <div className="card-body">
                   <div className="iconBox">
                     <h5>Refer friends</h5>
@@ -147,7 +152,12 @@ const Refer = (props) => {
             </div>
             <div className="col-md-4">
               <div className="card">
-                <img src={InTheOffice} alt="InTheOffice"></img>
+                <img
+                  src={InTheOffice}
+                  alt="InTheOffice"
+                  height={250}
+                  className="m-2"
+                ></img>
                 <div className="card-body">
                   <div className="iconBox">
                     <h5>Follow along</h5>
@@ -161,7 +171,12 @@ const Refer = (props) => {
             </div>
             <div className="col-md-4">
               <div className="card">
-                <img src={MakeItRain} alt="MakeItRain"></img>
+                <img
+                  src={MakeItRain}
+                  alt="MakeItRain"
+                  height={250}
+                  className="m-2"
+                ></img>
                 <div className="card-body">
                   <div className="iconBox">
                     <h5>Get paid</h5>

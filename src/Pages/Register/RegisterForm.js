@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Form from "../../Components/Form";
 import routes from "../../Helper/routes";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
@@ -350,27 +349,21 @@ const RegisterForm = (props) => {
         </div>
       </div>
 
-      <div className="row align-items-center mb-3">
-        <div className="col-8">
-          <span className="small text-muted">Already have an account?</span>{" "}
-          {""}
-          <Link to={routes.login} className="small">
-            Login
+      <div className="register-card">
+        <div className="inner-register-card">
+          <span className="small text-muted">Already have an account?</span>
+          <Link to={routes.login} className="ml-1 small">
+            Sign In
           </Link>
         </div>
-
-        <div className="col-4 text-right">
-          <button
-            type="submit"
-            className="btn btn-primary btn-md"
-            // onClick={(e) => submitHandler(e)}
-            disabled={apiCall}
-            onClick={loadingHandler}
-          >
-            {isLoading ? <ClickLoading /> : <span> Submit</span>}
-            {/* Submit */}
-          </button>
-        </div>
+        <button
+          type="submit"
+          className="btn btn-primary btn-md"
+          disabled={apiCall}
+          onClick={loadingHandler}
+        >
+          {isLoading ? <ClickLoading /> : <span>Submit</span>}
+        </button>
       </div>
     </form>
   );

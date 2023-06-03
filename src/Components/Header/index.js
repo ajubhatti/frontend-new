@@ -4,15 +4,18 @@ import routes from "../../Helper/routes";
 import Logo from "../../Assets/logo.jpg";
 import { getToken } from "../../Helper/LocalStorage";
 import userImg from "../../Assets/user.jpg";
-// import { FiChevronDown } from "react-icons/fi";
 import { BsWallet2 } from "react-icons/bs";
-import { BiRupee } from "react-icons/bi";
 import { useSelector } from "react-redux";
+import NewHeader from "./NewHeader";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
   const isUser = getToken();
   const { userData } = useSelector((state) => state.profileReducer);
+  console.log({ userData });
+
+  let username =
+    Object.keys(userData).length > 0 && userData?.userName.split(/(\s+)/)[0];
 
   const Links = [
     // { title: "Home", link: routes.home },
@@ -23,7 +26,7 @@ const Header = () => {
     // { title: "Wallet", link: routes.wallet },
     isUser
       ? {
-          title: "My Profile",
+          title: username || "john",
           link: routes.profileDashboard,
         }
       : {
@@ -45,9 +48,9 @@ const Header = () => {
     { title: "Change password", link: routes.profileChangePassword },
     { title: "Logout", link: routes.login },
   ];
- 
 
   return (
+    // <NewHeader />
     <header className="u-header">
       <div className="u-header__section">
         <div>
@@ -110,43 +113,46 @@ const Header = () => {
                     >
                       <Link
                         to={item?.link}
+                        key={item?.title}
                         className="nav-link u-header__nav-link u-header__nav-link-toggle"
                       >
                         <span className="me-1"> {item?.title}</span>
                       </Link>
                     </li>
                   ))}
-                  <li  className="nav-item hs-has-mega-menu u-header__nav-item">
-                    <div className="wallet-card">
-                    <span>${userData?.walletBalance || 0}</span>
-                    <BsWallet2  className="wallet-icon" />
-                    </div>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <Link
-                      className="profile-toggle nav-link dropdown-toggle"
-                      to="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      {/* <span className="user-title">Hello</span> */}
-                      <img src={userImg} alt="userImg" />
-                    </Link>
-                    <ul className="dropdown-menu">
-                      {profileLink.map((item) => (
-                        <li>
-                          <Link
-                            className="dropdown-item"
-                            to={item?.link}
-                            key={item?.title}
-                          >
-                            <span>{item?.title}</span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
+
+                  {isUser && (
+                    <>
+                      <li className="nav-item hs-has-mega-menu u-header__nav-item">
+                        <div className="wallet-card">
+                          <span>${userData?.walletBalance || 0}</span>
+                          <BsWallet2 className="wallet-icon" />
+                        </div>
+                      </li>
+
+                      <li className="nav-item dropdown">
+                        <Link
+                          className="profile-toggle nav-link dropdown-toggle"
+                          to="#"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          {/* <span className="user-title">Hello</span> */}
+                          <img src={userImg} alt="userImg" />
+                        </Link>
+                        <ul className="dropdown-menu">
+                          {profileLink.map((item) => (
+                            <li key={item?.title}>
+                              <Link className="dropdown-item" to={item?.link}>
+                                <span>{item?.title}</span>
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </li>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>

@@ -10,7 +10,7 @@
 }
 .login-card .inner-login-card{
   display: flex;
-  gap: 0 10px;
+  gap: 0 5px;
 }
 .login-card .forget-link{
   text-decoration: none;

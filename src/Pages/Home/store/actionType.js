@@ -1,0 +1,3 @@
+export const SET_LOADING = "SET_LOADING";
+export const FETCH_BANNER_LIST = "FETCH_BANNER_LIST";
+export const FETCH_TIKER_LIST = "FETCH_TIKER_LIST";

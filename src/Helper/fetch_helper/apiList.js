@@ -25,7 +25,7 @@ export const auth = {
 };
 
 export const home = {
-  banner: { method: "get", url: "/myBanner" },
+  banner: { method: "get", url: "/banner" },
   ticker: { method: "get", url: "/ticker" },
 };
 

@@ -10,11 +10,11 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Required"),
+  name: Yup.string().trim().required("Required"),
 });
 
 const EditProfileModal = ({ isOpen, isClose }) => {
-  const { userData } = useSelector((state) => state.profileReducer);
+  const { user } = useSelector((state) => state.authReducer);
 
   const {
     handleChange,
@@ -33,20 +33,20 @@ const EditProfileModal = ({ isOpen, isClose }) => {
   });
 
   useEffect(() => {
-    if (userData) {
+    if (!!user) {
       resetForm({
-        name: userData?.userName,
+        values: {
+          name: user?.userName,
+        },
       });
     }
-  }, [userData]);
-
-  console.log(values);
+  }, []);
 
   return (
     <div>
       <Modal isOpen={isOpen}>
         <ModalHeader>Edit Profile</ModalHeader>
-        <fo-rm onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <ModalBody>
             <label>User name</label>
             <input
@@ -71,7 +71,7 @@ const EditProfileModal = ({ isOpen, isClose }) => {
               Change
             </Button>
           </ModalFooter>
-        </fo-rm>
+        </form>
       </Modal>
     </div>
   );

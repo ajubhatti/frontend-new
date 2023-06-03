@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import homeReducer from "../Pages/Home/store/reducere";
 import profileReducer from "../Pages/Profile/store/reducer";
 import serviceReducers from "../Pages/Service/store/reducer";
 import transactionReducer from "../Pages/Transactions/store/reducer";
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   walletReducer: walletReducer,
   transactionReducer: transactionReducer,
   profileReducer: profileReducer,
+  homeReducer: homeReducer,
 });
 
 export default rootReducer;

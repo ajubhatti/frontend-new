@@ -4,21 +4,13 @@ import CustomTable from "../Tables/CustomTable";
 const ComponentToPrint2 = forwardRef((props, ref) => {
   return (
     <div className="relativeCSS" ref={ref} id="printable">
-      {/* <style type="text/css" media="print">
-        {
-          "\
-   @page { size: landscape; }\
-"
-        }
-      </style>
-      <div className="flash" /> */}
       {props.type === "invoice" ? (
         ""
       ) : (
         <CustomTable
           showAddButton={false}
           pageOptions={props.pageOptions}
-          keyField="transaction_id"
+          keyField="_id"
           data={props.data}
           columns={props.columns}
           showSearch={false}
