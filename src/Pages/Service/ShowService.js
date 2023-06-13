@@ -10,9 +10,11 @@ import OfferSlider from "../../Components/Carousel/OfferSlider";
 import ConfirmModal from "../../Components/Modal/ConfirmModal";
 import MobileOfferModal from "../../Components/Modal/MobileOfferModal";
 import LoginConfirmModal from "../../Components/Modal/LoginConfirmModal";
-import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
+import { Modal, ModalBody, ModalHeader, ModalFooter, Toast } from "reactstrap";
 import { Link } from "react-router-dom";
 import InvoiceModal from "../../Components/Modal/invoiceModal";
+import { axiosApi } from "../../Helper/api_helper";
+
 const ShowService = (props) => {
   const dispatch = useDispatch();
   const isUser = getToken();
@@ -178,17 +180,24 @@ const ShowService = (props) => {
   });
   const [isInvoiceModal, setIsInvoiceModal] = useState(false);
   const [values, setValues] = useState({
-    operator: "0",
+    operator: "",
     mobileNo: "",
     amount: "",
-    state: "0",
+    state: "",
     userId: user?.id,
     transactionPin: "",
   });
-
   const [isLoginModalShow, setIsLoginModalShow] = useState(false);
-
   const [transactionPin, setTransactionPin] = useState("");
+  const [customerInfo, setCustomerInfo] = useState({});
+
+  useEffect(() => {
+    first;
+
+    return () => {
+      second;
+    };
+  }, [props?.selectedService]);
 
   useEffect(() => {
     setValues((prev) => ({
@@ -198,7 +207,6 @@ const ShowService = (props) => {
   }, [transactionPin]);
 
   useEffect(() => {
-    getPlan();
     if (Object.keys(mySelectedPlan).length === 0) {
       for (let i in simplePlanData?.records) {
         let searchedPlan = simplePlanData?.records[i].find(
@@ -218,12 +226,10 @@ const ShowService = (props) => {
   useEffect(() => {
     if (listingData.length !== 0 && values?.operator !== 0) {
       let operator = listingData.find((x) => x._id === values?.operator);
-
       setSelectedOperator(operator);
       let mplanLOperator = mplanMobileOperatorList.find(
         (x) => x.id === operator?.serviceProvider
       );
-
       setSelectedMplanOperator(mplanLOperator);
     }
   }, [listingData, values?.operator]);
@@ -246,8 +252,11 @@ const ShowService = (props) => {
       ...prevState,
       [name]: value,
     }));
-    // fetchPlan(value);
   };
+
+  useEffect(() => {
+    getInfo(values);
+  }, [values]);
 
   const handleConfirm = () => {
     setIsConfirmShow(false);
@@ -255,12 +264,9 @@ const ShowService = (props) => {
   };
 
   const handleRecharge = () => {
-    console.log("call----");
-
     dispatch(
       doMyRecharge(values, (status) => {
         if (status) {
-          console.log(status);
           setIsInvoiceModal(true);
           setInvoiceData(status.data);
         }
@@ -268,15 +274,12 @@ const ShowService = (props) => {
     );
   };
 
-  const getPlan = async () => {
-    let payload = {
-      type: "roffer",
-      phone: "9033501636",
-      operator: "Jio",
-    };
-    dispatch(getPlans(payload));
-    // await props.getPlanDetails(payload).then((res) => {
-    // });
+  const getPlan = async (payload) => {
+    dispatch(
+      getPlans(payload, (res) => {
+        setCustomerInfo(res?.data?.records[0]);
+      })
+    );
   };
 
   const handleContinue = () => {
@@ -287,7 +290,6 @@ const ShowService = (props) => {
         } else {
           console.log({ user });
           if (user.walletBalance > 0 || user.walletBalance > values?.amount) {
-            // if (user.transactionPin) {
             setSubmitted(true);
             if (
               values?.operator !== "0" &&
@@ -296,13 +298,7 @@ const ShowService = (props) => {
               values?.state !== "0"
             ) {
               isUser ? setIsConfirmShow(true) : navigate("/login");
-            } else {
             }
-            // } else {
-            //   toast.error(
-            //     "transaction pin created , please create a new transaction pin."
-            //   );
-            // }
           } else {
             toast.error("wallet amount is not enough to continue!");
           }
@@ -337,19 +333,74 @@ const ShowService = (props) => {
     let payload = {
       type: type,
       phone: values?.mobileNo,
-      operator: selectedMplanOperator?.operator,
+      operator: values?.operator,
     };
-
-    if (values?.mobileNo && selectedMplanOperator.operator) {
-      dispatch(getPlans(payload));
-      // await props.getPlanDetails(payload).then((res) => {
-      //   setPlanlisting(res.data);
-      //   setIsPlanShow(true);
-      // });
+    if (values?.mobileNo && values?.operator) {
+      const API_URL = process.env.REACT_APP_FETCH_URL;
+      const res = axiosApi.post(API_URL + "/mplan/getMplan", payload);
+      setPlanlisting(res.data);
+      setIsPlanShow(true);
     }
   };
 
-  // new code starts here
+  const getInfo = (value) => {
+    if (value?.mobileNo && value?.mobileNo?.length >= 10) {
+      let operatorname = listingData.find((x) => x?._id === value?.operator);
+      let circle = stateList.find((x) => x?._id === value?.state);
+      let payload = {
+        accountNo: value?.mobileNo,
+        circle: circle?.stateName,
+        type: "roffer",
+        operator: operatorname?.companyName || "",
+      };
+
+      if (props?.selectedService?.serviceName === "DTH") {
+        payload.type = "dthInfo";
+        getPlan(payload);
+      }
+      if (props?.selectedService?.serviceName === "Electricity") {
+        payload.type = "electricinfo";
+        getPlan(payload);
+      }
+      if (props?.selectedService?.serviceName === "Post Paid") {
+        payload.stdcode = "362001";
+        getPlan(payload);
+      }
+    }
+  };
+
+  const getPlanDetails = (planType) => {
+    try {
+      let operatorname = listingData.find((x) => x?._id === values?.operator);
+      let circle = stateList.find((x) => x?._id === values?.state);
+
+      let payload = {
+        accountNo: values?.mobileNo,
+        circle: circle?.stateName,
+        type: "viewPlan",
+        operator: operatorname?.companyName || "",
+      };
+      if (planType == "offers") {
+        payload.type =
+          props?.selectedService?.serviceName === "Mobile"
+            ? "roffer"
+            : "dthRoffer";
+        if (values?.accountNo !== "") {
+          getPlan(payload);
+        } else {
+          Toast.error("Please enter account no!");
+        }
+      } else {
+        payload.type =
+          props?.selectedService?.serviceName === "Mobile"
+            ? "viewPlan"
+            : "dthplans";
+        getPlan(payload);
+      }
+    } catch (err) {
+      console.log({ err });
+    }
+  };
 
   useEffect(() => {
     if (Object.keys(allOperators).length > 0) {
@@ -359,8 +410,6 @@ const ShowService = (props) => {
       setListingData(filteredOperator);
     }
   }, [allOperators, props]);
-
-  // new code ends here
 
   return (
     <>
@@ -384,7 +433,6 @@ const ShowService = (props) => {
                         ? " is-invalid"
                         : "")
                     }
-                    // data-bv-field="number"
                     id="mobileNo"
                     required
                     placeholder="Enter Mobile Number"
@@ -393,6 +441,11 @@ const ShowService = (props) => {
                     name="mobileNo"
                     onChange={handlerChange}
                   />
+                  {customerInfo && Object.keys(customerInfo).length ? (
+                    <div>{customerInfo?.CustomerName}</div>
+                  ) : (
+                    ""
+                  )}
                   {(submitted && !values?.mobileNo) ||
                     (isChecked && !values?.mobileNo && (
                       <div className="invalid-feedback">
@@ -485,7 +538,7 @@ const ShowService = (props) => {
                     <button
                       type="button"
                       className="ml-2 mr-2 btn"
-                      onClick={() => getCustomerDetail("roffer")}
+                      onClick={() => getPlanDetails("offers")}
                     >
                       Roffer
                     </button>
@@ -493,7 +546,7 @@ const ShowService = (props) => {
                     <button
                       type="button"
                       className="ml-2 mr-2 btn"
-                      onClick={() => getCustomerDetail("viewPlan")}
+                      onClick={() => getPlanDetails("plans")}
                     >
                       View Plans
                     </button>

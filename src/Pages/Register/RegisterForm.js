@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import routes from "../../Helper/routes";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ClickLoading from "../../Components/ClickLoading";
+import queryString from 'query-string'
 
 const initialValues = {
   userName: "",
@@ -56,11 +57,13 @@ const validationSchema = Yup.object().shape({
 
 const RegisterForm = (props) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [stateData, setStateData] = useState([]);
   const [apiCall, setApiCall] = useState(false);
   const [refererName, setRefererName] = useState("");
   const [checked, setChecked] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  let queries = queryString.parse(location.search)
 
   useEffect(() => {
     const getStateListing = async () => {
@@ -131,6 +134,17 @@ const RegisterForm = (props) => {
       setLoading(false);
     }, 5000);
   };
+
+  useEffect(()=>{
+    if (!!queries.token){
+      formik.resetForm({
+        values: {
+          ...formik.values,
+          referralId: queries.token
+        }
+      })
+    }
+  },[])
   return (
     <form
       onSubmit={formik.handleSubmit}

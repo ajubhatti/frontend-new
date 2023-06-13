@@ -20,6 +20,10 @@ const ServiceRender = (props) => {
     if (allServices.length) {
       setServiceList(allServices);
       setSelectedService(allServices[0]);
+      setSelectedServiceTab({
+        id: allServices[0]?._id,
+        title: allServices[0]?.serviceName,
+      });
     }
   }, [allServices]);
 
@@ -97,42 +101,44 @@ const ServiceRender = (props) => {
                 {/* <!-- menu Navigation start -->  */}
                 <h6 className="pt-3 px-4 mb-0">Recharge & Bill payment</h6>
                 <ul className="nav secondary-nav alternate p-3 pb-0 main-inner-card">
-                  {serviceList.map((item) => (
-                    <li
-                      key={item?._id}
-                      className={
-                        selectedServiceTab?._id === item?._id
-                          ? "nav-item active"
-                          : "nav-item Inactive"
-                      }
-                      onClick={() => {
-                        setSelectedService(item);
-                        setSelectedServiceTab({
-                          id: item?._id,
-                          title: item?.serviceName,
-                        });
-                      }}
-                    >
-                      <div
-                        className="nav-link"
-                        // selectedServiceTab._id === item._id
-                        //   ? "nav-link active"
-                        //   : "nav-link"
-                        // }
+                  {serviceList.map((item) => {
+                    return (
+                      <li
+                        key={item?._id}
+                        className={
+                          selectedServiceTab?.id === item?._id
+                            ? "nav-item active"
+                            : "nav-item Inactive"
+                        }
+                        onClick={() => {
+                          setSelectedService(item);
+                          setSelectedServiceTab({
+                            id: item?._id,
+                            title: item?.serviceName,
+                          });
+                        }}
                       >
-                        <span className="service-icons">
-                          {userIcon.map((icons) => {
-                            if (icons.id == item._id) {
-                              return <span key={icons.id}>{icons.icon}</span>;
-                            }
-                          })}
-                        </span>
-                        <h5 className="service-iconsTitle mb-0">
-                          {item.serviceName}
-                        </h5>
-                      </div>
-                    </li>
-                  ))}
+                        <div
+                          className={
+                            selectedServiceTab?.id === item?._id
+                              ? "nav-link active"
+                              : "nav-link"
+                          }
+                        >
+                          <span className="service-icons">
+                            {userIcon.map((icons) => {
+                              if (icons.id == item._id) {
+                                return <span key={icons.id}>{icons.icon}</span>;
+                              }
+                            })}
+                          </span>
+                          <h5 className="service-iconsTitle mb-0">
+                            {item.serviceName}
+                          </h5>
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
                 <h6 className="pt-4 px-4 mb-0">Booking </h6>
                 <ul className="nav secondary-nav alternate p-3 pb-0 booing-list mb-2">

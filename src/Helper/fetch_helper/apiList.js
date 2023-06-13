@@ -50,7 +50,7 @@ export const service = {
   serviceProviderAll: { method: "get", url: "/ambikaSlab" },
   serviceProviderByType: { method: "post", url: "/ambikaSlab/getProvider" },
   ambikaRecharge: { method: "post", url: "/ambikaSlab/ambikaRecharge" },
-  getMplan: { method: "post", url: "/mlan/getMplan" },
+  getMplan: { method: "post", url: "/mplan/getMplan" },
 };
 
 export const company = {
