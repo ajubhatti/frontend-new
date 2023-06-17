@@ -192,11 +192,7 @@ const ShowService = (props) => {
   const [customerInfo, setCustomerInfo] = useState({});
 
   useEffect(() => {
-    first;
-
-    return () => {
-      second;
-    };
+    console.log({ props });
   }, [props?.selectedService]);
 
   useEffect(() => {
