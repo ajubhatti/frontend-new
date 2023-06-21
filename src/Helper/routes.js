@@ -13,8 +13,6 @@ const routes = {
   contactUs: "/contact-us",
   aboutUs: "/about-us",
   refer: "/refer",
-  service: "/service",
-  service2: "/service2",
   support: "/support",
   profileDashboard: "/profile-dashboard",
   profileTransaction: "/transaction",
@@ -24,7 +22,7 @@ const routes = {
   profileForgotPin: "/forgot-pin",
   otp: "/otp",
   wallet: "/wallet",
-  editProfile: "/edit-profile"
+  editProfile: "/edit-profile",
 };
 
 export default routes;

@@ -1,5 +1,6 @@
 import {
   company,
+  operator,
   recharge,
   service,
 } from "../../../Helper/fetch_helper/apiList";
@@ -14,7 +15,7 @@ import { toast } from "react-toastify";
 import { getPlanDetails } from "../../../Helper/fetch_helper/service";
 
 const API_URL = process.env.REACT_APP_FETCH_URL;
-
+// get all services ex :- mobile, Dth, etc
 export const getAllServices = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
@@ -29,11 +30,14 @@ export const getAllServices = (payload) => async (dispatch) => {
   }
 };
 
+// get all operator releted to services ex :- for mobile jio, vi, bsnl
 export const getAllOperators = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
-    const res = await axios.get(API_URL + company.company.url);
+    console.log(API_URL + operator.operator.url, payload);
+    const res = await axios.post(API_URL + operator.operator.url, payload);
     if (res) {
+      dispatch(setLoading(false));
       dispatch(setAllOperator(res?.data?.data));
     }
   } catch (err) {
@@ -42,6 +46,7 @@ export const getAllOperators = (payload) => async (dispatch) => {
   }
 };
 
+// get mplans
 export const getPlans = (payload, cb) => async (dispatch) => {
   try {
     await axios.post(API_URL + service.getMplan.url, payload).then((res) => {
@@ -53,6 +58,7 @@ export const getPlans = (payload, cb) => async (dispatch) => {
   }
 };
 
+// create recharge
 export const doMyRecharge = (payload, cb) => async (dispatch) => {
   try {
     dispatch(setLoading(true));

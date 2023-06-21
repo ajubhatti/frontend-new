@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getAllOperators, getAllServices } from "./store/actions";
+import { getAllServices } from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import ShowService from "./ShowService";
-import { getStateList } from "../../Redux/Actions/Auth/actions";
 import "./service.css";
 import { icons } from "react-icons";
 
@@ -29,11 +28,8 @@ const ServiceRender = (props) => {
 
   useEffect(() => {
     dispatch(getAllServices());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(getAllOperators());
-    dispatch(getStateList());
+    // dispatch(getAllOperators());
+    // dispatch(getStateList());
   }, [dispatch]);
 
   const userIcon = [

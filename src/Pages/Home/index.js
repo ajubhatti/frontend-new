@@ -22,7 +22,6 @@ const Home = (props) => {
   useEffect(() => {
     setBannerList(bannerListData);
     setTickerList(tickerListData);
-    console.log({ tickerListData });
   }, [bannerListData, tickerListData]);
 
   useEffect(() => {

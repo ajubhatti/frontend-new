@@ -56,6 +56,9 @@ export const service = {
 export const company = {
   company: { method: "get", url: "/company" },
 };
+export const operator = {
+  operator: { method: "post", url: "/operator" },
+};
 
 export const recharge = {
   rechargeOrBill: { method: "post", url: "/rechargeOrBill" },

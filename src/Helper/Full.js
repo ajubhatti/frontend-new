@@ -28,7 +28,6 @@ const ResetPasswordContainer = React.lazy(() =>
   import("../Containers/ResetPassword")
 );
 const ReferContainer = React.lazy(() => import("../Containers/Refer"));
-const ServiceContainer = React.lazy(() => import("../Containers/Service"));
 const SupportContainer = React.lazy(() => import("../Containers/Support"));
 const WalletContainer = React.lazy(() => import("../Containers/Wallet"));
 const ContactContainer = React.lazy(() => import("../Containers/ContactUs"));
@@ -207,12 +206,7 @@ const Full = (props) => {
           name="refer"
           element={<ReferContainer />}
         />
-        <Route
-          exact
-          path={routes.service}
-          name="service"
-          element={<ServiceContainer />}
-        />
+
         <Route
           exact
           path={routes.support}

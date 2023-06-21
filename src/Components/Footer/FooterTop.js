@@ -26,14 +26,6 @@ const FooterTop = () => {
                   Contact
                 </Link>
               </li>
-              <li>
-                <Link
-                  to={routes.service}
-                  className="list-group-item list-group-item-action"
-                >
-                  Service
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -50,7 +42,7 @@ const FooterTop = () => {
               </li>
               <li>
                 <Link
-                  to={routes.service}
+                  to={routes.home}
                   className="list-group-item list-group-item-action"
                 >
                   Recharge
