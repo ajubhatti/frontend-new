@@ -110,7 +110,7 @@ const WalletHistory = () => {
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle font-weight-normal">
-            {!!row?.slipNo ? "#" + row?.slipNo : "-"}
+            {!!row?.slipNo ? row?.slipNo : "-"}
           </div>
         ),
       },

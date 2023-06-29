@@ -23,6 +23,10 @@ const ConfirmModal = ({
     handleConfirm();
   };
 
+
+  useEffect(()=>{
+    setTransactionPin("")
+  },[])
   return (
     <>
       <Modal

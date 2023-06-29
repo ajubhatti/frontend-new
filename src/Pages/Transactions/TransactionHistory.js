@@ -56,7 +56,7 @@ const TransactionHistory = () => {
     page: 1,
     limits: 20,
     sortBy: "created",
-    orderBy: "desc",
+    orderBy: "DESC",
     skip: 0,
     search: "",
     startDate: "", //"10-15-2022",
@@ -124,8 +124,8 @@ const TransactionHistory = () => {
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle ">
-            {row?.rechargeData?.rechargeOperator?.companyName
-              ? row?.rechargeData?.rechargeOperator?.companyName
+            {row?.rechargeData?.operatorConfig?.operatorData?.operatorName
+              ? row?.rechargeData?.operatorConfig?.operatorData?.operatorName
               : "-"}
           </div>
         ),
@@ -265,7 +265,7 @@ const TransactionHistory = () => {
       page: page,
       limits: sizePerPage,
       sortBy: "created",
-      orderBy: "desc",
+      orderBy: "DESC",
       skip: 0,
       search: "",
     }));
@@ -384,7 +384,8 @@ const TransactionHistory = () => {
                         className="form-control"
                         placeholder="search"
                         onChange={handleSearch}
-                      />x
+                      />
+                      x
                     </div>
 
                     <CustomDateRangePicker

@@ -31,15 +31,21 @@ const Invoice = forwardRef(({ data }, ref) => {
           </tr>
           <tr>
             <td className="w-60">Transaction ID:</td>
-            <td>{data?.transactionId || "-"}</td>
+            <td>
+              {data?.responseData?.TRNID || data?.responseData?.rpid || "-"}
+            </td>
           </tr>
           <tr>
             <td className="w-60">Operator ID:</td>
-            <td>{data?.rechargeData?.opid || "-"}</td>
+            <td>
+              {data?.responseData?.opid || data?.responseData?.OPRID || "-"}
+            </td>
           </tr>
           <tr>
             <td className="w-60">Operator</td>
-            <td>{data?.rechargeData?.rechargeOperator?.companyName || "-"}</td>
+            <td>
+              {data?.rechargeByOperator?.operatorName || "-"}
+            </td>
           </tr>
           <tr>
             <td className="w-60">Amount</td>
