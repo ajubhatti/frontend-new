@@ -5,18 +5,18 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ClickLoading from "../../Components/ClickLoading";
-import queryString from 'query-string'
+import queryString from "query-string";
 
 const initialValues = {
   userName: "",
   phoneNumber: "",
-  state: "",
+  stateId: "",
   city: "",
   pincode: "",
   email: "",
   password: "",
   ConformPassword: "",
-  referralId: "",
+  referenceUserId: "",
 };
 
 // const phoneRegExp =
@@ -32,7 +32,7 @@ const validationSchema = Yup.object().shape({
     .matches(phoneRegExp, "Phone number is not valid")
     .min(10, "Phone must be 10 digits")
     .max(10, "Phone must be 10 digits"),
-  state: Yup.string().required("State is required!"),
+  stateId: Yup.string().required("State is required!"),
   city: Yup.string().required("City is required!"),
   pincode: Yup.string()
     .required("Pin code is required!")
@@ -63,7 +63,7 @@ const RegisterForm = (props) => {
   const [refererName, setRefererName] = useState("");
   const [checked, setChecked] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  let queries = queryString.parse(location.search)
+  let queries = queryString.parse(location.search);
 
   useEffect(() => {
     const getStateListing = async () => {
@@ -75,37 +75,11 @@ const RegisterForm = (props) => {
     getStateListing();
   }, [props]);
 
-  const referCodeChangeHandler = (event) => {
-    const { name, value } = event.target;
-    if (value.length > 8) {
-      props.getRefererUser({ code: value }).then((res) => {
-        setRefererName(res.data.userName);
-      });
-    } else {
-      setRefererName("");
-    }
-    // setValues((prevState) => ({
-    //   ...prevState,
-    //   [name]: value,
-    // }));
-    formik.setFieldValue(name, value);
-  };
-
   const submitHandler = async (values) => {
     if (checked) {
       setApiCall(true);
       try {
-        const payload = {
-          userName: values.userName,
-          phoneNumber: values.phoneNumber,
-          stateId: values.stateId,
-          city: values.city,
-          pincode: values.pincode,
-          email: values.email,
-          password: values.password,
-          referralId: values.referralId,
-        };
-        await props.register(payload).then((res) => {
+        await props.register(values).then((res) => {
           toast.success(res.message);
           navigate(routes.otp, {
             state: {
@@ -135,16 +109,31 @@ const RegisterForm = (props) => {
     }, 5000);
   };
 
-  useEffect(()=>{
-    if (!!queries.token){
+  useEffect(() => {
+    if (!!queries.token) {
       formik.resetForm({
         values: {
           ...formik.values,
-          referralId: queries.token
-        }
-      })
+          referenceUserId: queries.token,
+        },
+      });
     }
-  },[])
+  }, []);
+
+  useEffect(() => {
+    referCodeChangeHandler(formik.values.referenceUserId);
+  }, [formik.values.referenceUserId]);
+
+  const referCodeChangeHandler = async (value) => {
+    if (value.length >= 8) {
+      props.getRefererUser({ code: value }).then((res) => {
+        setRefererName(res.data.userName);
+      });
+    } else {
+      setRefererName("");
+    }
+  };
+
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -158,9 +147,9 @@ const RegisterForm = (props) => {
         <input
           type="text"
           placeholder="XXXXXX"
-          name="referralId"
-          value={formik.values.referralId}
-          onChange={referCodeChangeHandler}
+          name="referenceUserId"
+          value={formik.values.referenceUserId}
+          onChange={formik.handleChange}
           className="form-control"
         />
         <small
@@ -216,15 +205,17 @@ const RegisterForm = (props) => {
       <div className="form-group">
         <label className="form-label">State</label>
         <select
-          value={formik.values.state}
-          name="state"
+          value={formik.values.stateId}
+          name="stateId"
           onChange={(e) => {
-            formik.setFieldValue("state", e.target.value);
+            formik.setFieldValue("stateId", e.target.value);
           }}
           onBlur={formik.handleBlur}
           className={
             "form-control" +
-            (formik.errors.state && formik.touched.state ? " is-invalid" : "")
+            (formik.errors.stateId && formik.touched.stateId
+              ? " is-invalid"
+              : "")
           }
           placeholder="Please select state"
         >
@@ -238,8 +229,8 @@ const RegisterForm = (props) => {
               );
             })}
         </select>
-        {formik.errors.state && formik.touched.state && (
-          <div className="invalid-feedback">{formik.errors.state}</div>
+        {formik.errors.stateId && formik.touched.stateId && (
+          <div className="invalid-feedback">{formik.errors.stateId}</div>
         )}
       </div>
       <div className="form-group">

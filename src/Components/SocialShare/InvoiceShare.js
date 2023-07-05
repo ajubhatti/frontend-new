@@ -70,7 +70,7 @@ const InvoiceShare = () => {
           <TwitterIcon size={32} round />
         </TwitterShareButton>
       </div> */}
-      {console.log({ currentURL, invoiceImageUrl })}
+
       <div>
         <WhatsappShareButton
           url={invoiceImageUrl}

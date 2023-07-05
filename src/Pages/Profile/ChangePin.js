@@ -42,8 +42,6 @@ const ChangePin = (props) => {
 
   const { user } = useSelector((state) => state.authReducer);
 
-  console.log({ user });
-
   const formik = useFormik({
     initialValues,
     validationSchema,

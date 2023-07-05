@@ -4,19 +4,7 @@ import React, { forwardRef } from "react";
 const Invoice = forwardRef(({ data }, ref) => {
   return (
     <div ref={ref} id="invoice_card" className="mt4">
-      <table
-        border="0"
-        className="table table-responsive-xl invoice-table "
-        // style={{
-        //   // backgroundColor: "#f5f5f5",
-        //   // width: "210mm",
-        //   // minHeight: "297mm",
-        //   // marginTop: "10px",
-        //   marginLeft: "auto",
-        //   marginRight: "auto",
-        //   border: "0",
-        // }}
-      >
+      <table border="0" className="table table-responsive-xl invoice-table">
         <thead>
           <tr>
             <th colSpan={2} className="noBorder">
@@ -32,20 +20,18 @@ const Invoice = forwardRef(({ data }, ref) => {
           <tr>
             <td className="w-60">Transaction ID:</td>
             <td>
-              {data?.responseData?.TRNID || data?.responseData?.rpid || "-"}
+              {data?.rechargeData?.TRNID || data?.rechargeData?.rpid || "-"}
             </td>
           </tr>
           <tr>
             <td className="w-60">Operator ID:</td>
             <td>
-              {data?.responseData?.opid || data?.responseData?.OPRID || "-"}
+              {data?.rechargeData?.opid || data?.rechargeData?.OPRID || "-"}
             </td>
           </tr>
           <tr>
             <td className="w-60">Operator</td>
-            <td>
-              {data?.rechargeByOperator?.operatorName || "-"}
-            </td>
+            <td>{data?.rechargeByOperator?.operatorName || "-"}</td>
           </tr>
           <tr>
             <td className="w-60">Amount</td>

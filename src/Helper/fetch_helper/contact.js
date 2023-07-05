@@ -16,20 +16,14 @@ export const sendContactDetails = (data) => () =>
   });
 
 export const addContactDetails = (payload, cb) => async () => {
-  console.log({ payload });
   try {
-    console.log({ payload });
     const res = await axiosApi.post(API_URL + extra.contact.url, payload);
-    console.log("callin");
-
-    console.log({ res });
     if (res) {
       if (cb) {
         cb(res?.data?.data);
       }
     }
   } catch (err) {
-    console.log({ err });
     toast.error(err);
   }
 };

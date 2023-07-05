@@ -377,12 +377,11 @@ const WalletHistory = () => {
       const selectedStartDate = moment(dateRange[0]).format("yyyy-MM-DD");
       const selectedEndDate = moment(dateRange[1]).format("yyyy-MM-DD");
       if (selectedStartDate && selectedEndDate)
-        console.log({ dateRange, selectedStartDate, selectedEndDate });
-      setPayloadData((prev) => ({
-        ...prev,
-        startDate: selectedStartDate,
-        endDate: selectedEndDate,
-      }));
+        setPayloadData((prev) => ({
+          ...prev,
+          startDate: selectedStartDate,
+          endDate: selectedEndDate,
+        }));
     }
   }, [dateRange]);
 
@@ -397,7 +396,6 @@ const WalletHistory = () => {
         moment(selectedEndDate).format("MM/DD/yyyy")
     );
 
-    console.log({ rangeDate });
     if (rangeDate[0]?.endDate) {
       handleCloseCalendar();
     }
@@ -416,12 +414,10 @@ const WalletHistory = () => {
   };
 
   useEffect(() => {
-    console.log({ payloadData });
     dispatch(fetchAllUserWalletList(payloadData));
   }, [payloadData]);
 
   const handlePageChange = (page) => {
-    console.log({ page });
     setPayloadData((prev) => ({
       ...prev,
       page: page,
@@ -457,9 +453,7 @@ const WalletHistory = () => {
   };
 
   useOutsideClick(ref, handleCloseCalendar);
-  {
-    console.log("walletListData----", { userWalletData, walletListData });
-  }
+
   return (
     <div className="bg-light">
       <Menu />

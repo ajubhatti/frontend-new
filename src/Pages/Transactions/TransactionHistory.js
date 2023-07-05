@@ -253,7 +253,6 @@ const TransactionHistory = () => {
   );
 
   const printHandler = (data) => {
-    console.log({ data });
     setInvoiceData(data);
     setIsInvoiceModal(true);
   };

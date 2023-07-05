@@ -1,26 +1,15 @@
-import * as React from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import ReactToPrint from "react-to-print";
 import CustomTable from "../Tables/CustomTable";
 import { FaPrint } from "react-icons/fa";
 
 export const TablePrint = ({ data, columns, pageOptions }) => {
-  const componentRef = React.useRef(null);
+  const componentRef = useRef(null);
+  const onBeforeGetContentResolve = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [text, setText] = useState("old boring text");
 
-  const onBeforeGetContentResolve = React.useRef(null);
-
-  const [loading, setLoading] = React.useState(false);
-  const [text, setText] = React.useState("old boring text");
-
-  const handleAfterPrint = React.useCallback(() => {
-    console.log("`onAfterPrint` called");
-  }, []);
-
-  const handleBeforePrint = React.useCallback(() => {
-    console.log("`onBeforePrint` called");
-  }, []);
-
-  const handleOnBeforeGetContent = React.useCallback(() => {
-    console.log("`onBeforeGetContent` called");
+  const handleOnBeforeGetContent = useCallback(() => {
     setLoading(true);
     setText("Loading new text...");
 
@@ -35,7 +24,7 @@ export const TablePrint = ({ data, columns, pageOptions }) => {
     });
   }, [setLoading, setText]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       text === "New, Updated Text!" &&
       typeof onBeforeGetContentResolve.current === "function"
@@ -44,11 +33,11 @@ export const TablePrint = ({ data, columns, pageOptions }) => {
     }
   }, [onBeforeGetContentResolve.current, text]);
 
-  const reactToPrintContent = React.useCallback(() => {
+  const reactToPrintContent = useCallback(() => {
     return componentRef.current;
   }, [componentRef.current]);
 
-  const reactToPrintTrigger = React.useCallback(() => {
+  const reactToPrintTrigger = useCallback(() => {
     // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
     // to the root node of the returned component as it will be overwritten.
 
@@ -68,9 +57,7 @@ export const TablePrint = ({ data, columns, pageOptions }) => {
       <ReactToPrint
         content={reactToPrintContent}
         documentTitle="AwesomeFileName"
-        onAfterPrint={handleAfterPrint}
         onBeforeGetContent={handleOnBeforeGetContent}
-        onBeforePrint={handleBeforePrint}
         removeAfterPrint
         trigger={reactToPrintTrigger}
       >

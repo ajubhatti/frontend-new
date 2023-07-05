@@ -34,7 +34,6 @@ export const getAllServices = (payload) => async (dispatch) => {
 export const getAllOperators = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));
-    console.log(API_URL + operator.operator.url, payload);
     const res = await axios.post(API_URL + operator.operator.url, payload);
     if (res) {
       dispatch(setLoading(false));
@@ -66,7 +65,6 @@ export const doMyRecharge = (payload, cb) => async (dispatch) => {
       API_URL + recharge.rechargeOrBill.url,
       payload
     );
-    console.log("res ----", res.data);
     if (res.data) {
       cb(res?.data);
       dispatch(setLoading(false));
@@ -75,7 +73,6 @@ export const doMyRecharge = (payload, cb) => async (dispatch) => {
       );
     }
   } catch (err) {
-    console.log(err);
     dispatch(setLoading(false));
     toast.error(err?.response?.data?.message || "Something went wrong!");
   }

@@ -28,10 +28,9 @@ const InvoiceModal = ({
         link.click();
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
-  console.log(invoiceData);
 
   const handleGeneratePdf = () => {
     const doc = new jsPDF({
@@ -88,8 +87,6 @@ const InvoiceModal = ({
       pdf.save(`${unixTime}.pdf`);
     });
   };
-
-  console.log({ isInvoiceModal });
 
   return (
     <Modal isOpen={isInvoiceModal} size="lg">

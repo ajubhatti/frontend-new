@@ -43,9 +43,7 @@ const ContactForm = (props) => {
       values.description !== ""
     ) {
       try {
-        console.log({ values });
         await axiosApi.post(API_URL + extra.contact.url, values).then((res) => {
-          console.log({ res });
           if (res.data.status == 200) {
             toast.success(res.data.message);
           } else {
@@ -61,7 +59,7 @@ const ContactForm = (props) => {
         //   toast.success(res.message);
         // });
       } catch (err) {
-        console.log({ err });
+        console.error({ err });
       } finally {
         setApiCall(false);
       }

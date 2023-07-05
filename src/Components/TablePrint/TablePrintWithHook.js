@@ -5,24 +5,14 @@ import ComponentToPrint2 from "./ComponentToPrint2";
 
 export const TablePrintWithHook = ({ data, columns, pageOptions, type }) => {
   const componentRef = React.useRef(null);
-
   const onBeforeGetContentResolve = React.useRef(null);
-
   const [loading, setLoading] = React.useState(false);
-  const [text, setText] = React.useState("old boring text");
-
-  const handleAfterPrint = React.useCallback(() => {
-    console.log("`onAfterPrint` called"); // tslint:disable-line no-console
-  }, []);
-
-  const handleBeforePrint = React.useCallback(() => {
-    console.log("`onBeforePrint` called"); // tslint:disable-line no-console
-  }, []);
+  const [text, setText] = React.useState("Loading...");
 
   const handleOnBeforeGetContent = React.useCallback(() => {
-    console.log("`onBeforeGetContent` called"); // tslint:disable-line no-console
+    // tslint:disable-line no-console
     setLoading(true);
-    setText("Loading new text...");
+    setText("Loading...");
 
     return new Promise((resolve) => {
       onBeforeGetContentResolve.current = resolve;
@@ -43,8 +33,6 @@ export const TablePrintWithHook = ({ data, columns, pageOptions, type }) => {
     content: reactToPrintContent,
     documentTitle: "TransactionHistory",
     onBeforeGetContent: handleOnBeforeGetContent,
-    onBeforePrint: handleBeforePrint,
-    onAfterPrint: handleAfterPrint,
     removeAfterPrint: true,
   });
 

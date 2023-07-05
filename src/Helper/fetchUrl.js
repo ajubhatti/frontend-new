@@ -7,7 +7,6 @@ import routes from "./routes";
 const baseUrl = process.env.REACT_APP_FETCH_URL;
 // const baseUrl = "https://api.badipay.co.in"
 
-
 const GET = "GET";
 const DELETE = "DELETE";
 const POST = "POST";
@@ -39,7 +38,6 @@ export const setHeaders = (contentType, authToken) => {
   if (authToken) {
     const token = getToken();
     if (token) {
-      console.log("come");
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     } else {
       delete axios.defaults.headers.common.Authorization;
@@ -104,7 +102,6 @@ export const fetchUrl = (
   data,
   { authToken = true, fetchBaseResponse = false, contentType }
 ) => {
-
   console.log(authToken);
   setHeaders(contentType, authToken);
   if (data && !data.shouldRefetch) {

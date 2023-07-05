@@ -204,7 +204,11 @@ const Full = (props) => {
           exact
           path={routes.refer}
           name="refer"
-          element={<ReferContainer />}
+          element={
+            <ProtectedRoute>
+              <ReferContainer />
+            </ProtectedRoute>
+          }
         />
 
         <Route
@@ -217,12 +221,20 @@ const Full = (props) => {
           exact
           path={routes.wallet}
           name="wallet"
-          element={<WalletContainer />}
+          element={
+            <ProtectedRoute>
+              <WalletContainer />
+            </ProtectedRoute>
+          }
         />
         <Route
           exact
           path={routes.profileWalletHistory}
-          element={<WalletHistory />}
+          element={
+            <ProtectedRoute>
+              <WalletHistory />
+            </ProtectedRoute>
+          }
         />
 
         <Route exact path={routes.otp} name="otp" element={<OtpContainer />} />

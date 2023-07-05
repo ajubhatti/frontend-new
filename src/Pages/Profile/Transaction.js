@@ -131,8 +131,6 @@ const ProfileTransaction = () => {
     },
   ];
 
-  console.log("activity", activity);
-
   return (
     <div className="bg-light">
       <Menu />

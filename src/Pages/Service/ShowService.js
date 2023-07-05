@@ -208,10 +208,6 @@ const ShowService = ({ selectedService }) => {
   }, [dispatch, selectedService]);
 
   useEffect(() => {
-    console.log({ selectedService });
-  }, [selectedService]);
-
-  useEffect(() => {
     setValues((prev) => ({
       ...prev,
       transactionPin: transactionPin,
@@ -300,7 +296,6 @@ const ShowService = ({ selectedService }) => {
         if (!isUser) {
           setIsLoginModalShow(true);
         } else {
-          console.log({ user });
           if (user.walletBalance > 0 || user.walletBalance > values?.amount) {
             setSubmitted(true);
             if (
@@ -390,7 +385,7 @@ const ShowService = ({ selectedService }) => {
         getPlan(payload);
       }
     } catch (err) {
-      console.log({ err });
+      console.error({ err });
     }
   };
 
@@ -401,7 +396,6 @@ const ShowService = ({ selectedService }) => {
   const selectOperator = (e) => {
     const { value } = e.target;
     let operator = operatorList.find((x) => x?._id === value);
-    console.log({ operator });
 
     let rqfld = operator?.requiredFields.map((item) => ({
       ...item,
@@ -413,8 +407,6 @@ const ShowService = ({ selectedService }) => {
 
   const handleChange = (e, index) => {
     const { name, value } = e.target;
-
-    console.log({ name, value });
 
     let datas = [...requiredFields];
     datas[index].value = value;

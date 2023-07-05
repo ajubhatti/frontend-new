@@ -12,7 +12,6 @@ const Header = () => {
   const [open, setOpen] = useState(false);
   const isUser = getToken();
   const { userData } = useSelector((state) => state.profileReducer);
-  console.log({ userData });
 
   let username =
     Object.keys(userData).length > 0 && userData?.userName.split(/(\s+)/)[0];
