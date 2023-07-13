@@ -30,12 +30,28 @@
 .edit-pages{
     padding-top: 45px;
 }
-.user-image{
 
+.user-image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 0;
+  position: relative;
+}
+.user-image .edit-button-p{
+  position: absolute;
+  bottom: 15px;
+  right: 35%;
+
+}
+.user-image .Editprofile{
+  border-radius: 100%;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
     display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 15px 0;
+    justify-content: center;
+    align-items: center;
 }
 .user-image img{
   width: 100%;
@@ -118,7 +134,6 @@ text-align: center;
 .add-money-btn{  
 display: flex !important;
 padding: 10px 10px !important;
-width: 100%;
 min-width: 120px;
 font-size: 14px !important;
 font-weight: 700 !important;

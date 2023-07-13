@@ -40,7 +40,7 @@ const Header = () => {
     { title: "Electricity", link: "#" },
   ];
   const profileLink = [
-    { title: "View profile", link: routes.profileDashboard },
+    { title: "View profile", link: routes.editProfile },
     { title: "Wallet History", link: routes.profileWalletHistory },
     { title: "Activity", link: routes.profileTransaction },
     { title: "Change Transaction Pin", link: routes.profileChangePin },
@@ -85,7 +85,7 @@ const Header = () => {
                       <span className="me-1">Home</span>
                     </Link>
                   </li>
-                  <li className="nav-item hs-has-mega-menu u-header__nav-item dropdown">
+                  {/* <li className="nav-item hs-has-mega-menu u-header__nav-item dropdown">
                     <Link
                       className="nav-link  dropdown-toggle"
                       role="button"
@@ -104,7 +104,7 @@ const Header = () => {
                         </li>
                       ))}
                     </ul>
-                  </li>
+                  </li> */}
                   {Links.map((item) => (
                     <li
                       className="nav-item hs-has-mega-menu u-header__nav-item"
