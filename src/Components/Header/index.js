@@ -7,6 +7,7 @@ import userImg from "../../Assets/user.jpg";
 import { BsWallet2 } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import NewHeader from "./NewHeader";
+import DownloadApkButton from "../DownloadApkButton";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -119,6 +120,12 @@ const Header = () => {
                       </Link>
                     </li>
                   ))}
+                  <li
+                    className="nav-item hs-has-mega-menu u-header__nav-item"
+                    key={"Download"}
+                  >
+                    <DownloadApkButton />
+                  </li>
 
                   {isUser && (
                     <>

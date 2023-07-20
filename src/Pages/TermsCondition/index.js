@@ -9,102 +9,849 @@ const TermsCondition = () => {
             <div className="space-bottom-1">
               <div className="border-bottom pb-5 mb-5">
                 <h1 className="text-primary"> Terms &amp; conditions</h1>
-                <p>Effective date: 1 May 2022</p>
               </div>
-              <div className="mb-3">
-                <h2 className="h5">Welcome to badipay</h2>
-              </div>
-              <p>
-                Sum dolor sit amet consectetur adipisicing elit. In consectetur
-                aspernatur illo soluta magnam repellendus, corporis sunt
-                maiores. Recusandae, impedit. Tempore molestias voluptatibus
-                minus dolorum. Minus, expedita fuga accusantium doloribus alias
-                quisquam blanditiis minima! Consequuntur possimus cum error modi
-                quisquam maxime rerum reprehenderit cumque dicta rem nulla, amet
-                doloribus necessitatibus molestiae, autem atque. Vel alias
-                corporis architecto minus? Aliquam placeat maiores odio quas
-                quia quaerat in autem, sapiente sunt dolore, architecto sed
-                iusto voluptatibus deserunt hic quos recusandae. Ex, aut! Optio
-                enim consequuntur impedit inventore saepe ipsum. Sunt maxime
-                beatae fugit saepe sit consequatur aliquid, quidem ex optio illo
-                omnis!
-              </p>
-            </div>
-            <div className="space-bottom-1">
-              <div className="mb-3">
-                <h3 className="h5">1. Using our services</h3>
-              </div>
-              <ul className="text-secondary">
-                <li className="pb-2">
-                  Urem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veritatis mollitia quis esse ad.
-                </li>
-                <li className="pb-2">
-                  Eleniti porro voluptates tempora molestiae dolores dignissimos
-                  odio? Tenetur, quo quidem.
-                </li>
-                <li className="pb-2">
-                  Sunt suscipit ad est aliquam quibusdam voluptate!
-                </li>
-                <li className="pb-2">
-                  Ad porro nobis placeat natus minima nisi temporibus sint
-                  veritatis deserunt nulla.
-                </li>
-                <li className="pb-2">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veritatis mollitia quis esse ad.
-                </li>
-              </ul>
             </div>
             <div className="space-bottom-1">
               <p>
-                Nemo dolores, iusto pariatur corporis quis ullam harum voluptate
-                porro officiis aliquam quas explicabo? Lorem ipsum dolor sit
-                amet consectetur adipisicing elit. Repellendus fugiat, et illum
-                omnis amet saepe. Veritatis commodi voluptatem voluptate
-                voluptates nam dolores cumque non itaque possimus deserunt est,
-                illum unde? Iusto distinctio sequi numquam dignissimos ad, et
-                iure velit aspernatur cum voluptatem consequatur laudantium
-                corporis inventore laborum nisi, eius sapiente deleniti, dolor
-                cumque nihil iste! Nihil quasi voluptatem aperiam fuga velit
-                veniam fugiat quidem dolore ipsum vero pariatur, optio
-                accusantium quod consectetur, distinctio earum molestias quam.
-                Nisi neque officia nostrum? Excepturi eligendi eos ex laborum
-                quam vero maiores doloribus. Id repudiandae doloribus quam iste
-                autem deleniti! Eos vitae dolorem provident ab! Commodi possimus
-                nesciunt earum! Unde eveniet molestias, explicabo error vel
-                repudiandae, earum illo adipisci porro ullam quo delectus
-                praesentium, nam sapiente hic? Ab facere laborum cumque
-                assumenda, enim vel quam quo perferendis, accusamus laboriosam
-                dolor, eum impedit. Dolorum aspernatur illum officiis, omnis
-                corrupti vel eum quos aut odio officia, odit iusto excepturi
-                totam. Labore eligendi autem debitis eum cumque, voluptatem
-                eaque ullam impedit in dolorum fuga ratione nobis fugiat ab
-                perferendis magnam atque animi tempora magni ipsa nam aperiam
-                reprehenderit voluptas? Natus perferendis, dicta quasi omnis
-                nostrum nisi placeat quibusdam nihil deserunt commodi. Quidem
-                minus rem beatae dicta, ex non facere commodi accusantium rerum
-                itaque minima dolor quisquam, consequatur aliquid et provident
-                ab iure veniam ipsam maiores voluptate.
+                Please note that these T&Cs will be incorporated into any
+                Physical Contract We may execute with You in future and will be
+                enforceable against You to the same extent as the terms of the
+                Physical Contract. Therefore,we request You to please read these
+                T&Cs carefully before clicking on the "Terms and Conditions"
+                checkbox.
               </p>
               <p>
-                Necessitatibus consequatur officia voluptates nam enim dolorum
-                facere, reprehenderit quas rerum pariatur sapiente corrupti,
-                quam fugit iusto nemo officiis ipsum! Aperiam, asperiores
-                maiores reprehenderit, minima quae ipsa laboriosam numquam
-                doloremque commodi quo eius iusto veniam fugit mollitia
-                repudiandae ex dignissimos enim corrupti quis doloribus sed
-                eligendi. Officiis, repellendus assumenda, numquam, tempore ipsa
-                harum sequi error cumque dignissimos provident consectetur sint
-                unde nesciunt vel at quas illum enim reiciendis debitis
-                architecto necessitatibus deserunt! Ex, aliquid. Architecto
-                reprehenderit dolore totam ipsum accusamus aliquid?
+                Please go through these terms carefully. It is important that
+                you spend time reading the terms as they constitute a legal
+                agreement ("Agreement") between http://badipay.co.in (the
+                "Website" or "Site") and A holder of a Badipay Wallet
+                ("Holder(s)", "you" or "User");
               </p>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias
-                similique, consequuntur incidunt at repellendus ratione totam
-                excepturi iste. Similique ipsum numquam recusandae, eligendi
-                maiores temporibus officia harum labore deleniti quasi.
+                A merchant establishment which allows its customers the option
+                to make a purchase using their Badipay Wallet ("Merchant", "you"
+                or "User"); or
+              </p>
+              <p>An internet surfer ("you" or "User").</p>
+              <p>
+                This document is an electronic record in terms of Information
+                Technology Act, 2000 and generated by a computer system and does
+                not require any physical or digital signatures. This document is
+                published in accordance with the provisions of Rule 3 of the
+                Information Technology (Intermediaries guidelines) Rules, 2011
+                that provide for the due diligence to be exercised by the
+                Website.
+              </p>
+              <p>
+                Badipay Multi Service Private Limited ("Badipay" "we" or "us",
+                which also includes its affiliates) is an authorized payment and
+                settlement system under the Payment and Settlement Systems Act,
+                2007. We issue semi-closed system prepaid payment instruments
+                ("Badipay Wallet") to Holders on which they can load and
+                transfer funds in Indian Rupees within India to make purchases
+                or avail of certain financial services ("Service(s)"). Badipay
+                has its registered office situated at Badipay Multi Service
+                Private Limited, Chistiya Complex, Jinpara Main Road, Village
+                And Taluka, Wankaner, Wankaner - 363621, Gujarat, India. We have
+                employees and authorized representatives ("Team").
+              </p>
+              <p>
+                These Terms of Use ("Terms") including our Privacy Policy define
+                the terms and conditions under which you're allowed to use the
+                Website and how we'll treat your account and Badipay Wallet
+                while you are a member. If you have any questions about our
+                terms, feel free to contact us at{" "}
+                <a href="badipaymultiservice@gmail.com">
+                  badipaymultiservice@gmail.com
+                </a>
+              </p>
+            </div>
+            <div>
+              <h6>YOUR AGREEMENT WITH BADIPAY</h6>
+            </div>
+            <div className="space-bottom-1">
+              <p>
+                We reserve the right to modify the Terms at any time without
+                giving you any prior notice. Your use of the Website following
+                any such modification constitutes your agreement to follow and
+                be bound by the Terms as modified. Any additional terms and
+                conditions, disclaimers, privacy policies and other policies
+                applicable in general and/ or to specific areas of this Website
+                or to particular Service are also considered as Terms.
+              </p>
+              <p>
+                You acknowledge that you will be bound by this Agreement for
+                availing any of the Services offered by us.
+              </p>
+              <p>
+                Your access to use of the Website and the Services will be
+                solely at the discretion of Badipay.
+              </p>
+              <p>
+                The Agreement is published in compliance of, and is governed by
+                the provisions of Indian law, including but limited to: the
+                Indian Contract Act, 1872,
+              </p>
+              <p>the (Indian) Information Technology Act, 2000, and </p>
+              <p>
+                the rules, regulations, guidelines and clarifications framed
+                thereunder, including the (Indian) Information Technology
+                (Reasonable Security Practices and Procedures and Sensitive
+                Personal Information) Rules, 2011, and the (Indian) Information
+                Technology (Intermediaries Guidelines) Rules, 2011.
+              </p>
+            </div>
+            <div>
+              <h6>YOUR AGREEMENT WITH BADIPAY</h6>
+            </div>
+            <div className="space-bottom-1">
+              <p>
+                By using the Website and its Services, you agree that you have
+                read and understood these Terms and you agree to be bound by
+                these Terms and use the Services in compliance with these Terms.
+                Please read these Terms carefully. If you do not agree to be
+                bound by (or cannot comply with) any of the terms below, please
+                leave the Website immediately and terminate your account with
+                us. The information that you obtain or receive from Badipay, its
+                Team, contractors, partners, sponsors, advertisers or otherwise
+                on the Website is for informational and scheduling purposes
+                only. The information provided on the Website is not
+                professional advice and must not be considered as such. Your use
+                of information provided on the Website is solely at your own
+                risk. You can accept the Terms by: Using the Website; or By
+                actually using the Services. In this case, you understand and
+                agree that Badipay will treat your use of the Services as
+                acceptance of the Terms from that point onwards. For being a
+                valid User, you must satisfy the following conditions: You are
+                of legal age to form a binding contract with Badipay; or You are
+                not a person barred from receiving the Services under the laws
+                of India or other countries including the country in which you
+                are resident or from which you use the services. I give consent
+                to Badipay to collect KYC documents from PSUs and Government
+                agencies on my behalf.
+              </p>
+            </div>
+            <div>
+              <h6>INFORMATION PRESENTATION/ EDITORIAL CONTROL</h6>
+            </div>
+            <div>
+              <p>
+                We make the Website available as a part of our Service to
+                Holders and Merchants. We may, but have no obligation to, have
+                non user-posted information reviewed by the Website's editorial
+                personnel. It is important to note, however, that the timeliness
+                and accuracy of any or all of the information is not guaranteed.
+                Neither the authors, the editorial personnel, nor any other
+                party who has been involved in the preparation or publication of
+                this work can assure you that the information contained herein
+                is in every respect accurate or complete, and they are not
+                responsible for any errors or omissions or for the results
+                obtained from the use of such information.
+              </p>
+            </div>
+            <div>
+              <h6>USE OF SERVICES AND INFORMATION ON THE WEBSITE</h6>
+            </div>
+            <div>
+              <p>
+                In order to access certain Services, you may be required to
+                provide information about yourself (such as identification,
+                contact or payment details) as part of the registration process
+                for the Service, or as part of your continued use of the
+                Services. You agree that any registration information you give
+                to us will always be true, accurate, correct, complete and up to
+                date. Any phone number used to register with the Website needs
+                to be registered in your name and you might be asked to provide
+                supporting documents to prove the same.
+              </p>
+              <p>
+                In terms of Information and Technology Act,2000 read with
+                Information Technology (Intermediary guidelines) Rules, 2011,
+                Badipay securely transmits and saves your data including but not
+                limiting to the interactions done by the user on the Badipay
+                App, the transactions undertaken by the user via Badipay
+                including the exchange of short message service, to our secure
+                servers. The same enables Badipay to not only serve its users
+                with better offers but also with reminders and notifications for
+                activities more in-line for users’ interests.
+              </p>
+              <p>
+                Information provided by Badipay or otherwise obtained from the
+                Website will not be used for any unauthorized and unlawful
+                purpose; You agree not to access (or attempt to access) any of
+                the Services by any means other than through the interface that
+                is provided by Badipay, unless you have been specifically
+                allowed to do so in a separate agreement with us; You agree that
+                you will not engage in any activity that interferes with or
+                disrupts the Services (or the servers and networks which are
+                connected to the Services); You agree that you will not
+                reproduce, duplicate, copy, transfer, license, rent, sell, trade
+                or resell the information obtained from the Website for any
+                purpose whatsoever; You agree that you are solely responsible
+                for (and that Badipay has no responsibility to you or to any
+                third party for) any breach of your obligations under the Terms
+                and for the consequences (including any loss or damage which
+                Badipay may suffer) of any such breach. You will not impersonate
+                another person, including, without limitation, a Holder or a
+                Merchant. You agree to the use of your data in accordance with
+                Badipay's Privacy Policy All personal and contact information
+                provided by you will be kept confidential by Badipay. This
+                includes your personal information given in relation to your
+                account creation and subsequent administration.
+              </p>
+            </div>
+            <div>
+              <h6>CONTENT YOU POST OR SUBMIT</h6>
+            </div>
+            <div>
+              <p>
+                On creation of an account on the Website, you will have the
+                opportunity to use various interactive aspects through which you
+                can communicate with our Team and share information
+                (collectively "Posted Information"). It is important that you
+                act responsibly when providing such Posted Information. Do not
+                use inappropriate language, make gratuitous personal criticisms
+                or comments. When participating in interactive aspects of the
+                Service, please do include all relevant information in a concise
+                manner to help us provide you with a helpful response.
+              </p>
+              <p>Please note that:</p>
+              <p>
+                You are solely responsible for any Posted Information that you
+                submit on the Website or transmit to our Team and/or other users
+                of the Website;
+              </p>
+              <p>
+                You may not post, distribute, or reproduce in any way any
+                copyrighted material, trademarks, or other proprietary
+                information without obtaining the prior written consent of the
+                owner of such proprietary rights. You may not submit any content
+                or material that infringes, misappropriates or violates the
+                intellectual property, publicity, privacy or other rights of any
+                party;
+              </p>
+              <p>
+                You may not provide any Posted Information that falsely
+                expresses or implies that such content or material is sponsored
+                or endorsed by Badipay;
+              </p>
+              <p>
+                You may not provide any Posted Information that is unlawful or
+                that promotes or encourages illegal activity;
+              </p>
+              <p>
+                You understand and agree that Badipay may (but is not obligated
+                to) review and delete any Posted Information that in the sole
+                judgment of Badipay violates these Terms or which might be
+                offensive, illegal, or that might violate the rights of, harm,
+                or threaten the safety of other users of the Website and/or any
+                other person;
+              </p>
+              <p>
+                You agree that you will only provide Posted Information that you
+                believe to be true and you will not purposely provide false or
+                misleading information; and
+              </p>
+              <p>
+                The following is a partial list of the kind of content and
+                communications that are illegal or prohibited on/through the
+                Website. Badipay reserves the right to investigate and take
+                appropriate legal action in its sole discretion against anyone
+                who violates this provision, including without limitation,
+                removing the offending communication from the Services and
+                terminating the membership of such violators or blocking your
+                use of the Services and/or the Website. You may not post content
+                that:
+              </p>
+              <p>
+                Involves the transmission of unsolicited mass mailing or
+                "spamming";
+              </p>
+              <p>Harasses or advocates harassment of another person;</p>
+              <p>Is false or intentionally misleading;</p>
+              <p>
+                Violates the intellectual property or other rights of any
+                person;
+              </p>
+              <p>Is threatening, obscene, defamatory or libellous; or</p>
+              <p>Is pornographic or sexually explicit in nature.</p>
+              <p>
+                You agree, through Your use of this Service, that you will not
+                use this Website to post any material which known to be
+                unlawful, false and/or defamatory, inaccurate, abusive, vulgar,
+                hateful, harassing, libellous, harmful, obscene, profane,
+                sexually oriented, threatening, racially offensive, invasive of
+                a person's privacy, or otherwise objectionable material of any
+                kind or nature. You agree not to post any copyrighted material
+                unless the copyright is owned by You or You have been given
+                permission by the copyright owner to post such material and You
+                give due credit to the copyright owner by including the
+                copyright information in your post.
+              </p>
+              <p>
+                You agree and acknowledge that you will not submit unlawful,
+                offensive, inaccurate, misleading, abusive, pornographic,
+                harassing, libellous, blasphemous, defamatory, obscene,
+                paedophilic, invasive of another's privacy, hateful, racially or
+                ethically objectionable, disparaging, relating to or encouraging
+                money laundering or gambling, or otherwise inappropriate
+                material.
+              </p>
+              <p>You also agree that you will:</p>
+              <p>
+                Not upload or share any information that impersonates another
+                person, threatens the unity, integrity, defence, security or
+                sovereignty of India;
+              </p>
+              <p>
+                Obtain any consents, permission or licenses that may be legally
+                required for you to submit any material;
+              </p>
+              <p>Respect the privacy of others;</p>
+              <p>
+                Not distribute or post spam, unreasonably large files, chain
+                letters, pyramid schemes, viruses;
+              </p>
+              <p>
+                Not use any other technologies or initiate other activities that
+                may harm the Service, or the interest or property of the Users;
+                and
+              </p>
+              <p>
+                Not use any automated systems or means to access, acquire, copy
+                or monitor any part of the Service.
+              </p>
+              <p>
+                You will notify Badipay at Badipay Helpdesk upon coming across
+                any objectionable content on the Website and Badipay shall use
+                best efforts to remove such objectionable content within
+                thirty-six hours from being duly notified.
+              </p>
+            </div>
+            <div>
+              <h6>YOUR USE OF INFORMATION</h6>
+            </div>
+            <div>
+              <p>
+                Except for Posted Information that you submit, all of the
+                information available on or through the Services and/or the
+                Website, including without limitation, text, photographs,
+                graphics and video and audio content, is owned by us and our
+                licensors and is protected by copyright, trademark, patent and
+                trade secret laws, other proprietary rights and international
+                treaties. You acknowledge that the Services and any underlying
+                technology or software used in connection with the Services
+                contain Badipay's proprietary information. We give you
+                permission to use the aforementioned content for personal,
+                non-commercial purposes only and do not transfer any
+                intellectual property rights to you by virtue of permitting your
+                use of the Services. You may print, download, and store
+                information from the Website for your own convenience, but you
+                may not copy, distribute, republish (except as permitted in this
+                paragraph), sell, or exploit any of the content, or exploit the
+                Website in whole or in part, for any commercial gain or purpose
+                whatsoever. Except as is expressly and unambiguously provided
+                herein, we do not grant you any express or implied rights, and
+                all rights in the Website and the Services not expressly granted
+                by us to you are retained by Badipay
+              </p>
+              <p>
+                We make no guarantees, representations or warranties, whether
+                expressed or implied, with respect to professional
+                qualifications, expertise and quality of work or services or
+                other information concerning the Team.
+              </p>
+            </div>
+            <div>
+              <h6>USER RESPONSIBILITIES</h6>
+            </div>
+            <div>
+              <p>
+                We make no guarantees, representations or warranties, whether
+                expressed or implied, with respect to professional
+                qualifications, expertise and quality of work or services or
+                other information concerning the Team.
+              </p>
+            </div>
+            <div>
+              <h6>PRIVACY AND INTELLECTUAL PROPERTY PROTECTION</h6>
+            </div>
+            <div>
+              <p>
+                Badipay's Privacy Policy explains how we treat your personal
+                data and protect your privacy when you use our Services. By
+                using our services, you agree that Badipay can use such data in
+                accordance with our policies.
+              </p>
+              <p>
+                You agree and understand that you are responsible for
+                maintaining the confidentiality of passwords associated with any
+                account you use to access the Services.
+              </p>
+              <p>
+                You agree that you will be solely responsible to Badipay for all
+                activities that occur under your account.
+              </p>
+              <p>
+                If you become aware of any unauthorized use of your password or
+                of your account, you agree to notify us immediately at Badipay
+                Helpdesk.
+              </p>
+              <p>
+                All trademarks, brands and service marks used in conjunction
+                with the Services offered by Badipay and owned by Badipay shall
+                be our property; Badipay shall own all of the copyrights and
+                database rights in the Services. Without our consent, you may
+                not publish, distribute, extract or reproduce any contents
+                provided by the Services. For use of any third party's
+                intellectual property, you need to get permission directly from
+                the owner of the intellectual property for any use. Third party
+                trademarks may appear on this Website and all rights therein are
+                reserved to the registered owners of those trademarks.
+              </p>
+              <p>
+                As a user of our Website, you acknowledge that any intellectual
+                property which is not specifically mentioned to be owned by us
+                is owned by their respective owners and the owners have a right
+                to take appropriate actions against you for any violation,
+                infringement and passing off.
+              </p>
+              <p>
+                Your use of the Services is at all times governed by and subject
+                to laws regarding copyright, trademark, patent, and trade secret
+                ownership and use of intellectual property. You agree not to
+                upload, download, display, perform, transmit, or otherwise
+                distribute any information or content in violation of any
+                party's copyrights, trademarks, patents, trade secrets, or other
+                intellectual property or proprietary rights. You agree to abide
+                by laws regarding copyright, trademark, patent, and trade secret
+                ownership and use of intellectual property, and you shall be
+                solely responsible for any violations of any laws and for any
+                infringements of any intellectual property rights caused by use
+                of the interface/Website.
+              </p>
+            </div>
+            <div>
+              <h6>THIRD PARTY INFORMATION ON THE WEBSITE</h6>
+            </div>
+            <div>
+              <p>
+                As some information appearing on the Website is provided to
+                Badipay by third parties, Badipay will have no liability in
+                respect of any loss or damage arising from third party
+                information which appears on the Website, including the manner
+                in which the information is displayed or information which may
+                be:
+              </p>
+              <p>Out of date;</p>
+              <p>Inaccurate;</p>
+              <p>Duplication;</p>
+              <p>Impersonation by a person to be another person.</p>
+              <p>
+                All dealings and communication arising from Badipay’s
+                facilitation of interaction between Merchant and Holder will be
+                between the Merchant and Holder only and Badipay is not
+                responsible in any manner for any communication between the
+                Holder and the Merchant, and has no liability in respect of such
+                dealings whatsoever.
+              </p>
+              <p>
+                Badipay is not an agent for any of the Merchants listed on this
+                Website and Badipay has no responsibility for and no liability
+                whatsoever in respect of the conduct of a Merchant or quality of
+                service provided by a Merchant.
+              </p>
+            </div>
+            <div>
+              <h6>LINKS TO OTHER SITES</h6>
+            </div>
+            <div>
+              <p>
+                The Services may include links to other websites. Some of these
+                websites may contain materials that are objectionable, unlawful,
+                or inaccurate. These links are provided for your convenience
+                only and the provision of these links does not mean that we
+                endorse these websites or the products and services they
+                provide. You acknowledge and agree that we are not responsible
+                or liable for the content or accuracy of these other websites.
+              </p>
+              <p>
+                You will note that the URL to every webpage on our Website
+                begins with "https://". In other words, every webpage on our
+                Website is hypertext transfer protocol secure ("HTTPS Enabled")
+                or "identity verified".
+              </p>
+              <p>
+                We have had our entire Website HTTPS Enabled to better protect
+                your security against dummy websites. Please verify that a
+                webpage is HTTPS Enabled before providing any information on it.
+                We will not be liable for any consequences of you providing
+                details on any third party website, including dummy websites.
+              </p>
+            </div>
+            <div>
+              <h6>NO WARRANTIES</h6>
+            </div>
+            <div>
+              <p>
+                The interface/Website is provided subject to all of the terms
+                set forth in the Terms.
+              </p>
+              <p>
+                Badipay disclaims all warranties whether express or implied,
+                including but not limited to:
+              </p>
+
+              <p>
+                That our Website will always function without disruptions, delay
+                or errors. A number of factors may impact the quality of your
+                communications and use of the Website and may result in the
+                failure of your communications including but not limited to:
+                your local network, firewall, your internet service provider,
+                the public internet, the public switched mobile network, private
+                switched mobile networks and your power supply. We take no
+                responsibility for any disruption, interruption or delay caused
+                by any failure of or inadequacy in any of these items or any
+                other items over which we have no control;
+              </p>
+              <p>Your ability to use the Service through the Website;</p>
+              <p>Your satisfaction with the Service or the Website;</p>
+              <p>Security and privacy of your data;</p>
+              <p>
+                That bugs or errors in the Service and/or Website will be
+                corrected; That our Services will be compatible with all
+                broadband services and modems and we disclaim any express or
+                implied warranties regarding the compatibility of our Service
+                with any particular broadband service or modems; We make no
+                express or implied representations or warranties about our
+                Services or the Website and disclaim any implied warranties,
+                including, but not limited to, warranties or implied warranties
+                of merchantability or fitness for a particular purpose or use or
+                noninfringement. We do not authorize anyone to make a warranty
+                on our behalf and you may not rely on any statement of warranty
+                as a warranty by us; and That our Team who furnishes Services to
+                you in connection with this Agreement or the Service will be
+                liable for any act or omission in relation to the Website
+              </p>
+            </div>
+            <div>
+              <h6>RESTRICTIONS ON USE</h6>
+            </div>
+
+            <div>
+              <p>
+                In addition to all Terms of this Agreement, you shall not: Use
+                the third party links to sites without agreeing to their website
+                terms & conditions; Post links to third party websites or use
+                their logo, company name, etc. without their prior written
+                permission; or Use the Services for spamming and other illegal
+                purposes.
+              </p>
+            </div>
+            <div>
+              <h6>TERMINATION OF SERVICES</h6>
+            </div>
+            <div>
+              <p>
+                Your account may be disabled and Services may be terminated
+                based upon the representations made by you. Any of the following
+                actions may result in termination of Services: Impersonating
+                another person or entity with the effect of misleading users
+                about the identity of the creator of content (including
+                misleading account user names, voices and sounds used in
+                broadcasts, and account profile information);
+              </p>
+              <p>
+                Impersonating the Services or a Badipay Team member;
+                Representing that content you post or transmit through the
+                Services is created or endorsed by us; Providing or sending any
+                content which may be harmful or detrimental to Badipay or its
+                business associates, or which violates any restriction or policy
+                established by Badipay or its business associates; Submission of
+                any content that falsely expresses or implies that such content
+                is sponsored or endorsed by us; Falsification or deletion of any
+                author attributions, legal or other proper notices or
+                proprietary designations or labels of the origin or source of
+                software or other material contained in a file that is posted;
+                Putting on Badipay’s system any content that contains software
+                viruses, trojan horses or any other computer code, files, or
+                programs designed to interrupt, destroy, or limit functionality
+                of any computer software or hardware or telecommunications
+                equipment; Manipulating Service identifiers in order to disguise
+                the origin of any content transmitted via the Services;
+                Collecting or storing personal data about other users;
+                Interfering with or disrupting the Service or servers or
+                networks connected to the Service, or disobeying any
+                requirements, procedures, policies or regulations of networks
+                connected to the Service; Using any robot, spider, website
+                search/retrieval application, or other device to retrieve or
+                index any portion of the Service or collect information about
+                users for any unauthorized purpose; or Creating user accounts by
+                automated means or under false or fraudulent pretences.
+              </p>
+            </div>
+            <div>
+              <h6>SPAMMING</h6>
+            </div>
+            <div>
+              <p>
+                You may not use contact information provided by us or other
+                users or harvest such information for the purpose of sending, or
+                to facilitate the sending, of unsolicited bulk communications
+                such as spam. You may not allow others to use your account to
+                violate the terms of this section. We may terminate your
+                membership or access to the Website immediately and take other
+                legal action if you or anyone using your credentials violates
+                these provisions.
+              </p>
+            </div>
+            <div>
+              <h6>ADDITIONAL TERMS</h6>
+            </div>
+            <div>
+              <p>
+                Certain Services on the Website may have additional terms (such
+                as policies, guidelines, and rules) that will further govern
+                your use of that particular Service and supplement these Terms.
+                If you choose to register for or access any such Services, you
+                will be presented with any relevant additional terms and
+                conditions at that time. By using those Services, you agree to
+                comply with such additional guidelines and rules. Unless
+                otherwise indicated all offers validity, usage, eligibility,
+                availability and or otherwise are subject to Terms and
+                Conditions and may be available at select participating stores
+                and or merchants only. Be certain to read the terms and
+                conditions for each offer before use. In relation to some Offers
+                and or Promotions, certain release requirements or, where
+                appropriate, withdrawal and or earning restrictions must be
+                satisfied, in addition to the general eligibility criteria set
+                out in the Terms and Conditions made available on
+                http://badipaymultiservice.com
+              </p>
+            </div>
+            <div>
+              <h6>DISCLAIMER</h6>
+            </div>
+            <div>
+              <p>
+                The Service and the Website and its entire contents are provided
+                on an 'as is' basis. Badipay and its officers, employees, agents
+                and contractors give or make no representation or warranty
+                (either express or implied) as to the suitability of the Service
+                or the Website or its contents for any purpose or the
+                completeness, accuracy, reliability, security or availability of
+                the Service or the Website or its contents; nor do they accept
+                any responsibility arising in any way (including from
+                negligence) for errors in, or omissions from, the Service or the
+                Website. Badipay and its officers, employees, agents and
+                contractors are not liable for any loss, damage, claim, expense,
+                cost (including legal costs) or liability arising directly or
+                indirectly from your use or non-use of the Service or the
+                Website, or your reliance upon the Service or the information
+                contained upon the Website (whether arising from Badipay’s or
+                any other person's negligence or otherwise). You and Badipay
+                agree that any cause of action arising out of your use of the
+                Service or Website must be commenced within 12 (twelve) months
+                after the cause of action accrues or you become aware of the
+                facts giving rise to the cause of action, whichever is later.
+                Otherwise, such cause of action is permanently barred. Where any
+                legislation implies any term, condition, representation or
+                warranty into this Agreement or the Privacy Policy and that
+                legislation prohibits exclusion of that term, condition,
+                representation or warranty, then that term, condition,
+                representation or warranty is included.
+              </p>
+            </div>
+            <div>
+              <h6>GENERAL LIMITATION OF LIABILITY AND INDEMNIFICATION</h6>
+            </div>
+            <div>
+              <p>
+                Your sole and exclusive remedy for any dispute with us is the
+                suspension of your Badipay account. In no event shall our total
+                cumulative liability to you for any and all claims relating to
+                or arising out of your use of the Website, regardless of the
+                form of action, exceed INR 1000 /- (Indian Rupees [ONE THOUSAND]
+                only). In no event shall we be liable to you (or to any third
+                party claiming under or through you) for any indirect, special,
+                incidental, consequential or exemplary damages arising from your
+                use of, or inability to use, the Website. These exclusions apply
+                to any claims for lost profits, lost data, loss of goodwill,
+                work stoppage, computer failure or malfunction, any other
+                commercial damages or losses, even if we knew or should have
+                known of the possibility of such damages.
+              </p>
+              <p>
+                You agree to defend, indemnify and hold Badipay, and its Team
+                harmless from and against any claims, actions, demands,
+                liabilities, judgments, and settlements, including without
+                limitation, reasonable legal fees resulting from or alleged to
+                result from your use of this Website. You hereby indemnify and
+                hold Badipay, and its Team harmless from any loss, costs,
+                damages, expenses, and liability caused by your use of the
+                Website, your violation of this Agreement, or your violation of
+                any rights of a third party through use of the Website
+              </p>
+            </div>
+            <div>
+              <h6>UNENFORCEABLE PROVISIONS</h6>
+            </div>
+            <div>
+              <p>
+                If any provision of these Terms is, or is found to be,
+                unenforceable under applicable laws, that will not affect the
+                enforceability of the other provisions of these Terms.
+              </p>
+            </div>
+            <div>
+              <h6>GOVERNING LAW AND DISPUTE RESOLUTION</h6>
+            </div>
+            <div>
+              <p>
+                Except as otherwise described, all content availed by the use of
+                this Website/interface are made available only to facilitate the
+                users. Badipay controls and operates the Website and Services
+                and makes no representation that the contents and Services are
+                appropriate or available for use in other locations. If you use
+                the Services from a location other than the location where the
+                Website and Services are controlled and operated, you are
+                responsible for compliance with applicable local laws
+              </p>
+              <p>
+                These Terms shall be governed by and shall be construed in
+                accordance with the laws of India. All disputes relating to
+                these Terms shall be settled in the courts located at New Delhi,
+                India.
+              </p>
+              <p>Online Terms and Conditions for Users</p>
+              <p>Online Terms and Conditions for Merchants</p>
+              <p>Online Terms and Conditions for Offers</p>
+              <p>Grievance Policy</p>
+              <p>Customer Protection and Liability Policy</p>
+              <p>Know Your Customer (KYC)</p>
+              <p>User Form</p>
+              <p>Documentation- LLP</p>
+              <p>Documentation- Partnership</p>
+              <p>Documentation- Pvt Ltd</p>
+              <p>Documentation- Sole Proprietorship</p>
+              <p>Documentation- Trust</p>
+              <p>Badipay Wallet Features</p>
+              <p>
+                Badipay is an authorized Payment and Settlement System under the
+                Payment and Settlement Act 2007. It issues semi closed Pre –
+                paid instruments (“Badipay Wallet”) to Holders/Users on which
+                they can load and transfer funds in Indian currency to make
+                purchases of commodities or avail financial services from
+                different Merchants. As per law and relevant KYC Guidelines ,
+                Badipay wallets are issued either on submission of Minimum
+                Wallet ( “ Minimum KYC Wallet”) details which shall include
+                mobile number verified with One Time Pin and self-declaration of
+                name and unique identification number of any of the “ officially
+                valid document” defined under PML Rules,2005 or on the
+                submission of complete documents (“ KYC Compliant Wallet”) these
+                shall only be issued after completing KYC of the PPI Holder .
+                Badipay Wallet will be valid for an indefinite period subject to
+                the limitations provided under law; any changes to the same will
+                be communicated by updating these terms and conditions
+              </p>
+            </div>
+            <div>
+              <h6>Minimum KYC Wallet Features</h6>
+            </div>
+            <div>
+              <p>S. No. Feature Conditions</p>
+              <li>
+                <ol>
+                  Maximum outstanding Balance: The maximum outstanding balance
+                  must not exceed INR 10,000/- (Indian Rupees Ten Thousand Only)
+                  at any point in time
+                </ol>
+                <ol>
+                  Loading or Reloading of Funds: The total amount loaded or
+                  reloaded in the prepaid payment account during any given month
+                  shall not exceed INR 10,000/- (Indian Rupees Ten Thousand
+                  Only) and the total amount loaded during the financial year
+                  shall not exceed INR 1,20,000/- (Indian Rupees One Lac Twenty
+                  Thousand Only)
+                </ol>
+                <ol>
+                  Transfer of funds: You will not be able to transfer money from
+                  such Min KYC accounts to other Money accounts or bank
+                  accounts. The only time you can transfer money out of this
+                  account is at the point of closure of your Wallet , at which
+                  point you would be required to transfer money to your own bank
+                  account post providing required bank account proof of
+                  ownership and after completing your Know Your Customer; or
+                  transfer money 'back to source' (payment source from where the
+                  money was loaded).
+                </ol>
+                <ol>
+                  Debit from prepaid account: The total amount debited from the
+                  prepaid payment account during any given month shall not
+                  exceed INR 10,000/-(Indian Rupees Ten Thousand Only)
+                </ol>
+                <ol>
+                  Expiry Period: As per the RBI guidelines updated as on 28th
+                  January 2020 the new type of Min KYC account has no expiry
+                </ol>
+                <ol>
+                  Making the Wallet account inactive: In case of no financial
+                  transaction for a consecutive period of 1 (one) year in the
+                  Prepaid Payment Account, Badipay shall make the Account
+                  inactive.
+                </ol>
+                <ol>
+                  Usage of the Wallet: The wallet can be used only for purchase
+                  of goods and services. Fund transfer to other Badipay Wallet
+                  or to bank accounts is not permitted.
+                </ol>
+                <ol>
+                  Closure of Wallet: At the time of closure, any outstanding
+                  balance in the wallet shall be transferred at the request of
+                  the holder to the ‘own bank account of Wallet holder’ or shall
+                  be transferred ‘back to source’ after complying with KYC
+                  requirements of the Wallet holder
+                </ol>
+              </li>
+              <p>
+                *Note: KYC documentation shall be in line with the prevailing
+                RBI guidelines on (KYC) Know your Customer.
+              </p>
+              <p>
+                Above parameters and limit capping is applicable as per the
+                Master direction on issuance and operation of prepaid card
+                instruments dated 11th Oct 2017, and subject to change as when
+                new guidelines is issued by RBI. Badipay Wallet can be loaded
+                through online payment methods such as domestic credit/debit
+                card and net banking. However, you will not be able to use
+                prepaid cards, EMI, cards issued outside India or a combination
+                of cards to add/load amount to your Wallet. Such loads will be
+                as per the prescribed limits for Min KYC and Full KYC accounts,
+                mentioned under these T&Cs and as provided by RBI from time to
+                time. Except as provided hereunder, amount in your Wallet will
+                not be refunded to you under any circumstances. No refund will
+                be provided in cash, at any point of time. No interest will be
+                paid on the amount in the Wallet at any point of time.
+              </p>
+              <p>
+                The Login used for your Badipay Wallet shall give You access to
+                all other Services being offered on our Platform .
+              </p>
+            </div>
+            <div>
+              <h6>WALLET EXPIRY</h6>
+            </div>
+            <div>
+              <p>
+                There is no expiry date for your Badipay Wallet. If you have any
+                questions or concerns about this Agreement, please send us a
+                thorough description to Badipay Helpdesk. We strive to respond
+                to all User requests. If you have any questions or claims of
+                copyright infringement, please contact us at Badipay Helpdesk.
+                Need help ? We will be glad to assist you at
+                <a href="badipaymultiservice@gmail.com">
+                  badipaymultiservice@gmail.com
+                </a>
               </p>
             </div>
           </div>

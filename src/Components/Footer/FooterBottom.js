@@ -10,11 +10,11 @@ const FooterBottom = () => {
     <div className="py-4">
       <Container className="text-center">
         <Link to={routes.home} className="d-inline-flex align-items-center">
-          <img src={Logo} alt="badipay.in" style={{ height: "80px" }} />
+          <img src={Logo} alt="badipay.co.in" style={{ height: "80px" }} />
         </Link>
         <p className="small text-muted">
           Copyright © {new Date().getFullYear()} <HeartFill color="red" />{" "}
-          badipay.in. All rights reserved.
+          badipay.co.in. All rights reserved.
         </p>
       </Container>
     </div>

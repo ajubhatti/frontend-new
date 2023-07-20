@@ -71,7 +71,7 @@ const PageInfo = () => {
           </div>
         </div>
       </div>
-      <div className="container space-1">
+      {/* <div className="container space-1">
         <div className="row align-items-lg-center">
           <div className="col-lg-5 mb-7 mb-lg-0">
             <div className="pr-lg-4">
@@ -98,8 +98,8 @@ const PageInfo = () => {
             </figure>
           </div>
         </div>
-      </div>
-      <div className="container space-1">
+      </div> */}
+      {/* <div className="container space-1">
         <div className="w-lg-50 text-center mx-lg-auto mb-9">
           <h2 className="font-weight-medium mb-4">
             Always know what you'll pay.
@@ -222,7 +222,7 @@ const PageInfo = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="container space-1">
         <div className="w-lg-50 text-center mx-lg-auto mb-5">
           <h2 className="font-weight-medium mb-4">

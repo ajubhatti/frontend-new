@@ -11,50 +11,47 @@ const ContactUs = (props) => {
   const cards = [
     {
       title: "Address",
-      subTitle: "153 Williamson Plaza, 09514",
+      subTitle: "BadiPay multi service private limited, Chistiya complex, Jinpara main road Wankaner, Morbi, Gujarat, India, 363621",
       icon: AddressIcon,
     },
     {
       title: "Email",
-      subTitle: "support@htmlstream.com",
+      subTitle: "badipaymultiservice@gmail.com",
       icon: EmailIcon,
     },
     {
       title: "Phone Number",
-      subTitle: "+1 (062) 109-9222",
+      subTitle: "+91 7227062486",
       icon: PhoneIcon,
-    },
-    {
-      title: "Fax",
-      subTitle: "+1 (062) 109-9223",
-      icon: FaxIcon,
     },
   ];
   return (
     <>
-    <div className="container">
-      <div className="question-section">
-        <div className="w-lg-80 text-center mx-lg-auto">
-          <div className="mb-11">
-            <h1 className="display-4 font-weight-semi-bold">Got a question?</h1>
-            <p className="lead font-weight-normal">
-              How can Badipay assistants help you? Whether you have questions or
-              you would just like to say hello, contact us.
-            </p>
+      <div className="container">
+        <div className="question-section">
+          <div className="w-lg-80 text-center mx-lg-auto">
+            <div className="mb-11">
+              <h1 className="display-4 font-weight-semi-bold">
+                Got a question?
+              </h1>
+              <p className="lead font-weight-normal">
+                How can Badipay assistants help you? Whether you have questions
+                or you would just like to say hello, contact us.
+              </p>
+            </div>
           </div>
-        </div>
-        <ContactForm {...props} />
-        {/* <hr className="my-0" /> */}
-        <div className="clearfix space-2">
-          <div className="row no-gutters">
-            {cards.length > 0 &&
-              cards.map((item) => {
-                return <ContactCard key={item.title} {...item} />;
-              })}
+          <ContactForm {...props} />
+          {/* <hr className="my-0" /> */}
+          <div className="clearfix space-2">
+            <div className="row no-gutters">
+              {cards.length > 0 &&
+                cards.map((item) => {
+                  return <ContactCard key={item.title} {...item} />;
+                })}
+            </div>
           </div>
         </div>
       </div>
-    </div>
       <hr className="my-0" />
     </>
   );
