@@ -32,12 +32,15 @@ const validationSchema = Yup.object().shape({
 const PaymentDetail = (props) => {
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(false);
+
   const cancelHandler = (e) => {
     e.preventDefault();
     props.cancelHandler();
   };
 
   const saveAndContinue = (values) => {
+    setLoading(true)
     dispatch(
       walletBalanceUpdate(values, (status) => {
         if (status) {
@@ -197,12 +200,14 @@ const PaymentDetail = (props) => {
       </div>
       <div className="d-flex justify-content-end">
         <button
+          disabled={loading}
           type="Submit"
           className="btn btn-primary transition-3d-hover mr-1"
         >
           Submit
         </button>
         <button
+          disabled = {loading}
           type="button"
           className="btn btn-soft-secondary transition-3d-hover mr-1"
           onClick={cancelHandler}

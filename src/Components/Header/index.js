@@ -8,6 +8,7 @@ import { BsWallet2 } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import NewHeader from "./NewHeader";
 import DownloadApkButton from "../DownloadApkButton";
+import { FaRupeeSign } from "react-icons/fa";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -44,6 +45,7 @@ const Header = () => {
     { title: "View profile", link: routes.editProfile },
     { title: "Wallet History", link: routes.profileWalletHistory },
     { title: "Activity", link: routes.profileTransaction },
+    { title: "Recharges", link: routes.rechargeList },
     { title: "Change Transaction Pin", link: routes.profileChangePin },
     { title: "Change password", link: routes.profileChangePassword },
     { title: "Logout", link: routes.login },
@@ -131,7 +133,10 @@ const Header = () => {
                     <>
                       <li className="nav-item hs-has-mega-menu u-header__nav-item">
                         <div className="wallet-card">
-                          <span>${userData?.walletBalance || 0}</span>
+                          <span>
+                            <FaRupeeSign />
+                            {userData?.walletBalance || 0}
+                          </span>
                           <BsWallet2 className="wallet-icon" />
                         </div>
                       </li>

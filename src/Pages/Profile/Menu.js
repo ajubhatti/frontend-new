@@ -6,13 +6,19 @@ import ProfileImg from "../../Assets/user.jpg";
 import FormModal from "./Deposits/FormModal";
 import { Plus } from "react-bootstrap-icons";
 import { useSelector } from "react-redux";
+import UPIPaymentModal from "./Deposits/UPIPaymentModal";
 
 const Menu = (props) => {
   const [open, setOpen] = useState(false);
+  const [upiModalOpen, setUpiModalOpen] = useState(false);
   const userDetails = getUser();
 
   const buttonHandler = () => {
     setOpen(true);
+  };
+
+  const upiAddHandler = () => {
+    setUpiModalOpen(true);
   };
 
   const modalHide = () => {
@@ -53,19 +59,34 @@ const Menu = (props) => {
               </div>
             </div>
 
-            <div className="">
+            <div className="d-flex">
               <button
-                className="btn btn-sm btn-primary add-money-btn"
+                className="btn btn-sm btn-light add-money-btn m-1"
                 onClick={buttonHandler}
               >
                 <Plus />
                 Add Money
+              </button>
+              <button
+                className="btn btn-sm btn-light add-money-btn m-1"
+                onClick={upiAddHandler}
+              >
+                <Plus />
+                Add By UPI
               </button>
             </div>
           </div>
         </div>
       </div>
       {open && <FormModal show={open} onHide={modalHide} {...props} />}
+
+      {upiModalOpen && (
+        <UPIPaymentModal
+          show={upiModalOpen}
+          onHide={() => setUpiModalOpen(false)}
+          {...props}
+        />
+      )}
     </>
   );
 };

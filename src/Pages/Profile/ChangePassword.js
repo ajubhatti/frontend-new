@@ -46,13 +46,15 @@ const ChangePassword = (props) => {
                 userId: getUserData.id,
               },
               (status) => {
-                if (status) {
+                if (status?.status == 200) {
                   setValues({
                     currentPassword: "",
                     newPassword: "",
                     confirmNewPassword: "",
                   });
                   setLoading(false);
+                } else {
+                  toast.error(status.response.data.message);
                 }
               }
             )

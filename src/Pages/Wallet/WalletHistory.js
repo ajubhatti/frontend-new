@@ -15,6 +15,7 @@ import {
   setSortFieldOfWallet,
   setSortOrderOfWallet,
 } from "./store/actions";
+import { FaSearch, FaFileExport } from "react-icons/fa";
 
 const options = {
   fieldSeparator: ",",
@@ -52,7 +53,7 @@ const WalletHistory = () => {
     userId: user?.id,
     page: 1,
     limits: 25,
-    sortBy: "created",
+    sortBy: "createdAt",
     orderBy: "DESC",
     skip: 0,
     search: "",
@@ -76,12 +77,12 @@ const WalletHistory = () => {
       },
       {
         text: "Date",
-        dataField: "created",
+        dataField: "createdAt",
         sort: true,
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div className="align-middle">
-            {row?.created
-              ? moment(row?.created).format("DD/MM/YYYY hh:mm:ss")
+            {row?.createdAt
+              ? moment(row?.createdAt).format("DD/MM/YYYY, hh:mm:ss")
               : "-"}
           </div>
         ),
@@ -278,12 +279,66 @@ const WalletHistory = () => {
     <div className="bg-light">
       <Menu />
       <div className="container space-2">
+        <div className="col-lg-12 justify-content-between d-flex">
+          <h6 className="main-heading">Wallet Request List</h6>
+        </div>
+
         <div className="card">
           <div className="card-body">
+            <div className="wallet-search-heading">
+              <div className="">
+                <label>Search</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="search"
+                  onChange={handleSearch}
+                />
+              </div>
+              <CustomDateRangePicker
+                rangeDate={dateRangeValue}
+                setRangeDate={setDateRangeValue}
+              />
+              <div className="me-2 d-flex align-items-end">
+                <button
+                  className={`btn btn-primary cursor-pointer ${
+                    exportLoading ? "disabled" : ""
+                  }`}
+                  onClick={handleFilterData}
+                >
+                  <FaSearch />
+                </button>
+              </div>
+              <div>
+                {exportLoading ? (
+                  <button
+                    className="btn btn-secondary cursor-pointer"
+                    type="button"
+                    disabled
+                  >
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    <span class="sr-only">Loading...</span>
+                  </button>
+                ) : (
+                  <button
+                    className={`btn btn-primary cursor-pointer ${
+                      exportLoading ? "disabled" : ""
+                    }`}
+                    onClick={handleCSV}
+                  >
+                    <FaFileExport />
+                  </button>
+                )}
+              </div>
+            </div>
             <CustomTable
               showAddButton={false}
               pageOptions={pageOptions}
-              keyField="wallet_id"
+              keyField="_id"
               data={walletListData}
               columns={columns}
               showSearch={false}
@@ -291,41 +346,7 @@ const WalletHistory = () => {
               withPagination={true}
               loading={walletLoading}
               withCard={false}
-            >
-              <div className="wallet-search-heading">
-                <div className="">
-                  <label>Search</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="search"
-                    onChange={handleSearch}
-                  />
-                </div>
-                <CustomDateRangePicker
-                  rangeDate={dateRangeValue}
-                  setRangeDate={setDateRangeValue}
-                />
-                <div className="">
-                  <button
-                    className={`btn btn-secondary btn-md wallet-common-btn me-2${
-                      exportLoading ? "disabled" : ""
-                    }`}
-                    onClick={handleFilterData}
-                  >
-                    Find
-                  </button>
-                  <button
-                    className={`btn btn-secondary btn-md wallet-common-btn ${
-                      exportLoading ? "disabled" : ""
-                    }`}
-                    onClick={handleCSV}
-                  >
-                    {exportLoading ? "Exporting.." : "Export CSV"}
-                  </button>
-                </div>
-              </div>
-            </CustomTable>
+            ></CustomTable>
           </div>
         </div>
       </div>

@@ -23,6 +23,7 @@ const routes = {
   otp: "/otp",
   wallet: "/wallet",
   editProfile: "/edit-profile",
+  rechargeList: "/recharge-list",
 };
 
 export default routes;

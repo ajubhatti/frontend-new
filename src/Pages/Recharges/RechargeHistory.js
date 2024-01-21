@@ -8,14 +8,15 @@ import CustomTable from "../../Components/Tables/CustomTable";
 import CustomDateRangePicker from "../../Components/DateRangePicker/CustomDateRangePicker";
 import { ExportToCsv } from "export-to-csv";
 import { toast } from "react-toastify";
-import { FaPrint } from "react-icons/fa";
+import { FaPrint, FaSearch, FaFileExport } from "react-icons/fa";
 import InvoiceModal from "../../Components/Modal/invoiceModal";
 import {
-  fetchAllUserTransactionList,
-  setPageTransaction,
-  setSizePerPageTransaction,
-  setSortFieldOfTransaction,
-  setSortOrderOfTransaction,
+  fetchAllUserRechargeList,
+  rechargeComplaints,
+  setPageRecharge,
+  setSizePerPageRecharge,
+  setSortFieldOfRecharge,
+  setSortOrderOfRecharge,
 } from "./store/actions";
 
 const options = {
@@ -32,16 +33,11 @@ const options = {
 
 const csvExporter = new ExportToCsv(options);
 
-const TransactionHistory = () => {
+const RechargeHistory = () => {
   const dispatch = useDispatch();
   const user = getUser();
-  const {
-    transactionsLoading,
-    page,
-    sizePerPage,
-    totalSize,
-    transactionListData,
-  } = useSelector((state) => state.transactionReducer);
+  const { rechargesLoading, page, sizePerPage, totalSize, rechargeListData } =
+    useSelector((state) => state.rechargeReducer);
 
   const [exportLoading, setExportLoading] = useState(false);
   const [searchString, setSearchString] = useState("");
@@ -101,7 +97,11 @@ const TransactionHistory = () => {
         dataField: "transactionId",
         sort: false,
         formatter: (cell, row, rowIndex, formatExtraData) => (
-          <div>{row?.transactionId ? row?.transactionId : "-"}</div>
+          <div>
+            {row?.transactionData?.transactionId
+              ? row?.transactionData?.transactionId
+              : "-"}
+          </div>
         ),
       },
       {
@@ -205,7 +205,7 @@ const TransactionHistory = () => {
         dataField: "status",
         formatter: (cell, row, rowIndex, formatExtraData) => (
           <div
-            className={`align-middle text-${
+            className={`align-middle cursor-pointer text-${
               row?.status === "success"
                 ? "success"
                 : row?.status === "pending"
@@ -228,6 +228,23 @@ const TransactionHistory = () => {
         ),
       },
       {
+        text: "Complain Status",
+        dataField: "complainStatus",
+        sort: false,
+        formatter: (cell, row, rowIndex, formatExtraData) => (
+          <div
+            className={`align-middle text-warning cursor-pointer`}
+            onClick={() => handleComplaints(row)}
+          >
+            <span
+              className={`text-capitalize text-white p-1 rounded bg-warning`}
+            >
+              {row?.complainStatus ? row?.complainStatus : "Complaint"}
+            </span>
+          </div>
+        ),
+      },
+      {
         text: "print",
         dataField: "print",
         sort: false,
@@ -240,6 +257,24 @@ const TransactionHistory = () => {
     ],
     [page, sizePerPage]
   );
+
+  const handleComplaints = (row) => {
+    if (!row.complainStatus) {
+      dispatch(
+        rechargeComplaints(row, (cb) => {
+          console.log({ cb });
+          if (cb?.status === 200) {
+            if (cb?.data?.STATUSCODE !== "0" || cb?.data?.status !== "2")
+              toast.error(cb.data.STATUSMSG || cb.data.msg);
+            else toast.success(cb.data.STATUSMSG || cb.data.msg);
+          }
+          getRechargeList();
+        })
+      );
+    } else {
+      toast.error("Already complained!");
+    }
+  };
 
   const pageOptions = useMemo(
     () => ({
@@ -271,18 +306,22 @@ const TransactionHistory = () => {
   }, [sizePerPage, page, user?.id]);
 
   useEffect(() => {
-    dispatch(fetchAllUserTransactionList(payloadData));
+    dispatch(fetchAllUserRechargeList(payloadData));
   }, [dispatch, payloadData]);
+
+  const getRechargeList = () => {
+    dispatch(fetchAllUserRechargeList(payloadData));
+  };
 
   const onTableChange = (type, { page, sizePerPage, sortField, sortOrder }) => {
     switch (type) {
       case "sort":
-        dispatch(setSortFieldOfTransaction(sortField));
-        dispatch(setSortOrderOfTransaction(sortOrder.toUpperCase()));
+        dispatch(setSortFieldOfRecharge(sortField));
+        dispatch(setSortOrderOfRecharge(sortOrder.toUpperCase()));
         break;
       case "pagination":
-        dispatch(setPageTransaction(page));
-        dispatch(setSizePerPageTransaction(sizePerPage));
+        dispatch(setPageRecharge(page));
+        dispatch(setSizePerPageRecharge(sizePerPage));
         break;
       default:
         break;
@@ -301,7 +340,7 @@ const TransactionHistory = () => {
         limits: totalSize,
       };
       dispatch(
-        fetchAllUserTransactionList(payload, (status) => {
+        fetchAllUserRechargeList(payload, (status) => {
           if (status) {
             const exportData = status?.data?.map((item) => {
               return {
@@ -323,9 +362,9 @@ const TransactionHistory = () => {
                 status: item?.status || "-",
               };
             });
-            setExportLoading(false);
             csvExporter.generateCsv(exportData);
           }
+          setExportLoading(false);
         })
       );
     } catch (err) {
@@ -353,62 +392,75 @@ const TransactionHistory = () => {
 
       <div className="container space-2">
         <div className="card" id="non_printable">
-          <div className="card-body p-4">
+          <div className="card-body">
+            <div className="position-relative">
+              <div className="d-flex justify-content-between py-3">
+                <div className="d-flex">
+                  <div className="me-2">
+                    <label>Search</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="search"
+                      onChange={handleSearch}
+                    />
+                  </div>
+
+                  <CustomDateRangePicker
+                    rangeDate={dateRangeValue}
+                    setRangeDate={setDateRangeValue}
+                  />
+
+                  <div className="me-2 d-flex align-items-end">
+                    <button
+                      className={`btn btn-primary cursor-pointer ${
+                        exportLoading ? "disabled" : ""
+                      }`}
+                      onClick={handleFilterData}
+                    >
+                      <FaSearch />
+                    </button>
+                  </div>
+                  <div className="me-2 d-flex align-items-end">
+                    {exportLoading ? (
+                      <button
+                        className="btn btn-secondary cursor-pointer"
+                        type="button"
+                        disabled
+                      >
+                        <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        <span class="sr-only">Loading...</span>
+                      </button>
+                    ) : (
+                      <button
+                        className={`btn btn-primary cursor-pointer ${
+                          exportLoading ? "disabled" : ""
+                        }`}
+                        onClick={handleCSV}
+                      >
+                        <FaFileExport />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
             <CustomTable
               showAddButton={false}
               pageOptions={pageOptions}
               keyField="_id"
-              data={transactionListData}
+              data={rechargeListData}
               columns={columns}
               showSearch={false}
               onTableChange={onTableChange}
               withPagination={true}
-              loading={transactionsLoading}
+              loading={rechargesLoading}
               withCard={false}
-            >
-              <div className="position-relative">
-                <div className="d-flex justify-content-between">
-                  <div className="d-flex">
-                    <div className="me-2">
-                      <label>Search</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="search"
-                        onChange={handleSearch}
-                      />
-                      x
-                    </div>
-
-                    <CustomDateRangePicker
-                      rangeDate={dateRangeValue}
-                      setRangeDate={setDateRangeValue}
-                    />
-
-                    <div className="me-2 d-flex align-items-end">
-                      <button
-                        className={`btn btn-secondary ${
-                          exportLoading ? "disabled" : ""
-                        }`}
-                        onClick={handleFilterData}
-                      >
-                        Find
-                      </button>
-                    </div>
-                  </div>
-                  <div className="me-2 d-flex align-items-end">
-                    <button
-                      className={`btn btn-secondary ${
-                        exportLoading ? "disabled" : ""
-                      }`}
-                      onClick={handleCSV}
-                    >
-                      {exportLoading ? "Exporting.." : "Export CSV"}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </CustomTable>
+            />
           </div>
         </div>
       </div>
@@ -425,4 +477,4 @@ const TransactionHistory = () => {
   );
 };
 
-export default TransactionHistory;
+export default RechargeHistory;

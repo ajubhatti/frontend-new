@@ -24836,3 +24836,7 @@ input::-webkit-inner-spin-button {
 .noBorder {
   border: none !important;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

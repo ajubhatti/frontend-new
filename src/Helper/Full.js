@@ -44,6 +44,9 @@ const ForgotTransactionPin = React.lazy(() => import("../Pages/ForgotPin"));
 const Main = React.lazy(() => import("./Main"));
 const Faq = React.lazy(() => import("../Pages/FAQ/Faq"));
 const WalletHistory = React.lazy(() => import("../Pages/Wallet/WalletHistory"));
+const RechargeList = React.lazy(() =>
+  import("../Pages/Recharges/RechargeHistory")
+);
 
 const ProtectedRoute = ({ children }) => {
   const dispatch = useDispatch();
@@ -233,6 +236,16 @@ const Full = (props) => {
           element={
             <ProtectedRoute>
               <WalletHistory />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          exact
+          path={routes.rechargeList}
+          element={
+            <ProtectedRoute>
+              <RechargeList />
             </ProtectedRoute>
           }
         />

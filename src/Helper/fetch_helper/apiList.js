@@ -47,9 +47,6 @@ export const profile = {
 
 export const service = {
   service: { method: "get", url: "/service" },
-  serviceProviderAll: { method: "get", url: "/ambikaSlab" },
-  serviceProviderByType: { method: "post", url: "/ambikaSlab/getProvider" },
-  ambikaRecharge: { method: "post", url: "/ambikaSlab/ambikaRecharge" },
   getMplan: { method: "post", url: "/mplan/getMplan" },
 };
 
@@ -62,8 +59,14 @@ export const operator = {
 
 export const recharge = {
   rechargeOrBill: { method: "post", url: "/rechargeOrBill" },
+  listById: { method: "post", url: "/rechargeOrBill/getRecharges" },
+  createComplain: { method: "post", url: "/rechargeComplaint/create" },
 };
 
 export const wallet = {
   type: { method: "get", url: "/paymentMode" },
+  addByPaymentGateway: {
+    method: "post",
+    url: "/walletTransaction/addByPaymentGateway",
+  },
 };

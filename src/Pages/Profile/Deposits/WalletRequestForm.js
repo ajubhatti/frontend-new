@@ -10,7 +10,6 @@ import { fetchType } from "../store/actions";
 const WalletRequestForm = (props) => {
   const dispatch = useDispatch();
   const { bankList } = useSelector((state) => state.profileReducer);
-  const [step, setStep] = useState(1);
   const [values, setValues] = useState({
     userId: "",
     requestAmount: null,

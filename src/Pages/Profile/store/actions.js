@@ -103,6 +103,18 @@ export const createOrUpdateUserTransactionPin =
     }
   };
 
+export const createUPITxnOrder = (payload) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      API_URL + auth.changeTransactionPin.url,
+      payload
+    );
+    dispatch(setLoading(false));
+  } catch (err) {
+    toast.error(err.response?.data?.message || err.message);
+  }
+};
+
 export const userWalletData = (payload) => async (dispatch) => {
   try {
     dispatch(setLoading(true));

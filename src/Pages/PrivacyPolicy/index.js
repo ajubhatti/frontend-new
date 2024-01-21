@@ -1,8 +1,53 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const PrivacyPolicy = () => {
+  const [html, setHTML] = useState({ __html: "" });
+
+  const url =
+    window.location.hostname === "localhost"
+      ? `https://cors-anywhere.herokuapp.com/http://localhost:4000/files/privacy-policy.html`
+      : `https://cors-anywhere.herokuapp.com/https://api.badipay.co.in/files/privacy-policy.html`;
+
+  const fetchInfo = () => {
+    return axios.get(url).then((res) => {
+      console.log({ res });
+      setHTML(res.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchInfo();
+  }, []);
+
+  useEffect(() => {
+    console.log({ html });
+  }, [html]);
+
+  // useEffect(() => {
+  //   async function createMarkup() {
+  //     let response;
+  //     response = await fetch(url, {
+  //       method: "GET",
+  //       mode: "no-cors",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     const backendHtmlString = await response.text();
+
+  //     console.log(backendHtmlString);
+  //     return { __html: backendHtmlString };
+  //   }
+  //   createMarkup().then((result) => {
+  //     console.log({ result });
+  //     setHTML(result);
+  //   });
+  // }, []);
+
   return (
     <section className="privacy-policy">
+      <p dangerouslySetInnerHTML={html} />
       <div className="container space-top-2 space-top-md-4 space-bottom-1 overflow-hidden">
         <div className="w-lg-80 mx-lg-auto">
           <div className="card shadow-sm">
